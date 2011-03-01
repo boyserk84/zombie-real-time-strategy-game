@@ -7,7 +7,7 @@ namespace ZRTSLogic.Event
 {
     public abstract class NoOpEventHandler : EventHandler
     {
-        public void Visit(MoveEvent moveEvent)
+        public virtual void Visit(MoveEvent moveEvent)
         {
             // No op.
         }

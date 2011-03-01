@@ -64,7 +64,7 @@ namespace ZRTSMapEditor
             return (string) tileListBox.SelectedItem;
         }
 
-        public void notify(MapEditorModel model)
+        public void notify(MapEditorModelOld model)
         {
             if (model.SelectionType == SelectionType.Tile)
             {

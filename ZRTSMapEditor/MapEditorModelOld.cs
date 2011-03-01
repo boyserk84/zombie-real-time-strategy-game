@@ -14,7 +14,7 @@ namespace ZRTSMapEditor
         EntityToAdd,
         EntitiesInMap
     }
-    public class MapEditorModel
+    public class MapEditorModelOld
     {
         public Scenario scenario = null;
         // public Queue<MapEditorCommand> commands = new Queue<MapEditorCommand>();

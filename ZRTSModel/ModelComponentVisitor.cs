@@ -5,10 +5,9 @@ using System.Text;
 
 namespace ZRTSModel
 {
-    [Serializable()]
-    interface ModelComponentVisitor
+    public interface ModelComponentVisitor
     {
 
-        void visit(EntityList entityList);
+        void Visit(ModelComponent component);
     }
 }

@@ -6,7 +6,7 @@ using System.Text;
 namespace ZRTSModel
 {
     [Serializable()]
-    abstract class ModelComponent
+    public abstract class ModelComponent
     {
         // Composite Pattern members
         private ModelComponent container = null;
@@ -23,21 +23,37 @@ namespace ZRTSModel
 
         public void SetContainer(ModelComponent composite)
         {
+            ModelComponent tempContainer = container;
+            if (container != null)
+            {
+                container.GetChildren().Remove(this);
+            }
             container = composite;
+            
+            // Notify the new tree.
+            NotifyAll();
+
+            if (tempContainer != null)
+            {
+                // Notify the old tree.
+                tempContainer.NotifyAll();
+            }
         }
 
-        public List<ModelComponent> GetChildren()
+        public virtual List<ModelComponent> GetChildren()
         {
             return children;
         }
 
-        public void AddChild(ModelComponent child)
+        public virtual void AddChild(ModelComponent child)
         {
             children.Add(child);
+
+            // Handles the NotifyAll()
             child.SetContainer(this);
         }
 
-        public void RemoveChild(ModelComponent child)
+        public virtual void RemoveChild(ModelComponent child)
         {
             children.Remove(child);
             child.SetContainer(null);
@@ -68,7 +84,10 @@ namespace ZRTSModel
         }
 
         // Visitor Pattern Interfaces
-        public abstract void Accept(ModelComponentVisitor visitor);
+        public virtual void Accept(ModelComponentVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
 
     }
 }

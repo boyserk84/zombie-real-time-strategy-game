@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.IO;
 using ZRTSModel.Scenario;
 using System.Runtime.Serialization.Formatters.Binary;
+using ZRTSMapEditor.MapEditorModel;
 
 // TODO Create ImageManager, Fit ScenarioView and Tile to MVC Pattern
 namespace ZRTSMapEditor
@@ -21,8 +22,9 @@ namespace ZRTSMapEditor
         public MapEditorView()
         {
             InitializeComponent();
-            MapEditorModel model = new MapEditorModel();
-            this.controller = new MapEditorController(model);
+            MapEditorModelOld model = new MapEditorModelOld();
+            ImprovedMapEditorModel goodModel = new ImprovedMapEditorModel();
+            this.controller = new MapEditorController(goodModel);
             // TODO Add all other views
             tilePalette.loadImageList();
             tilePalette.setController(controller);
@@ -32,8 +34,8 @@ namespace ZRTSMapEditor
 
             // TODO Remove this code, testing purposes only
             this.controller.createNewScenario();
-
-            
+            goodModel.GetScenario().GetGameWorld().GetMap().RegisterObserver(scenarioView1);
+            goodModel.GetScenario().GetGameWorld().GetMap().NotifyAll();
 
 
         }

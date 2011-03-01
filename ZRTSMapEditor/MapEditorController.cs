@@ -7,20 +7,30 @@ using System.Windows.Forms;
 using System.Runtime.Serialization.Formatters.Binary;
 using ZRTSModel.Scenario;
 using ZRTSModel.GameWorld;
+using ZRTSMapEditor.MapEditorModel;
+using ZRTSModel;
 
 namespace ZRTSMapEditor
 {
     public class MapEditorController
     {
-        private MapEditorModel model;
+        private MapEditorModelOld model;
+        private ImprovedMapEditorModel improvedModel;
 
-        public MapEditorController(MapEditorModel model)
+        public MapEditorController(MapEditorModelOld model)
         {
             this.model = model;
+            this.improvedModel = new ImprovedMapEditorModel();
+        }
+
+        public MapEditorController(ImprovedMapEditorModel model)
+        {
+            this.model = null;
+            this.improvedModel = model;
         }
 
         public void saveScenario()
-        {
+        {/************
             if (model.scenario != null)
             {
                 Stream saveStream;
@@ -40,11 +50,11 @@ namespace ZRTSMapEditor
                         model.notifyAll();
                     }
                 }
-            }
+            }********/
         }
 
         public void loadScenario()
-        {
+        {/**************
             if (model.scenario != null)
             {
                 // TODO: Ask if the user wants to discard the current scenario.
@@ -69,11 +79,12 @@ namespace ZRTSMapEditor
 
                 //The model has changed, so notify all views of the change.
                 model.notifyAll();
-            }
+            }************/
         }
 
         public void createNewScenario()
         {
+            /********************
             // TODO Extract this logic with loadscenario.
             if (model.scenario != null)
             {
@@ -87,6 +98,18 @@ namespace ZRTSMapEditor
 
             //The model has changed, so notify all views of the change.
             model.notifyAll();
+            *************/
+
+            if (improvedModel.GetScenario() != null)
+            {
+                // TODO: Ask if the user wants to discard the current scenario or save it.
+            }
+            ScenarioComponent scenario = new ScenarioComponent(20, 20);
+            
+            // TODO: Update SaveInfo model to change filename and UpToDate flag.
+            
+            // Automatically discards old scenario, by overloaded AddChild function.
+            improvedModel.AddChild(scenario);
         }
 
 
@@ -107,25 +130,33 @@ namespace ZRTSMapEditor
         public bool isOkayToClose()
         {
             // TODO Open dialog box to see if it is okay to discard changes, or to save first.
-            return model.saved;
+            // return model.saved;
+            return true;
         }
 
 
         internal void updateCellType(int x, int y)
         {
             TileFactory tf = TileFactory.Instance;
-            Cell selectedCell = model.scenario.getGameWorld().map.getCell(x, y);
-            selectedCell.tile = tf.getTile(model.TileTypeSelected);
-            model.notifyAll();
+            //Cell selectedCell = model.scenario.getGameWorld().map.getCell(x, y);
+            //selectedCell.tile = tf.getTile(model.TileTypeSelected);
+            //model.notifyAll();
+            CellComponent cell = improvedModel.GetScenario().GetGameWorld().GetMap().GetCellAt(x, y);
+            
+            // Cell automatically removes old tile from overrided AddChild.
+            cell.AddChild(tf.GetImprovedTile(improvedModel.TileTypeSelected)); // TODO: Change to new improvedModel here.
         }
 
         internal void selectTileType(string type)
         {
-            model.TileTypeSelected = type;
-            model.SelectionType = SelectionType.Tile;
+            // TODO Update to a proper interface.
+            improvedModel.TileTypeSelected = type;
+
+            //model.TileTypeSelected = type;
+            //model.SelectionType = SelectionType.Tile;
 
             //The model has changed, so notify all views of the change.
-            model.notifyAll();
+            //model.notifyAll();
         }
     }
 }

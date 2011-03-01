@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ZRTSModel.Trigger
+namespace ZRTSModel
 {
-    class TriggerFactoryFactory
+    interface MapGoldVisitor
     {
+        void Visit(MapGold gold);
     }
 }

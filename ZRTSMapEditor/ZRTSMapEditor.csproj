@@ -54,7 +54,9 @@
     </Compile>
     <Compile Include="MapEditorModelListener.cs" />
     <Compile Include="MapEditorController.cs" />
-    <Compile Include="MapEditorModel.cs" />
+    <Compile Include="MapEditorModelOld.cs" />
+    <Compile Include="MapEditorModel\ImprovedMapEditorModel.cs" />
+    <Compile Include="MapEditorModel\MapEditorModelVisitor.cs" />
     <Compile Include="MapEditorView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +116,11 @@
       <Project>{2045DCE8-71C3-43E3-871D-D98407D30E58}</Project>
       <Name>ZRTSModel</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MapEditorModel\CommandStack\" />
+    <Folder Include="MapEditorModel\SaveInfo\" />
+    <Folder Include="MapEditorModel\SelectionState\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

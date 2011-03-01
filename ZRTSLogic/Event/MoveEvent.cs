@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ZRTSLogic.Event
 {
-    class MoveEvent : Event
+    public class MoveEvent : Event
     {
         public ZRTSModel.Entities.Unit u;
         public int x;
