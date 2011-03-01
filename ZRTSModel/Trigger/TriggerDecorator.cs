@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ZRTSModel.Trigger
 {
-    abstract class TriggerDecorator : Trigger
+    abstract class TriggerDecorator : Trigger, ModelComponentVisitor, ModelComponentObserver
     {
         private Trigger decorated = null;
         protected bool isMet;
@@ -46,6 +46,14 @@ namespace ZRTSModel.Trigger
         public abstract void PerformMyAction(Scenario.Scenario scenario);
         public abstract bool CheckMyCondition(Scenario.Scenario scenario);
 
+        public void notify(ModelComponent observable)
+        {
+            observable.Accept(this);
+        }
 
+        public void visit(EntityList entityList)
+        {
+            // No op
+        }
     }
 }

@@ -8,6 +8,7 @@ namespace ZRTSModel
     [Serializable()]
     interface ModelComponentVisitor
     {
-        
+
+        void visit(EntityList entityList);
     }
 }
