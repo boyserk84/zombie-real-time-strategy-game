@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ZRTSLogic.Event
 {
-    interface EventHandler
+    public interface EventHandler
     {
         void Visit(MoveEvent moveEvent);
     }

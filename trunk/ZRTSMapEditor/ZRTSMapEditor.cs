@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using ZRTSModel.Scenario;
 using System.Windows.Forms;
+using ZRTSModel;
 
 namespace ZRTSMapEditor
 {

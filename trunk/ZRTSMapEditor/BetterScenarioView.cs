@@ -9,10 +9,11 @@ using System.Windows.Forms;
 using ZRTSModel.Scenario;
 using ZRTSModel.GameWorld;
 using System.Diagnostics;
+using ZRTSModel;
 
 namespace ZRTSMapEditor
 {
-    public partial class BetterScenarioView : UserControl, MapEditorModelListener 
+    public partial class BetterScenarioView : UserControl, MapEditorModelListener, ModelComponentObserver, ModelComponentVisitor, MapVisitor 
     {
 
         MapEditorController controller;
@@ -27,9 +28,9 @@ namespace ZRTSMapEditor
             this.controller = controller;
         }
 
-        public void update(MapEditorModel model) 
+        public void update(MapEditorModelOld model) 
         {
-            TileFactory tf = TileFactory.Instance;
+            /*TileFactory tf = TileFactory.Instance;
 
             Bitmap pg = new Bitmap(800,600);
             Graphics gr = Graphics.FromImage(pg);
@@ -45,7 +46,7 @@ namespace ZRTSMapEditor
                         gr.DrawRectangle(new Pen(Color.Black), x * 16, y * 16, 16, 16);
                 }
             }
-            pictureBox1.Image = pg;
+            pictureBox1.Image = pg;*/
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -65,10 +66,48 @@ namespace ZRTSMapEditor
         }
 
 
-        public void notify(MapEditorModel model)
+        public void notify(MapEditorModelOld model)
         {
             update(model);
         }
 
+
+        public void notify(ModelComponent observable)
+        {
+            observable.Accept(this);
+        }
+
+        public void Visit(ModelComponent component)
+        {
+            // Do nothing.
+        }
+
+        public void Visit(ZRTSModel.Map map)
+        {
+            TileFactory tf = TileFactory.Instance;
+
+            Bitmap pg = new Bitmap(800, 600);
+            Graphics gr = Graphics.FromImage(pg);
+
+            // TODO: Change to include the scrolling model.
+            for (int x = 0; x < map.GetWidth(); x++)
+            {
+                for (int y = 0; y < map.GetHeight(); y++)
+                {
+                    ZRTSModel.Tile tile = map.GetCellAt(x, y).GetTile();
+                    if (tile != null)
+                    {
+                        gr.DrawImage(tf.getBitmapImproved(tile), x * 16, y * 16, 16, 16);
+                    }
+                    //if (map.cells[x, y] != null && map.cells[x, y].tile != null && map.cells[x, y].tile.tileType != null)
+                    //gr.DrawImage(tf.getBitmap(map.cells[x, y].tile.tileType), x * 16, y * 16, 16, 16);
+                    else
+                    {
+                        gr.DrawRectangle(new Pen(Color.Black), x * 16, y * 16, 16, 16);
+                    }
+                }
+            }
+            pictureBox1.Image = pg;
+        }
     }
 }

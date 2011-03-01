@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ZRTSLogic.Event
 {
-    abstract class EventDelegator : NoOpEventHandler
+    public abstract class EventDelegator : NoOpEventHandler
     {
         private List<EventHandler> handlers = new List<EventHandler>();
 

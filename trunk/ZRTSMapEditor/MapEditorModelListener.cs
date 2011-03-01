@@ -7,6 +7,6 @@ namespace ZRTSMapEditor
 {
     public interface MapEditorModelListener
     {
-        void notify(MapEditorModel model);
+        void notify(MapEditorModelOld model);
     }
 }

@@ -5,9 +5,8 @@ using System.Text;
 
 namespace ZRTSModel
 {
-    [Serializable()]
-    interface ModelComponentObserver
+    public interface ModelComponentObserver
     {
-        public void notify(ModelComponent observable);
+        void notify(ModelComponent observable);
     }
 }

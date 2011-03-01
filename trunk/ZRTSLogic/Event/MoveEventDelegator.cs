@@ -5,9 +5,9 @@ using System.Text;
 
 namespace ZRTSLogic.Event
 {
-    class MoveEventDelegator : EventDelegator
+    public class MoveEventDelegator : EventDelegator
     {
-        override void Visit(MoveEvent moveEvent)
+        override public void Visit(MoveEvent moveEvent)
         {
             NotifyAll(moveEvent);
         }

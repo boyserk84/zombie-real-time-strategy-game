@@ -5,9 +5,9 @@ using System.Text;
 
 namespace ZRTSLogic.Event
 {
-    interface Event
+    public interface Event
     {
         // Visitor pattern
-        public void Accept(EventHandler handler);
+        void Accept(EventHandler handler);
     }
 }

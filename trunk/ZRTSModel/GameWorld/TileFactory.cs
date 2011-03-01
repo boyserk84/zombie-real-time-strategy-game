@@ -153,5 +153,45 @@ namespace ZRTSModel.GameWorld
         {
             return bitmaps[type];
         }
+
+        public ZRTSModel.Tile GetImprovedTile(string type)
+        {
+            ZRTSModel.Tile tile = null;
+            // TODO Improve this.
+            if (type != null)
+            {
+                if (type.Equals("grass"))
+                {
+                    return new Grass();
+                }
+                else if (type.Equals("mountain"))
+                {
+                    return new Mountain();
+                }
+                else if (type.Equals("lightgrass"))
+                {
+                    return new Sand();
+                }
+            }
+            return tile;
+        }
+
+        // TODO: Fix this to follow Visitor pattern.  Just testing for now.
+        public Bitmap getBitmapImproved(ZRTSModel.Tile tile)
+        {
+            if (tile.GetType() == typeof(Mountain))
+            {
+                return new Bitmap(TILES_DIRECTORY + "mountain.png");
+            }
+            else if (tile.GetType() == typeof(Grass))
+            {
+                return new Bitmap(TILES_DIRECTORY + "grass.png");
+            }
+            else if (tile.GetType() == typeof(Sand))
+            {
+                return new Bitmap(TILES_DIRECTORY + "lightgrass.png");
+            }
+            return null;
+        }
     }
 }
