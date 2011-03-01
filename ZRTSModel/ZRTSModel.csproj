@@ -118,7 +118,15 @@
     <Compile Include="Scenario\Observer.cs" />
     <Compile Include="Scenario\Scenario.cs" />
     <Compile Include="Scenario\ScenarioObservable.cs" />
+    <Compile Include="Trigger\Action.cs" />
+    <Compile Include="Trigger\Condition.cs" />
+    <Compile Include="Trigger\EmptyTrigger.cs" />
+    <Compile Include="Trigger\EndGameAction.cs" />
+    <Compile Include="Trigger\PlayerOutOfUnitsCondition.cs" />
     <Compile Include="Trigger\Trigger.cs" />
+    <Compile Include="Trigger\TriggerDecorator.cs" />
+    <Compile Include="Trigger\TriggerFactory.cs" />
+    <Compile Include="Trigger\TriggerFactoryFactory.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
