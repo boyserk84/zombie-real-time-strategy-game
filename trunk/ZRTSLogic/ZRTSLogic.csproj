@@ -100,6 +100,13 @@
     <Compile Include="Controller.cs" />
     <Compile Include="EntityCreator.cs" />
     <Compile Include="EntityLocController.cs" />
+    <Compile Include="Event\Event.cs" />
+    <Compile Include="Event\EventDelegator.cs" />
+    <Compile Include="Event\EventHandler.cs" />
+    <Compile Include="Event\EventQueue.cs" />
+    <Compile Include="Event\MoveEvent.cs" />
+    <Compile Include="Event\MoveEventDelegator.cs" />
+    <Compile Include="Event\NoOpEventHandler.cs" />
     <Compile Include="Pathfinder\Advanced.cs" />
     <Compile Include="Pathfinder\Basic.cs" />
     <Compile Include="Pathfinder\findPath.cs" />
