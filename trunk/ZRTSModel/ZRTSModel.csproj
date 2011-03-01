@@ -96,6 +96,7 @@
   <ItemGroup>
     <Compile Include="Entities\ActionCommand.cs" />
     <Compile Include="Entities\Building.cs" />
+    <Compile Include="EntityList.cs" />
     <Compile Include="Event\EventDelegator.cs" />
     <Compile Include="Event\MoveEvent.cs" />
     <Compile Include="Event\MoveEventDelegator.cs" />
