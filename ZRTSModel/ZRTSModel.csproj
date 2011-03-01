@@ -96,6 +96,13 @@
   <ItemGroup>
     <Compile Include="Entities\ActionCommand.cs" />
     <Compile Include="Entities\Building.cs" />
+    <Compile Include="Event\EventDelegator.cs" />
+    <Compile Include="Event\MoveEvent.cs" />
+    <Compile Include="Event\MoveEventDelegator.cs" />
+    <Compile Include="Event\NoOpEventHandler.cs" />
+    <Compile Include="Event\Event.cs" />
+    <Compile Include="Event\EventQueue.cs" />
+    <Compile Include="Event\EventHandler.cs" />
     <Compile Include="Factories\BuildingFactory.cs" />
     <Compile Include="Entities\BuildingStats.cs" />
     <Compile Include="Entities\Entity.cs" />
@@ -112,6 +119,9 @@
     <Compile Include="GameWorld\Map.cs" />
     <Compile Include="GameWorld\Tile.cs" />
     <Compile Include="GameWorld\TileFactory.cs" />
+    <Compile Include="ModelComponent.cs" />
+    <Compile Include="ModelComponentObserver.cs" />
+    <Compile Include="ModelComponentVisitor.cs" />
     <Compile Include="Player\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveLoad.cs" />
