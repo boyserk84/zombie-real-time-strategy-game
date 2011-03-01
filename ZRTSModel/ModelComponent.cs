@@ -34,11 +34,13 @@ namespace ZRTSModel
         public void AddChild(ModelComponent child)
         {
             children.Add(child);
+            child.SetContainer(this);
         }
 
         public void RemoveChild(ModelComponent child)
         {
             children.Remove(child);
+            child.SetContainer(null);
         }
         
 
