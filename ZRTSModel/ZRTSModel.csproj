@@ -117,9 +117,15 @@
     <Compile Include="GameModel\Scenario\Gameworld\Map\Cell\Tile\Tile.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\Map\Map.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\Map\MapVisitor.cs" />
+    <Compile Include="GameModel\Scenario\Gameworld\PlayerList\PlayerList.cs" />
+    <Compile Include="GameModel\Scenario\Gameworld\PlayerList\PlayerListVisitor.cs" />
+    <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\BuildingList\BuildingList.cs" />
+    <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\BuildingList\BuildingListVisitor.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\PlayerComponent.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\PlayerVisitor.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\UnitList\UnitListVisitor.cs" />
+    <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\UnitList\Unit\ActionQueue\ActionQueue.cs" />
+    <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\UnitList\Unit\ActionQueue\ActionQueueVisitor.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\UnitList\Unit\UnitComponent.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\UnitList\UnitList.cs" />
     <Compile Include="Factories\BuildingFactory.cs" />

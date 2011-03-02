@@ -34,8 +34,9 @@ namespace ZRTSMapEditor
 
             // TODO Remove this code, testing purposes only
             this.controller.createNewScenario();
-            goodModel.GetScenario().GetGameWorld().GetMap().RegisterObserver(scenarioView1);
-            goodModel.GetScenario().GetGameWorld().GetMap().NotifyAll();
+            scenarioView1.SetScenario(goodModel.GetScenario());
+            goodModel.RegisterObserver(scenarioView1);
+            goodModel.GetScenario().GetGameWorld().NotifyAll();
 
 
         }

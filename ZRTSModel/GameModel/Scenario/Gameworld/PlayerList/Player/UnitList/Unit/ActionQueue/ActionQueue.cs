@@ -6,13 +6,13 @@ using System.Text;
 namespace ZRTSModel
 {
     [Serializable()]
-    abstract class UnitComponent : ModelComponent
+    public class ActionQueue : ModelComponent
     {
         public override void Accept(ModelComponentVisitor visitor)
         {
-            if (visitor is UnitVisitor)
+            if (visitor is ActionQueueVisitor)
             {
-                ((UnitVisitor)visitor).Visit(this);
+                ((ActionQueueVisitor)visitor).Visit(this);
             }
             else
             {

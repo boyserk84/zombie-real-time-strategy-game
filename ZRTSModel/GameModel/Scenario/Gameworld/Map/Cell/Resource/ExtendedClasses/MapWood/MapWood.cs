@@ -5,6 +5,7 @@ using System.Text;
 
 namespace ZRTSModel
 {
+    [Serializable()]
     class MapWood : MapResource
     {
         public MapWood(int amount)

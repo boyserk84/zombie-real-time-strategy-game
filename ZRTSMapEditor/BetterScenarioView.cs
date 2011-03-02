@@ -10,13 +10,16 @@ using ZRTSModel.Scenario;
 using ZRTSModel.GameWorld;
 using System.Diagnostics;
 using ZRTSModel;
+using ZRTSMapEditor.MapEditorModel;
 
 namespace ZRTSMapEditor
 {
-    public partial class BetterScenarioView : UserControl, MapEditorModelListener, ModelComponentObserver, ModelComponentVisitor, MapVisitor 
+    public partial class BetterScenarioView : UserControl, MapEditorModelListener, ModelComponentObserver, ModelComponentVisitor, MapEditorModelVisitor, GameworldVisitor
     {
 
-        MapEditorController controller;
+        private MapEditorController controller = null;
+        private Gameworld gameworld = null;
+        private ScenarioComponent context = null;
 
         public BetterScenarioView()
         {
@@ -27,6 +30,25 @@ namespace ZRTSMapEditor
         {
             this.controller = controller;
         }
+
+        public void SetScenario(ScenarioComponent scenario)
+        {
+            if (gameworld != null)
+            {
+                gameworld.UnregisterObserver(this);
+            }
+            context = scenario;
+
+            if (scenario != null)
+            {
+                gameworld = scenario.GetGameWorld();
+                if (gameworld != null)
+                {
+                    gameworld.RegisterObserver(this);
+                }
+            }
+        }
+
 
         public void update(MapEditorModelOld model) 
         {
@@ -82,13 +104,14 @@ namespace ZRTSMapEditor
             // Do nothing.
         }
 
-        public void Visit(ZRTSModel.Map map)
+        public void render()
         {
             TileFactory tf = TileFactory.Instance;
 
             Bitmap pg = new Bitmap(800, 600);
             Graphics gr = Graphics.FromImage(pg);
 
+            ZRTSModel.Map map = gameworld.GetMap();
             // TODO: Change to include the scrolling model.
             for (int x = 0; x < map.GetWidth(); x++)
             {
@@ -108,6 +131,20 @@ namespace ZRTSMapEditor
                 }
             }
             pictureBox1.Image = pg;
+        }
+
+        public void Visit(Gameworld gameworld)
+        {
+            render();
+        }
+
+
+        public void Visit(ImprovedMapEditorModel model)
+        {
+            if (model.GetScenario() != context)
+            {
+                SetScenario(model.GetScenario());
+            }
         }
     }
 }

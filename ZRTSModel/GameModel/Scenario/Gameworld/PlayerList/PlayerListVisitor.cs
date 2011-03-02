@@ -5,8 +5,8 @@ using System.Text;
 
 namespace ZRTSModel
 {
-    public interface UnitListVisitor : ModelComponentVisitor
+    public interface PlayerListVisitor
     {
-        void Visit(UnitList list);
+        void Visit(PlayerList list);
     }
 }

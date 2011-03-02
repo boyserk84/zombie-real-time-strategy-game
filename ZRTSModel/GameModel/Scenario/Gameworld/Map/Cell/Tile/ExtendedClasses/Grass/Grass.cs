@@ -5,6 +5,7 @@ using System.Text;
 
 namespace ZRTSModel
 {
+    [Serializable()]
     public class Grass : Tile
     {
         override public void Accept(ModelComponentVisitor visitor)

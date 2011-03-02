@@ -55,8 +55,9 @@
     <Compile Include="MapEditorModelListener.cs" />
     <Compile Include="MapEditorController.cs" />
     <Compile Include="MapEditorModelOld.cs" />
+    <Compile Include="MapEditorModelVisitor.cs" />
+    <Compile Include="MapEditorModel\CreateObserverListVisitor.cs" />
     <Compile Include="MapEditorModel\ImprovedMapEditorModel.cs" />
-    <Compile Include="MapEditorModel\MapEditorModelVisitor.cs" />
     <Compile Include="MapEditorView.cs">
       <SubType>Form</SubType>
     </Compile>
