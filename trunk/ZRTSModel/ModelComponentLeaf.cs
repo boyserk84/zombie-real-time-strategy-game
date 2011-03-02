@@ -5,6 +5,7 @@ using System.Text;
 
 namespace ZRTSModel
 {
+    [Serializable()]
     public class ModelComponentLeaf : ModelComponent
     {
         public virtual void AddChild(ModelComponent child)

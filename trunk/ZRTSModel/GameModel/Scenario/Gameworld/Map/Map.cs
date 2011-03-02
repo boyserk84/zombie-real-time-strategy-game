@@ -5,6 +5,7 @@ using System.Text;
 
 namespace ZRTSModel
 {
+    [Serializable()]
     public class Map : ModelComponent
     {
         private int width;
@@ -88,6 +89,17 @@ namespace ZRTSModel
         public int GetHeight()
         {
             return height;
+        }
+
+        public void SetCellsToBeContainedInMap()
+        {
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    cells[i, j].SetContainer(this);
+                }
+            }
         }
     }
 }

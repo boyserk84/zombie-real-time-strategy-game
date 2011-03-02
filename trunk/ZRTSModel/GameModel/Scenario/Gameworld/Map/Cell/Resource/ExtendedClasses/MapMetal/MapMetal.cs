@@ -5,6 +5,7 @@ using System.Text;
 
 namespace ZRTSModel
 {
+    [Serializable()]
     class MapMetal : MapResource
     {
 

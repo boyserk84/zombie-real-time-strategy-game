@@ -5,12 +5,14 @@ using System.Text;
 
 namespace ZRTSModel
 {
+    [Serializable()]
     public class ScenarioComponent : ModelComponent
     {
         public ScenarioComponent(int x, int y)
         {
             AddChild(new Gameworld(x, y));
         }
+
         public override void Accept(ModelComponentVisitor visitor)
         {
             if (visitor is ScenarioVisitor)

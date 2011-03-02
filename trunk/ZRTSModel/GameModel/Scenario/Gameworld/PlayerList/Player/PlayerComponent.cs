@@ -5,6 +5,7 @@ using System.Text;
 
 namespace ZRTSModel
 {
+    [Serializable()]
     public class PlayerComponent : ModelComponent
     {
         public override void Accept(ModelComponentVisitor visitor)

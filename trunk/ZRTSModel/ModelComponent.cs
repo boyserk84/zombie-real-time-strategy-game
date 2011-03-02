@@ -10,9 +10,12 @@ namespace ZRTSModel
     {
         // Composite Pattern members
         private ModelComponent container = null;
+
+        
         private List<ModelComponent> children = new List<ModelComponent>();
 
         // Observer Pattern members
+        [NonSerialized()]
         private List<ModelComponentObserver> observers = new List<ModelComponentObserver>();
         
         // Composite Pattern Interface
@@ -73,13 +76,16 @@ namespace ZRTSModel
 
         public void NotifyAll()
         {
-            foreach (ModelComponentObserver o in observers)
+            if (observers != null)
             {
-                o.notify(this);
-            }
-            if (container != null)
-            {
-                container.NotifyAll();
+                foreach (ModelComponentObserver o in observers)
+                {
+                    o.notify(this);
+                }
+                if (container != null)
+                {
+                    container.NotifyAll();
+                }
             }
         }
 
@@ -87,6 +93,11 @@ namespace ZRTSModel
         public virtual void Accept(ModelComponentVisitor visitor)
         {
             visitor.Visit(this);
+        }
+
+        public void UnregisterAll()
+        {
+            observers = new List<ModelComponentObserver>();
         }
 
     }

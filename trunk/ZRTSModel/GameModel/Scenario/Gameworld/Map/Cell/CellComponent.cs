@@ -5,6 +5,7 @@ using System.Text;
 
 namespace ZRTSModel
 {
+    [Serializable()]
     public class CellComponent : ModelComponent
     {
         override public void Accept(ModelComponentVisitor visitor)

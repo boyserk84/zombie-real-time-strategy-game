@@ -5,6 +5,7 @@ using System.Text;
 
 namespace ZRTSModel
 {
+    [Serializable()]
     public abstract class MapResource : ModelComponentLeaf
     {
         protected int amountRemaining;

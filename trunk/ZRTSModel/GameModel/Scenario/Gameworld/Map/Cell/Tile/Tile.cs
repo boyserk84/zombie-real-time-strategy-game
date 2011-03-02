@@ -5,6 +5,7 @@ using System.Text;
 
 namespace ZRTSModel
 {
+    [Serializable()]
     public abstract class Tile : ModelComponentLeaf
     {
         virtual public bool Passable()

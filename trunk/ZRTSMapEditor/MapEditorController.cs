@@ -30,8 +30,8 @@ namespace ZRTSMapEditor
         }
 
         public void saveScenario()
-        {/************
-            if (model.scenario != null)
+        {
+            if (improvedModel.GetScenario() != null)
             {
                 Stream saveStream;
                 SaveFileDialog saveMapDialog = new SaveFileDialog();
@@ -43,19 +43,21 @@ namespace ZRTSMapEditor
                     if ((saveStream = saveMapDialog.OpenFile()) != null)
                     {
                         BinaryFormatter bin = new BinaryFormatter();
-                        bin.Serialize(saveStream, model.scenario);
+
+                        ScenarioComponent scenario = improvedModel.GetScenario();
+                        scenario.SetContainer(null);
+                        bin.Serialize(saveStream, scenario);
                         saveStream.Close();
-                        model.saved = true;
-                        // The model has changed, so notify all views of the change.
-                        model.notifyAll();
+                        improvedModel.AddChild(scenario);
+                        // TODO: Change so that the SaveInfo model is updated.
                     }
                 }
-            }********/
+            }
         }
 
         public void loadScenario()
-        {/**************
-            if (model.scenario != null)
+        {
+            if (improvedModel.GetScenario() != null)
             {
                 // TODO: Ask if the user wants to discard the current scenario.
             }
@@ -70,16 +72,17 @@ namespace ZRTSMapEditor
             {
                 // Deserialize the file and load it into the model.
                 BinaryFormatter bin = new BinaryFormatter();
-                model.scenario = (Scenario)bin.Deserialize(openMapDialog.OpenFile());
-                
-                // We have not edited any of the model since loading, so it is up to date.
-                model.saved = true;
-                // TODO model.commands = new Queue<MapEditorCommand>();
-                // TODO newEntityOrnewTileOrEntitiesAlreadyInMap = none;
+                ScenarioComponent scenario = (ScenarioComponent)bin.Deserialize(openMapDialog.OpenFile());
+                CreateObserverListVisitor visitor = new CreateObserverListVisitor();
+                scenario.Accept(visitor);
+                scenario.GetGameWorld().GetMap().SetCellsToBeContainedInMap();
+                improvedModel.AddChild(scenario);
 
-                //The model has changed, so notify all views of the change.
-                model.notifyAll();
-            }************/
+                // Invalidate the Scenario view.
+                scenario.GetGameWorld().NotifyAll();
+
+                // TODO: Update the SaveInfo state.
+            }
         }
 
         public void createNewScenario()

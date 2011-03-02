@@ -6,7 +6,8 @@ using ZRTSModel.Entities;
 
 namespace ZRTSModel
 {
-    class UnitList : ModelComponent
+    [Serializable()]
+    public class UnitList : ModelComponent
     {
         public override void Accept(ModelComponentVisitor visitor)
         {
