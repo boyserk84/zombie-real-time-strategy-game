@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using ZRTSModel;
-using System.Collections;
 
 namespace ZRTSMapEditor
 {
@@ -17,7 +16,6 @@ namespace ZRTSMapEditor
 
         private PlayersForm()
         {
-            InitializeComponent();
         }
 
         public PlayersForm(PlayerList list)
@@ -31,19 +29,20 @@ namespace ZRTSMapEditor
                 PlayerDataGridAdapter adapter = new PlayerDataGridAdapter(player);
                 source.Add(adapter);
             }*/
+
             // test Data
             // TODO: Remove and replace.
-            PlayerDataGridAdapter adapter = new PlayerDataGridAdapter(new PlayerComponent());
-            adapter.Player_Name = "Player 1";
-            adapter.RaceMember = "Human";
-            adapter.WoodMember = 200;
-            adapter.MetalMember = 200;
-            adapter.GoldMember = 200;
-            
-            source.Add(adapter);
-            source.Add(adapter);
-            
-            
+            PlayerDataGridAdapter testAdapter = new PlayerDataGridAdapter(new PlayerComponent());
+            testAdapter.Player_Name = "Player 1";
+            testAdapter.RaceMember = "Human";
+            testAdapter.WoodMember = 200;
+            testAdapter.MetalMember = 200;
+            testAdapter.GoldMember = 200;
+
+            source.Add(testAdapter);
+            source.Add(testAdapter);
+
+
             // Initialize Player List to bind data properly.
             uiPlayerList.AutoGenerateColumns = false;
             uiPlayerList.AutoSize = true;
@@ -54,15 +53,6 @@ namespace ZRTSMapEditor
             gold.DataPropertyName = "GoldMember";
             wood.DataPropertyName = "WoodMember";
             metal.DataPropertyName = "MetalMember";
-
-
         }
-
-        private void addPlayerButton_Click(object sender, EventArgs e)
-        {
-            // 
-
-        }
-
     }
 }
