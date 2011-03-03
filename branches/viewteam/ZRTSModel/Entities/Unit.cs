@@ -19,7 +19,7 @@ namespace ZRTSModel.Entities
 
         /** UNIT LOCATION INFO **/
         Cell myCell;        // The cell the unit currently occupies
-        public float x, y;  // Unit's x and y coordinates in game space.
+        //public float x, y;  // Unit's x and y coordinates in game space.
         public float radius = 0.35f; // Radius of unit.
         
 

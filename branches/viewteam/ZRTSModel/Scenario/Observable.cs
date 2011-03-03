@@ -19,7 +19,7 @@ namespace ZRTSModel.Scenario
         protected List<ZRTSModel.Scenario.Observer> observersList;       // List of observers (container)
 
         /* Game specific observer */
-        protected ZRTSModel.Scenario.Observer viewSelectObserver;       // View select observer
+        protected ZRTSModel.Scenario.ViewSelectObserver viewSelectObserver;       // View select observer
 
 
         /// <summary>
@@ -40,10 +40,13 @@ namespace ZRTSModel.Scenario
         {
             this.observersList.Add(obs);
 
+            System.Console.Out.WriteLine(obs.GetType().ToString());
+
             // Check if the observer is View observer
-            if (obs.GetType().ToString().Equals("ViewObserver"))
+            if (obs.GetType().ToString().Equals("ZRTS.ViewSelect"))
             {
-                viewSelectObserver = obs;
+                viewSelectObserver = (ZRTSModel.Scenario.ViewSelectObserver) obs;
+                System.Console.Out.WriteLine("Found!!!");
             }
         }
 
@@ -65,6 +68,7 @@ namespace ZRTSModel.Scenario
         /// </summary>
         public void notify()
         {
+            //System.Console.Out.WriteLine("Notify all obsevers!");
             foreach (ZRTSModel.Scenario.Observer obj in this.observersList)
             {
                 obj.update();

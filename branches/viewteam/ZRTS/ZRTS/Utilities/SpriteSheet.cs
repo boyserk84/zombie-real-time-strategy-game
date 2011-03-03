@@ -13,7 +13,7 @@ namespace ZRTS
     /// This class will act as a wrapper and manager for texture2D. It will convert a spritesheet into 2D arrays of images.
     /// This class makes sure each frame's index will be corresponded to the correct image frame.
     /// </summary>
-    class SpriteSheet
+    public class SpriteSheet
     {
         private Texture2D sheet;                    // Texture2D image
         private SpriteBatch bufferScreen;           // Buffer Screen
