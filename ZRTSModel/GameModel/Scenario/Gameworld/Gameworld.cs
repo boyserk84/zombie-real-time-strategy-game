@@ -36,5 +36,17 @@ namespace ZRTSModel
             }
             return null;
         }
+
+        public PlayerList GetPlayerList()
+        {
+            foreach (ModelComponent component in GetChildren())
+            {
+                if (component is PlayerList)
+                {
+                    return (PlayerList)component;
+                }
+            }
+            return null;
+        }
     }
 }

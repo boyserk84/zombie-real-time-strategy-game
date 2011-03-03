@@ -161,5 +161,14 @@ namespace ZRTSMapEditor
             //The model has changed, so notify all views of the change.
             //model.notifyAll();
         }
+
+        internal void OpenPlayersForm()
+        {
+            if (improvedModel.GetScenario() != null)
+            {
+                PlayersForm form = new PlayersForm(improvedModel.GetScenario().GetGameWorld().GetPlayerList());
+                form.ShowDialog();
+            }
+        }
     }
 }

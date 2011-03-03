@@ -159,15 +159,6 @@
     <Compile Include="Scenario\Observer.cs" />
     <Compile Include="Scenario\Scenario.cs" />
     <Compile Include="Scenario\ScenarioObservable.cs" />
-    <Compile Include="GameModel\Scenario\Trigger\Action.cs" />
-    <Compile Include="GameModel\Scenario\Trigger\Condition.cs" />
-    <Compile Include="GameModel\Scenario\Trigger\EmptyTrigger.cs" />
-    <Compile Include="GameModel\Scenario\Trigger\EndGameAction.cs" />
-    <Compile Include="GameModel\Scenario\Trigger\PlayerOutOfUnitsCondition.cs" />
-    <Compile Include="GameModel\Scenario\Trigger\Trigger.cs" />
-    <Compile Include="GameModel\Scenario\Trigger\TriggerDecorator.cs" />
-    <Compile Include="GameModel\Scenario\Trigger\TriggerFactory.cs" />
-    <Compile Include="GameModel\Scenario\Trigger\TriggerFactoryFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GameModel\Scenario\Gameworld\PlayerList\Player\BuildingList\Building\" />
