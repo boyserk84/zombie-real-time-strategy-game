@@ -53,6 +53,11 @@ namespace ZRTSModel.GameWorld
             return this.units;
         }
 
+        public List<Building> getBuildings()
+        {
+            return this.buildings;
+        }
+
         /// <summary>
         /// Inserts a StaticEntity to the Map and the appropriate List, if possible.
         /// </summary>

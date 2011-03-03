@@ -21,7 +21,10 @@ namespace ZRTSModel.Entities
         Cell myCell;        // The cell the unit currently occupies
         public float x, y;  // Unit's x and y coordinates in game space.
         public float radius = 0.35f; // Radius of unit.
-        
+        public Orientation orientation = Orientation.S;
+
+
+        public enum Orientation { N, S, E, W, NW, NE, SW, SE };
 
         /// <summary>
         /// Constructor for a unit

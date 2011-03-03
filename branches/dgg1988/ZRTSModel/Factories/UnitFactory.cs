@@ -16,13 +16,13 @@ namespace ZRTSModel.Factories
     public class UnitFactory
     {
 
+        private static UnitFactory instance;
         string BASE_DIR = "Content/units/";
         string unitList = "unitList.xml";
         List<string> unitPrefixes;
         Dictionary<string, UnitStats> stats;
 
-        UnitStats SoldierStats = new UnitStats();
-        public UnitFactory()
+        private UnitFactory()
         {
             unitPrefixes = new List<string>();
             stats = new Dictionary<string, UnitStats>();
@@ -30,11 +30,49 @@ namespace ZRTSModel.Factories
             loadAllUnitsStats();
         }
 
+        public static UnitFactory Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new UnitFactory();
+                }
+                return instance;
+            }
+        }
+
+        /// <summary>
+        /// Given a Unit an a string type, this function will give the unit the UnitStats of that type of Unit.
+        /// </summary>
+        /// <param name="unit">The Unit being given the UnitStats</param>
+        /// <param name="type">denotes what type of UnitStats to use.</param>
+        /// <returns></returns>
         public Unit createUnit(Unit unit, string type)
         {
+            unit.stats = stats[type];
+            unit.health = unit.stats.maxHealth;
             return unit;
         }
 
+        /// <summary>
+        /// This function will create a new Unit that belongs to 'owner' and has the UnitStats belonging to 'type'
+        /// </summary>
+        /// <param name="owner"></param>
+        /// <param name="type"></param>
+        /// <returns>A new Unit.</returns>
+        public Unit createUnit(Player.Player owner, string type)
+        {
+            Unit u = new Unit(owner, stats[type]);
+            u.health = u.stats.maxHealth;
+            return u;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="prefix"></param>
+        /// <returns>The UnitStats corresponding to 'prefix'</returns>
         public UnitStats getStats(string prefix)
         {
             return stats[prefix];
@@ -65,17 +103,14 @@ namespace ZRTSModel.Factories
                 try
                 {
                     reader.ReadToFollowing("Unit");
-                    unitPrefixes.Add(reader.ReadElementContentAsString());
+                    string s = reader.ReadElementContentAsString();
+                    unitPrefixes.Add(s);
+                    stats.Add(s, new UnitStats());
                 }
                 catch
                 {
                     endOfList = true;
                 }
-            }
-
-            foreach (string s in unitPrefixes)
-            {
-                stats.Add(s, new UnitStats());
             }
 
             reader.Close();
@@ -102,6 +137,14 @@ namespace ZRTSModel.Factories
             reader.ReadToFollowing("attack");
             stats.attack = (short)reader.ReadElementContentAsInt();
 
+            // attackTicks
+            reader.ReadToFollowing("attackTicks");
+            stats.attackTicks = (byte)reader.ReadElementContentAsInt();
+
+            //visibilityRange
+            reader.ReadToFollowing("visibilityRange");
+            stats.visibilityRange = reader.ReadContentAsFloat();
+
             //canAttack
             reader.ReadToFollowing("canAttack");
             stats.canAttack = reader.ReadElementContentAsBoolean();
@@ -114,13 +157,12 @@ namespace ZRTSModel.Factories
             reader.ReadToFollowing("canBuild");
             stats.canBuild = reader.ReadElementContentAsBoolean();
 
+            //isZombie
+            reader.ReadToFollowing("isZombie");
+            stats.isZombie = reader.ReadElementContentAsBoolean();
+
         }
 
-
-        public short testRead()
-        {
-            return stats["soldier"].attack;
-        }
 
         private string readFile(string fileName)
         {
@@ -147,14 +189,21 @@ namespace ZRTSModel.Factories
             return input;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>Returns a list of strings where each string corresponds to a type of UnitStats.</returns>
         public List<string> getPrefixes()
         {
             return this.unitPrefixes;
         }
 
+        /// <summary>
+        /// Given a string, this function will create a new UnitStats corresponding to that string in the UnitStats dictionary.
+        /// </summary>
+        /// <param name="unitName"></param>
         public void addUnit(string unitName)
         {
-
             UnitStats s = new UnitStats();
             unitPrefixes.Add(unitName);
             stats.Add(unitName, s);

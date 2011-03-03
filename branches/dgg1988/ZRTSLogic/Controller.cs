@@ -13,6 +13,7 @@ using ZRTSModel.Entities;
 using ZRTSModel.Scenario;
 using ZRTSLogic.Action;
 using ZRTSModel.Factories;
+//using ZRTSModel;
 
 namespace ZRTSLogic
 {
@@ -21,6 +22,8 @@ namespace ZRTSLogic
     /// </summary>
     public class Controller
     {
+        private long curTick = 0;
+
         public GameWorld gameWorld;
         public Scenario scenario;
 
@@ -59,17 +62,8 @@ namespace ZRTSLogic
             this.actionController = new ActionController(scenario);
             this.locController = new EntityLocController(scenario);
             
-
-            setUpFactories();
-            this.creator = new EntityCreator(this.unitFactory, this.buildingFactory);
         }
 
-        private void setUpFactories()
-        {
-            //unitFactory = new UnitFactory();
-            //buildingFactory = new BuildingFactory();
-            //tileFactory = new TileFactory();
-        }
 
         /// <summary>
         /// Returns a list of strings where each string denotes a kind of unit in the game. (This is the list of units stored 
@@ -88,12 +82,12 @@ namespace ZRTSLogic
 
         public List<string> getTileStrings()
         {
-            return tileFactory.getTileTypes();
+            return TileFactory.Instance.getTileTypes();
         }
 
         public List<Tile> getTiles()
         {
-            return tileFactory.getTiles();
+            return TileFactory.Instance.getTiles();
         }
         /// <summary>
         /// This function will be called by the GUI to call for another cycle of the game to be run. This function will
@@ -101,11 +95,30 @@ namespace ZRTSLogic
         /// </summary>
         public void updateWorld()
         {
+            List<Entity> entitiesToRemove = new List<Entity>();
+
+            /** Have Units perform actions **/
             foreach (Unit u in gameWorld.getUnits())
             {
                 actionController.update(u, locController);
             }
 
+            /** Have Buildings perform actions **/
+            foreach (Building b in gameWorld.getBuildings())
+            {
+                actionController.update(b, locController);
+            }
+
+            /** Handle any Events that have been generated **/
+
+            /** Remove any entities **/
+            foreach (Entity e in entitiesToRemove)
+            {
+                locController.removeEntity(e);
+            }
+
+
+            curTick++;
         }
 
         /// <summary>
@@ -153,5 +166,23 @@ namespace ZRTSLogic
             return this.actionController;
         }
 
+        private void checkDeath(Entity e)
+        {
+            if(e.getState().inState(State.PrimaryState.Dead))
+            {
+                if (e.getEntityType() != Entity.EntityType.Unit)
+                {
+                    e.getState().setPrimaryState(State.PrimaryState.Remove);
+                }
+                else if (e.tickKilled == 0)
+                {
+                    e.tickKilled = this.curTick;
+                }
+                //else if (Math.Abs(this.curTick - e.tickKilled) > GameStats.DEAD_DISAPPEAR_TICKS)
+                //{
+                //    e.getState().setPrimaryState(State.PrimaryState.Remove);
+                //}
+            }
+        }
     }
 }

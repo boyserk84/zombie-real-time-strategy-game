@@ -20,5 +20,6 @@ namespace ZRTSModel.Entities
         public bool canAttack = false;
         public bool canHarvest = false;
         public bool canBuild = false;
+        public bool isZombie = false;
     }
 }

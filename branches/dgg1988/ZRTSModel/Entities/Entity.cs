@@ -20,6 +20,8 @@ namespace ZRTSModel.Entities
         public EntityType entityType;
         int id;
 
+        public long tickKilled = 0;
+
         public enum EntityType { Unit, Building, Resource, Object, NotSet };
 
         public Entity(Player.Player owner, short health, short maxHealth)
