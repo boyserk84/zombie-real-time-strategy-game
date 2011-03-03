@@ -56,11 +56,7 @@ namespace ZRTSLogic
             {
                 return false;
             }
-            else if (command.actionType == ActionCommand.ActionType.Move)
-            {
-                return handleUnitCommand(entity, command);
-            }
-            else if (command.actionType == ActionCommand.ActionType.SimpleAttack)
+            else if (command.actionType == ActionCommand.ActionType.Move || command.actionType == ActionCommand.ActionType.SimpleAttack)
             {
                 return handleUnitCommand(entity, command);
             }
