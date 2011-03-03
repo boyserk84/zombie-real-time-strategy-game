@@ -74,5 +74,10 @@ namespace ZRTSMapEditor
         {
             controller.createNewScenario();
         }
+
+        private void playerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            controller.OpenPlayersForm();
+        }
     }
 }
