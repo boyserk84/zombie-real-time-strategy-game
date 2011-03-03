@@ -76,15 +76,12 @@ namespace ZRTSModel.Scenario
         {
             //(1) Clear the list from the viewobserver
             viewSelectObserver.removeEverything();
- 
-            //unitsInArea.Clear();
             for (int row = s_row; row <= s_row + yoffset; ++row)
             {
                 for (int col = s_col; col <= s_col + xoffset; ++col)
                 {
                     if (this.getUnit(col, row) != null)
                     {
-
                         // (3) Having ViewSelect to add the new unit instead
                         viewSelectObserver.addUnit(this.getUnit(col, row));
                         //unitsInArea.Add(this.getUnit(col, row));
@@ -92,6 +89,7 @@ namespace ZRTSModel.Scenario
                 }//for
             }//for
 
+            this.player.selectEntities(viewSelectObserver.getSelectedUnits);
             this.notify();
         }
 

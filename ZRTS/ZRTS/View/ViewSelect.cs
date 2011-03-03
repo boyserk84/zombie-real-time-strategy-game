@@ -16,7 +16,6 @@ namespace ZRTS
     {
 
         protected List<Entity> selectedList;      //List of selected Units
-
         protected SpriteSheet utilSheet;          // Spritesheet for utilities graphic
 
         
