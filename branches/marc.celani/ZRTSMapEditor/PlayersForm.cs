@@ -13,6 +13,7 @@ namespace ZRTSMapEditor
     public partial class PlayersForm : Form
     {
         private PlayerList playerList;
+        private BindingSource source;
 
         private PlayersForm()
         {
@@ -22,25 +23,13 @@ namespace ZRTSMapEditor
         {
             InitializeComponent();
             playerList = list;
-            BindingSource source = new BindingSource();
+            source = new BindingSource();
 
-            /*foreach (PlayerComponent player in list.GetChildren())
+            foreach (PlayerComponent player in list.GetChildren())
             {
-                PlayerDataGridAdapter adapter = new PlayerDataGridAdapter(player);
+                PlayerDataGridAdapter adapter = new PlayerDataGridAdapter(player, playerList);
                 source.Add(adapter);
-            }*/
-
-            // test Data
-            // TODO: Remove and replace.
-            PlayerDataGridAdapter testAdapter = new PlayerDataGridAdapter(new PlayerComponent());
-            testAdapter.Player_Name = "Player 1";
-            testAdapter.RaceMember = "Human";
-            testAdapter.WoodMember = 200;
-            testAdapter.MetalMember = 200;
-            testAdapter.GoldMember = 200;
-
-            source.Add(testAdapter);
-            source.Add(testAdapter);
+            }
 
 
             // Initialize Player List to bind data properly.
@@ -54,5 +43,39 @@ namespace ZRTSMapEditor
             wood.DataPropertyName = "WoodMember";
             metal.DataPropertyName = "MetalMember";
         }
+
+        private void addPlayerButton_Click(object sender, EventArgs e)
+        {
+            PlayerDataGridAdapter adapter = new PlayerDataGridAdapter(new PlayerComponent(), playerList);
+            adapter.RaceMember = "Human";
+            adapter.AddedMember = true;
+            source.Add(adapter);
+        }
+
+        private void submitButton_Click(object sender, EventArgs e)
+        {
+            List<PlayerDataGridAdapter> adapters = new List<PlayerDataGridAdapter>();
+            foreach (Object o in source.List)
+            {
+                adapters.Add((PlayerDataGridAdapter)o);
+            }
+            PlayerDataGridAdapterCommitter committer = new PlayerDataGridAdapterCommitter(adapters);
+            if (committer.CanBeDone())
+            {
+                committer.Do();
+                Close();
+            }
+            else
+            {
+                // TODO: Add error handler.
+            }
+            
+        }
+
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
     }
 }

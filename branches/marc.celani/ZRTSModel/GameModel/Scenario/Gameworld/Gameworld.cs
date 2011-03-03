@@ -12,6 +12,7 @@ namespace ZRTSModel
         public Gameworld(int x, int y)
         {
             AddChild(new Map(x, y));
+            AddChild(new PlayerList());
         }
         public override void Accept(ModelComponentVisitor visitor)
         {

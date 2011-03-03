@@ -52,6 +52,7 @@
     <Compile Include="BetterScenarioView.Designer.cs">
       <DependentUpon>BetterScenarioView.cs</DependentUpon>
     </Compile>
+    <Compile Include="MapEditorCommand.cs" />
     <Compile Include="MapEditorModelListener.cs" />
     <Compile Include="MapEditorController.cs" />
     <Compile Include="MapEditorModelOld.cs" />
@@ -65,6 +66,7 @@
       <DependentUpon>MapEditorView.cs</DependentUpon>
     </Compile>
     <Compile Include="PlayerDataGridAdapter.cs" />
+    <Compile Include="PlayerDataGridAdapterCommitter.cs" />
     <Compile Include="PlayersForm.cs">
       <SubType>Form</SubType>
     </Compile>
