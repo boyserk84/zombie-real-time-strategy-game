@@ -156,9 +156,9 @@
     <Compile Include="Player\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveLoad.cs" />
+    <Compile Include="Scenario\Observable.cs" />
     <Compile Include="Scenario\Observer.cs" />
     <Compile Include="Scenario\Scenario.cs" />
-    <Compile Include="Scenario\ScenarioObservable.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GameModel\Scenario\Gameworld\PlayerList\Player\BuildingList\Building\" />

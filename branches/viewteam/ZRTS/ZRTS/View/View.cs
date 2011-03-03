@@ -17,7 +17,7 @@ namespace ZRTS
     /// 
     /// Author Nattapol Kemavaha
     /// </summary>
-    class View:ViewObserver
+    class View
     {
         private int cameraWidth, cameraHeight;      // Focused width and height
         private int totalWidth, totalHeight;        // Total width and height of the map

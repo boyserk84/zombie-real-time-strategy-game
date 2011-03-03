@@ -12,7 +12,7 @@ namespace ZRTSModel.Scenario
     /// Triggers.
     /// </summary>
     [Serializable()]
-    public class Scenario:ScenarioObservable
+    public class Scenario:Observable
     {
         public  const byte WORLD_PLAYER = 0;
         public  const byte PLAYER = 1;
