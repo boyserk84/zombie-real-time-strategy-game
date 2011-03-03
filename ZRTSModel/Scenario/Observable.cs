@@ -6,20 +6,24 @@ using System.Text;
 namespace ZRTSModel.Scenario
 {
     /// <summary>
-    /// Scenario Observable objects
+    /// Observable objects
     /// This class will act as a subject to be observed by the observer, which can be from view object.
+    /// 
+    /// Any object that needs to be observed, need to be a subclass of this class.
+    /// 
+    /// Observer pattern
     /// </summary>
     [Serializable()]
-    public class ScenarioObservable
+    public class Observable
     {
-        protected List<Observer> observersList;       // List of observers (container)
+        protected List<ZRTSModel.Scenario.Observer> observersList;       // List of observers (container)
 
         /// <summary>
         /// Default Constructor
         /// </summary>
-        public ScenarioObservable()
+        public Observable()
         {
-            this.observersList = new List<Observer>();
+            this.observersList = new List<ZRTSModel.Scenario.Observer>();
         }
 
 
@@ -27,17 +31,17 @@ namespace ZRTSModel.Scenario
         /// Register a new observer
         /// </summary>
         /// <param name="obs">Observer object</param>
-        public void register(Observer obs)
+        public void register(ZRTSModel.Scenario.Observer obs)
         {
             this.observersList.Add(obs);
-            
+
         }
 
         /// <summary>
         /// Remove an observer from the list
         /// </summary>
         /// <param name="obs">Removed observer object</param>
-        public void unregister(Observer obs)
+        public void unregister(ZRTSModel.Scenario.Observer obs)
         {
             if (this.observersList.Contains(obs))
             {
@@ -50,11 +54,10 @@ namespace ZRTSModel.Scenario
         /// </summary>
         public void notify()
         {
-            foreach(Observer obj in this.observersList)
+            foreach (ZRTSModel.Scenario.Observer obj in this.observersList)
             {
-                obj.notify();
+                obj.update();
             }
         }
-
     }
 }
