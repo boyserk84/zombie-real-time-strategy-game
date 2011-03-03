@@ -27,14 +27,14 @@ namespace ZRTSLogic
         /// <param name="entity"></param>
         public void update(Entity entity, EntityLocController locController)
         {
-            Queue<ActionCommand> actionQueue = entity.getActionQueue();
+            List<ActionCommand> actionQueue = entity.getActionQueue();
             if(actionQueue.Count > 0)
             {
-                ActionCommand command = actionQueue.Peek();
+                ActionCommand command = actionQueue[0];
 
                 if (command.work())
                 {
-                    actionQueue.Dequeue();
+                    actionQueue.RemoveAt(0);
                 }
                 if (entity.entityType == Entity.EntityType.Unit)
                 {
@@ -73,11 +73,11 @@ namespace ZRTSLogic
             }
 
             // Get the action queue from the entity and clear it.
-            Queue<ActionCommand> queue = entity.getActionQueue();
+            List<ActionCommand> queue = entity.getActionQueue();
             queue.Clear();
 
             // Give the entity the command.
-            entity.getActionQueue().Enqueue(command);
+            entity.getActionQueue().Add(command);
             return true;
         }
     }
