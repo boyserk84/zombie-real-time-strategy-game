@@ -11,17 +11,13 @@ namespace ZRTSModel.Entities
     {
         /** UNIT TYPE **/
         public string unitType;
-        byte type; // TODO: Remove this.
 
         /** UNIT STATS **/
         public UnitStats stats;
 
-
         /** UNIT LOCATION INFO **/
         Cell myCell;        // The cell the unit currently occupies
         public float x, y;  // Unit's x and y coordinates in game space.
-        public float radius = 0.35f; // Radius of unit.
-        
 
         /// <summary>
         /// Constructor for a unit
@@ -31,18 +27,17 @@ namespace ZRTSModel.Entities
         /// <param name="maxHealth">Maximum Health</param>
         /// <param name="radius">Radius</param>
         /// <param name="type">Type of unit</param>
-        public Unit(Player.Player owner, short health, short maxHealth, float radius, byte type)
+        public Unit(Player.Player owner, short health, short maxHealth)
             : base(owner, health, maxHealth)
         {
-
             this.entityType = EntityType.Unit;
             this.stats = new UnitStats();
         }
 
         public Unit(Player.Player owner, UnitStats stats) : base(owner, stats.maxHealth, stats.maxHealth)
         {
-            this.stats = stats;
             this.entityType = EntityType.Unit;
+            this.stats = stats;
         }
 
         public Cell getCell()

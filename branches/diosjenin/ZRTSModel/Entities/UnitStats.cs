@@ -15,6 +15,15 @@ namespace ZRTSModel.Entities
         public byte attackTicks = 10;
         public float visibilityRange = 6.0f;
 
+        /* UNIT RESOURCE CAPACITIES */
+        public short food = 1;
+        public short maxFood = 6;
+        public short water = 1;
+        public short maxWater = 6;
+        public short lumber = 0;
+        public short maxLumber = 10;
+        public short metal = 0;
+        public short maxMetal = 5;
 
         /** UNIT ABILITIES **/
         public bool canAttack = false;

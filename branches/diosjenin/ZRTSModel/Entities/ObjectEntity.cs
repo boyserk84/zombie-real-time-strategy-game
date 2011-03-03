@@ -6,7 +6,7 @@ using System.Text;
 namespace ZRTSModel.Entities
 {
     [Serializable()]
-    class ObjectEntity : StaticEntity
+    public class ObjectEntity : StaticEntity
     {
         public Type type = Type.Object;
 

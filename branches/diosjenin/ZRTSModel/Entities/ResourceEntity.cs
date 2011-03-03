@@ -6,10 +6,10 @@ using System.Text;
 namespace ZRTSModel.Entities
 {
     [Serializable()]
-    class ResourceEntity : StaticEntity
+    public class ResourceEntity : StaticEntity
     {
         public enum ResourceType : byte { Water, Lumber, Food, Metal };
-        ResourceType resourceType;
+        public ResourceType resourceType;
         public Type type = Type.Resource;
 
         public ResourceEntity(Player.Player owner, short health, short maxHealth, byte width, byte height, ResourceType type)

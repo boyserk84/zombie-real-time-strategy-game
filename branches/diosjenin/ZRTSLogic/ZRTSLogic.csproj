@@ -96,7 +96,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionController.cs" />
+    <Compile Include="Action\HarvestAction.cs" />
     <Compile Include="Action\MoveAction.cs" />
+    <Compile Include="Action\SimpleAttackAction.cs" />
+    <Compile Include="Action\TestCompositeAction.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="EntityCreator.cs" />
     <Compile Include="EntityLocController.cs" />

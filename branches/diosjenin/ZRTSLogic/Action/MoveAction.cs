@@ -80,9 +80,7 @@ namespace ZRTSLogic.Action
         {
             // Zero length path, done moving.
             if (path.Count == 0)
-            {
                 return true;
-            }
 
             // Enough ticks have occured, take next step in move.
             if (ticksSinceLastMove % TICKS_PER_MOVE == 0)
