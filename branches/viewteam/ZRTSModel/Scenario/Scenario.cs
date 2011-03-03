@@ -35,27 +35,13 @@ namespace ZRTSModel.Scenario
             player = new Player.Player(PLAYER);
             zombiePlayer = new Player.Player(ZOMBIE_PLAYER);
             gameWorld = new GameWorld.GameWorld(width, height);
+            //unitsInArea = new List<Entities.Entity>();
         }
 
-        public Player.Player getPlayer()
-        {
-            return this.player;
-        }
-
-        public Player.Player getWorldPlayer()
-        {
-            return this.worldPlayer;
-        }
-
-        public Player.Player getZombiePlayer()
-        {
-            return this.zombiePlayer;
-        }
-
-        public GameWorld.GameWorld getGameWorld()
-        {
-            return this.gameWorld;
-        }
+        public Player.Player getPlayer() { return this.player; }
+        public Player.Player getWorldPlayer() { return this.worldPlayer; }
+        public Player.Player getZombiePlayer() { return this.zombiePlayer; }
+        public GameWorld.GameWorld getGameWorld() { return this.gameWorld; }
 
         /// <summary>
         /// Getting all units in scenario
@@ -86,22 +72,50 @@ namespace ZRTSModel.Scenario
         /// <param name="xoffset">Column offset</param>
         /// <param name="yoffset">Row offset</param>
         /// <returns>List of all units within that boundary</returns>
-        public List<Entities.Entity> getUnits(int s_col, int s_row, int xoffset, int yoffset)
+        public void getUnits(int s_col, int s_row, int xoffset, int yoffset, int flag /* remove flag parameter after deprecated version is eliminated */)
         {
-            List<Entities.Entity> boundaryList = new List<Entities.Entity>();
+            //(1) Clear the list from the viewobserver
 
+            //(2) 
+ 
+            //unitsInArea.Clear();
             for (int row = s_row; row <= s_row + yoffset; ++row)
             {
                 for (int col = s_col; col <= s_col + xoffset; ++col)
                 {
                     if (this.getUnit(col, row) != null)
                     {
-                        boundaryList.Add(this.getUnit(col, row));
-                    }
-                }
-            }
 
-            return boundaryList;
+                        // (3) Having ViewSelect to add the new unit instead
+
+                        //unitsInArea.Add(this.getUnit(col, row));
+                    }
+                }//for
+            }//for
+        }
+
+        /// <summary>
+        /// [DEPRECATED] return all units within a boundary
+        /// </summary>
+        /// <param name="s_col"></param>
+        /// <param name="s_row"></param>
+        /// <param name="xoffset"></param>
+        /// <param name="yoffset"></param>
+        /// <returns></returns>
+        public List<ZRTSModel.Entities.Entity> getUnits(int s_col, int s_row, int xoffset, int yoffset)
+        {
+            List<ZRTSModel.Entities.Entity> buildinglist = new List<ZRTSModel.Entities.Entity>();
+            for (int row = s_row; row <= s_row + yoffset; ++row)
+            {
+                for (int col = s_col; col <= s_col + xoffset; ++col)
+                {
+                    if (this.getUnit(col, row) != null)
+                    {
+                        buildinglist.Add(this.getUnit(col, row));
+                    }
+                }//for
+            }//for
+            return buildinglist;
         }
 
 
