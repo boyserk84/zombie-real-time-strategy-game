@@ -78,5 +78,16 @@ namespace ZRTSMapEditor
             Close();
         }
 
+        private void removePlayerButton_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in uiPlayerList.SelectedRows)
+            {
+                PlayerDataGridAdapter adapter = (PlayerDataGridAdapter)row.DataBoundItem;
+                adapter.RemovedMember = true;
+                row.Selected = false;
+                row.DefaultCellStyle.BackColor = Color.Red;
+            }
+        }
+
     }
 }

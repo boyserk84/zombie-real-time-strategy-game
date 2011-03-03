@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.uiPlayerList = new System.Windows.Forms.DataGridView();
-            this.addPlayerButton = new System.Windows.Forms.Button();
-            this.removePlayerButton = new System.Windows.Forms.Button();
-            this.submitButton = new System.Windows.Forms.Button();
-            this.cancelButton = new System.Windows.Forms.Button();
             this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.race = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.gold = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.wood = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.metal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.addPlayerButton = new System.Windows.Forms.Button();
+            this.removePlayerButton = new System.Windows.Forms.Button();
+            this.submitButton = new System.Windows.Forms.Button();
+            this.cancelButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.uiPlayerList)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,45 +56,6 @@
             this.uiPlayerList.Name = "uiPlayerList";
             this.uiPlayerList.Size = new System.Drawing.Size(449, 171);
             this.uiPlayerList.TabIndex = 0;
-            // 
-            // addPlayerButton
-            // 
-            this.addPlayerButton.Location = new System.Drawing.Point(24, 196);
-            this.addPlayerButton.Name = "addPlayerButton";
-            this.addPlayerButton.Size = new System.Drawing.Size(110, 20);
-            this.addPlayerButton.TabIndex = 1;
-            this.addPlayerButton.Text = "Add Player";
-            this.addPlayerButton.UseVisualStyleBackColor = true;
-            this.addPlayerButton.Click += new System.EventHandler(this.addPlayerButton_Click);
-            // 
-            // removePlayerButton
-            // 
-            this.removePlayerButton.Location = new System.Drawing.Point(24, 222);
-            this.removePlayerButton.Name = "removePlayerButton";
-            this.removePlayerButton.Size = new System.Drawing.Size(110, 20);
-            this.removePlayerButton.TabIndex = 2;
-            this.removePlayerButton.Text = "Remove Player";
-            this.removePlayerButton.UseVisualStyleBackColor = true;
-            // 
-            // submitButton
-            // 
-            this.submitButton.Location = new System.Drawing.Point(237, 208);
-            this.submitButton.Name = "submitButton";
-            this.submitButton.Size = new System.Drawing.Size(110, 20);
-            this.submitButton.TabIndex = 3;
-            this.submitButton.Text = "Submit";
-            this.submitButton.UseVisualStyleBackColor = true;
-            this.submitButton.Click += new System.EventHandler(this.submitButton_Click);
-            // 
-            // cancelButton
-            // 
-            this.cancelButton.Location = new System.Drawing.Point(353, 208);
-            this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(110, 20);
-            this.cancelButton.TabIndex = 4;
-            this.cancelButton.Text = "Cancel";
-            this.cancelButton.UseVisualStyleBackColor = true;
-            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // name
             // 
@@ -123,6 +84,46 @@
             // 
             this.metal.HeaderText = "Starting Metal";
             this.metal.Name = "metal";
+            // 
+            // addPlayerButton
+            // 
+            this.addPlayerButton.Location = new System.Drawing.Point(24, 196);
+            this.addPlayerButton.Name = "addPlayerButton";
+            this.addPlayerButton.Size = new System.Drawing.Size(110, 20);
+            this.addPlayerButton.TabIndex = 1;
+            this.addPlayerButton.Text = "Add Player";
+            this.addPlayerButton.UseVisualStyleBackColor = true;
+            this.addPlayerButton.Click += new System.EventHandler(this.addPlayerButton_Click);
+            // 
+            // removePlayerButton
+            // 
+            this.removePlayerButton.Location = new System.Drawing.Point(24, 222);
+            this.removePlayerButton.Name = "removePlayerButton";
+            this.removePlayerButton.Size = new System.Drawing.Size(110, 20);
+            this.removePlayerButton.TabIndex = 2;
+            this.removePlayerButton.Text = "Remove Player";
+            this.removePlayerButton.UseVisualStyleBackColor = true;
+            this.removePlayerButton.Click += new System.EventHandler(this.removePlayerButton_Click);
+            // 
+            // submitButton
+            // 
+            this.submitButton.Location = new System.Drawing.Point(237, 208);
+            this.submitButton.Name = "submitButton";
+            this.submitButton.Size = new System.Drawing.Size(110, 20);
+            this.submitButton.TabIndex = 3;
+            this.submitButton.Text = "Submit";
+            this.submitButton.UseVisualStyleBackColor = true;
+            this.submitButton.Click += new System.EventHandler(this.submitButton_Click);
+            // 
+            // cancelButton
+            // 
+            this.cancelButton.Location = new System.Drawing.Point(353, 208);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(110, 20);
+            this.cancelButton.TabIndex = 4;
+            this.cancelButton.Text = "Cancel";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // PlayersForm
             // 
