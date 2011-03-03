@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using ZRTSModel;
+using System.Runtime.CompilerServices;
 
 namespace ZRTSMapEditor
 {
@@ -44,7 +45,7 @@ namespace ZRTSMapEditor
             metal.DataPropertyName = "MetalMember";
         }
 
-        private void addPlayerButton_Click(object sender, EventArgs e)
+        internal void addPlayerButton_Click(object sender, EventArgs e)
         {
             PlayerDataGridAdapter adapter = new PlayerDataGridAdapter(new PlayerComponent(), playerList);
             adapter.RaceMember = "Human";
@@ -72,7 +73,7 @@ namespace ZRTSMapEditor
             
         }
 
-        private void cancelButton_Click(object sender, EventArgs e)
+        internal void cancelButton_Click(object sender, EventArgs e)
         {
             Close();
         }

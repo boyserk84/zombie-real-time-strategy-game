@@ -123,6 +123,8 @@
     <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\BuildingList\BuildingListVisitor.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\PlayerComponent.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\PlayerVisitor.cs" />
+    <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\Resources\PlayerResources.cs" />
+    <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\Resources\PlayerResourcesVisitor.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\UnitList\UnitListVisitor.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\UnitList\Unit\ActionQueue\ActionQueue.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\UnitList\Unit\ActionQueue\ActionQueueVisitor.cs" />
@@ -171,7 +173,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GameModel\Scenario\Gameworld\PlayerList\Player\BuildingList\Building\" />
-    <Folder Include="GameModel\Scenario\Gameworld\PlayerList\Player\Resources\Resource\" />
     <Folder Include="GameModel\Scenario\Gameworld\PlayerList\Player\UnitList\Unit\ActionQueue\Action\" />
     <Folder Include="GameModel\ScrollModel\" />
     <Folder Include="GameModel\SelectionModel\" />

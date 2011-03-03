@@ -161,7 +161,7 @@ namespace ZRTSMapEditor
             {
                 string withoutSpaces = name.Replace(" ","");
                 string withoutWhiteSpace = withoutSpaces.Replace("\t", "");
-                canBeDone = !withoutSpaces.Equals("");
+                canBeDone = !withoutWhiteSpace.Equals("");
                 if (canBeDone)
                 {
                     canBeDone = (gold >= 0);
