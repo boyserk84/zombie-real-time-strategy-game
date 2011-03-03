@@ -12,6 +12,12 @@ namespace ZRTSModel
         private string name;
         private string race;
 
+        public PlayerComponent()
+        {
+            PlayerResources resources = new PlayerResources();
+            AddChild(resources);
+        }
+
         public override void Accept(ModelComponentVisitor visitor)
         {
             if (visitor is PlayerVisitor)
@@ -26,35 +32,32 @@ namespace ZRTSModel
 
         public int GetGold()
         {
-            return 0;
-            throw new NotImplementedException();
+            return GetResources().Gold;
         }
 
         public int GetWood()
         {
-            return 0;
-            throw new NotImplementedException();
+            return GetResources().Wood;
         }
 
         public int GetMetal()
         {
-            return 0;
-            throw new NotImplementedException();
+            return GetResources().Metal;
         }
 
         public void SetGold(int amt)
         {
-            // throw new NotImplementedException();
+            GetResources().Gold = amt;
         }
 
         public void SetWood(int amt)
         {
-            // throw new NotImplementedException();
+            GetResources().Wood = amt;
         }
 
         public void SetMetal(int amt)
         {
-            // throw new NotImplementedException();
+            GetResources().Metal = amt;
         }
 
         public string GetName()
@@ -75,6 +78,18 @@ namespace ZRTSModel
         public void SetRace(string race)
         {
             this.race = race;
+        }
+
+        public PlayerResources GetResources()
+        {
+            foreach (ModelComponent component in GetChildren())
+            {
+                if (component is PlayerResources)
+                {
+                    return (PlayerResources)component;
+                }
+            }
+            return null;
         }
     }
 }
