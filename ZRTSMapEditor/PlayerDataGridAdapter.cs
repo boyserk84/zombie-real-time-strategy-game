@@ -150,7 +150,7 @@ namespace ZRTSMapEditor
 
         public void Undo()
         {
-            // No op.
+            throw new NotImplementedException();
         }
 
 

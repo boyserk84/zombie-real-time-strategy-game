@@ -154,6 +154,12 @@ namespace ZRTSNUnitTests
             Assert.AreEqual(adapter.MetalMember, playerToUpdate.GetMetal(), "PlayerDataGridAdapter does not update metal properly.");
         }
 
+        [Test]
+        [ExpectedException("System.NotImplementedException")]
+        public void TestUndo()
+        {
+            adapter.Undo();
+        }
         
 
     }

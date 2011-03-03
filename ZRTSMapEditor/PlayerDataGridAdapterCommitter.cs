@@ -6,7 +6,7 @@ using ZRTSModel;
 
 namespace ZRTSMapEditor
 {
-    class PlayerDataGridAdapterCommitter : MapEditorCommand
+    public class PlayerDataGridAdapterCommitter : MapEditorCommand
     {
         private List<PlayerDataGridAdapter> adapters;
 
@@ -36,6 +36,7 @@ namespace ZRTSMapEditor
         {
             bool canBeDone = true;
             Dictionary<string, Boolean> names = new Dictionary<string, Boolean>();
+            int removed = 0;
             foreach (PlayerDataGridAdapter adapter in adapters)
             {
                 canBeDone = canBeDone && adapter.CanBeDone();
@@ -43,11 +44,18 @@ namespace ZRTSMapEditor
                 {
                     break;
                 }
-                names[adapter.Player_Name] = true;
+                if (adapter.RemovedMember)
+                {
+                    removed++;
+                }
+                else
+                {
+                    names[adapter.Player_Name] = true;
+                }
             }
             if (canBeDone)
             {
-                canBeDone = (names.Count == adapters.Count);
+                canBeDone = (names.Count == (adapters.Count - removed));
             }
             return canBeDone;
         }

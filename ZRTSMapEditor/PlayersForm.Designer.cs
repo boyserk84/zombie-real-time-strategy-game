@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.uiPlayerList = new System.Windows.Forms.DataGridView();
-            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.race = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.wood = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.metal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.gold = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.addPlayerButton = new System.Windows.Forms.Button();
             this.removePlayerButton = new System.Windows.Forms.Button();
             this.submitButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.race = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.gold = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.wood = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.metal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.uiPlayerList)).BeginInit();
             this.SuspendLayout();
             // 
@@ -49,41 +49,13 @@
             this.uiPlayerList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.name,
             this.race,
+            this.gold,
             this.wood,
-            this.metal,
-            this.gold});
+            this.metal});
             this.uiPlayerList.Location = new System.Drawing.Point(14, 19);
             this.uiPlayerList.Name = "uiPlayerList";
             this.uiPlayerList.Size = new System.Drawing.Size(449, 171);
             this.uiPlayerList.TabIndex = 0;
-            // 
-            // name
-            // 
-            this.name.HeaderText = "Name";
-            this.name.Name = "name";
-            // 
-            // race
-            // 
-            this.race.HeaderText = "Race";
-            this.race.Items.AddRange(new object[] {
-            "Human",
-            "Zombie"});
-            this.race.Name = "race";
-            // 
-            // wood
-            // 
-            this.wood.HeaderText = "Starting Wood";
-            this.wood.Name = "wood";
-            // 
-            // metal
-            // 
-            this.metal.HeaderText = "Starting Metal";
-            this.metal.Name = "metal";
-            // 
-            // gold
-            // 
-            this.gold.HeaderText = "Starting Gold";
-            this.gold.Name = "gold";
             // 
             // addPlayerButton
             // 
@@ -124,6 +96,34 @@
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
+            // name
+            // 
+            this.name.HeaderText = "Name";
+            this.name.Name = "name";
+            // 
+            // race
+            // 
+            this.race.HeaderText = "Race";
+            this.race.Items.AddRange(new object[] {
+            "Human",
+            "Zombie"});
+            this.race.Name = "race";
+            // 
+            // gold
+            // 
+            this.gold.HeaderText = "Starting Gold";
+            this.gold.Name = "gold";
+            // 
+            // wood
+            // 
+            this.wood.HeaderText = "Starting Wood";
+            this.wood.Name = "wood";
+            // 
+            // metal
+            // 
+            this.metal.HeaderText = "Starting Metal";
+            this.metal.Name = "metal";
+            // 
             // PlayersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -150,8 +150,8 @@
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn name;
         private System.Windows.Forms.DataGridViewComboBoxColumn race;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gold;
         private System.Windows.Forms.DataGridViewTextBoxColumn wood;
         private System.Windows.Forms.DataGridViewTextBoxColumn metal;
-        private System.Windows.Forms.DataGridViewTextBoxColumn gold;
     }
 }
