@@ -1,5 +1,0 @@
-<Tiles>
-	<Tile type="grass" passable="true" index="0"/>
-	<Tile type="lightgrass" passable="true" index="1"/>
-	<Tile type="mountain" passable="false" index="2"/>
-</Tiles>

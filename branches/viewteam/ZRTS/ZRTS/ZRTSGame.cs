@@ -157,6 +157,7 @@ namespace ZRTS
             /** NOTE: Adding Entities should be done through the Controller from now on **/
             this.testGameController.addUnit(new ZRTSModel.Entities.Unit(testGameController.scenario.getWorldPlayer(), 20, 100, 50, 0), 5, 10);
             this.testGameController.addUnit(new ZRTSModel.Entities.Unit(testGameController.scenario.getWorldPlayer(), 20, 100, 50, 0), 10, 5);
+            this.testGameController.addUnit(new ZRTSModel.Entities.Unit(testGameController.scenario.getWorldPlayer(), 20, 100, 50, 0), 15, 10);
 
             input = new MouseState();
             prevInput = input;
@@ -246,8 +247,18 @@ namespace ZRTS
                 {
                     selectX = gameView.convertScreenLocToGameLoc(input.X, input.Y).X;
                     selectY = gameView.convertScreenLocToGameLoc(input.X, input.Y).Y;
+
+                    gameView.setFirstCornerOfDragBox(input.X, input.Y);
+                    gameView.IsDragging = true;
                 }
             }
+
+            // While dragging, update the view to draw the box
+            if (input.LeftButton == ButtonState.Pressed)
+            {
+                gameView.setDragBox(input.X, input.Y);
+            }
+
             // "Drag box" is created, select all units within box
             if (input.LeftButton == ButtonState.Released && prevInput.LeftButton == ButtonState.Pressed)
             {
@@ -258,6 +269,10 @@ namespace ZRTS
 
                 if (isWithInBound(releaseX, releaseY) && isWithInBound(pressX, pressY))
                 {
+                    /*
+                     * Retrieve all units within the drag box - Use Min and Max to find the topleft and
+                     * bottomright corner
+                     */
                     List<ZRTSModel.Entities.Entity> entityList = this.testGameController.scenario.getUnits(
                         (int)Math.Min(pressX, releaseX),
                         (int)Math.Min(pressY, releaseY),
@@ -265,16 +280,20 @@ namespace ZRTS
                         (int)(Math.Max(pressY, releaseY) - Math.Min(pressY, releaseY))
                     );
 
+                    // TODO: remove later
                     Console.WriteLine("(pressX, pressY) = (" + pressX + "," + pressY + ")");
                     Console.WriteLine("topleft = (" + (int)Math.Min(pressX, releaseX) + "," + (int)Math.Min(pressY, releaseY) + ")");
                     Console.WriteLine("(releaseX, releaseY) = (" + releaseX + "," + releaseY + ")");
                     Console.WriteLine("bottomright = (" + (int)Math.Max(pressX, releaseX) + "," + (int)Math.Max(pressY, releaseY) + ")");
 
+                    // If there are new units to select, replace the selected entity list
                     if (entityList.Count != 0)
                     {
                         this.testGameController.scenario.getPlayer().selectEntities(entityList);
                     }
                 }
+
+                gameView.IsDragging = false;
                 
             }
 

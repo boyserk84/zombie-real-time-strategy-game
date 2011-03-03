@@ -23,6 +23,11 @@ namespace ZRTS
         private int totalWidth, totalHeight;        // Total width and height of the map
         private float curTime;
 
+        // Drag box
+        private float firstCornerX;
+        private float firstCornerY;
+        private bool isDragging;
+
         // Graphical/Rendering contents
         private SpriteBatch bufferScreen;           // Where all images are drawn on
         private SpriteSheet spriteTiles;            // Spritesheet of tiles
@@ -31,7 +36,7 @@ namespace ZRTS
 
         // Temporary variable
         private int x, y;
-        private Rectangle selectedBox;
+        private Rectangle dragBox;
 
 
         // Model content to be extracted
@@ -65,6 +70,15 @@ namespace ZRTS
             this.cameraHeight = height;
             this.cameraWidth = width;
             this.bufferScreen = null;
+        }
+
+        /// <summary>
+        /// Getter and setter for isDragging
+        /// </summary>
+        public bool IsDragging
+        {
+            get { return this.isDragging; }
+            set { this.isDragging = value; }
         }
 
         /// <summary>
@@ -112,7 +126,7 @@ namespace ZRTS
         public void LoadUtilitySpriteSheet(SpriteSheet utilSheet)
         {
             this.spriteUtil = utilSheet;
-            this.selectedBox = new Rectangle(-1, -1, 0, 0);
+            this.dragBox = new Rectangle(-1, -1, 0, 0);
         }
         /// <summary>
         /// Rendering Map's terrain corresponding to gameWorld's terrain tile
@@ -167,11 +181,6 @@ namespace ZRTS
             return new Vector2((gameLocX), (gameLocY));
         }
 
-        public void selectArea(float selectX, float selectY)
-        {
-            // To do :Do selected area
-        }
-
         /// <summary>
         /// Getting all units in the gameworld map
         /// </summary>
@@ -194,7 +203,7 @@ namespace ZRTS
                     this.spriteUtil.drawAtIndex(0,0, new Vector2(translateXScreen(u.x), translateYScreen(u.y)));
                 }
                 //this.spriteUnits.drawByAction(0, new Vector2(u.x, u.y));
-                this.spriteUnits.animateFrame(0, new Vector2(translateXScreen(u.x), translateYScreen(u.y)));
+                this.spriteUnits.drawAtIndex(0, 0, new Vector2(translateXScreen(u.x), translateYScreen(u.y)));
                 
             }
         }
@@ -246,13 +255,40 @@ namespace ZRTS
             }
         }
 
-
-
-        
-
-        private void DrawSelectedBox()
+        /// <summary>
+        /// Setter for firstCorner of the drag box
+        /// </summary>
+        /// <param name="corner">The screen location of the first click (start of the drag box)</param>
+        public void setFirstCornerOfDragBox(float cornerX, float cornerY)
         {
-            
+            firstCornerX = cornerX;
+            firstCornerY = cornerY;
+        }
+
+        /// <summary>
+        /// Sets the Drawing Area for the dragBox
+        /// </summary>
+        /// <param name="x2">x coord of 2nd point</param>
+        /// <param name="y2">y coord of 2nd point</param>
+        public void setDragBox(float x2, float y2)
+        {
+            dragBox = new Rectangle(
+                (int)Math.Min(firstCornerX, x2),
+                (int)Math.Min(firstCornerY, y2),
+                (int)(Math.Max(firstCornerX, x2) - Math.Min(firstCornerX, x2)),
+                (int)(Math.Max(firstCornerY, y2) - Math.Min(firstCornerY, y2))
+                );
+        }
+        
+        /// <summary>
+        /// Draws the drag box for selection
+        /// </summary>
+        private void DrawDragBox()
+        {
+            if (isDragging)
+            {
+                this.spriteUtil.drawAtIndex(GameConfig.IMG_DRAGBOX, 0, dragBox);
+            }
         }
 
 
@@ -264,6 +300,7 @@ namespace ZRTS
             bufferScreen.Begin();
                 DrawTerrain();
                 DrawEntities();
+                DrawDragBox();
                 //DrawSelected();
             //bufferScreen.End();
         }

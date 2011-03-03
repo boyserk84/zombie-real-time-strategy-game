@@ -154,6 +154,17 @@ namespace ZRTS
         }
 
         /// <summary>
+        /// Draw at a particular index with scaling
+        /// </summary>
+        /// <param name="col">Column</param>
+        /// <param name="row">Row</param>
+        /// <param name="drawArea">The Drawing Area</param>
+        public void drawAtIndex(int col, int row, Rectangle drawArea)
+        {
+            this.bufferScreen.Draw(sheet, drawArea, getFrameLocationOnSheetAt(col, row), Color.White);
+        }
+
+        /// <summary>
         /// Get frame's (X,Y) location on the spritesheet
         /// </summary>
         /// <param name="col">Coloum index</param>
