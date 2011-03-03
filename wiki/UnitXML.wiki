@@ -1,10 +1,5 @@
 #summary Details about how Unit stats are stored in XML.
 
-= Introduction =
-
-Add your content here.
-
-
 = Details =
 
 ==The Unit List==
@@ -13,12 +8,9 @@ The unit list is stored in 'Content/units/unitList.xml'
 
 An example list for two units 'soldier' and 'zombie'
 
+{{{
 <UnitList>
    <Unit>soldier</Unit>
    <Unit>zombie</Unit>
 </UnitList>
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+}}}
