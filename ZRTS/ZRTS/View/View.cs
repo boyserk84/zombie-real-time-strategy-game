@@ -197,11 +197,11 @@ namespace ZRTS
         {
             foreach(ZRTSModel.Entities.Unit u in AllUnits())
             {
-                if (isUnitBeingSelected(u))
-                {
+                //if (isUnitBeingSelected(u))
+                //{
                     // Draw a highlight unit
-                    this.spriteUtil.drawAtIndex(0,0, new Vector2(translateXScreen(u.x), translateYScreen(u.y)));
-                }
+                  //  this.spriteUtil.drawAtIndex(0,0, new Vector2(translateXScreen(u.x), translateYScreen(u.y)));
+                //}
                 //this.spriteUnits.drawByAction(0, new Vector2(u.x, u.y));
                 this.spriteUnits.drawAtIndex(0, 0, new Vector2(translateXScreen(u.x), translateYScreen(u.y)));
                 

@@ -75,8 +75,7 @@ namespace ZRTSModel.Scenario
         public void getUnits(int s_col, int s_row, int xoffset, int yoffset, int flag /* remove flag parameter after deprecated version is eliminated */)
         {
             //(1) Clear the list from the viewobserver
-
-            //(2) 
+            viewSelectObserver.removeEverything();
  
             //unitsInArea.Clear();
             for (int row = s_row; row <= s_row + yoffset; ++row)
@@ -87,11 +86,13 @@ namespace ZRTSModel.Scenario
                     {
 
                         // (3) Having ViewSelect to add the new unit instead
-
+                        viewSelectObserver.addUnit(this.getUnit(col, row));
                         //unitsInArea.Add(this.getUnit(col, row));
                     }
                 }//for
             }//for
+
+            this.notify();
         }
 
         /// <summary>

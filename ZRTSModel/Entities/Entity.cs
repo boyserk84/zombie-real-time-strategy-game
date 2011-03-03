@@ -20,6 +20,8 @@ namespace ZRTSModel.Entities
         public EntityType entityType;
         int id;
 
+        public float x, y;  // Entity's x and y coordinates in game space.
+
         public enum EntityType { Unit, Building, Resource, Object, NotSet };
 
         public Entity(Player.Player owner, short health, short maxHealth)
@@ -37,6 +39,8 @@ namespace ZRTSModel.Entities
             this.id = nextID;
             nextID++;
         }
+
+        
 
         public State getState()
         {
