@@ -24,7 +24,7 @@ namespace ZRTSModel.Entities
 
         public enum EntityType { Unit, Building, Resource, Object, NotSet };
 
-        public Entity(Player.Player owner, short health, short maxHealth)
+        public Entity(Player.Player owner, short health)
         {
             this.owner = owner;
             this.health = health;

@@ -12,8 +12,8 @@ namespace ZRTSModel.Entities
         ResourceType resourceType;
         public Type type = Type.Resource;
 
-        public ResourceEntity(Player.Player owner, short health, short maxHealth, byte width, byte height, ResourceType type)
-            : base(owner, health, maxHealth, width, height)
+        public ResourceEntity(Player.Player owner, short health,  byte width, byte height, ResourceType type)
+            : base(owner, health, width, height)
         {
             this.resourceType = type;
             this.entityType = EntityType.Resource;

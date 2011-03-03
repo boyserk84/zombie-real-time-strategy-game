@@ -34,15 +34,15 @@ namespace ZRTSModel.Entities
         /// <param name="maxHealth">Maximum Health</param>
         /// <param name="radius">Radius</param>
         /// <param name="type">Type of unit</param>
-        public Unit(Player.Player owner, short health, short maxHealth, float radius, byte type)
-            : base(owner, health, maxHealth)
+        public Unit(Player.Player owner, short health, float radius, byte type)
+            : base(owner, health)
         {
 
             this.entityType = EntityType.Unit;
             this.stats = new UnitStats();
         }
 
-        public Unit(Player.Player owner, UnitStats stats) : base(owner, stats.maxHealth, stats.maxHealth)
+        public Unit(Player.Player owner, UnitStats stats) : base(owner, stats.maxHealth)
         {
             this.stats = stats;
             this.entityType = EntityType.Unit;

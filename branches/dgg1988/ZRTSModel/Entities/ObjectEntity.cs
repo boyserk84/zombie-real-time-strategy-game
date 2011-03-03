@@ -10,8 +10,8 @@ namespace ZRTSModel.Entities
     {
         public Type type = Type.Object;
 
-        public ObjectEntity(Player.Player owner, short health, short maxHealth, byte width, byte height)
-            : base(owner, health, maxHealth, width, height)
+        public ObjectEntity(Player.Player owner, short health, byte width, byte height)
+            : base(owner, health, width, height)
         {
             this.entityType = EntityType.Object;
         }
