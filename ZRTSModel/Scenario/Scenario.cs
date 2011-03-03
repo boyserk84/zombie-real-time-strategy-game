@@ -75,7 +75,10 @@ namespace ZRTSModel.Scenario
         public void getUnits(int s_col, int s_row, int xoffset, int yoffset, int flag /* remove flag parameter after deprecated version is eliminated */)
         {
             //(1) Clear the list from the viewobserver
-            viewSelectObserver.removeEverything();
+            //viewSelectObserver.removeEverything();  // TODO: remove?
+
+            List<ZRTSModel.Entities.Entity> unitList = new List<ZRTSModel.Entities.Entity>();
+
             for (int row = s_row; row <= s_row + yoffset; ++row)
             {
                 for (int col = s_col; col <= s_col + xoffset; ++col)
@@ -83,13 +86,20 @@ namespace ZRTSModel.Scenario
                     if (this.getUnit(col, row) != null)
                     {
                         // (3) Having ViewSelect to add the new unit instead
-                        viewSelectObserver.addUnit(this.getUnit(col, row));
+                        //viewSelectObserver.addUnit(this.getUnit(col, row));
+                        unitList.Add(this.getUnit(col, row));
                         //unitsInArea.Add(this.getUnit(col, row));
                     }
                 }//for
             }//for
 
-            this.player.selectEntities(viewSelectObserver.getSelectedUnits);
+            // Only change the selection if there are new units to be selected.  The only way to actually be selecting
+            // nothing is if the selected units die or if the game has just started.
+            if (unitList.Count > 0)
+            {
+                viewSelectObserver.getSelectedUnits = unitList;
+                this.player.selectEntities(unitList);
+            }
             this.notify();
         }
 
