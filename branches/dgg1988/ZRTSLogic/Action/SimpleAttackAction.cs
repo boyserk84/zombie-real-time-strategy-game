@@ -23,6 +23,10 @@ namespace ZRTSLogic.Action
             this.actionType = ActionType.SimpleAttack;
         }
 
+        /// <summary>
+        /// Makes the attack aciton.
+        /// </summary>
+        /// <returns>returns true if the target is out of range or if the target is dead. false otherwise.</returns>
         public override bool work()
         {
             State targetState = target.getState();
@@ -36,13 +40,11 @@ namespace ZRTSLogic.Action
             {
                 if (ticksSinceLastAttk % unit.stats.attackTicks == 0)
                 {
-                    Console.WriteLine("Attacking");
                     ticksSinceLastAttk = 0;
 
                     target.health -= unit.stats.attack;
                     if (target.health <= 0)
                     {
-                        Console.WriteLine("Target Dead");
                         targetState.setPrimaryState(State.PrimaryState.Dead);
                         return true;
                     }
@@ -50,7 +52,6 @@ namespace ZRTSLogic.Action
             }
             else
             {
-                Console.WriteLine("Target is out of range");
                 return true;
             }
 
