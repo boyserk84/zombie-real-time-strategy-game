@@ -17,13 +17,13 @@ namespace ZRTSLogic.Action
     {
         float targetX, targetY;
         List<Cell> path;
-        Cell targetCell; // The current cell being moved to.
+        Cell targetCell; // The current cell being moved to, not the cell containing (targetX, targetY).
         GameWorld gw;
         Entity entity;
         Unit unit;
         int cellIndex;
         bool waiting = false;
-        byte ticksWaiting = 0;
+        byte ticksWaiting = 0; // Ticks spent waiting for another unit to move. 
 
         byte TICKS_PER_MOVE = 2;       // How many ticks per step in the move action
         byte WAIT_TICKS = 30;               // How many ticks to wait for another unit to move.
@@ -177,6 +177,7 @@ namespace ZRTSLogic.Action
                     // Need to move left and up. (NW)
                     unit.x += -unit.stats.speed / 1.41f;
                     unit.y += -unit.stats.speed / 1.41f;
+                    unit.orientation = Unit.Orientation.NW;
 
                 }
                 else if (unit.x > targetCell.Xcoord + 0.5f && unit.y <= targetCell.Ycoord + 0.5f)
@@ -184,18 +185,21 @@ namespace ZRTSLogic.Action
                     // Need to move left and down (SW)
                     unit.x += -unit.stats.speed / 1.41f;
                     unit.y += unit.stats.speed / 1.41f;
+                    unit.orientation = Unit.Orientation.SW;
                 }
                 else if (unit.x < targetCell.Xcoord + 0.5f && unit.y > targetCell.Ycoord + 0.5f)
                 {
                     // Need to move right and up (NE)
                     unit.x += unit.stats.speed / 1.41f;
                     unit.y += -unit.stats.speed / 1.41f;
+                    unit.orientation = Unit.Orientation.NE;
                 }
                 else
                 {
                     // Need to move right and down (SE)
                     unit.x += unit.stats.speed / 1.41f;
                     unit.y += unit.stats.speed / 1.41f;
+                    unit.orientation = Unit.Orientation.SE;
                 }
 
             }
@@ -205,6 +209,7 @@ namespace ZRTSLogic.Action
                 if (Math.Abs(unit.x - (targetCell.Xcoord + 0.5f)) > unit.stats.speed)
                 {
                     unit.x -= unit.stats.speed;
+                    unit.orientation = Unit.Orientation.W;
                 }
                 else
                 {
@@ -217,6 +222,7 @@ namespace ZRTSLogic.Action
                 if (Math.Abs(unit.x - (targetCell.Xcoord + 0.5f)) > unit.stats.speed)
                 {
                     unit.x += unit.stats.speed;
+                    unit.orientation = Unit.Orientation.E;
                 }
                 else
                 {
@@ -229,6 +235,7 @@ namespace ZRTSLogic.Action
                 if (Math.Abs(unit.y - (targetCell.Ycoord + 0.5f)) > unit.stats.speed)
                 {
                     unit.y -= unit.stats.speed;
+                    unit.orientation = Unit.Orientation.S;
                 }
                 else
                 {
@@ -241,6 +248,7 @@ namespace ZRTSLogic.Action
                 if (Math.Abs(unit.y - (targetCell.Ycoord + 0.5f)) > unit.stats.speed)
                 {
                     unit.y += unit.stats.speed;
+                    unit.orientation = Unit.Orientation.N;
                 }
                 else
                 {

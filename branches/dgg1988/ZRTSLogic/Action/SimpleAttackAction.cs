@@ -15,7 +15,6 @@ namespace ZRTSLogic.Action
         Unit unit;
         Entity target;
 
-        byte TICKS_PER_ATTACK = 20;
         byte ticksSinceLastAttk = 0;
         public SimpleAttackAction(Unit unit, Entity target)
         {
