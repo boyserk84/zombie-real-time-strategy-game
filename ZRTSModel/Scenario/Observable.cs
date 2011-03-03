@@ -18,12 +18,17 @@ namespace ZRTSModel.Scenario
     {
         protected List<ZRTSModel.Scenario.Observer> observersList;       // List of observers (container)
 
+        /* Game specific observer */
+        protected ZRTSModel.Scenario.Observer viewSelectObserver;       // View select observer
+
+
         /// <summary>
         /// Default Constructor
         /// </summary>
         public Observable()
         {
             this.observersList = new List<ZRTSModel.Scenario.Observer>();
+            viewSelectObserver = null;
         }
 
 
@@ -35,6 +40,11 @@ namespace ZRTSModel.Scenario
         {
             this.observersList.Add(obs);
 
+            // Check if the observer is View observer
+            if (obs.GetType().ToString().Equals("ViewObserver"))
+            {
+                viewSelectObserver = obs;
+            }
         }
 
         /// <summary>
@@ -48,6 +58,7 @@ namespace ZRTSModel.Scenario
                 this.observersList.RemoveAt(this.observersList.IndexOf(obs));
             }
         }
+
 
         /// <summary>
         /// Notify all observers
