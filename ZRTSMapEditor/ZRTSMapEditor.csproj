@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\MapEditorViewCommands\ChangeCellTileCommand.cs" />
+    <Compile Include="MapEditorModel\CommandStack\CommandStack.cs" />
     <Compile Include="UI\BetterScenarioView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -138,7 +140,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="MapEditorModel\CommandStack\" />
     <Folder Include="MapEditorModel\SaveInfo\" />
     <Folder Include="MapEditorModel\SelectionState\" />
   </ItemGroup>

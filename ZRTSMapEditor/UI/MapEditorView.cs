@@ -76,5 +76,15 @@ namespace ZRTSMapEditor
         {
             controller.OpenPlayersForm();
         }
+
+        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            controller.UndoLastCommand();
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            controller.RedoLastUndoCommand();
+        }
     }
 }

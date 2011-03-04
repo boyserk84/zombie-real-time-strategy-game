@@ -35,9 +35,12 @@
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tilePalette = new TilePalette(this);
-            this.scenarioView1 = new BetterScenarioView();
+            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.separatorToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.playerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tilePalette = new TilePalette();
+            this.scenarioView1 = new BetterScenarioView();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -94,10 +97,39 @@
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.undoToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.separatorToolStripMenuItem,
             this.playerToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
+            // 
+            // undoToolStripMenuItem
+            // 
+            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.undoToolStripMenuItem.Text = "Undo";
+            this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem1.Text = "Redo";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
+            // separatorToolStripMenuItem
+            // 
+            this.separatorToolStripMenuItem.Name = "separatorToolStripMenuItem";
+            this.separatorToolStripMenuItem.Size = new System.Drawing.Size(149, 6);
+            // 
+            // playerToolStripMenuItem
+            // 
+            this.playerToolStripMenuItem.Name = "playerToolStripMenuItem";
+            this.playerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.playerToolStripMenuItem.Text = "Player";
+            this.playerToolStripMenuItem.Click += new System.EventHandler(this.playerToolStripMenuItem_Click);
             // 
             // tilePalette
             // 
@@ -112,13 +144,6 @@
             this.scenarioView1.Name = "scenarioView1";
             this.scenarioView1.Size = new System.Drawing.Size(800, 600);
             this.scenarioView1.TabIndex = 2;
-            // 
-            // playerToolStripMenuItem
-            // 
-            this.playerToolStripMenuItem.Name = "playerToolStripMenuItem";
-            this.playerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.playerToolStripMenuItem.Text = "Player";
-            this.playerToolStripMenuItem.Click += new System.EventHandler(this.playerToolStripMenuItem_Click);
             // 
             // MapEditorView
             // 
@@ -155,5 +180,8 @@
         private TilePalette tilePalette;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem playerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripSeparator separatorToolStripMenuItem;
     }
 }

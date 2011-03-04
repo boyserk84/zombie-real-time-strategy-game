@@ -11,6 +11,11 @@ namespace ZRTSMapEditor.MapEditorModel
         // TODO: Move to a component in the model (SelectionState)
         public String TileTypeSelected = null;
 
+        public MapEditorFullModel()
+        {
+            AddChild(new CommandStack());
+        }
+
         public override void Accept(ModelComponentVisitor visitor)
         {
             if (visitor is MapEditorFullModelVisitor)
@@ -30,6 +35,18 @@ namespace ZRTSMapEditor.MapEditorModel
                 if (component is ScenarioComponent)
                 {
                     return (ScenarioComponent)component;
+                }
+            }
+            return null;
+        }
+
+        public CommandStack GetCommandStack()
+        {
+            foreach (ModelComponent component in GetChildren())
+            {
+                if (component is CommandStack)
+                {
+                    return (CommandStack)component;
                 }
             }
             return null;
