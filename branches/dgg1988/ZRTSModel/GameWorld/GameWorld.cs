@@ -70,15 +70,15 @@ namespace ZRTSModel.GameWorld
             bool worked = map.insert(e, x, y);
             if (worked)
             {
-                switch (e.type)
+                switch (e.getEntityType())
                 {
-                    case StaticEntity.Type.Object:
+                    case Entity.EntityType.Object:
                         objects.Add((ObjectEntity)e);
                         break;
-                    case StaticEntity.Type.Resource:
+                    case Entity.EntityType.Resource:
                         resources.Add((ResourceEntity)e);
                         break;
-                    case StaticEntity.Type.Building:
+                    case Entity.EntityType.Building:
                         buildings.Add((Building)e);
                         break;
                 }

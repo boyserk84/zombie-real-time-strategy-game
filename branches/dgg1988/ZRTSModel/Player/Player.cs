@@ -40,6 +40,20 @@ namespace ZRTSModel.Player
             entities.Remove(entity);
         }
 
+		public bool hasEntity(Entity entity)
+		{
+			if (entity.getEntityType() == Entity.EntityType.Unit && units.Contains((Unit)entity))
+			{
+				return true;
+			}
+			else if (entity.getEntityType() == Entity.EntityType.Building && buildings.Contains((Building)entity))
+			{
+				return true;
+			}
+
+			return false;
+		}
+
 
         public void selectEntities(List<ZRTSModel.Entities.Entity> list)
         {

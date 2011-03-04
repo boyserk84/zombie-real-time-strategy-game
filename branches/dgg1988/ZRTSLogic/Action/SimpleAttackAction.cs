@@ -42,6 +42,7 @@ namespace ZRTSLogic.Action
             // If target is not dead, is in range, and it is time to complete an attack cycle.
             if (ticksSinceLastAttk % unit.stats.attackTicks == 0 && targetInRange)
             {
+				updateUnitOrientation(); // Make unit face its target.
                 unit.getState().setPrimaryState(State.PrimaryState.Attacking);
                 ticksSinceLastAttk = 0;
 
@@ -94,5 +95,63 @@ namespace ZRTSLogic.Action
 
             return false;
         }
+
+		private void updateUnitOrientation()
+		{
+			float x, y;
+			if (target.entityType == Entity.EntityType.Unit)
+			{
+				Unit tempUnit = (Unit)target;
+				x = tempUnit.x;
+				y = tempUnit.y;
+			}
+			else
+			{
+				StaticEntity tempSE = (StaticEntity)target;
+				// NOTE: This should be changed to the cell that is closest to the unit.
+				x = tempSE.orginCell.Xcoord;
+				y = tempSE.orginCell.Ycoord;
+			}
+
+			if (x == unit.x)
+			{
+				if (y > unit.y)
+				{
+					unit.orientation = Unit.Orientation.S;
+				}
+				else
+				{
+					unit.orientation = Unit.Orientation.N;
+				}
+
+			}
+			else if (y == unit.y)
+			{
+				if (x > unit.x)
+				{
+					unit.orientation = Unit.Orientation.E;
+				}
+				else
+				{
+					unit.orientation = Unit.Orientation.W;
+				}
+			}
+			else if (y < unit.y && x < unit.x)
+			{
+				unit.orientation = Unit.Orientation.NW;
+			}
+			else if (y < unit.y && x > unit.x)
+			{
+				unit.orientation = Unit.Orientation.NE;
+			}
+			else if (y > unit.y && x < unit.x)
+			{
+				unit.orientation = Unit.Orientation.SW;
+			}
+			else if (y > unit.y && x > unit.x)
+			{
+				unit.orientation = Unit.Orientation.SE;
+			}
+		}
     }
 }

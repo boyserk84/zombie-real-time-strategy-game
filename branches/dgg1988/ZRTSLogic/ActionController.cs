@@ -56,6 +56,7 @@ namespace ZRTSLogic
         /// <returns>false if the entity rejects the command. true otherwise.</returns>
         public bool giveCommand(Entity entity, ActionCommand command)
         {
+			Console.WriteLine("giving command");
             if (entity == null)
             {
                 return false;
@@ -85,6 +86,7 @@ namespace ZRTSLogic
 
             // Give the entity the command.
             entity.getActionQueue().Add(command);
+			Console.WriteLine("Command given");
             return true;
         }
 

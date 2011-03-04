@@ -57,9 +57,9 @@ namespace ZRTSLogic
                     success = true;
                 }
             }
-            else // Inserting a Building, ResourceEntity, or ObjectEntity
+            else if(entity.getEntityType() == Entity.EntityType.Building)
             {
-                success = gw.insert((StaticEntity)entity, (int)x, (int)y);
+                success = gw.insert((Building)entity, (int)x, (int)y);
             }
 
             // If insert into GameWorld was a success, insert into right player

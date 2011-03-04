@@ -19,12 +19,15 @@ namespace ZRTSModel.Entities
         {
             this.stats = new BuildingStats();
             this.entityType = EntityType.Building;
+			this.type = Type.Building;
         }
 
         public Building(Player.Player owner, BuildingStats stats)
             : base(owner, stats.maxHealth, stats.width, stats.height)
         {
             this.stats = stats;
+			this.entityType = EntityType.Building;
+			this.type = Type.Building;
         }
     }
 }

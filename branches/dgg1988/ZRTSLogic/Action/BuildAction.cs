@@ -42,8 +42,9 @@ namespace ZRTSLogic.Action
         /// This function will perform a building cycle if the number of ticks since the last cycle is equal to TICKS_PER_CYCLE.
         /// </summary>
         /// <returns>true if the building is complete and the action is finished, false otherwise.</returns>
-        public bool work()
+        public override bool work()
         {
+			Console.WriteLine("work");
             // Building is complete, finish action.
             if (building.isCompleted)
             {

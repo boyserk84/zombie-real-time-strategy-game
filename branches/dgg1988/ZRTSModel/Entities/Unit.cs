@@ -11,7 +11,6 @@ namespace ZRTSModel.Entities
     {
         /** UNIT TYPE **/
         public string unitType;
-        byte type; // TODO: Remove this.
 
         /** UNIT STATS **/
         public UnitStats stats;
@@ -20,11 +19,11 @@ namespace ZRTSModel.Entities
         /** UNIT LOCATION INFO **/
         Cell myCell;        // The cell the unit currently occupies
         public float x, y;  // Unit's x and y coordinates in game space.
-        public float radius = 0.35f; // Radius of unit.
-        public Orientation orientation = Orientation.S;
 
-
+		/** ORIENTATION INFO 
+		 * Represents which direction a Unit is facing in the gamewold. **/
         public enum Orientation { N, S, E, W, NW, NE, SW, SE };
+		public Orientation orientation = Orientation.S;
 
         /// <summary>
         /// Constructor for a unit
@@ -34,7 +33,7 @@ namespace ZRTSModel.Entities
         /// <param name="maxHealth">Maximum Health</param>
         /// <param name="radius">Radius</param>
         /// <param name="type">Type of unit</param>
-        public Unit(Player.Player owner, short health, float radius, byte type)
+        public Unit(Player.Player owner, short health)
             : base(owner, health)
         {
 
