@@ -46,7 +46,7 @@ namespace ZRTSLogic.Action
         {
 			Console.WriteLine("work");
             // Building is complete, finish action.
-            if (building.isCompleted)
+            if (building.health == building.stats.maxHealth)
             {
                 return true;
             }
