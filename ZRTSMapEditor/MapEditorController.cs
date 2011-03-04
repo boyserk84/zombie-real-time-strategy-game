@@ -14,24 +14,16 @@ namespace ZRTSMapEditor
 {
     public class MapEditorController
     {
-        private MapEditorModelOld model;
-        private ImprovedMapEditorModel improvedModel;
+        private MapEditorFullModel model;
 
-        public MapEditorController(MapEditorModelOld model)
+        public MapEditorController(MapEditorFullModel model)
         {
             this.model = model;
-            this.improvedModel = new ImprovedMapEditorModel();
-        }
-
-        public MapEditorController(ImprovedMapEditorModel model)
-        {
-            this.model = null;
-            this.improvedModel = model;
         }
 
         public void saveScenario()
         {
-            if (improvedModel.GetScenario() != null)
+            if (model.GetScenario() != null)
             {
                 Stream saveStream;
                 SaveFileDialog saveMapDialog = new SaveFileDialog();
@@ -44,11 +36,11 @@ namespace ZRTSMapEditor
                     {
                         BinaryFormatter bin = new BinaryFormatter();
 
-                        ScenarioComponent scenario = improvedModel.GetScenario();
+                        ScenarioComponent scenario = model.GetScenario();
                         scenario.SetContainer(null);
                         bin.Serialize(saveStream, scenario);
                         saveStream.Close();
-                        improvedModel.AddChild(scenario);
+                        model.AddChild(scenario);
                         // TODO: Change so that the SaveInfo model is updated.
                     }
                 }
@@ -57,7 +49,7 @@ namespace ZRTSMapEditor
 
         public void loadScenario()
         {
-            if (improvedModel.GetScenario() != null)
+            if (model.GetScenario() != null)
             {
                 // TODO: Ask if the user wants to discard the current scenario.
             }
@@ -76,7 +68,7 @@ namespace ZRTSMapEditor
                 CreateObserverListVisitor visitor = new CreateObserverListVisitor();
                 scenario.Accept(visitor);
                 scenario.GetGameWorld().GetMap().SetCellsToBeContainedInMap();
-                improvedModel.AddChild(scenario);
+                model.AddChild(scenario);
 
                 // Invalidate the Scenario view.
                 scenario.GetGameWorld().NotifyAll();
@@ -103,7 +95,7 @@ namespace ZRTSMapEditor
             model.notifyAll();
             *************/
 
-            if (improvedModel.GetScenario() != null)
+            if (model.GetScenario() != null)
             {
                 // TODO: Ask if the user wants to discard the current scenario or save it.
             }
@@ -112,7 +104,7 @@ namespace ZRTSMapEditor
             // TODO: Update SaveInfo model to change filename and UpToDate flag.
             
             // Automatically discards old scenario, by overloaded AddChild function.
-            improvedModel.AddChild(scenario);
+            model.AddChild(scenario);
         }
 
 
@@ -144,16 +136,16 @@ namespace ZRTSMapEditor
             //Cell selectedCell = model.scenario.getGameWorld().map.getCell(x, y);
             //selectedCell.tile = tf.getTile(model.TileTypeSelected);
             //model.notifyAll();
-            CellComponent cell = improvedModel.GetScenario().GetGameWorld().GetMap().GetCellAt(x, y);
+            CellComponent cell = model.GetScenario().GetGameWorld().GetMap().GetCellAt(x, y);
             
             // Cell automatically removes old tile from overrided AddChild.
-            cell.AddChild(tf.GetImprovedTile(improvedModel.TileTypeSelected)); // TODO: Change to new improvedModel here.
+            cell.AddChild(tf.GetImprovedTile(model.TileTypeSelected)); // TODO: Change to new improvedModel here.
         }
 
         internal void selectTileType(string type)
         {
             // TODO Update to a proper interface.
-            improvedModel.TileTypeSelected = type;
+            model.TileTypeSelected = type;
 
             //model.TileTypeSelected = type;
             //model.SelectionType = SelectionType.Tile;
@@ -164,9 +156,9 @@ namespace ZRTSMapEditor
 
         internal void OpenPlayersForm()
         {
-            if (improvedModel.GetScenario() != null)
+            if (model.GetScenario() != null)
             {
-                PlayersForm form = new PlayersForm(improvedModel.GetScenario().GetGameWorld().GetPlayerList());
+                PlayersForm form = new PlayersForm(model.GetScenario().GetGameWorld().GetPlayerList());
                 form.ShowDialog();
             }
         }

@@ -6,16 +6,16 @@ using ZRTSModel;
 
 namespace ZRTSMapEditor.MapEditorModel
 {
-    public class ImprovedMapEditorModel : ModelComponent
+    public class MapEditorFullModel : ModelComponent
     {
         // TODO: Move to a component in the model (SelectionState)
         public String TileTypeSelected = null;
 
         public override void Accept(ModelComponentVisitor visitor)
         {
-            if (visitor is MapEditorModelVisitor)
+            if (visitor is MapEditorFullModelVisitor)
             {
-                ((MapEditorModelVisitor)visitor).Visit(this);
+                ((MapEditorFullModelVisitor)visitor).Visit(this);
             }
             else
             {
