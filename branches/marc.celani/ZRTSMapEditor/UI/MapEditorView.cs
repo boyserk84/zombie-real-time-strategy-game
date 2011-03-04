@@ -22,15 +22,12 @@ namespace ZRTSMapEditor
         public MapEditorView()
         {
             InitializeComponent();
-            MapEditorModelOld model = new MapEditorModelOld();
-            ImprovedMapEditorModel goodModel = new ImprovedMapEditorModel();
+            MapEditorFullModel goodModel = new MapEditorFullModel();
             this.controller = new MapEditorController(goodModel);
             // TODO Add all other views
             tilePalette.loadImageList();
             tilePalette.setController(controller);
             scenarioView1.setController(controller);
-            model.register(tilePalette);
-            model.register(scenarioView1);
 
             // TODO Remove this code, testing purposes only
             this.controller.createNewScenario();

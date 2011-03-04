@@ -39,17 +39,17 @@ namespace ZRTSMapEditor
             int removed = 0;
             foreach (PlayerDataGridAdapter adapter in adapters)
             {
-                canBeDone = canBeDone && adapter.CanBeDone();
-                if (!canBeDone)
-                {
-                    break;
-                }
                 if (adapter.RemovedMember)
                 {
                     removed++;
                 }
                 else
                 {
+                    canBeDone = canBeDone && adapter.CanBeDone();
+                    if (!canBeDone)
+                    {
+                        break;
+                    }
                     names[adapter.Player_Name] = true;
                 }
             }

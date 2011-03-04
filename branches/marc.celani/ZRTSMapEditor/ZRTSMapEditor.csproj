@@ -46,57 +46,55 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BetterScenarioView.cs">
+    <Compile Include="UI\BetterScenarioView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="BetterScenarioView.Designer.cs">
+    <Compile Include="UI\BetterScenarioView.Designer.cs">
       <DependentUpon>BetterScenarioView.cs</DependentUpon>
     </Compile>
-    <Compile Include="MapEditorCommand.cs" />
-    <Compile Include="MapEditorModelListener.cs" />
+    <Compile Include="Commands\MapEditorCommand.cs" />
     <Compile Include="MapEditorController.cs" />
-    <Compile Include="MapEditorModelOld.cs" />
-    <Compile Include="MapEditorModelVisitor.cs" />
+    <Compile Include="MapEditorModel\MapEditorFullModelVisitor.cs" />
     <Compile Include="MapEditorModel\CreateObserverListVisitor.cs" />
-    <Compile Include="MapEditorModel\ImprovedMapEditorModel.cs" />
-    <Compile Include="MapEditorView.cs">
+    <Compile Include="MapEditorModel\MapEditorFullModel.cs" />
+    <Compile Include="UI\MapEditorView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MapEditorView.Designer.cs">
+    <Compile Include="UI\MapEditorView.Designer.cs">
       <DependentUpon>MapEditorView.cs</DependentUpon>
     </Compile>
-    <Compile Include="PlayerDataGridAdapter.cs" />
-    <Compile Include="PlayerDataGridAdapterCommitter.cs" />
-    <Compile Include="PlayersForm.cs">
+    <Compile Include="Commands\PlayersFormCommands\PlayerDataGridAdapter.cs" />
+    <Compile Include="Commands\PlayersFormCommands\PlayerDataGridAdapterCommitter.cs" />
+    <Compile Include="UI\PlayersForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PlayersForm.Designer.cs">
+    <Compile Include="UI\PlayersForm.Designer.cs">
       <DependentUpon>PlayersForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ScenarioView.cs">
+    <Compile Include="UI\ScenarioView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ScenarioView.Designer.cs">
+    <Compile Include="UI\ScenarioView.Designer.cs">
       <DependentUpon>ScenarioView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Tile.cs">
+    <Compile Include="UI\Tile.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="TilePalette.cs">
+    <Compile Include="UI\TilePalette.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="TilePalette.Designer.cs">
+    <Compile Include="UI\TilePalette.Designer.cs">
       <DependentUpon>TilePalette.cs</DependentUpon>
     </Compile>
     <Compile Include="ZRTSMapEditor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="BetterScenarioView.resx">
+    <EmbeddedResource Include="UI\BetterScenarioView.resx">
       <DependentUpon>BetterScenarioView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MapEditorView.resx">
+    <EmbeddedResource Include="UI\MapEditorView.resx">
       <DependentUpon>MapEditorView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PlayersForm.resx">
+    <EmbeddedResource Include="UI\PlayersForm.resx">
       <DependentUpon>PlayersForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -108,10 +106,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="ScenarioView.resx">
+    <EmbeddedResource Include="UI\ScenarioView.resx">
       <DependentUpon>ScenarioView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TilePalette.resx">
+    <EmbeddedResource Include="UI\TilePalette.resx">
       <DependentUpon>TilePalette.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">

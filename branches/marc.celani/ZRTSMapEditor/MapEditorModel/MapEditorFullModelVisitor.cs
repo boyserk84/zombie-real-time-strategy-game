@@ -5,8 +5,8 @@ using System.Text;
 
 namespace ZRTSMapEditor.MapEditorModel
 {
-    public interface MapEditorModelVisitor
+    public interface MapEditorFullModelVisitor
     {
-        void Visit(ImprovedMapEditorModel model);
+        void Visit(MapEditorFullModel model);
     }
 }

@@ -11,7 +11,7 @@ using ZRTSModel.GameWorld;
 
 namespace ZRTSMapEditor
 {
-    public partial class TilePalette : UserControl, MapEditorModelListener 
+    public partial class TilePalette : UserControl 
     {
 
         ImageList tileList = new ImageList();
@@ -64,7 +64,7 @@ namespace ZRTSMapEditor
             return (string) tileListBox.SelectedItem;
         }
 
-        public void notify(MapEditorModelOld model)
+        /*public void notify(MapEditorModelOld model)
         {
             if (model.SelectionType == SelectionType.Tile)
             {
@@ -77,7 +77,7 @@ namespace ZRTSMapEditor
                 currentlyDisplayedTileType = null;
                 tilePreview.Image = null;
             }
-        }
+        }*/
 
     }
 }
