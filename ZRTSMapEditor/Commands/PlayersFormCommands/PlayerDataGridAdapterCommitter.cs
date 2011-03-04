@@ -21,9 +21,12 @@ namespace ZRTSMapEditor
 
         public void Do()
         {
-            foreach (PlayerDataGridAdapter adapter in adapters)
+            if (CanBeDone())
             {
-                adapter.Do();
+                foreach (PlayerDataGridAdapter adapter in adapters)
+                {
+                    adapter.Do();
+                }
             }
         }
 
