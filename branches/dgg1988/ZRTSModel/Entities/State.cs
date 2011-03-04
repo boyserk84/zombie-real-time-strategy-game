@@ -23,6 +23,7 @@ namespace ZRTSModel.Entities
                                         Attacking,  // Entity (a Unit) is attacking
                                         Dead,       // Entity is dead
                                         Harvesting, // Entity (a Unit) is harvesting a resource
+                                        Building,   // Entity is performing a BuildAction
                                         Remove };   // Entity should be removed.
 
         /// <summary>

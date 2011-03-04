@@ -121,5 +121,12 @@ namespace ZRTSLogic
             scenario.removeEntityFromPlayer(entity);
         }
 
+        public static float findDistance(float x1, float y1, float x2, float y2)
+        {
+            double dis = Math.Pow((double)(x1 - x2), 2) + Math.Pow((double)(y1 - y2), 2);
+            dis = Math.Sqrt(dis);
+            return (float)dis;
+        }
+
     }
 }

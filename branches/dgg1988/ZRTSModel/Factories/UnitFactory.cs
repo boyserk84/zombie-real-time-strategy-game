@@ -145,6 +145,10 @@ namespace ZRTSModel.Factories
             reader.ReadToFollowing("visibilityRange");
             stats.visibilityRange = reader.ReadContentAsFloat();
 
+            //buildSpeed
+            reader.ReadToFollowing("buildSpeed");
+            stats.buildSpeed = (byte)reader.ReadContentAsInt();
+
             //canAttack
             reader.ReadToFollowing("canAttack");
             stats.canAttack = reader.ReadElementContentAsBoolean();

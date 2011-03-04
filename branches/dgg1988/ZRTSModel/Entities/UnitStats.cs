@@ -14,6 +14,7 @@ namespace ZRTSModel.Entities
         public short attack = 10;
         public byte attackTicks = 10;
         public float visibilityRange = 6.0f;
+        public byte buildSpeed = 30;
 
 
         /** UNIT ABILITIES **/

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ZRTSModel.Entities;
-
+using ZRTSLogic;
 namespace ZRTSLogic.Action
 {
     /// <summary>
@@ -40,6 +40,7 @@ namespace ZRTSLogic.Action
             {
                 if (ticksSinceLastAttk % unit.stats.attackTicks == 0)
                 {
+                    unit.getState().setPrimaryState(State.PrimaryState.Attacking);
                     ticksSinceLastAttk = 0;
 
                     target.health -= unit.stats.attack;
@@ -66,10 +67,27 @@ namespace ZRTSLogic.Action
             {
                 Unit tUnit = (Unit)target;
 
-                double dis = Math.Sqrt(Math.Pow((tUnit.x - unit.x), 2) + Math.Pow(tUnit.y - unit.y,2));
-
-                Console.WriteLine(dis);
+                double dis = Math.Sqrt(Math.Pow((tUnit.x - unit.x), 2) + Math.Pow(tUnit.y - unit.y, 2));
                 return (dis <= unit.stats.attackRange);
+            }
+            else
+            {
+                StaticEntity se = (StaticEntity)(target);
+                float xC = se.orginCell.Xcoord;
+                float yC = se.orginCell.Ycoord;
+                short width = se.width;
+                short height = se.height;
+
+                for (int i = 0; i < width; i++)
+                {
+                    for (int j = 0; j < height; j++)
+                    {
+                        if (EntityLocController.findDistance(unit.x, unit.y, xC + i, yC + j) <= unit.stats.attackRange)
+                        {
+                            return true;
+                        }
+                    }
+                }
             }
 
             return false;
