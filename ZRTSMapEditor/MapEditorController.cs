@@ -9,6 +9,7 @@ using ZRTSModel.Scenario;
 using ZRTSModel.GameWorld;
 using ZRTSMapEditor.MapEditorModel;
 using ZRTSModel;
+using ZRTSMapEditor.UI;
 
 namespace ZRTSMapEditor
 {
@@ -99,12 +100,18 @@ namespace ZRTSMapEditor
             {
                 // TODO: Ask if the user wants to discard the current scenario or save it.
             }
-            ScenarioComponent scenario = new ScenarioComponent(20, 20);
+            CreateNewScenarioDialog dialog = new CreateNewScenarioDialog();
+            dialog.ShowDialog();
+
+            if (dialog.ExitWithCreate)
+            {
+                ScenarioComponent scenario = new ScenarioComponent(dialog.ScenarioWidth, dialog.ScenarioHeight);
+                // TODO: Update SaveInfo model to change filename and UpToDate flag.
+
+                // Automatically discards old scenario, by overloaded AddChild function.
+                model.AddChild(scenario);
+            }
             
-            // TODO: Update SaveInfo model to change filename and UpToDate flag.
-            
-            // Automatically discards old scenario, by overloaded AddChild function.
-            model.AddChild(scenario);
         }
 
 

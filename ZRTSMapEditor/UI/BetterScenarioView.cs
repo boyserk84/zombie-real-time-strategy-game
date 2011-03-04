@@ -45,6 +45,9 @@ namespace ZRTSMapEditor
                 if (gameworld != null)
                 {
                     gameworld.RegisterObserver(this);
+
+                    // Invalidate the view.
+                    gameworld.Accept(this);
                 }
             }
         }
