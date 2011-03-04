@@ -31,28 +31,30 @@ namespace ZRTSLogic.Action
         {
             State targetState = target.getState();
 
+            // End action if target is dead.
             if (targetState.getPrimaryState() == State.PrimaryState.Dead)
             {
                 return true;
             }
 
-            if (targetIsInRange())
-            {
-                if (ticksSinceLastAttk % unit.stats.attackTicks == 0)
-                {
-                    unit.getState().setPrimaryState(State.PrimaryState.Attacking);
-                    ticksSinceLastAttk = 0;
+            bool targetInRange = targetIsInRange();
 
-                    target.health -= unit.stats.attack;
-                    if (target.health <= 0)
-                    {
-                        targetState.setPrimaryState(State.PrimaryState.Dead);
-                        return true;
-                    }
+            // If target is not dead, is in range, and it is time to complete an attack cycle.
+            if (ticksSinceLastAttk % unit.stats.attackTicks == 0 && targetInRange)
+            {
+                unit.getState().setPrimaryState(State.PrimaryState.Attacking);
+                ticksSinceLastAttk = 0;
+
+                target.health -= unit.stats.attack;
+                if (target.health <= 0)
+                {
+                    targetState.setPrimaryState(State.PrimaryState.Dead);
+                    return true;
                 }
             }
-            else
+            else if (!targetInRange)
             {
+                // Target is out of range, end action.
                 return true;
             }
 

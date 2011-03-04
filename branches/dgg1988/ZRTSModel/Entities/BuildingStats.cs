@@ -19,6 +19,12 @@ namespace ZRTSModel.Entities
         // Can resources be dropped off at this building?
         public bool dropOffResources = false;
 
+        // Can this building produce units?
+        public bool canProduce = false;
+
+        // The types of units that this building can produce.
+        public List<string> productionTypes = new List<string>();
+
         public override string ToString()
         {
             string output = "Building Stats:\n";

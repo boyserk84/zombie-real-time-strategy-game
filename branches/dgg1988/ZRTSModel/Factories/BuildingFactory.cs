@@ -84,13 +84,16 @@ namespace ZRTSModel.Factories
             reader.ReadToFollowing("dropOffResources");
             bool dropOffResources = reader.ReadElementContentAsBoolean();
 
+            reader.ReadToFollowing("canProduce");
+            bool canProduce = reader.ReadElementContentAsBoolean();
+
             BuildingStats stats = statsDict[type];
             stats.buildingType = type;
             stats.width = width;
             stats.height = height;
             stats.maxHealth = maxHealth;
-            //stats.buildCycles = buildCycles;
             stats.dropOffResources = dropOffResources;
+            stats.canProduce = canProduce;
         }
 
         private string readFile(string fileName)

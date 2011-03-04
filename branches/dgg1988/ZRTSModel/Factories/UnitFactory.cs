@@ -105,7 +105,9 @@ namespace ZRTSModel.Factories
                     reader.ReadToFollowing("Unit");
                     string s = reader.ReadElementContentAsString();
                     unitPrefixes.Add(s);
-                    stats.Add(s, new UnitStats());
+                    UnitStats uStat = new UnitStats();
+                    uStat.type = s;
+                    stats.Add(s, uStat);
                 }
                 catch
                 {
@@ -148,6 +150,22 @@ namespace ZRTSModel.Factories
             //buildSpeed
             reader.ReadToFollowing("buildSpeed");
             stats.buildSpeed = (byte)reader.ReadContentAsInt();
+
+            //waterCost
+            reader.ReadToFollowing("waterCost");
+            stats.waterCost = (byte)reader.ReadContentAsInt();
+
+            //foodCost
+            reader.ReadToFollowing("foodCost");
+            stats.foodCost = (byte)reader.ReadContentAsInt();
+
+            //lumberCost
+            reader.ReadToFollowing("lumberCost");
+            stats.lumberCost = (byte)reader.ReadContentAsInt();
+
+            //metalCost
+            reader.ReadToFollowing("metalCost");
+            stats.metalCost = (byte)reader.ReadContentAsInt();
 
             //canAttack
             reader.ReadToFollowing("canAttack");

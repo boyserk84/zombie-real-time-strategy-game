@@ -34,10 +34,14 @@ namespace ZRTSLogic
 
                 if (command.work())
                 {
+                    // Action is done, remove and set Entity's state to idle.
                     actionQueue.RemoveAt(0);
+                    entity.getState().setPrimaryState(State.PrimaryState.Idle);
                 }
+
                 if (entity.entityType == Entity.EntityType.Unit)
                 {
+                    // Unit may have moved, update it's location in the GameWorld.
                     locController.updateUnitLocation((Unit)entity);
                 }
             }
@@ -56,6 +60,8 @@ namespace ZRTSLogic
             {
                 return false;
             }
+
+            // Commands that only Units can execute.
             else if (command.actionType == ActionCommand.ActionType.Move || command.actionType == ActionCommand.ActionType.SimpleAttack
                         || command.actionType == ActionCommand.ActionType.BuildBuilding)
             {
@@ -82,6 +88,12 @@ namespace ZRTSLogic
             return true;
         }
 
+        /// <summary>
+        /// This function will insert a command at the beginning of an Entity's action queue. This will interrupt the action currently
+        /// being performed (if any) by the entity.
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="command"></param>
         public static void insertIntoActionQueue(Entity entity, ActionCommand command)
         {
             entity.getActionQueue().Insert(0, command);

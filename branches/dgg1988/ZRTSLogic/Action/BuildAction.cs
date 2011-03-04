@@ -10,7 +10,13 @@ namespace ZRTSLogic.Action
     /// <summary>
     /// This class will represent an Action that can be given to a unit to tell that unit to "build" a building.
     /// 
-    /// Note: This action assumes that the Building is already inserted into the GameWorld.
+    /// Note: This action assumes that the Building is already inserted into the GameWorld. This action does not deduct the 
+    /// resources required to build the Building from the Player.
+    /// 
+    /// When a Unit is given a BuildAction, it will move towards the building until it is adjacent to the building. Then, for every
+    /// build cycle (which occurs every TICKS_PER_CYCLE ticks), the current health of the building will be increased by the Unit's
+    /// "buildSpeed" until the building is at maximum health. Then the buildings "isComplete" flag will be set to true, indicating that
+    /// the building has been completed.
     /// </summary>
     public class BuildAction : ActionCommand
     {
@@ -32,6 +38,10 @@ namespace ZRTSLogic.Action
             this.gw = gw;
         }
 
+        /// <summary>
+        /// This function will perform a building cycle if the number of ticks since the last cycle is equal to TICKS_PER_CYCLE.
+        /// </summary>
+        /// <returns>true if the building is complete and the action is finished, false otherwise.</returns>
         public bool work()
         {
             // Building is complete, finish action.
@@ -48,7 +58,7 @@ namespace ZRTSLogic.Action
 
             if (curTicks % TICKS_PER_CYCLE == 0)
             {
-
+                // Check if unit is adjacent to building.
                 if (isUnitNextToBuilding())
                 {
                     unit.getState().setPrimaryState(State.PrimaryState.Building);
@@ -67,7 +77,7 @@ namespace ZRTSLogic.Action
                 }
                 else
                 {
-                    // Move towards the building.
+                    // Move towards the building. Insert a move action into the Unit's action queue.
                     Cell targetCell = EntityLocController.findClosestCell(unit, building, gw);
                     MoveAction moveAction = new MoveAction(targetCell.Xcoord, targetCell.Ycoord, gw, unit);
                     ActionController.insertIntoActionQueue(unit, moveAction);
@@ -78,6 +88,10 @@ namespace ZRTSLogic.Action
             return false;
         }
 
+        /// <summary>
+        /// This function checks if the unit is occupying a Cell next to the building.
+        /// </summary>
+        /// <returns>true if the unit is next to the building, false otherwise.</returns>
         private bool isUnitNextToBuilding()
         {
             float xC = building.orginCell.Xcoord;
