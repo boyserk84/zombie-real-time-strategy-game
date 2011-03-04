@@ -57,6 +57,12 @@
     <Compile Include="MapEditorModel\MapEditorFullModelVisitor.cs" />
     <Compile Include="MapEditorModel\CreateObserverListVisitor.cs" />
     <Compile Include="MapEditorModel\MapEditorFullModel.cs" />
+    <Compile Include="UI\CreateNewScenarioDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\CreateNewScenarioDialog.Designer.cs">
+      <DependentUpon>CreateNewScenarioDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\MapEditorView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,6 +96,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="UI\BetterScenarioView.resx">
       <DependentUpon>BetterScenarioView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\CreateNewScenarioDialog.resx">
+      <DependentUpon>CreateNewScenarioDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MapEditorView.resx">
       <DependentUpon>MapEditorView.cs</DependentUpon>
