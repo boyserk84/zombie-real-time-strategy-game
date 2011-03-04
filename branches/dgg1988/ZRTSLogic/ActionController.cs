@@ -56,7 +56,8 @@ namespace ZRTSLogic
             {
                 return false;
             }
-            else if (command.actionType == ActionCommand.ActionType.Move || command.actionType == ActionCommand.ActionType.SimpleAttack)
+            else if (command.actionType == ActionCommand.ActionType.Move || command.actionType == ActionCommand.ActionType.SimpleAttack
+                        || command.actionType == ActionCommand.ActionType.BuildBuilding)
             {
                 return handleUnitCommand(entity, command);
             }
@@ -79,6 +80,11 @@ namespace ZRTSLogic
             // Give the entity the command.
             entity.getActionQueue().Add(command);
             return true;
+        }
+
+        public static void insertIntoActionQueue(Entity entity, ActionCommand command)
+        {
+            entity.getActionQueue().Insert(0, command);
         }
     }
 }

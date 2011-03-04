@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ZRTSModel.Entities;
+using ZRTSModel.GameWorld;
 
 namespace ZRTSLogic.Action
 {
@@ -15,6 +16,7 @@ namespace ZRTSLogic.Action
     {
         Building building;
         Unit unit;
+        GameWorld gw;
         short TICKS_PER_CYCLE = 20;
         short curTicks = 0;
 
@@ -22,11 +24,12 @@ namespace ZRTSLogic.Action
         /// </summary>
         /// <param name="building"></param>
         /// <param name="unit"></param>
-        public BuildAction(Building building, Unit unit)
+        public BuildAction(Building building, Unit unit, GameWorld gw)
         {
             this.building = building;
             this.unit = unit;
             this.actionType = ActionType.BuildBuilding;
+            this.gw = gw;
         }
 
         public bool work()
@@ -64,8 +67,10 @@ namespace ZRTSLogic.Action
                 }
                 else
                 {
-                    //TODO: Move towards building.
-
+                    // Move towards the building.
+                    Cell targetCell = EntityLocController.findClosestCell(unit, building, gw);
+                    MoveAction moveAction = new MoveAction(targetCell.Xcoord, targetCell.Ycoord, gw, unit);
+                    ActionController.insertIntoActionQueue(unit, moveAction);
                 }
             }
 
@@ -73,7 +78,7 @@ namespace ZRTSLogic.Action
             return false;
         }
 
-        public bool isUnitNextToBuilding()
+        private bool isUnitNextToBuilding()
         {
             float xC = building.orginCell.Xcoord;
             float yC = building.orginCell.Ycoord;

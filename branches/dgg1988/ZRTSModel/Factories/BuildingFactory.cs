@@ -73,16 +73,13 @@ namespace ZRTSModel.Factories
             string type = reader.ReadElementContentAsString();
 
             reader.ReadToFollowing("width");
-            short width = (short)reader.ReadElementContentAsInt();
+            byte width = (byte)reader.ReadElementContentAsInt();
 
             reader.ReadToFollowing("height");
-            short height = (short)reader.ReadElementContentAsInt();
+            byte height = (byte)reader.ReadElementContentAsInt();
 
             reader.ReadToFollowing("maxHealth");
             short maxHealth = (short)reader.ReadElementContentAsInt();
-
-            reader.ReadToFollowing("buildCycles");
-            short buildCycles = (short)reader.ReadElementContentAsInt();
 
             reader.ReadToFollowing("dropOffResources");
             bool dropOffResources = reader.ReadElementContentAsBoolean();
@@ -92,7 +89,7 @@ namespace ZRTSModel.Factories
             stats.width = width;
             stats.height = height;
             stats.maxHealth = maxHealth;
-            stats.buildCycles = buildCycles;
+            //stats.buildCycles = buildCycles;
             stats.dropOffResources = dropOffResources;
         }
 

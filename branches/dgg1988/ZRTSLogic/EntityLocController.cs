@@ -121,6 +121,11 @@ namespace ZRTSLogic
             scenario.removeEntityFromPlayer(entity);
         }
 
+
+        /** STATIC FUNCTIONS 
+         *  The functions below are meant to be common helper functions.
+         * **/
+
         public static float findDistance(float x1, float y1, float x2, float y2)
         {
             double dis = Math.Pow((double)(x1 - x2), 2) + Math.Pow((double)(y1 - y2), 2);
@@ -128,5 +133,36 @@ namespace ZRTSLogic
             return (float)dis;
         }
 
+
+        /// <summary>
+        /// This method will find the cell closest to 'unit' that 'entity' is currently occupying.
+        /// </summary>
+        /// <param name="unit"></param>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public static Cell findClosestCell(Unit unit, StaticEntity se, GameWorld gw)
+        {
+            Cell cell = null;
+            float dis = 10000;
+
+            short xC = se.orginCell.Xcoord;
+            short yC = se.orginCell.Ycoord;
+            short width = se.width;
+            short height = se.height;
+
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    if (EntityLocController.findDistance(unit.x, unit.y, xC + i, yC + j) <= dis)
+                    {
+                        cell = gw.map.getCell(xC + i, xC + j);
+                        dis = EntityLocController.findDistance(unit.x, unit.y, xC + i, yC + j);
+                    }
+                }
+            }
+
+            return cell;
+        }
     }
 }
