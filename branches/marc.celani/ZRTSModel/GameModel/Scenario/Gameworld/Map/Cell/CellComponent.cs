@@ -47,11 +47,8 @@ namespace ZRTSModel
             }
             foreach (ModelComponent component in toRemove)
             {
-                // Called in this manner to avoid the NotifyAll in RemoveChild().
-                GetChildren().Remove(component);
-                
+                RemoveChild(component); 
             }
-            // Handles the nofity.
             base.AddChild(child);
         }
 

@@ -10,6 +10,7 @@ using ZRTSModel.GameWorld;
 using ZRTSMapEditor.MapEditorModel;
 using ZRTSModel;
 using ZRTSMapEditor.UI;
+using ZRTSMapEditor.Commands.MapEditorViewCommands;
 
 namespace ZRTSMapEditor
 {
@@ -140,13 +141,14 @@ namespace ZRTSMapEditor
         internal void updateCellType(int x, int y)
         {
             TileFactory tf = TileFactory.Instance;
-            //Cell selectedCell = model.scenario.getGameWorld().map.getCell(x, y);
-            //selectedCell.tile = tf.getTile(model.TileTypeSelected);
-            //model.notifyAll();
             CellComponent cell = model.GetScenario().GetGameWorld().GetMap().GetCellAt(x, y);
-            
-            // Cell automatically removes old tile from overrided AddChild.
-            cell.AddChild(tf.GetImprovedTile(model.TileTypeSelected)); // TODO: Change to new improvedModel here.
+            ZRTSModel.Tile tile = tf.GetImprovedTile(model.TileTypeSelected);
+            ChangeCellTileCommand command = new ChangeCellTileCommand(cell, tile);
+
+            if (command.CanBeDone())
+            {
+                model.GetCommandStack().ExecuteCommand(command);
+            }
         }
 
         internal void selectTileType(string type)
@@ -168,6 +170,16 @@ namespace ZRTSMapEditor
                 PlayersForm form = new PlayersForm(model.GetScenario().GetGameWorld().GetPlayerList());
                 form.ShowDialog();
             }
+        }
+
+        internal void UndoLastCommand()
+        {
+            model.GetCommandStack().UndoLastCommand();
+        }
+
+        internal void RedoLastUndoCommand()
+        {
+            model.GetCommandStack().RedoLastUndoneCommand();
         }
     }
 }
