@@ -129,21 +129,24 @@ namespace ZRTSMapEditor
 
         public void Do()
         {
-            if (!removed)
+            if (CanBeDone())
             {
-                data.SetName(name);
-                data.SetRace(race);
-                data.SetGold(gold);
-                data.SetWood(wood);
-                data.SetMetal(metal);
-                if (added)
+                if (!removed)
                 {
-                    playerList.AddChild(data);
+                    data.SetName(name);
+                    data.SetRace(race);
+                    data.SetGold(gold);
+                    data.SetWood(wood);
+                    data.SetMetal(metal);
+                    if (added)
+                    {
+                        playerList.AddChild(data);
+                    }
                 }
-            }
-            else
-            {
-                playerList.RemoveChild(data);
+                else
+                {
+                    playerList.RemoveChild(data);
+                }
             }
         }
 
