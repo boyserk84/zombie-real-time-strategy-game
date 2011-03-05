@@ -19,11 +19,13 @@ namespace ZRTSLogic
 
         Scenario scenario;
         GameWorld gw;
+		VisibilityMapLogic visMapLogic;
 
-        public EntityLocController(Scenario scenario)
+        public EntityLocController(Scenario scenario, VisibilityMapLogic visMapLogic)
         {
             this.scenario = scenario;
             this.gw = scenario.getGameWorld();
+			this.visMapLogic = visMapLogic;
         }
 
         /// <summary>
@@ -89,6 +91,9 @@ namespace ZRTSLogic
                 // NOTE: doesn't check if newCell is already occupied.
                 unit.setCell(newCell);
                 newCell.setUnit(unit);
+
+				// Update the visibility map.
+				this.visMapLogic.updateVisMap(unit);
             }
         }
 

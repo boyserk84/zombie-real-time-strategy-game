@@ -29,8 +29,7 @@ namespace ZRTSLogic
 		/// <param name="unit"></param>
 		public void updateVisMap(Unit unit)
 		{
-			byte range = (byte)unit.stats.visibilityRange;
-			byte offset = (byte)(range / 2);
+			byte offset = (byte)unit.stats.visibilityRange;
 
 			int xStart = (short)unit.x - offset;
 			int xEnd = (short)unit.x + offset;

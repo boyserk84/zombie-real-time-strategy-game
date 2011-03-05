@@ -56,7 +56,8 @@ namespace ZRTSLogic
             this.scenario = scenario;
             this.gameWorld = this.scenario.getGameWorld();
             this.actionController = new ActionController(scenario);
-            this.locController = new EntityLocController(scenario);
+			this.visMapLogic = new VisibilityMapLogic(scenario.getGameWorld());
+            this.locController = new EntityLocController(scenario, this.visMapLogic);
             
         }
 
