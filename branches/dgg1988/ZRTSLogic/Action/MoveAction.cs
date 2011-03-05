@@ -47,8 +47,6 @@ namespace ZRTSLogic.Action
             float startX = unit.x;
             float startY = unit.y;
 
-            Console.WriteLine(targetX);
-
             if ((int)targetX >= gw.map.width || (int)targetX < 0 || (int)targetY >= gw.map.height || (int)targetY < 0)
             {
                 // Invalid target position.
@@ -162,11 +160,13 @@ namespace ZRTSLogic.Action
         /// </summary>
         private void moveMiddle()
         {
+			float speed = (unit.stats.speed * (float)unit.speedBuff);
+
             // Need to move along the diagonal.
             if (!(targetCell.Ycoord + 0.5 == unit.y) && !(targetCell.Xcoord + 0.5f == unit.x))
             {
 
-                if (Math.Sqrt(Math.Pow(targetCell.Ycoord + 0.5f - unit.y, 2) + Math.Pow(targetCell.Xcoord + 0.5f - unit.x, 2)) <= unit.stats.speed)
+                if (Math.Sqrt(Math.Pow(targetCell.Ycoord + 0.5f - unit.y, 2) + Math.Pow(targetCell.Xcoord + 0.5f - unit.x, 2)) <= speed)
                 {
                     // We are within |unit.speed| of the targetCell's center, set unit's position to center.
                     unit.x = targetCell.Xcoord + 0.5f;
@@ -175,30 +175,30 @@ namespace ZRTSLogic.Action
                 else if (unit.x > targetCell.Xcoord + 0.5f && unit.y > targetCell.Ycoord + 0.5f)
                 {
                     // Need to move left and up. (NW)
-                    unit.x += -unit.stats.speed / 1.41f;
-                    unit.y += -unit.stats.speed / 1.41f;
+                    unit.x += -speed / 1.41f;
+                    unit.y += -speed / 1.41f;
                     unit.orientation = Unit.Orientation.NW;
 
                 }
                 else if (unit.x > targetCell.Xcoord + 0.5f && unit.y <= targetCell.Ycoord + 0.5f)
                 {
                     // Need to move left and down (SW)
-                    unit.x += -unit.stats.speed / 1.41f;
-                    unit.y += unit.stats.speed / 1.41f;
+                    unit.x += -speed / 1.41f;
+                    unit.y += speed / 1.41f;
                     unit.orientation = Unit.Orientation.SW;
                 }
                 else if (unit.x < targetCell.Xcoord + 0.5f && unit.y > targetCell.Ycoord + 0.5f)
                 {
                     // Need to move right and up (NE)
-                    unit.x += unit.stats.speed / 1.41f;
-                    unit.y += -unit.stats.speed / 1.41f;
+                    unit.x += speed / 1.41f;
+                    unit.y += -speed / 1.41f;
                     unit.orientation = Unit.Orientation.NE;
                 }
                 else
                 {
                     // Need to move right and down (SE)
-                    unit.x += unit.stats.speed / 1.41f;
-                    unit.y += unit.stats.speed / 1.41f;
+                    unit.x += speed / 1.41f;
+                    unit.y += speed / 1.41f;
                     unit.orientation = Unit.Orientation.SE;
                 }
 
@@ -206,9 +206,9 @@ namespace ZRTSLogic.Action
             else if (unit.x > targetCell.Xcoord + 0.5f) // Need to move left (W)
             {
                 // Are we within unit.speed of the target cell center?
-                if (Math.Abs(unit.x - (targetCell.Xcoord + 0.5f)) > unit.stats.speed)
+                if (Math.Abs(unit.x - (targetCell.Xcoord + 0.5f)) > speed)
                 {
-                    unit.x -= unit.stats.speed;
+                    unit.x -= speed;
                     unit.orientation = Unit.Orientation.W;
                 }
                 else
@@ -219,9 +219,9 @@ namespace ZRTSLogic.Action
             }
             else if (unit.x < targetCell.Xcoord + 0.5f) // Need to move right (E)
             {
-                if (Math.Abs(unit.x - (targetCell.Xcoord + 0.5f)) > unit.stats.speed)
+                if (Math.Abs(unit.x - (targetCell.Xcoord + 0.5f)) > speed)
                 {
-                    unit.x += unit.stats.speed;
+                    unit.x += speed;
                     unit.orientation = Unit.Orientation.E;
                 }
                 else
@@ -232,9 +232,9 @@ namespace ZRTSLogic.Action
             }
             else if (unit.y > targetCell.Ycoord + 0.5f) // Need to move down (S)
             {
-                if (Math.Abs(unit.y - (targetCell.Ycoord + 0.5f)) > unit.stats.speed)
+                if (Math.Abs(unit.y - (targetCell.Ycoord + 0.5f)) > speed)
                 {
-                    unit.y -= unit.stats.speed;
+                    unit.y -= speed;
                     unit.orientation = Unit.Orientation.S;
                 }
                 else
@@ -245,9 +245,9 @@ namespace ZRTSLogic.Action
             }
             else if (unit.y < targetCell.Ycoord + 0.5f) // Need to move up (N)
             {
-                if (Math.Abs(unit.y - (targetCell.Ycoord + 0.5f)) > unit.stats.speed)
+                if (Math.Abs(unit.y - (targetCell.Ycoord + 0.5f)) > speed)
                 {
-                    unit.y += unit.stats.speed;
+                    unit.y += speed;
                     unit.orientation = Unit.Orientation.N;
                 }
                 else

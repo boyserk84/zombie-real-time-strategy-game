@@ -266,9 +266,17 @@ namespace ZRTSModel.Factories
                 listWriter.WriteElementString("speed", s.speed.ToString());
                 listWriter.WriteElementString("attackRange", s.attackRange.ToString());
                 listWriter.WriteElementString("attack", s.attack.ToString());
+				listWriter.WriteElementString("attackTicks", s.attackTicks.ToString());
+				listWriter.WriteElementString("visibilityRange", s.visibilityRange.ToString());
+				listWriter.WriteElementString("buildSpeed", s.buildSpeed.ToString());
+				listWriter.WriteElementString("waterCost", s.waterCost.ToString());
+				listWriter.WriteElementString("foodCost", s.foodCost.ToString());
+				listWriter.WriteElementString("lumberCost", s.lumberCost.ToString());
+				listWriter.WriteElementString("metalCost", s.metalCost.ToString());
                 listWriter.WriteElementString("canAttack", s.canAttack.ToString());
                 listWriter.WriteElementString("canHarvest", s.canHarvest.ToString());
                 listWriter.WriteElementString("canBuild", s.canBuild.ToString());
+				listWriter.WriteElementString("isZombie", s.isZombie.ToString());
 
                 listWriter.WriteEndElement();
             }

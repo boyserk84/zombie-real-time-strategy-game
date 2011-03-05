@@ -10,8 +10,8 @@ namespace ZRTSModel.Entities
         public string buildingType;
 
         // Dimensions of the building
-        public byte width = 1;
-        public byte height = 1;
+        public byte width = 2;
+        public byte height = 2;
 
         // Max Health of the building
         public short maxHealth = 2000;

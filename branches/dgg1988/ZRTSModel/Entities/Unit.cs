@@ -15,6 +15,15 @@ namespace ZRTSModel.Entities
         /** UNIT STATS **/
         public UnitStats stats;
 
+		/// <summary>
+		/// Used to give a Unit an attack bonus ( greater than 1.0) or penalty (less than 1.0)
+		/// </summary>
+		public double attackBuff = 1.0;
+
+		/// <summary>
+		/// Used to give a Unit a movement speed bonus or penalty.
+		/// </summary>
+		public double speedBuff = 1.0;
 
         /** UNIT LOCATION INFO **/
         Cell myCell;        // The cell the unit currently occupies

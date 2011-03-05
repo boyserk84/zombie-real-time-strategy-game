@@ -44,7 +44,6 @@ namespace ZRTSLogic.Action
         /// <returns>true if the building is complete and the action is finished, false otherwise.</returns>
         public override bool work()
         {
-			Console.WriteLine("work");
             // Building is complete, finish action.
             if (building.health == building.stats.maxHealth)
             {
@@ -104,7 +103,7 @@ namespace ZRTSLogic.Action
             {
                 for (int j = 0; j < height; j++)
                 {
-                    if (EntityLocController.findDistance(unit.x, unit.y, xC + i, yC + j) <= 1.0)
+                    if (EntityLocController.findDistance(unit.x, unit.y, xC + i, yC + j) <= 1.99)
                     {
                         return true;
                     }

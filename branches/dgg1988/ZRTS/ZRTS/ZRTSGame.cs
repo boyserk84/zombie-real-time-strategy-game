@@ -155,8 +155,8 @@ namespace ZRTS
             // Dummy unit
             //this.testScenario.getGameWorld().getUnits().Add(new ZRTSModel.Entities.Unit(0, 20, 100, 50, 0));
             /** NOTE: Adding Entities should be done through the Controller from now on **/
-            this.testGameController.addUnit(new ZRTSModel.Entities.Unit(testGameController.scenario.getWorldPlayer(), 20, 50, 0), 5, 10);
-            this.testGameController.addUnit(new ZRTSModel.Entities.Unit(testGameController.scenario.getWorldPlayer(), 20, 50, 0), 10, 5);
+            this.testGameController.addUnit(new ZRTSModel.Entities.Unit(testGameController.scenario.getWorldPlayer(), 20), 5, 10);
+            this.testGameController.addUnit(new ZRTSModel.Entities.Unit(testGameController.scenario.getWorldPlayer(), 20), 10, 5);
 
             input = new MouseState();
             prevInput = input;

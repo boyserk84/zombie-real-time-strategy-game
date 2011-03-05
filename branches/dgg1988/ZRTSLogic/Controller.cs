@@ -34,6 +34,9 @@ namespace ZRTSLogic
         // Controls adding, removing, and moving entities.
         EntityLocController locController;
 
+		// Updates the visibilty map
+		VisibilityMapLogic visMapLogic;
+
         /// <summary>
         /// This method will take a Scenario as input and will create a Controller object for that Scenario.
         /// </summary>

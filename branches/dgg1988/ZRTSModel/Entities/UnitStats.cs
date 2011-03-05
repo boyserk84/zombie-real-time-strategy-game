@@ -17,6 +17,7 @@ namespace ZRTSModel.Entities
         public float visibilityRange = 6.0f;// How far can the unit see.
         public byte buildSpeed = 30;        // How much health a building gets per build cycle the Unit completes when building or repairing a building.
 
+		/** PRODUCTION COSTS **/
         public byte waterCost = 0;
         public byte foodCost = 0;
         public byte lumberCost = 0;
