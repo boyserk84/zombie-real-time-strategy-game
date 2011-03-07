@@ -35,7 +35,6 @@ namespace ZRTSModel.Scenario
             player = new Player.Player(PLAYER);
             zombiePlayer = new Player.Player(ZOMBIE_PLAYER);
             gameWorld = new GameWorld.GameWorld(width, height);
-            //unitsInArea = new List<Entities.Entity>();
         }
 
         public Player.Player getPlayer() { return this.player; }
@@ -54,7 +53,7 @@ namespace ZRTSModel.Scenario
 
       
         /// <summary>
-        /// Return a unit at a particular cell on the map
+        /// Return a single unit at a particular cell on the map
         /// </summary>
         /// <param name="col"></param>
         /// <param name="row"></param>
@@ -72,11 +71,9 @@ namespace ZRTSModel.Scenario
         /// <param name="xoffset">Column offset</param>
         /// <param name="yoffset">Row offset</param>
         /// <returns>List of all units within that boundary</returns>
-        public void getUnits(int s_col, int s_row, int xoffset, int yoffset, int flag /* remove flag parameter after deprecated version is eliminated */)
+        public void getUnits(int s_col, int s_row, int xoffset, int yoffset)
         {
-            //(1) Clear the list from the viewobserver
-            //viewSelectObserver.removeEverything();  // TODO: remove?
-
+            // Create a temporary selected list
             List<ZRTSModel.Entities.Entity> unitList = new List<ZRTSModel.Entities.Entity>();
 
             for (int row = s_row; row <= s_row + yoffset; ++row)
@@ -85,10 +82,7 @@ namespace ZRTSModel.Scenario
                 {
                     if (this.getUnit(col, row) != null)
                     {
-                        // (3) Having ViewSelect to add the new unit instead
-                        //viewSelectObserver.addUnit(this.getUnit(col, row));
                         unitList.Add(this.getUnit(col, row));
-                        //unitsInArea.Add(this.getUnit(col, row));
                     }
                 }//for
             }//for
@@ -98,36 +92,16 @@ namespace ZRTSModel.Scenario
             if (unitList.Count > 0)
             {
                 viewSelectObserver.getSelectedUnits = unitList;
-                this.player.selectEntities(unitList);
+                player.selectEntities(viewSelectObserver.getSelectedUnits);
             }
+
             this.notify();
         }
 
         /// <summary>
-        /// [DEPRECATED] return all units within a boundary
+        /// Insert an entity into a player
         /// </summary>
-        /// <param name="s_col"></param>
-        /// <param name="s_row"></param>
-        /// <param name="xoffset"></param>
-        /// <param name="yoffset"></param>
-        /// <returns></returns>
-        public List<ZRTSModel.Entities.Entity> getUnits(int s_col, int s_row, int xoffset, int yoffset)
-        {
-            List<ZRTSModel.Entities.Entity> buildinglist = new List<ZRTSModel.Entities.Entity>();
-            for (int row = s_row; row <= s_row + yoffset; ++row)
-            {
-                for (int col = s_col; col <= s_col + xoffset; ++col)
-                {
-                    if (this.getUnit(col, row) != null)
-                    {
-                        buildinglist.Add(this.getUnit(col, row));
-                    }
-                }//for
-            }//for
-            return buildinglist;
-        }
-
-
+        /// <param name="entity">Added entity</param>
         public void insertEntityIntoPlayer(Entities.Entity entity)
         {
             Player.Player owner = entity.getOwner();
@@ -145,6 +119,10 @@ namespace ZRTSModel.Scenario
             }
         }
 
+        /// <summary>
+        /// Remove entity from a player
+        /// </summary>
+        /// <param name="entity">Removed entity</param>
         public void removeEntityFromPlayer(Entities.Entity entity)
         {
             Player.Player owner = entity.getOwner();
