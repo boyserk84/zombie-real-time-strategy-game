@@ -1,4 +1,4 @@
-#labels Phase-Design,Phase-Requirements
+#labels Phase-Design,Phase-Requirements,Overviewofhowobserverpatternworkswithmodelandview.
 #How observer pattern applied to the view and model?
 
 = Introduction =
