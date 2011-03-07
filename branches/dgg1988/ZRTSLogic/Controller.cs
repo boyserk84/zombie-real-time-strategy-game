@@ -28,9 +28,6 @@ namespace ZRTSLogic
         public GameWorld gameWorld;
         public Scenario scenario;
 
-        // Controls all actions that entities may do.
-        ActionController actionController;
-
         // Controls adding, removing, and moving entities.
         EntityLocController locController;
 
@@ -55,8 +52,7 @@ namespace ZRTSLogic
         {
             this.scenario = scenario;
             this.gameWorld = this.scenario.getGameWorld();
-            this.actionController = new ActionController(scenario);
-			this.visMapLogic = new VisibilityMapLogic(scenario.getGameWorld());
+			this.visMapLogic = new VisibilityMapLogic(scenario.getGameWorld(), scenario.getPlayer());
             this.locController = new EntityLocController(scenario, this.visMapLogic);
             
         }
@@ -69,31 +65,17 @@ namespace ZRTSLogic
         {
             List<Entity> entitiesToRemove = new List<Entity>();
 
-            /** Have Units perform actions **/
+			// Update all units.
             foreach (Unit u in gameWorld.getUnits())
             {
-                actionController.update(u, locController);
-                checkDeath(u);
-
-                if (u.getState().getPrimaryState() == State.PrimaryState.Remove)
-                {
-                    entitiesToRemove.Add(u);
-                }
+				updateEntity(u, entitiesToRemove);
             }
 
-            /** Have Buildings perform actions **/
+			// Update all buildings.
             foreach (Building b in gameWorld.getBuildings())
             {
-                actionController.update(b, locController);
-                checkDeath(b);
-
-                if (b.getState().getPrimaryState() == State.PrimaryState.Remove)
-                {
-                    entitiesToRemove.Add(b);
-                }
+				updateEntity(b, entitiesToRemove);
             }
-
-            /** Handle any Events that have been generated **/
 
 
             /** Remove any entities **/
@@ -105,6 +87,49 @@ namespace ZRTSLogic
             curTick++;
         }
 
+		/// <summary>
+		/// The basic outline of the updateEntity method is as follows:
+		/// 1, Have the entity perform the current action at the top of it's action queue (if any)
+		/// 2, Check for changes in the entity's stats. (ex: check for death.)
+		/// 3, Have the Entity react to any Events that occur within it's visibility range.
+		/// (Events that either occur to the Entity or events that the Entity can "see")
+		/// 4, Check if the Entity should be removed from the game. (When it's primary state is set to Remove.)
+		/// </summary>
+		/// <param name="entity"></param>
+		/// <param name="entitiesToRemove"></param>
+		private void updateEntity(Entity entity, List<Entity> entitiesToRemove)
+		{
+			/*** Have entity perform it's current action (if any) ***/
+			ActionController.Instance.update(entity, locController);
+
+			Entity.EntityType type = entity.getEntityType();
+			/*** Update stats of Entity ***/
+			if (type == Entity.EntityType.Unit)
+			{
+				UnitStatsLogic.updateUnit((Unit)entity, curTick);
+			}
+			else
+			{
+				// Only Stats update occurs upon death of any StaticEntity right?
+				if (entity.health <= 0)
+				{
+					entity.getState().setPrimaryState(State.PrimaryState.Dead);
+				}
+			}
+
+			/*** Have Entity react to any Events ***/
+			if (type == Entity.EntityType.Unit) // Only Units really need to react to Events.
+			{
+
+			}
+
+			/*** Remove Entity if it needs to be removed. ***/
+			if (entity.getState().getPrimaryState() == State.PrimaryState.Remove)
+			{
+				entitiesToRemove.Add(entity);
+			}
+		}
+
         /// <summary>
         /// Given an Entity and an ActionCommand, this function will attempt to give the Entity the ActionCommand
         /// </summary>
@@ -113,7 +138,7 @@ namespace ZRTSLogic
         /// <returns>false if the command was rejected, true if the command was accepted.</returns>
         public bool giveActionCommand(Entity entity, ActionCommand command)
         {
-            return actionController.giveCommand(entity, command);
+            return ActionController.Instance.giveCommand(entity, command);
         }
 
         /// <summary>
@@ -140,33 +165,13 @@ namespace ZRTSLogic
             return locController.addEntity(unit, x, y);
         }
 
-        public bool removeEntity(Entity entity)
+		/// <summary>
+		/// Removes an Entity from the game.
+		/// </summary>
+		/// <param name="entity">The entity being removed.</param>
+        public void removeEntity(Entity entity)
         {
-            return true;
-        }
-
-        public ActionController getActionController()
-        {
-            return this.actionController;
-        }
-
-        private void checkDeath(Entity e)
-        {
-            if(e.getState().inState(State.PrimaryState.Dead))
-            {
-                if (e.getEntityType() != Entity.EntityType.Unit)
-                {
-                    e.getState().setPrimaryState(State.PrimaryState.Remove);
-                }
-                else if (e.tickKilled == 0)
-                {
-                    e.tickKilled = this.curTick;
-                }
-                else if (Math.Abs(this.curTick - e.tickKilled) > DEAD_DISAPPEAR_TICKS)
-                {
-                    e.getState().setPrimaryState(State.PrimaryState.Remove);
-                }
-            }
+			locController.removeEntity(entity);
         }
     }
 }

@@ -14,11 +14,23 @@ namespace ZRTSLogic
     /// </summary>
     public class ActionController
     {
-        Scenario scenario;
-        public ActionController(Scenario scenario)
+
+		static ActionController instance;
+        private ActionController()
         {
-            this.scenario = scenario;
-        }
+		}
+
+		public static ActionController Instance
+		{
+			get
+			{
+				if (instance == null)
+				{
+					instance = new ActionController();
+				}
+				return instance;
+			}
+		}
 
         /// <summary>
         /// Given an entity, this function will cause the entity to perform whatever action is currently on the entity's

@@ -57,11 +57,16 @@ namespace ZRTSLogic
                     u.x = (float)xC + 0.5f;
                     u.y = (float)yC + 0.5f;
                     success = true;
+					visMapLogic.updateVisMap(u);
                 }
             }
             else if(entity.getEntityType() == Entity.EntityType.Building)
             {
                 success = gw.insert((Building)entity, (int)x, (int)y);
+				if (success)
+				{
+					visMapLogic.updateVisMap((Building)entity);
+				}
             }
 
             // If insert into GameWorld was a success, insert into right player

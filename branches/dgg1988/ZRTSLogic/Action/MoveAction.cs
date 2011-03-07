@@ -120,7 +120,7 @@ namespace ZRTSLogic.Action
 
             if (isNextCellVacant())
             {
-                // Next cell is vacant.
+                // Next cell is vacant, stop waiting if we were waiting.
                 if (waiting)
                 {
                     waiting = false;
@@ -145,9 +145,9 @@ namespace ZRTSLogic.Action
                         targetCell = path[1];
                         cellIndex = 1;
                     }
-                    else
+                    else // Returned a path of length 0.
                     {
-                        path = new List<Cell>();
+						return true;
                     }
                 }
             }
@@ -175,30 +175,26 @@ namespace ZRTSLogic.Action
                 else if (unit.x > targetCell.Xcoord + 0.5f && unit.y > targetCell.Ycoord + 0.5f)
                 {
                     // Need to move left and up. (NW)
-                    unit.x += -speed / 1.41f;
-                    unit.y += -speed / 1.41f;
+					changeUnitLocation(-speed / 1.41f, -speed / 1.41f);
                     unit.orientation = Unit.Orientation.NW;
 
                 }
                 else if (unit.x > targetCell.Xcoord + 0.5f && unit.y <= targetCell.Ycoord + 0.5f)
                 {
                     // Need to move left and down (SW)
-                    unit.x += -speed / 1.41f;
-                    unit.y += speed / 1.41f;
+					changeUnitLocation(-speed / 1.41f, speed / 1.41f);
                     unit.orientation = Unit.Orientation.SW;
                 }
                 else if (unit.x < targetCell.Xcoord + 0.5f && unit.y > targetCell.Ycoord + 0.5f)
                 {
                     // Need to move right and up (NE)
-                    unit.x += speed / 1.41f;
-                    unit.y += -speed / 1.41f;
+					changeUnitLocation(speed / 1.41f, -speed / 1.41f);
                     unit.orientation = Unit.Orientation.NE;
                 }
                 else
                 {
                     // Need to move right and down (SE)
-                    unit.x += speed / 1.41f;
-                    unit.y += speed / 1.41f;
+					changeUnitLocation(speed / 1.41f, speed / 1.41f);
                     unit.orientation = Unit.Orientation.SE;
                 }
 
@@ -208,7 +204,7 @@ namespace ZRTSLogic.Action
                 // Are we within unit.speed of the target cell center?
                 if (Math.Abs(unit.x - (targetCell.Xcoord + 0.5f)) > speed)
                 {
-                    unit.x -= speed;
+					changeUnitLocation(-speed, 0);
                     unit.orientation = Unit.Orientation.W;
                 }
                 else
@@ -221,7 +217,7 @@ namespace ZRTSLogic.Action
             {
                 if (Math.Abs(unit.x - (targetCell.Xcoord + 0.5f)) > speed)
                 {
-                    unit.x += speed;
+					changeUnitLocation(speed, 0);
                     unit.orientation = Unit.Orientation.E;
                 }
                 else
@@ -234,7 +230,7 @@ namespace ZRTSLogic.Action
             {
                 if (Math.Abs(unit.y - (targetCell.Ycoord + 0.5f)) > speed)
                 {
-                    unit.y -= speed;
+					changeUnitLocation(0, -speed);
                     unit.orientation = Unit.Orientation.S;
                 }
                 else
@@ -247,7 +243,7 @@ namespace ZRTSLogic.Action
             {
                 if (Math.Abs(unit.y - (targetCell.Ycoord + 0.5f)) > speed)
                 {
-                    unit.y += speed;
+					changeUnitLocation(0, speed);
                     unit.orientation = Unit.Orientation.N;
                 }
                 else
@@ -311,5 +307,12 @@ namespace ZRTSLogic.Action
 
             return gw.map.getCell(nextX, nextY).isValid;
         }
+
+		private void changeUnitLocation(float offX, float offY)
+		{
+			unit.x += offX;
+			unit.y += offY;
+		}
     }
+
 }
