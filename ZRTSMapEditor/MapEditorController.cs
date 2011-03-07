@@ -114,17 +114,6 @@ namespace ZRTSMapEditor
             }
             
         }
-
-
-        /* TODO public void selectEntities(List<Entity> entities)
-        {
-
-        }*/
-
-        /* TODO public void selectEntityTypeToAdd(Entity entity)
-        {
-
-        }*/
         // TODO public void setTile(Tile tile, int x, int y)
         // TODO public void addEntity(Entity entity, int x, int y)
         // TODO public void moveEntities(List<Entity> entities, int x, int y)
@@ -138,16 +127,23 @@ namespace ZRTSMapEditor
         }
 
 
-        internal void updateCellType(int x, int y)
+        internal void OnClickMapCell(int x, int y)
         {
-            TileFactory tf = TileFactory.Instance;
-            CellComponent cell = model.GetScenario().GetGameWorld().GetMap().GetCellAt(x, y);
-            ZRTSModel.Tile tile = tf.GetImprovedTile(model.TileTypeSelected);
-            ChangeCellTileCommand command = new ChangeCellTileCommand(cell, tile);
-
-            if (command.CanBeDone())
+            if (model.GetSelectionState().SelectionType == typeof(ZRTSModel.Tile))
             {
-                model.GetCommandStack().ExecuteCommand(command);
+                TileFactory tf = TileFactory.Instance;
+                CellComponent cell = model.GetScenario().GetGameWorld().GetMap().GetCellAt(x, y);
+                ZRTSModel.Tile tile = tf.GetImprovedTile(model.TileTypeSelected);
+                ChangeCellTileCommand command = new ChangeCellTileCommand(cell, tile);
+
+                if (command.CanBeDone())
+                {
+                    model.GetCommandStack().ExecuteCommand(command);
+                }
+            }
+            else if (model.GetSelectionState().SelectionType == typeof(UnitComponent))
+            {
+                // Get instance of Unit Factory, produce unit, and place on map for the given player.
             }
         }
 
@@ -155,6 +151,8 @@ namespace ZRTSMapEditor
         {
             // TODO Update to a proper interface.
             model.TileTypeSelected = type;
+
+            model.GetSelectionState().SelectionType = typeof(ZRTSModel.Tile);
 
             //model.TileTypeSelected = type;
             //model.SelectionType = SelectionType.Tile;
@@ -180,6 +178,17 @@ namespace ZRTSMapEditor
         internal void RedoLastUndoCommand()
         {
             model.GetCommandStack().RedoLastUndoneCommand();
+        }
+
+        internal void SelectPlayer(string playerName)
+        {
+            model.GetSelectionState().SelectedPlayer = playerName;
+        }
+
+        internal void SelectUnitType(string unitType)
+        {
+            model.GetSelectionState().SelectedUnitType = unitType;
+            model.GetSelectionState().SelectionType = typeof(UnitComponent);
         }
     }
 }

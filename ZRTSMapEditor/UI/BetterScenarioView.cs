@@ -62,7 +62,7 @@ namespace ZRTSMapEditor
 
            
 
-            controller.updateCellType(x, y);
+            controller.OnClickMapCell(x, y);
 
             Debug.WriteLine("("+p.X+", "+p.Y+")");
 

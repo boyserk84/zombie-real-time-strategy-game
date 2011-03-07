@@ -6,7 +6,7 @@ using System.Text;
 namespace ZRTSModel
 {
     [Serializable()]
-    abstract class UnitComponent : ModelComponent
+    public abstract class UnitComponent : ModelComponent
     {
         public override void Accept(ModelComponentVisitor visitor)
         {

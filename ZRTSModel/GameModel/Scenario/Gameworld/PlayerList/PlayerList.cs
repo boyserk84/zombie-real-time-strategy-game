@@ -19,5 +19,13 @@ namespace ZRTSModel
                 base.Accept(visitor);
             }
         }
+
+        public override void AddChild(ModelComponent child)
+        {
+            if (child is PlayerComponent)
+            {
+                base.AddChild(child);
+            }
+        }
     }
 }
