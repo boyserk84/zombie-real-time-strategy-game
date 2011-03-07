@@ -25,6 +25,11 @@ namespace ZRTSModel.Entities
         // The types of units that this building can produce.
         public List<string> productionTypes = new List<string>();
 
+		public short waterCost = 100;
+		public short foodCost = 100;
+		public short lumberCost = 100;
+		public short metalCost = 100;
+
         public override string ToString()
         {
             string output = "Building Stats:\n";

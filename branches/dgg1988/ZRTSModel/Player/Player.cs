@@ -10,8 +10,6 @@ namespace ZRTSModel.Player
     public class Player
     {
         byte id;
-        List<Unit> units;
-        List<Building> buildings;
         List<Entity> entities;
         private List<Entity> selected_entities;
 
@@ -24,8 +22,6 @@ namespace ZRTSModel.Player
         public Player(byte id)
         {
             this.id = id;
-            units = new List<Unit>();
-            buildings = new List<Building>();
             entities = new List<Entity>();
             selected_entities = new List<Entity>();
         }
@@ -42,16 +38,7 @@ namespace ZRTSModel.Player
 
 		public bool hasEntity(Entity entity)
 		{
-			if (entity.getEntityType() == Entity.EntityType.Unit && units.Contains((Unit)entity))
-			{
-				return true;
-			}
-			else if (entity.getEntityType() == Entity.EntityType.Building && buildings.Contains((Building)entity))
-			{
-				return true;
-			}
-
-			return false;
+			return entities.Contains(entity);
 		}
 
 

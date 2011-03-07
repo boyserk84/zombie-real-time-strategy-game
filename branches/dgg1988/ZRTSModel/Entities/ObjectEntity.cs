@@ -8,8 +8,6 @@ namespace ZRTSModel.Entities
     [Serializable()]
     class ObjectEntity : StaticEntity
     {
-        public Type type = Type.Object;
-
         public ObjectEntity(Player.Player owner, short health, byte width, byte height)
             : base(owner, health, width, height)
         {

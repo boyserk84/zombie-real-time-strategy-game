@@ -104,15 +104,15 @@ namespace ZRTSModel.GameWorld
         public void remove(StaticEntity e)
         {
             map.remove(e);
-            switch (e.type)
+            switch (e.getEntityType())
             {
-                case StaticEntity.Type.Object:
+                case Entity.EntityType.Object:
                     objects.Remove((ObjectEntity)e);
                     break;
-                case StaticEntity.Type.Resource:
+                case Entity.EntityType.Resource:
                     resources.Remove((ResourceEntity)e);
                     break;
-                case StaticEntity.Type.Building:
+                case Entity.EntityType.Building:
                     buildings.Remove((Building)e);
                     break;
             }

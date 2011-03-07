@@ -8,7 +8,6 @@ namespace ZRTSModel.Entities
     [Serializable()]
     public class Building : StaticEntity
     {
-        public Type type = Type.Building;
 
         public BuildingStats stats;
 
@@ -19,7 +18,6 @@ namespace ZRTSModel.Entities
         {
             this.stats = new BuildingStats();
             this.entityType = EntityType.Building;
-			this.type = Type.Building;
         }
 
         public Building(Player.Player owner, BuildingStats stats)
@@ -27,7 +25,6 @@ namespace ZRTSModel.Entities
         {
             this.stats = stats;
 			this.entityType = EntityType.Building;
-			this.type = Type.Building;
         }
     }
 }

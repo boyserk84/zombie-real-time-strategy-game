@@ -10,7 +10,6 @@ namespace ZRTSModel.Entities
     {
         public enum ResourceType : byte { Water, Lumber, Food, Metal };
         ResourceType resourceType;
-        public Type type = Type.Resource;
 
         public ResourceEntity(Player.Player owner, short health, byte width, byte height, ResourceType type)
             : base(owner, health, width, height)
