@@ -6,23 +6,17 @@ using System.Text;
 namespace ZRTSModel
 {
     [Serializable()]
-    class MapWood : MapResource
+    public class MapWood : MapResource
     {
         public MapWood(int amount)
             : base(amount)
         {
 
         }
-        override public void Accept(ModelComponentVisitor visitor)
+
+        public override void Accept(ModelComponentVisitor visitor)
         {
-            if (visitor is MapWoodVisitor)
-            {
-                ((MapWoodVisitor)visitor).Visit(this);
-            }
-            else
-            {
-                base.Accept(visitor);
-            }
+            visitor.Visit(this);
         }
     }
 }

@@ -34,17 +34,5 @@ namespace ZRTSModel
             amountRemaining = amount;
             NotifyAll();
         }
-
-        override public void Accept(ModelComponentVisitor visitor)
-        {
-            if (visitor is MapResourceVisitor)
-            {
-                ((MapResourceVisitor)visitor).Visit(this);
-            }
-            else
-            {
-                base.Accept(visitor);
-            }
-        }
     }
 }

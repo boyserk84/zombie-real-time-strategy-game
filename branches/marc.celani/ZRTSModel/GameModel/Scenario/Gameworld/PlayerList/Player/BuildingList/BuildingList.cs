@@ -10,14 +10,7 @@ namespace ZRTSModel
     {
         public override void Accept(ModelComponentVisitor visitor)
         {
-            if (visitor is BuildingListVisitor)
-            {
-                ((BuildingListVisitor)visitor).Visit(this);
-            }
-            else
-            {
-                base.Accept(visitor);
-            }
+            visitor.Visit(this);
         }
     }
 }

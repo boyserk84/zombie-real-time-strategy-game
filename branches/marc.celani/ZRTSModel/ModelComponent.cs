@@ -96,10 +96,7 @@ namespace ZRTSModel
         }
 
         // Visitor Pattern Interfaces
-        public virtual void Accept(ModelComponentVisitor visitor)
-        {
-            visitor.Visit(this);
-        }
+        public abstract void Accept(ModelComponentVisitor visitor);
 
         public void UnregisterAll()
         {

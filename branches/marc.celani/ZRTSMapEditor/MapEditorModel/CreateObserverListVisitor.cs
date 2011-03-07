@@ -10,10 +10,10 @@ namespace ZRTSModel
     /// 
     /// It is a hack because we will need to serialize the observer list in the future in order to allow for savable triggers.
     /// </summary>
-    class CreateObserverListVisitor : ModelComponentVisitor
+    class CreateObserverListVisitor : NoOpModelComponentVisitor
     {
 
-        public void Visit(ModelComponent component)
+        override public void Visit(ModelComponent component)
         {
             component.UnregisterAll();
             foreach (ModelComponent c in component.GetChildren())

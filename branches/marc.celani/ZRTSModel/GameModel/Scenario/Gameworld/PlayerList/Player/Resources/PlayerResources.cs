@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ZRTSModel.GameModel.Scenario.Gameworld.PlayerList.Player.Resources;
 
 namespace ZRTSModel
 {
@@ -11,18 +10,6 @@ namespace ZRTSModel
         private int gold = 0;
         private int wood = 0;
         private int metal = 0;
-
-        public override void Accept(ModelComponentVisitor visitor)
-        {
-            if (visitor is PlayerResourcesVisitor)
-            {
-                ((PlayerResourcesVisitor)visitor).Visit(this);
-            }
-            else
-            {
-                base.Accept(visitor);
-            }
-        }
 
         public int Gold
         {
@@ -58,6 +45,11 @@ namespace ZRTSModel
             {
                 metal = value;
             }
+        }
+
+        public override void Accept(ModelComponentVisitor visitor)
+        {
+            visitor.Visit(this);
         }
     }
 }

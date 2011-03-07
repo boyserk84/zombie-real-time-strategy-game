@@ -16,18 +16,6 @@ namespace ZRTSModel
             AddChild(new Gameworld(x, y));
         }
 
-        public override void Accept(ModelComponentVisitor visitor)
-        {
-            if (visitor is ScenarioVisitor)
-            {
-                ((ScenarioVisitor)visitor).Visit(this);
-            }
-            else
-            {
-                base.Accept(visitor);
-            }
-        }
-
         public Gameworld GetGameWorld()
         {
             foreach (ModelComponent component in GetChildren())
@@ -38,6 +26,11 @@ namespace ZRTSModel
                 }
             }
             return null;
+        }
+
+        public override void Accept(ModelComponentVisitor visitor)
+        {
+            visitor.Visit(this);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace ZRTSMapEditor
     /// A palette for selecting a unit and a player to add it to so that it may be added on the map.
     /// Currently in a demo state.
     /// </summary>
-    public partial class UnitPalette : UserControl, ModelComponentObserver, ModelComponentVisitor, MapEditorFullModelVisitor, PlayerListVisitor
+    public partial class UnitPalette : UserControl, ModelComponentObserver
     {
         private MapEditorController controller;
         private ScenarioComponent context;
@@ -48,34 +48,27 @@ namespace ZRTSMapEditor
             }
         }
 
-        public void Visit(PlayerList list)
-        {
-            uiPlayerList.Items.Clear();
-            foreach (PlayerComponent player in list.GetChildren())
-            {
-                uiPlayerList.Items.Add(player.GetName());
-            }
-        }
-
-        public void Visit(MapEditorFullModel model)
-        {
-            if (model.GetScenario() != context)
-            {
-                context = model.GetScenario();
-                InitContext();
-            }
-        }
-
-
-
-        public void Visit(ModelComponent component)
-        {
-            // No op
-        }
-
         public void notify(ModelComponent observable)
         {
-            observable.Accept(this);
+            ModelComponentVisitorDelegator delegator = new ModelComponentVisitorDelegator();
+            
+            // Handle Player lists to update the player list drop down.
+            UpdateUnitPalettePlayerListVisitor listHandler = new UpdateUnitPalettePlayerListVisitor();
+            listHandler.UnitPalette = this;
+            delegator.AddVisitor(listHandler);
+
+            // Handle MapEditorFullModel by checking if the scenario changed.
+            ChangeScenarioContextVisitor fullModelHandler = new ChangeScenarioContextVisitor();
+            fullModelHandler.SetPrevScenario(context);
+            delegator.AddVisitor(fullModelHandler);
+
+
+            observable.Accept(delegator);
+            if (fullModelHandler.ScenarioChanged)
+            {
+                context = fullModelHandler.GetScenario();
+                InitContext();
+            }
         }
 
         private void uiPlayerList_SelectedIndexChanged(object sender, EventArgs e)

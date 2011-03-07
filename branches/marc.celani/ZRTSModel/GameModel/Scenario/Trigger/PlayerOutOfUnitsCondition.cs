@@ -7,7 +7,7 @@ using ZRTSModel.Entities;
 namespace ZRTSModel.Trigger
 {
     [Serializable()]
-    class PlayerOutOfUnitsCondition : Condition, UnitListVisitor, UnitVisitor
+    class PlayerOutOfUnitsCondition : Condition
     {
         private PlayerComponent player = null;
 
@@ -28,7 +28,7 @@ namespace ZRTSModel.Trigger
             isMet = false;
         }
 
-        public void Visit(UnitList list)
+        override public void Visit(UnitList list)
         {
             isMet = true;
             foreach (ModelComponent unit in list.GetChildren())
@@ -43,7 +43,7 @@ namespace ZRTSModel.Trigger
             needsToBeEvaled = false;
         }
 
-        public override void Visit(ModelComponent component)
+        override public void Visit(ModelComponent component)
         {
             // Do nothing
         }

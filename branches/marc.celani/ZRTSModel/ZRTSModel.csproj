@@ -94,40 +94,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModelComponentVisitorDelegator.cs" />
+    <Compile Include="NoOpModelComponentVisitor.cs" />
     <Compile Include="Entities\ActionCommand.cs" />
     <Compile Include="Entities\Building.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\Gameworld.cs" />
-    <Compile Include="GameModel\Scenario\Gameworld\GameworldVisitor.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\Map\Cell\CellComponent.cs" />
-    <Compile Include="GameModel\Scenario\Gameworld\Map\Cell\CellVisitor.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\Map\Cell\Resource\ExtendedClasses\MapGold\MapGold.cs" />
-    <Compile Include="GameModel\Scenario\Gameworld\Map\Cell\Resource\ExtendedClasses\MapGold\MapGoldVisitor.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\Map\Cell\Resource\ExtendedClasses\MapMetal\MapMetal.cs" />
-    <Compile Include="GameModel\Scenario\Gameworld\Map\Cell\Resource\ExtendedClasses\MapMetal\MapMetalVisitor.cs" />
-    <Compile Include="GameModel\Scenario\Gameworld\Map\Cell\Resource\ExtendedClasses\MapWood\MapWoodVisitor.cs" />
-    <Compile Include="GameModel\Scenario\Gameworld\Map\Cell\Resource\MapResourceVisitor.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\Map\Cell\Resource\MapResource.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\Map\Cell\Resource\ExtendedClasses\MapWood\MapWood.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\Map\Cell\Tile\ExtendedClasses\Grass\Grass.cs" />
-    <Compile Include="GameModel\Scenario\Gameworld\Map\Cell\Tile\ExtendedClasses\Grass\GrassVisitor.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\Map\Cell\Tile\ExtendedClasses\Mountain\Mountain.cs" />
-    <Compile Include="GameModel\Scenario\Gameworld\Map\Cell\Tile\ExtendedClasses\Mountain\MountainVisitor.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\Map\Cell\Tile\ExtendedClasses\Sand\Sand.cs" />
-    <Compile Include="GameModel\Scenario\Gameworld\Map\Cell\Tile\ExtendedClasses\Sand\SandVisitor.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\Map\Cell\Tile\Tile.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\Map\Map.cs" />
-    <Compile Include="GameModel\Scenario\Gameworld\Map\MapVisitor.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\PlayerList\PlayerList.cs" />
-    <Compile Include="GameModel\Scenario\Gameworld\PlayerList\PlayerListVisitor.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\BuildingList\BuildingList.cs" />
-    <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\BuildingList\BuildingListVisitor.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\PlayerComponent.cs" />
-    <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\PlayerVisitor.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\Resources\PlayerResources.cs" />
-    <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\Resources\PlayerResourcesVisitor.cs" />
-    <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\UnitList\UnitListVisitor.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\UnitList\Unit\ActionQueue\ActionQueue.cs" />
-    <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\UnitList\Unit\ActionQueue\ActionQueueVisitor.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\UnitList\Unit\UnitComponent.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\UnitList\UnitList.cs" />
     <Compile Include="Factories\BuildingFactory.cs" />
@@ -141,9 +127,7 @@
     <Compile Include="Factories\UnitFactory.cs" />
     <Compile Include="Entities\UnitStats.cs" />
     <Compile Include="Exception\FactoryException.cs" />
-    <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\UnitList\Unit\UnitVisitor.cs" />
     <Compile Include="GameModel\Scenario\ScenarioComponent.cs" />
-    <Compile Include="GameModel\Scenario\ScenarioVisitor.cs" />
     <Compile Include="GameModel\Scenario\Trigger\Action.cs" />
     <Compile Include="GameModel\Scenario\Trigger\Condition.cs" />
     <Compile Include="GameModel\Scenario\Trigger\EmptyTrigger.cs" />

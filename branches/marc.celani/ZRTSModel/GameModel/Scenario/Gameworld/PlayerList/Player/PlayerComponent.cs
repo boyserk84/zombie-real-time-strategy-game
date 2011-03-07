@@ -22,18 +22,6 @@ namespace ZRTSModel
             AddChild(resources);
         }
 
-        public override void Accept(ModelComponentVisitor visitor)
-        {
-            if (visitor is PlayerVisitor)
-            {
-                ((PlayerVisitor)visitor).Visit(this);
-            }
-            else
-            {
-                base.Accept(visitor);
-            }
-        }
-
         public int GetGold()
         {
             return GetResources().Gold;
@@ -94,6 +82,11 @@ namespace ZRTSModel
                 }
             }
             return null;
+        }
+
+        public override void Accept(ModelComponentVisitor visitor)
+        {
+            visitor.Visit(this);
         }
     }
 }

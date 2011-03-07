@@ -11,18 +11,6 @@ namespace ZRTSModel
     [Serializable()]
     public class CellComponent : ModelComponent
     {
-        override public void Accept(ModelComponentVisitor visitor)
-        {
-            if (visitor is CellVisitor)
-            {
-                CellVisitor cellVisitor = (CellVisitor)visitor;
-                cellVisitor.Visit(this);
-            }
-            else
-            {
-                base.Accept(visitor);
-            }
-        }
 
         override public void AddChild(ModelComponent child)
         {
@@ -65,6 +53,11 @@ namespace ZRTSModel
                 }
             }
             return null;
+        }
+
+        public override void Accept(ModelComponentVisitor visitor)
+        {
+            visitor.Visit(this);
         }
     }
 }

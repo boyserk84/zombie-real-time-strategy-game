@@ -17,17 +17,6 @@ namespace ZRTSModel
             AddChild(new Map(x, y));
             AddChild(new PlayerList());
         }
-        public override void Accept(ModelComponentVisitor visitor)
-        {
-            if (visitor is GameworldVisitor)
-            {
-                ((GameworldVisitor)visitor).Visit(this);
-            }
-            else
-            {
-                base.Accept(visitor);
-            }
-        }
 
         public Map GetMap()
         {
@@ -51,6 +40,11 @@ namespace ZRTSModel
                 }
             }
             return null;
+        }
+
+        public override void Accept(ModelComponentVisitor visitor)
+        {
+            visitor.Visit(this);
         }
     }
 }

@@ -11,13 +11,14 @@ using ZRTSModel.GameWorld;
 using System.Diagnostics;
 using ZRTSModel;
 using ZRTSMapEditor.MapEditorModel;
+using ZRTSMapEditor.UI;
 
 namespace ZRTSMapEditor
 {
     /// <summary>
     /// Displays the map.
     /// </summary>
-    public partial class MapView : UserControl, ModelComponentObserver, ModelComponentVisitor, MapEditorFullModelVisitor, GameworldVisitor
+    public partial class MapView : UserControl, ModelComponentObserver
     {
 
         private MapEditorController controller = null;
@@ -59,7 +60,7 @@ namespace ZRTSMapEditor
                     gameworld.RegisterObserver(this);
 
                     // Invalidate the view.
-                    gameworld.Accept(this);
+                    render();
                 }
             }
         }
@@ -82,12 +83,24 @@ namespace ZRTSMapEditor
 
         public void notify(ModelComponent observable)
         {
-            observable.Accept(this);
-        }
+            ModelComponentVisitorDelegator delegator = new ModelComponentVisitorDelegator();
 
-        public void Visit(ModelComponent component)
-        {
-            // Do nothing.
+            // Handle Gameworld by invalidating the view.
+            RenderMapViewGameworldVisitor renderer = new RenderMapViewGameworldVisitor();
+            renderer.SetMapView(this);
+            delegator.AddVisitor(renderer);
+
+            // Handle MapEditorFullModel by checking if the scenario changed.
+            ChangeScenarioContextVisitor fullModelHandler = new ChangeScenarioContextVisitor();
+            fullModelHandler.SetPrevScenario(context);
+            delegator.AddVisitor(fullModelHandler);
+
+
+            observable.Accept(delegator);
+            if (fullModelHandler.ScenarioChanged)
+            {
+                SetScenario(fullModelHandler.GetScenario());
+            }
         }
 
         public void render()

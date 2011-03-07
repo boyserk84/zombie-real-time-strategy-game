@@ -13,30 +13,13 @@ namespace ZRTSMapEditor.MapEditorModel
     /// full model in order to ascertain when the scenario has been removed from the model and replaced with a new scenario, so that the
     /// observer may now observe the new scenario (or piece of the scenario).
     /// </summary>
-    public class MapEditorFullModel : ModelComponent
+    public class MapEditorFullModel : MapEditorModelComponent
     {
 
         public MapEditorFullModel()
         {
             AddChild(new CommandStack());
             AddChild(new SelectionState());
-        }
-
-        /// <summary>
-        /// Overrides the Accept method of the ModelComponent abstract class to determine whether or not the visitor is interested
-        /// in knowing that the acceptor is a MapEditorFullModel.
-        /// </summary>
-        /// <param name="visitor"></param>
-        public override void Accept(ModelComponentVisitor visitor)
-        {
-            if (visitor is MapEditorFullModelVisitor)
-            {
-                ((MapEditorFullModelVisitor)visitor).Visit(this);
-            }
-            else
-            {
-                base.Accept(visitor);
-            }
         }
 
         public ScenarioComponent GetScenario()
@@ -91,6 +74,16 @@ namespace ZRTSMapEditor.MapEditorModel
                 }
             }
             return null;
+        }
+
+        public override void Accept(MapEditorModelVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
+
+        public override void Accept(ModelComponentVisitor visitor)
+        {
+            visitor.Visit(this);
         }
     }
 }

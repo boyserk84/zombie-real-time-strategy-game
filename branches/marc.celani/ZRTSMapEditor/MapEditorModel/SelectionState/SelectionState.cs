@@ -9,7 +9,7 @@ namespace ZRTSMapEditor.MapEditorModel
     /// <summary>
     /// A representation of what is currently selected in the Map Editor.
     /// </summary>
-    public class SelectionState : ModelComponent
+    public class SelectionState : MapEditorModelComponent
     {
         // The player selected in the Unit/Build palettes for adding an entity for a given player.
         private string selectedPlayer = null;
@@ -43,20 +43,14 @@ namespace ZRTSMapEditor.MapEditorModel
             set { selectionType = value; }
         }
 
-        /// <summary>
-        /// Potentially used by views to mark the selection/unselection of given pieces of UI when the selection state changes.
-        /// </summary>
-        /// <param name="visitor"></param>
+        public override void Accept(MapEditorModelVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
+
         public override void Accept(ModelComponentVisitor visitor)
         {
-            if (visitor is SelectionStateVisitor)
-            {
-                ((SelectionStateVisitor)visitor).Visit(this);
-            }
-            else
-            {
-                base.Accept(visitor);
-            }
+            visitor.Visit(this);
         }
     }
 }

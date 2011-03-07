@@ -8,17 +8,9 @@ namespace ZRTSModel
     [Serializable()]
     public class Sand : Tile
     {
-        override public void Accept(ModelComponentVisitor visitor)
+        public override void Accept(ModelComponentVisitor visitor)
         {
-            if (visitor is SandVisitor)
-            {
-                SandVisitor sandVisitor = (SandVisitor)visitor;
-                sandVisitor.Visit(this);
-            }
-            else
-            {
-                base.Accept(visitor);
-            }
+            visitor.Visit(this);
         }
     }
 }
