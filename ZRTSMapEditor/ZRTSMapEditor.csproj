@@ -50,11 +50,11 @@
     <Compile Include="MapEditorModel\CommandStack\CommandStack.cs" />
     <Compile Include="MapEditorModel\SelectionState\SelectionState.cs" />
     <Compile Include="MapEditorModel\SelectionState\SelectionStateVisitor.cs" />
-    <Compile Include="UI\BetterScenarioView.cs">
+    <Compile Include="UI\MapView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\BetterScenarioView.Designer.cs">
-      <DependentUpon>BetterScenarioView.cs</DependentUpon>
+    <Compile Include="UI\MapView.Designer.cs">
+      <DependentUpon>MapView.cs</DependentUpon>
     </Compile>
     <Compile Include="Commands\MapEditorCommand.cs" />
     <Compile Include="MapEditorController.cs" />
@@ -81,12 +81,6 @@
     <Compile Include="UI\PlayersForm.Designer.cs">
       <DependentUpon>PlayersForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ScenarioView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\ScenarioView.Designer.cs">
-      <DependentUpon>ScenarioView.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Tile.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -104,8 +98,8 @@
     </Compile>
     <Compile Include="ZRTSMapEditor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="UI\BetterScenarioView.resx">
-      <DependentUpon>BetterScenarioView.cs</DependentUpon>
+    <EmbeddedResource Include="UI\MapView.resx">
+      <DependentUpon>MapView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\CreateNewScenarioDialog.resx">
       <DependentUpon>CreateNewScenarioDialog.cs</DependentUpon>
@@ -125,9 +119,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="UI\ScenarioView.resx">
-      <DependentUpon>ScenarioView.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\TilePalette.resx">
       <DependentUpon>TilePalette.cs</DependentUpon>
     </EmbeddedResource>

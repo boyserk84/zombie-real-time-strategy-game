@@ -5,6 +5,9 @@ using System.Text;
 
 namespace ZRTSModel
 {
+    /// <summary>
+    /// Represents the physical game state, not logic (triggers).  Contains a map and a player list.
+    /// </summary>
     [Serializable()]
     public class Gameworld : ModelComponent
     {

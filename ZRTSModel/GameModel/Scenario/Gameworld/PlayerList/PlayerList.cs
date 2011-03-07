@@ -5,6 +5,9 @@ using System.Text;
 
 namespace ZRTSModel
 {
+    /// <summary>
+    /// A list of players - can only contain players.
+    /// </summary>
     [Serializable()]
     public class PlayerList : ModelComponent
     {

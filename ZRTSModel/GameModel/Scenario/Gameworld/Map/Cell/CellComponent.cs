@@ -5,6 +5,9 @@ using System.Text;
 
 namespace ZRTSModel
 {
+    /// <summary>
+    /// A discrete unit of space on a map.  Can contain a map resource.  Each cell contains a tile to display itself.
+    /// </summary>
     [Serializable()]
     public class CellComponent : ModelComponent
     {

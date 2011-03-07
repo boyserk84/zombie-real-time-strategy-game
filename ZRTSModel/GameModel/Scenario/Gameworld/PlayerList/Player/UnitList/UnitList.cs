@@ -6,6 +6,9 @@ using ZRTSModel.Entities;
 
 namespace ZRTSModel
 {
+    /// <summary>
+    /// A list of units.
+    /// </summary>
     [Serializable()]
     public class UnitList : ModelComponent
     {

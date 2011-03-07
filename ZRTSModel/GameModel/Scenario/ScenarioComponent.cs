@@ -5,6 +5,9 @@ using System.Text;
 
 namespace ZRTSModel
 {
+    /// <summary>
+    /// A component representing a particular scenario.  Contains a game world.
+    /// </summary>
     [Serializable()]
     public class ScenarioComponent : ModelComponent
     {

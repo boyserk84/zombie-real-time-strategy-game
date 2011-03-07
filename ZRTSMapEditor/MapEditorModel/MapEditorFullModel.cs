@@ -6,10 +6,15 @@ using ZRTSModel;
 
 namespace ZRTSMapEditor.MapEditorModel
 {
+    /// <summary>
+    /// A full representation of the model used in the Map Editor.  Includes a SelectionState, SaveInfo, CommandStack, and Scenario.
+    /// It can be assumed that the SelectionState, SafeInfo, and CommandStack will be altered but neither removed nor replaced.
+    /// However, the Scenario can be removed or replaced (via Open or New).  Therefore, observers of the Scenario should also observer the
+    /// full model in order to ascertain when the scenario has been removed from the model and replaced with a new scenario, so that the
+    /// observer may now observe the new scenario (or piece of the scenario).
+    /// </summary>
     public class MapEditorFullModel : ModelComponent
     {
-        // TODO: Move to a component in the model (SelectionState)
-        public String TileTypeSelected = null;
 
         public MapEditorFullModel()
         {
@@ -17,6 +22,11 @@ namespace ZRTSMapEditor.MapEditorModel
             AddChild(new SelectionState());
         }
 
+        /// <summary>
+        /// Overrides the Accept method of the ModelComponent abstract class to determine whether or not the visitor is interested
+        /// in knowing that the acceptor is a MapEditorFullModel.
+        /// </summary>
+        /// <param name="visitor"></param>
         public override void Accept(ModelComponentVisitor visitor)
         {
             if (visitor is MapEditorFullModelVisitor)
@@ -53,6 +63,10 @@ namespace ZRTSMapEditor.MapEditorModel
             return null;
         }
 
+        /// <summary>
+        /// Overrides AddChild from ModelComponent to ensure that the model is composed of only one scenario.
+        /// </summary>
+        /// <param name="child"></param>
         override public void AddChild(ModelComponent child)
         {
             // Allow only one scenario.
