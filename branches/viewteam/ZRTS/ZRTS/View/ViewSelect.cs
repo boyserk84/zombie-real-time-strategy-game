@@ -8,7 +8,8 @@ namespace ZRTS
 {
     /// <summary>
     /// Implements ViewSelectObserver
-    /// Views the Units selected 
+    ///     Views the Units selected 
+    ///     This view class will focus on the selected units by the user.
     /// 
     /// Observer Pattern
     /// </summary>
@@ -58,7 +59,7 @@ namespace ZRTS
         /// Removes the first occurance of param from selectedList
         /// </summary>
         /// <param name="u"></param>
-        public void removeUnit(Unit u)
+        public void removeUnit(Entity u)
         {
             this.selectedList.Remove(u);
         }
@@ -108,11 +109,22 @@ namespace ZRTS
         /// <returns></returns>
         private float translateYScreen(float y)
         {
-            // FIX THIS 
-            return y * GameConfig.TILE_HEIGHT - (this.utilSheet.frameDimY + 15 /* figure out over here*/ - GameConfig.TILE_HEIGHT);
+            return y * GameConfig.TILE_HEIGHT - (this.utilSheet.frameDimY + 14 /* figure out over here*/ - GameConfig.TILE_HEIGHT);
         }
 
+        /// <summary>
+        /// Check if the unit has already been selected
+        /// </summary>
+        /// <param name="e">Entity</param>
+        /// <returns>True if it is already in the selected list</returns>
+        public bool hasSelectedUnitBefore(Entity e)
+        {
+            return this.getSelectedUnits.Contains(e);
+        }
 
+        /// <summary>
+        /// Update
+        /// </summary>
         public void update() 
         {
             //System.Console.Out.WriteLine("View Select is notifed!");

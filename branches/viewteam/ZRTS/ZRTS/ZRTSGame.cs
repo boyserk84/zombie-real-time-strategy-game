@@ -284,11 +284,10 @@ namespace ZRTS
                         (int)Math.Min(pressX, releaseX),
                         (int)Math.Min(pressY, releaseY),
                         (int)(Math.Max(pressX, releaseX) - Math.Min(pressX, releaseX)),
-                        (int)(Math.Max(pressY, releaseY) - Math.Min(pressY, releaseY)),
-                        0
+                        (int)(Math.Max(pressY, releaseY) - Math.Min(pressY, releaseY))
                     );
 
-                    // TODO: remove later
+                    // TODO: remove later (DEBUGGING INFORMATION ONLY)
                     Console.WriteLine("(pressX, pressY) = (" + pressX + "," + pressY + ")");
                     Console.WriteLine("topleft = (" + (int)Math.Min(pressX, releaseX) + "," + (int)Math.Min(pressY, releaseY) + ")");
                     Console.WriteLine("(releaseX, releaseY) = (" + releaseX + "," + releaseY + ")");
