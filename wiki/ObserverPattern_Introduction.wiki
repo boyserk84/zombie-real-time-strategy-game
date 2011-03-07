@@ -1,5 +1,5 @@
+#summary How observer pattern applied to the view and model?
 #labels Phase-Design,Phase-Requirements
-#How observer pattern applied to the view and model?#
 
 = Introduction =
 Observer pattern.
