@@ -6,7 +6,7 @@ using System.Text;
 namespace ZRTSModel.Trigger
 {
     [Serializable()]
-    abstract class TriggerDecorator : Trigger, ModelComponentObserver, ModelComponentVisitor
+    abstract class TriggerDecorator : Trigger, ModelComponentObserver
     {
         private Trigger decorated = null;
         protected bool isMet;
@@ -52,6 +52,99 @@ namespace ZRTSModel.Trigger
             observable.Accept(this);
         }
 
-        public abstract void Visit(ModelComponent component);
+        public virtual void Visit(ModelComponent component)
+        {
+            // No op
+        }
+
+        public virtual void Visit(Sand sand)
+        {
+            // No op
+        }
+
+        public virtual void Visit(Mountain mountain)
+        {
+            // No op
+        }
+
+        public virtual void Visit(Grass grass)
+        {
+            // No op
+        }
+
+        public virtual void Visit(MapGold gold)
+        {
+            // No op
+        }
+
+        public virtual void Visit(MapMetal metal)
+        {
+            // No op
+        }
+
+        public virtual void Visit(MapWood wood)
+        {
+            // No op
+        }
+
+        public virtual void Visit(MapResource mapResource)
+        {
+            // No op
+        }
+
+        public virtual void Visit(CellComponent cell)
+        {
+            // No op
+        }
+
+        public virtual void Visit(Map map)
+        {
+            // No op
+        }
+
+        public virtual void Visit(Gameworld gameworld)
+        {
+            // No op
+        }
+
+        public virtual void Visit(ScenarioComponent scenario)
+        {
+            // No op
+        }
+
+        public virtual void Visit(PlayerList list)
+        {
+            // No op
+        }
+
+        public virtual void Visit(PlayerComponent player)
+        {
+            // No op
+        }
+
+        public virtual void Visit(BuildingList list)
+        {
+            // No op
+        }
+
+        public virtual void Visit(PlayerResources resources)
+        {
+            // No op
+        }
+
+        public virtual void Visit(UnitList list)
+        {
+            // No op
+        }
+
+        public virtual void Visit(UnitComponent unit)
+        {
+            // No op
+        }
+
+        public virtual void Visit(ActionQueue queue)
+        {
+            // No op
+        }
     }
 }

@@ -11,16 +11,5 @@ namespace ZRTSModel
     [Serializable()]
     public abstract class UnitComponent : ModelComponent
     {
-        public override void Accept(ModelComponentVisitor visitor)
-        {
-            if (visitor is UnitVisitor)
-            {
-                ((UnitVisitor)visitor).Visit(this);
-            }
-            else
-            {
-                base.Accept(visitor);
-            }
-        }
     }
 }

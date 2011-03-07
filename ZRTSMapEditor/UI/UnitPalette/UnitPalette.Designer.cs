@@ -175,6 +175,6 @@ namespace ZRTSMapEditor
         private PictureBox pictureBox3;
         private PictureBox pictureBox4;
         private ImageList unitImageList;
-        private ComboBox uiPlayerList;
+        public ComboBox uiPlayerList;
     }
 }

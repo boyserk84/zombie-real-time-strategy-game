@@ -9,7 +9,7 @@ namespace ZRTSMapEditor.MapEditorModel
     /// <summary>
     /// A model component responsible for executing MapEditorCommands, undoing them, and redoing them.
     /// </summary>
-    public class CommandStack : ModelComponent
+    public class CommandStack : MapEditorModelComponent
     {
         private Stack<MapEditorCommand> done = new Stack<MapEditorCommand>();
         private Stack<MapEditorCommand> undone = new Stack<MapEditorCommand>();
@@ -58,6 +58,16 @@ namespace ZRTSMapEditor.MapEditorModel
             {
                 // The stack was empty, do nothing.
             }
+        }
+
+        public override void Accept(MapEditorModelVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
+
+        public override void Accept(ModelComponentVisitor visitor)
+        {
+            visitor.Visit(this);
         }
     }
 }

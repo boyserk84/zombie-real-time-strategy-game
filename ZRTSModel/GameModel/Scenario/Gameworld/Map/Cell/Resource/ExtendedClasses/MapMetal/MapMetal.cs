@@ -6,7 +6,7 @@ using System.Text;
 namespace ZRTSModel
 {
     [Serializable()]
-    class MapMetal : MapResource
+    public class MapMetal : MapResource
     {
 
         public MapMetal(int amount)
@@ -15,16 +15,9 @@ namespace ZRTSModel
 
         }
 
-        override public void Accept(ModelComponentVisitor visitor)
+        public override void Accept(ModelComponentVisitor visitor)
         {
-            if (visitor is MapMetalVisitor)
-            {
-                ((MapMetalVisitor)visitor).Visit(this);
-            }
-            else
-            {
-                base.Accept(visitor);
-            }
+            visitor.Visit(this);
         }
     }
 }

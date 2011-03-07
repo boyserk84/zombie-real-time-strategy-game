@@ -73,18 +73,6 @@ namespace ZRTSModel
             return cells[x, y];
         }
 
-        public override void Accept(ModelComponentVisitor visitor)
-        {
-            if (visitor is MapVisitor)
-            {
-                ((MapVisitor)visitor).Visit(this);
-            }
-            else
-            {
-                base.Accept(visitor);
-            }
-        }
-
         public int GetWidth()
         {
             return width;
@@ -104,6 +92,11 @@ namespace ZRTSModel
                     cells[i, j].SetContainer(this);
                 }
             }
+        }
+
+        public override void Accept(ModelComponentVisitor visitor)
+        {
+            visitor.Visit(this);
         }
     }
 }

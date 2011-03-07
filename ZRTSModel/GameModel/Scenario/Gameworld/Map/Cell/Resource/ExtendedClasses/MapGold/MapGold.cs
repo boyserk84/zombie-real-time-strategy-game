@@ -15,16 +15,9 @@ namespace ZRTSModel
 
         }
 
-        override public void Accept(ModelComponentVisitor visitor)
+        public override void Accept(ModelComponentVisitor visitor)
         {
-            if (visitor is MapGoldVisitor)
-            {
-                ((MapGoldVisitor)visitor).Visit(this);
-            }
-            else
-            {
-                base.Accept(visitor);
-            }
+            visitor.Visit(this);
         }
     }
 }
