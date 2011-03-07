@@ -11,23 +11,25 @@ using ZRTSModel.GameWorld;
 
 namespace ZRTSMapEditor
 {
+    /// <summary>
+    /// A UI piece for choosing a tile to be placed down on the map.
+    /// TODO:  Implement SelectionStateVisitor and observe it.  On visiting, it should check if the selection state suggests that a tile
+    /// is currently selected, and if so, should show its picture in a preview picture box.
+    /// </summary>
     public partial class TilePalette : UserControl 
     {
 
         ImageList tileList = new ImageList();
         MapEditorController controller;
-        string currentlyDisplayedTileType = null;
         private Form mapEditorView;
 
         public TilePalette()
         {
             InitializeComponent();
-            //loadImageList();
         }
 
         public TilePalette(Form mapEditorView) : this()
         {
-            // TODO: Complete member initialization
             this.mapEditorView = mapEditorView;
         }
 
@@ -63,21 +65,6 @@ namespace ZRTSMapEditor
         {
             return (string) tileListBox.SelectedItem;
         }
-
-        /*public void notify(MapEditorModelOld model)
-        {
-            if (model.SelectionType == SelectionType.Tile)
-            {
-                currentlyDisplayedTileType = model.TileTypeSelected;
-                TileFactory tf = TileFactory.Instance;
-                tilePreview.Image = tf.getBitmap(currentlyDisplayedTileType);
-            }
-            else
-            {
-                currentlyDisplayedTileType = null;
-                tilePreview.Image = null;
-            }
-        }*/
 
     }
 }

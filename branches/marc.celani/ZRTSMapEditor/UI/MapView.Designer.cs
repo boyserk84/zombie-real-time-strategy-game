@@ -1,6 +1,6 @@
 ﻿namespace ZRTSMapEditor
 {
-    partial class BetterScenarioView
+    partial class MapView
     {
         /// <summary> 
         /// Required designer variable.

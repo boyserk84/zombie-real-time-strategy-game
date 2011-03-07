@@ -40,7 +40,7 @@
             this.separatorToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.playerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tilePalette = new TilePalette();
-            this.scenarioView1 = new BetterScenarioView();
+            this.scenarioView1 = new MapView();
             this.unitPalette1 = new UnitPalette();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -185,7 +185,7 @@
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private BetterScenarioView scenarioView1;
+        private MapView scenarioView1;
         private TilePalette tilePalette;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem playerToolStripMenuItem;

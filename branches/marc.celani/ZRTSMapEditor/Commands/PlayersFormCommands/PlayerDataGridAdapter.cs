@@ -127,6 +127,9 @@ namespace ZRTSMapEditor
             }
         }
 
+        /// <summary>
+        /// Updates the actual model to reflect the changes in the UI.
+        /// </summary>
         public void Do()
         {
             if (CanBeDone())
@@ -150,23 +153,31 @@ namespace ZRTSMapEditor
             }
         }
 
-
+        /// <summary>
+        /// This command is not meant to be used with the CommandStack - it is only done, and not undone.
+        /// </summary>
         public void Undo()
         {
             throw new NotImplementedException();
         }
 
-
+        /// <summary>
+        /// Ensures that the player name is valid (in itself - does not ensure that the name is not in conflict with other player names).  Ensures that the
+        /// race is valid.  Ensures that all resources are nonnegative.
+        /// </summary>
+        /// <returns></returns>
         public bool CanBeDone()
         {
             bool canBeDone = (name != null);
             if (canBeDone)
             {
+                // Ensure that the player name contains non whitespace characters.
                 string withoutSpaces = name.Replace(" ","");
                 string withoutWhiteSpace = withoutSpaces.Replace("\t", "");
                 canBeDone = !withoutWhiteSpace.Equals("");
                 if (canBeDone)
                 {
+                    // Ensure that resources are non negative.
                     canBeDone = (gold >= 0);
                     if (canBeDone)
                     {
@@ -176,6 +187,7 @@ namespace ZRTSMapEditor
                             canBeDone = (metal >= 0);
                             if (canBeDone)
                             {
+                                // Ensure that the race is valid.
                                 canBeDone = (race != null);
                                 if (canBeDone)
                                 {

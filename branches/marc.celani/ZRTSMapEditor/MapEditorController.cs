@@ -23,6 +23,9 @@ namespace ZRTSMapEditor
             this.model = model;
         }
 
+        /// <summary>
+        /// Serializes and saves the current scenario.
+        /// </summary>
         public void saveScenario()
         {
             if (model.GetScenario() != null)
@@ -49,6 +52,9 @@ namespace ZRTSMapEditor
             }
         }
 
+        /// <summary>
+        /// Loads a scenario from disc by deserializing.  Generates empty observer lists for each model component.
+        /// </summary>
         public void loadScenario()
         {
             if (model.GetScenario() != null)
@@ -67,6 +73,8 @@ namespace ZRTSMapEditor
                 // Deserialize the file and load it into the model.
                 BinaryFormatter bin = new BinaryFormatter();
                 ScenarioComponent scenario = (ScenarioComponent)bin.Deserialize(openMapDialog.OpenFile());
+
+                // The observer lists are all null - we must set them to be empty lists.
                 CreateObserverListVisitor visitor = new CreateObserverListVisitor();
                 scenario.Accept(visitor);
                 scenario.GetGameWorld().GetMap().SetCellsToBeContainedInMap();
@@ -79,24 +87,12 @@ namespace ZRTSMapEditor
             }
         }
 
+        /// <summary>
+        /// Creates a CreateNewScenario dialog and uses it to determine the name and size of the new scenario.  Then, generates a 
+        /// new scenario of the appropriate size.
+        /// </summary>
         public void createNewScenario()
         {
-            /********************
-            // TODO Extract this logic with loadscenario.
-            if (model.scenario != null)
-            {
-                // TODO: Ask if the user wants to discard the current scenario.
-            }
-            model.scenario = new ZRTSModel.Scenario.Scenario(20, 20);
-
-            // Since this is a new scenario, it has not been saved and does not have a filename
-            model.filename = null;
-            model.saved = false;
-
-            //The model has changed, so notify all views of the change.
-            model.notifyAll();
-            *************/
-
             if (model.GetScenario() != null)
             {
                 // TODO: Ask if the user wants to discard the current scenario or save it.
@@ -114,26 +110,26 @@ namespace ZRTSMapEditor
             }
             
         }
-        // TODO public void setTile(Tile tile, int x, int y)
-        // TODO public void addEntity(Entity entity, int x, int y)
-        // TODO public void moveEntities(List<Entity> entities, int x, int y)
-        // TODO public void addTrigger(Trigger trigger)
-        // TODO public void removeTrigger(Trigger trigger)
+
         public bool isOkayToClose()
         {
-            // TODO Open dialog box to see if it is okay to discard changes, or to save first.
-            // return model.saved;
+            // TODO Open dialog box to see if it is okay to discard changes, or to save first
             return true;
         }
 
-
+        /// <summary>
+        /// Determines from the selection state if we are placing a resource, building, unit, or tile, and then places it based on
+        /// the selection state.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         internal void OnClickMapCell(int x, int y)
         {
             if (model.GetSelectionState().SelectionType == typeof(ZRTSModel.Tile))
             {
                 TileFactory tf = TileFactory.Instance;
                 CellComponent cell = model.GetScenario().GetGameWorld().GetMap().GetCellAt(x, y);
-                ZRTSModel.Tile tile = tf.GetImprovedTile(model.TileTypeSelected);
+                ZRTSModel.Tile tile = tf.GetImprovedTile(model.GetSelectionState().SelectedTileType);
                 ChangeCellTileCommand command = new ChangeCellTileCommand(cell, tile);
 
                 if (command.CanBeDone())
@@ -147,20 +143,19 @@ namespace ZRTSMapEditor
             }
         }
 
+        /// <summary>
+        /// Called by the tile palette when a tile is selected - updates the selection model.
+        /// </summary>
+        /// <param name="type"></param>
         internal void selectTileType(string type)
         {
-            // TODO Update to a proper interface.
-            model.TileTypeSelected = type;
-
             model.GetSelectionState().SelectionType = typeof(ZRTSModel.Tile);
-
-            //model.TileTypeSelected = type;
-            //model.SelectionType = SelectionType.Tile;
-
-            //The model has changed, so notify all views of the change.
-            //model.notifyAll();
+            model.GetSelectionState().SelectedTileType = type;
         }
 
+        /// <summary>
+        /// Opens a dialog box to change the players list.
+        /// </summary>
         internal void OpenPlayersForm()
         {
             if (model.GetScenario() != null)
@@ -170,21 +165,35 @@ namespace ZRTSMapEditor
             }
         }
 
+        /// <summary>
+        /// Delegates undo command to command stack.
+        /// </summary>
         internal void UndoLastCommand()
         {
             model.GetCommandStack().UndoLastCommand();
         }
 
+        /// <summary>
+        /// Delegates redo request to command stack.
+        /// </summary>
         internal void RedoLastUndoCommand()
         {
             model.GetCommandStack().RedoLastUndoneCommand();
         }
 
+        /// <summary>
+        /// Called by unit and building palettes to determine for which player the building or unit should be added.
+        /// </summary>
+        /// <param name="playerName"></param>
         internal void SelectPlayer(string playerName)
         {
             model.GetSelectionState().SelectedPlayer = playerName;
         }
 
+        /// <summary>
+        /// Called by unit palette to set in the selection state what type of unit has been selected.
+        /// </summary>
+        /// <param name="unitType"></param>
         internal void SelectUnitType(string unitType)
         {
             model.GetSelectionState().SelectedUnitType = unitType;

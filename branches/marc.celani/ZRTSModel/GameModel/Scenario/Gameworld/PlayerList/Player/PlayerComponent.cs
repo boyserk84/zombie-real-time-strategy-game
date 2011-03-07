@@ -5,6 +5,10 @@ using System.Text;
 
 namespace ZRTSModel
 {
+    /// <summary>
+    /// A piece of model representing a player.  A player has a UNIQUE name, a race, and resources.  It also contains as children
+    /// a building and unit list.
+    /// </summary>
     [Serializable()]
     public class PlayerComponent : ModelComponent
     {

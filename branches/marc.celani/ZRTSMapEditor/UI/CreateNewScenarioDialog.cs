@@ -9,7 +9,9 @@ using System.Windows.Forms;
 
 namespace ZRTSMapEditor.UI
 {
-
+    /// <summary>
+    /// A dialog box for setting the size of a new scenario.
+    /// </summary>
     public partial class CreateNewScenarioDialog : Form
     {
         private string name = null;
@@ -53,9 +55,12 @@ namespace ZRTSMapEditor.UI
 	        {
                 width = Int32.Parse(widthBox.Text);
                 height = Int32.Parse(heightBox.Text);
+
+                // Ensure that the name is not just white space.
                 exitWithCreate = !name.Replace(" ", "").Replace("\t", "").Equals("");
                 if (exitWithCreate)
                 {
+                    // Ensure that the size is valid.
                     exitWithCreate = (width > 0);
                     if (exitWithCreate)
                     {

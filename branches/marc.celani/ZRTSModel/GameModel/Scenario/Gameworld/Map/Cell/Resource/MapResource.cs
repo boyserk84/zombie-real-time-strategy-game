@@ -5,6 +5,9 @@ using System.Text;
 
 namespace ZRTSModel
 {
+    /// <summary>
+    /// An abstract class representing a particular resource which may be placed in a cell.
+    /// </summary>
     [Serializable()]
     public abstract class MapResource : ModelComponentLeaf
     {

@@ -5,6 +5,12 @@ using System.Text;
 
 namespace ZRTSModel
 {
+    /// <summary>
+    /// An abstact representation of a piece of model, following the composite pattern.  Exposes a common interface for each piece of model.
+    /// Each piece of model is observable, and can be visited.  When children are added, the component notifies its observers.
+    /// 
+    /// Whenever a component notifies its observers, it tells its parent to notify its observers as well.
+    /// </summary>
     [Serializable()]
     public abstract class ModelComponent
     {

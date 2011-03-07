@@ -5,6 +5,10 @@ using System.Text;
 
 namespace ZRTSModel
 {
+    /// <summary>
+    /// Contains cells.  Overrides add and remove to turn them off, but this component is not a leaf - the cells are all children, but are added
+    /// at construction.
+    /// </summary>
     [Serializable()]
     public class Map : ModelComponent
     {

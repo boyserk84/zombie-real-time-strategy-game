@@ -158,8 +158,6 @@
     <Compile Include="GameWorld\Map.cs" />
     <Compile Include="GameWorld\Tile.cs" />
     <Compile Include="GameWorld\TileFactory.cs" />
-    <Compile Include="InterfaceTester.cs" />
-    <Compile Include="InterfaceTesterGold.cs" />
     <Compile Include="ModelComponent.cs" />
     <Compile Include="ModelComponentLeaf.cs" />
     <Compile Include="ModelComponentObserver.cs" />

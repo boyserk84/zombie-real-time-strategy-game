@@ -11,6 +11,10 @@ using ZRTSMapEditor.MapEditorModel;
 
 namespace ZRTSMapEditor
 {
+    /// <summary>
+    /// A palette for selecting a unit and a player to add it to so that it may be added on the map.
+    /// Currently in a demo state.
+    /// </summary>
     public partial class UnitPalette : UserControl, ModelComponentObserver, ModelComponentVisitor, MapEditorFullModelVisitor, PlayerListVisitor
     {
         private MapEditorController controller;
