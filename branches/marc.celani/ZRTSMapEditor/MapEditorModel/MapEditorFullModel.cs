@@ -14,6 +14,7 @@ namespace ZRTSMapEditor.MapEditorModel
         public MapEditorFullModel()
         {
             AddChild(new CommandStack());
+            AddChild(new SelectionState());
         }
 
         public override void Accept(ModelComponentVisitor visitor)
@@ -64,6 +65,18 @@ namespace ZRTSMapEditor.MapEditorModel
                 }
             }
             base.AddChild(child);
+        }
+
+        public SelectionState GetSelectionState()
+        {
+            foreach (ModelComponent component in GetChildren())
+            {
+                if (component is SelectionState)
+                {
+                    return (SelectionState)component;
+                }
+            }
+            return null;
         }
     }
 }

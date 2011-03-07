@@ -28,6 +28,7 @@ namespace ZRTSMapEditor
             tilePalette.loadImageList();
             tilePalette.setController(controller);
             scenarioView1.setController(controller);
+            unitPalette1.Init(controller, goodModel);
 
             // TODO Remove this code, testing purposes only
             this.controller.createNewScenario();

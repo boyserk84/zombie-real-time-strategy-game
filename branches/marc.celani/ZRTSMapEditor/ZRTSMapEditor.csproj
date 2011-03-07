@@ -48,6 +48,8 @@
   <ItemGroup>
     <Compile Include="Commands\MapEditorViewCommands\ChangeCellTileCommand.cs" />
     <Compile Include="MapEditorModel\CommandStack\CommandStack.cs" />
+    <Compile Include="MapEditorModel\SelectionState\SelectionState.cs" />
+    <Compile Include="MapEditorModel\SelectionState\SelectionStateVisitor.cs" />
     <Compile Include="UI\BetterScenarioView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -94,6 +96,12 @@
     <Compile Include="UI\TilePalette.Designer.cs">
       <DependentUpon>TilePalette.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\UnitPalette.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\UnitPalette.Designer.cs">
+      <DependentUpon>UnitPalette.cs</DependentUpon>
+    </Compile>
     <Compile Include="ZRTSMapEditor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="UI\BetterScenarioView.resx">
@@ -123,6 +131,9 @@
     <EmbeddedResource Include="UI\TilePalette.resx">
       <DependentUpon>TilePalette.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\UnitPalette.resx">
+      <DependentUpon>UnitPalette.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -141,7 +152,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MapEditorModel\SaveInfo\" />
-    <Folder Include="MapEditorModel\SelectionState\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -41,6 +41,7 @@
             this.playerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tilePalette = new TilePalette();
             this.scenarioView1 = new BetterScenarioView();
+            this.unitPalette1 = new UnitPalette();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -108,26 +109,26 @@
             // undoToolStripMenuItem
             // 
             this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.undoToolStripMenuItem.Text = "Undo";
             this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(106, 22);
             this.toolStripMenuItem1.Text = "Redo";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // separatorToolStripMenuItem
             // 
             this.separatorToolStripMenuItem.Name = "separatorToolStripMenuItem";
-            this.separatorToolStripMenuItem.Size = new System.Drawing.Size(149, 6);
+            this.separatorToolStripMenuItem.Size = new System.Drawing.Size(103, 6);
             // 
             // playerToolStripMenuItem
             // 
             this.playerToolStripMenuItem.Name = "playerToolStripMenuItem";
-            this.playerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.playerToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.playerToolStripMenuItem.Text = "Player";
             this.playerToolStripMenuItem.Click += new System.EventHandler(this.playerToolStripMenuItem_Click);
             // 
@@ -145,11 +146,19 @@
             this.scenarioView1.Size = new System.Drawing.Size(800, 600);
             this.scenarioView1.TabIndex = 2;
             // 
+            // unitPalette1
+            // 
+            this.unitPalette1.Location = new System.Drawing.Point(12, 266);
+            this.unitPalette1.Name = "unitPalette1";
+            this.unitPalette1.Size = new System.Drawing.Size(130, 300);
+            this.unitPalette1.TabIndex = 4;
+            // 
             // MapEditorView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 662);
+            this.Controls.Add(this.unitPalette1);
             this.Controls.Add(this.tilePalette);
             this.Controls.Add(this.scenarioView1);
             this.Controls.Add(this.menuStrip1);
@@ -183,5 +192,6 @@
         private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator separatorToolStripMenuItem;
+        private UnitPalette unitPalette1;
     }
 }
