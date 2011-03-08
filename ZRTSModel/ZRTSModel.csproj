@@ -152,6 +152,7 @@
     <Compile Include="Scenario\Observer.cs" />
     <Compile Include="Scenario\Scenario.cs" />
     <Compile Include="Scenario\ScenarioObservable.cs" />
+    <Compile Include="StrategizedModelComponentVisitor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GameModel\Scenario\Gameworld\PlayerList\Player\BuildingList\Building\" />

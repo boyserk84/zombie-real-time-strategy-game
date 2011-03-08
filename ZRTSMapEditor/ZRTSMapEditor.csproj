@@ -83,6 +83,8 @@
     <Compile Include="UI\PlayersForm.Designer.cs">
       <DependentUpon>PlayersForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\RefreshableUI.cs" />
+    <Compile Include="UI\RefreshUIOnModelUpdate.cs" />
     <Compile Include="UI\RenderMapViewGameworldVisitor.cs" />
     <Compile Include="UI\Tile.cs">
       <SubType>Component</SubType>

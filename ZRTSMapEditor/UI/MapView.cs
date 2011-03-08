@@ -18,7 +18,7 @@ namespace ZRTSMapEditor
     /// <summary>
     /// Displays the map.
     /// </summary>
-    public partial class MapView : UserControl, ModelComponentObserver
+    public partial class MapView : UserControl, ModelComponentObserver, RefreshableUI
     {
 
         private MapEditorController controller = null;
@@ -60,7 +60,7 @@ namespace ZRTSMapEditor
                     gameworld.RegisterObserver(this);
 
                     // Invalidate the view.
-                    render();
+                    Refresh();
                 }
             }
         }
@@ -86,8 +86,7 @@ namespace ZRTSMapEditor
             ModelComponentVisitorDelegator delegator = new ModelComponentVisitorDelegator();
 
             // Handle Gameworld by invalidating the view.
-            RenderMapViewGameworldVisitor renderer = new RenderMapViewGameworldVisitor();
-            renderer.SetMapView(this);
+            RenderMapViewGameworldVisitor renderer = new RenderMapViewGameworldVisitor(this);
             delegator.AddVisitor(renderer);
 
             // Handle MapEditorFullModel by checking if the scenario changed.
@@ -103,7 +102,7 @@ namespace ZRTSMapEditor
             }
         }
 
-        public void render()
+        public void Refresh()
         {
             TileFactory tf = TileFactory.Instance;
 
@@ -133,7 +132,7 @@ namespace ZRTSMapEditor
 
         public void Visit(Gameworld gameworld)
         {
-            render();
+            Refresh();
         }
 
         /// <summary>

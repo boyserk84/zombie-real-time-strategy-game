@@ -6,19 +6,21 @@ using ZRTSModel;
 
 namespace ZRTSMapEditor.UI
 {
-    class RenderMapViewGameworldVisitor : NoOpModelComponentVisitor
+    public class RenderMapViewGameworldVisitor : NoOpModelComponentVisitor
     {
-        private MapView view;
+        private MapView mapView;
 
-        internal void SetMapView(MapView mapView)
+        private RenderMapViewGameworldVisitor()
+        { }
+
+        public RenderMapViewGameworldVisitor(MapView mapView)
         {
-            view = mapView;
+            this.mapView = mapView;
         }
 
-        public override void Visit(Gameworld gameworld)
+        override public void Visit(Gameworld gameworld)
         {
-            view.render();
-            base.Visit(gameworld);
+            mapView.Refresh();
         }
     }
 }
