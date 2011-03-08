@@ -60,6 +60,16 @@ namespace ZRTSMapEditor.MapEditorModel
             }
         }
 
+        public bool CanUndo()
+        {
+            return (done.Count == 0);
+        }
+
+        public bool CanRedo()
+        {
+            return (undone.Count == 0);
+        }
+
         public override void Accept(MapEditorModelVisitor visitor)
         {
             visitor.Visit(this);
