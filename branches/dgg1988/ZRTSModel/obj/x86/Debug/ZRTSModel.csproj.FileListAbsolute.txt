@@ -34,3 +34,9 @@ C:\Users\maestro\Desktop\dgg1988\ZRTSModel\obj\x86\Debug\ResolveAssemblyReferenc
 C:\Users\maestro\Desktop\dgg1988\ZRTSModel\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\maestro\Desktop\dgg1988\ZRTSModel\obj\x86\Debug\ZRTSModel.dll
 C:\Users\maestro\Desktop\dgg1988\ZRTSModel\obj\x86\Debug\ZRTSModel.pdb
+\\ad.uiuc.edu\engr\ews\dgephar2\Desktop\dgg1988\ZRTSModel\bin\x86\Debug\ZRTSModel.dll
+\\ad.uiuc.edu\engr\ews\dgephar2\Desktop\dgg1988\ZRTSModel\bin\x86\Debug\ZRTSModel.pdb
+\\ad.uiuc.edu\engr\ews\dgephar2\Desktop\dgg1988\ZRTSModel\obj\x86\Debug\ResolveAssemblyReference.cache
+\\ad.uiuc.edu\engr\ews\dgephar2\Desktop\dgg1988\ZRTSModel\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+\\ad.uiuc.edu\engr\ews\dgephar2\Desktop\dgg1988\ZRTSModel\obj\x86\Debug\ZRTSModel.dll
+\\ad.uiuc.edu\engr\ews\dgephar2\Desktop\dgg1988\ZRTSModel\obj\x86\Debug\ZRTSModel.pdb
