@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using ZRTSModel;
 using System.Runtime.CompilerServices;
+using ZRTSModel.EventHandlers;
 
 namespace ZRTSMapEditor
 {

@@ -35,6 +35,7 @@ namespace ZRTSMapEditor
             this.controller = controller;
             SetScenario(model.GetScenario());
             model.RegisterObserver(this);
+            model.ScenarioChangedEvent += new ZRTSModel.EventHandlers.ScenarioChangedHandler(ChangeScenario);
         }
 
         /// <summary>
@@ -80,6 +81,13 @@ namespace ZRTSMapEditor
 
         }
 
+        private void ChangeScenario(object sender, EventArgs e)
+        {
+            if (sender is MapEditorFullModel) // sanity check
+            {
+                SetScenario(((MapEditorFullModel)sender).GetScenario());
+            }
+        }
 
         public void notify(ModelComponent observable)
         {
@@ -88,18 +96,7 @@ namespace ZRTSMapEditor
             // Handle Gameworld by invalidating the view.
             RenderMapViewGameworldVisitor renderer = new RenderMapViewGameworldVisitor(this);
             delegator.AddVisitor(renderer);
-
-            // Handle MapEditorFullModel by checking if the scenario changed.
-            ChangeScenarioContextVisitor fullModelHandler = new ChangeScenarioContextVisitor();
-            fullModelHandler.SetPrevScenario(context);
-            delegator.AddVisitor(fullModelHandler);
-
-
             observable.Accept(delegator);
-            if (fullModelHandler.ScenarioChanged)
-            {
-                SetScenario(fullModelHandler.GetScenario());
-            }
         }
 
         public void Refresh()
