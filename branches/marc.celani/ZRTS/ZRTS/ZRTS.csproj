@@ -117,8 +117,6 @@
     <Compile Include="GameConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="UnitTest\SpriteSheetTest.cs" />
-    <Compile Include="UnitTest\ViewTest.cs" />
     <Compile Include="Utilities\SpriteSheet.cs" />
     <Compile Include="View\View.cs" />
     <Compile Include="View\ViewObserver.cs" />
@@ -127,7 +125,6 @@
   <ItemGroup>
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
-    <Content Include="UnitTest\nunit.framework.dll" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\ZRTSLogic\ZRTSLogic.csproj">

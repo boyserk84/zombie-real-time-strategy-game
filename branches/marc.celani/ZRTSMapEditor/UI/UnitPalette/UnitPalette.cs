@@ -35,8 +35,7 @@ namespace ZRTSMapEditor
             
             context = model.GetScenario();
             InitContext();
-
-            model.RegisterObserver(this);
+            model.ScenarioChangedEvent += this.ChangeScenario;
         }
 
         private void InitContext()
@@ -45,6 +44,8 @@ namespace ZRTSMapEditor
             {
                 playerList = context.GetGameWorld().GetPlayerList();
                 playerList.RegisterObserver(this);
+                this.uiPlayerList.Items.Clear();
+                this.uiPlayerList.Text = "";
             }
         }
 
@@ -57,16 +58,14 @@ namespace ZRTSMapEditor
             listHandler.UnitPalette = this;
             delegator.AddVisitor(listHandler);
 
-            // Handle MapEditorFullModel by checking if the scenario changed.
-            ChangeScenarioContextVisitor fullModelHandler = new ChangeScenarioContextVisitor();
-            fullModelHandler.SetPrevScenario(context);
-            delegator.AddVisitor(fullModelHandler);
-
-
             observable.Accept(delegator);
-            if (fullModelHandler.ScenarioChanged)
+        }
+
+        private void ChangeScenario(object sender, EventArgs e)
+        {
+            if (sender is MapEditorFullModel) // sanity check
             {
-                context = fullModelHandler.GetScenario();
+                context = ((MapEditorFullModel)sender).GetScenario();
                 InitContext();
             }
         }
