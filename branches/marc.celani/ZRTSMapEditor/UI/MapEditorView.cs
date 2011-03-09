@@ -29,12 +29,10 @@ namespace ZRTSMapEditor
             MapEditorFullModel model = new MapEditorFullModel();
             this.controller = new MapEditorController(model);
 
-            this.controller.createNewScenario();
-
             // Further initialize pieces of UI.
             tilePalette.loadImageList();
             tilePalette.setController(controller);
-            scenarioView1.Init(controller, model);
+            mapViewComposite1.Init(controller, model);
             unitPalette1.Init(controller, model);
 
         }
@@ -63,9 +61,9 @@ namespace ZRTSMapEditor
            // scenarioView1.changeImage(image);
         }
 
-        internal void tileClicked(Tile tile)
+        internal void tileClicked(TileUI tile)
         {
-            tile.Image = tilePalette.getSelectedImage();
+            controller.OnClickMapCell(tile.Cell);
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)

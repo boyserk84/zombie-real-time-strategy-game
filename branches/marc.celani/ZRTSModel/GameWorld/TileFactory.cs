@@ -181,15 +181,15 @@ namespace ZRTSModel.GameWorld
         {
             if (tile.GetType() == typeof(Mountain))
             {
-                return new Bitmap(TILES_DIRECTORY + "mountain.png");
+                return bitmaps["mountain"];
             }
             else if (tile.GetType() == typeof(Grass))
             {
-                return new Bitmap(TILES_DIRECTORY + "grass.png");
+                return bitmaps["grass"];
             }
             else if (tile.GetType() == typeof(Sand))
             {
-                return new Bitmap(TILES_DIRECTORY + "lightgrass.png");
+                return bitmaps["lightgrass"];
             }
             return null;
         }

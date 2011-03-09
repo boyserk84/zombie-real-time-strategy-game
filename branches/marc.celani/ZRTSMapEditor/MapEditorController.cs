@@ -199,5 +199,24 @@ namespace ZRTSMapEditor
             model.GetSelectionState().SelectedUnitType = unitType;
             model.GetSelectionState().SelectionType = typeof(UnitComponent);
         }
+
+        internal void OnClickMapCell(CellComponent cellComponent)
+        {
+            if (model.GetSelectionState().SelectionType == typeof(ZRTSModel.Tile))
+            {
+                TileFactory tf = TileFactory.Instance;
+                ZRTSModel.Tile tile = tf.GetImprovedTile(model.GetSelectionState().SelectedTileType);
+                ChangeCellTileCommand command = new ChangeCellTileCommand(cellComponent, tile);
+
+                if (command.CanBeDone())
+                {
+                    model.GetCommandStack().ExecuteCommand(command);
+                }
+            }
+            else if (model.GetSelectionState().SelectionType == typeof(UnitComponent))
+            {
+                // Get instance of Unit Factory, produce unit, and place on map for the given player.
+            }
+        }
     }
 }
