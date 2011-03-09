@@ -21,16 +21,10 @@ namespace ZRTSMapEditor
 
         ImageList tileList = new ImageList();
         MapEditorController controller;
-        private Form mapEditorView;
 
         public TilePalette()
         {
             InitializeComponent();
-        }
-
-        public TilePalette(Form mapEditorView) : this()
-        {
-            this.mapEditorView = mapEditorView;
         }
 
         public void setController(MapEditorController controller)
