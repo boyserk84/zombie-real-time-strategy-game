@@ -40,8 +40,8 @@
             this.separatorToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.playerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tilePalette = new TilePalette();
-            this.scenarioView1 = new MapView();
             this.unitPalette1 = new UnitPalette();
+            this.mapViewComposite1 = new MapViewComposite();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -139,13 +139,6 @@
             this.tilePalette.Size = new System.Drawing.Size(129, 193);
             this.tilePalette.TabIndex = 3;
             // 
-            // scenarioView1
-            // 
-            this.scenarioView1.Location = new System.Drawing.Point(147, 46);
-            this.scenarioView1.Name = "scenarioView1";
-            this.scenarioView1.Size = new System.Drawing.Size(800, 600);
-            this.scenarioView1.TabIndex = 2;
-            // 
             // unitPalette1
             // 
             this.unitPalette1.Location = new System.Drawing.Point(12, 266);
@@ -153,14 +146,22 @@
             this.unitPalette1.Size = new System.Drawing.Size(130, 300);
             this.unitPalette1.TabIndex = 4;
             // 
+            // mapViewComposite1
+            // 
+            this.mapViewComposite1.AutoScroll = true;
+            this.mapViewComposite1.Location = new System.Drawing.Point(172, 50);
+            this.mapViewComposite1.Name = "mapViewComposite1";
+            this.mapViewComposite1.Size = new System.Drawing.Size(800, 600);
+            this.mapViewComposite1.TabIndex = 5;
+            // 
             // MapEditorView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 662);
+            this.Controls.Add(this.mapViewComposite1);
             this.Controls.Add(this.unitPalette1);
             this.Controls.Add(this.tilePalette);
-            this.Controls.Add(this.scenarioView1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MapEditorView";
@@ -185,7 +186,6 @@
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private MapView scenarioView1;
         private TilePalette tilePalette;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem playerToolStripMenuItem;
@@ -193,5 +193,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator separatorToolStripMenuItem;
         private UnitPalette unitPalette1;
+        private MapViewComposite mapViewComposite1;
     }
 }

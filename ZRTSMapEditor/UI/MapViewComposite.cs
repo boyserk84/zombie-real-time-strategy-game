@@ -6,26 +6,18 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using ZRTSModel.Scenario;
-using ZRTSModel.GameWorld;
-using System.Diagnostics;
 using ZRTSModel;
 using ZRTSMapEditor.MapEditorModel;
-using ZRTSMapEditor.UI;
+using ZRTSModel.GameWorld;
 
 namespace ZRTSMapEditor
 {
-    /// <summary>
-    /// Displays the map.
-    /// </summary>
-    public partial class MapView : UserControl, ModelComponentObserver, RefreshableUI
+    public partial class MapViewComposite : UserControl
     {
-
         private MapEditorController controller = null;
-        private Gameworld gameworld = null;
         private ScenarioComponent context = null;
 
-        public MapView()
+        public MapViewComposite()
         {
             InitializeComponent();
         }
@@ -34,7 +26,6 @@ namespace ZRTSMapEditor
         {
             this.controller = controller;
             SetScenario(model.GetScenario());
-            model.RegisterObserver(this);
             model.ScenarioChangedEvent += new ZRTSModel.EventHandlers.ScenarioChangedHandler(ChangeScenario);
         }
 
@@ -45,25 +36,59 @@ namespace ZRTSMapEditor
         /// <param name="scenario"></param>
         public void SetScenario(ScenarioComponent scenario)
         {
-            if (gameworld != null)
-            {
-                // Unregister with the old piece of model.
-                gameworld.UnregisterObserver(this);
-            }
             context = scenario;
+
+            // Empty the view.
+            this.flowLayout.Controls.Clear();
 
             if (scenario != null)
             {
-                gameworld = scenario.GetGameWorld();
-                if (gameworld != null)
-                {
-                    // Register with the new piece of model.
-                    gameworld.RegisterObserver(this);
+                ZRTSModel.Map map = scenario.GetGameWorld().GetMap();
+                TileUI firstTile = new TileUI(this.controller, map.GetCellAt(0, 0));
+                this.flowLayout.Size = new System.Drawing.Size(map.GetWidth() * firstTile.Image.Size.Width, map.GetHeight() * firstTile.Image.Size.Height);
+                
+                // Location of the flow
+                int xLoc, yLoc;
 
-                    // Invalidate the view.
-                    Refresh();
+                if (this.flowLayout.Size.Width > this.Size.Width)
+                {
+                    xLoc = 0;
+                }
+                else
+                {
+                    // Place the layout in the center.
+                    xLoc = (this.Size.Width - this.flowLayout.Size.Width) / 2;
+                }
+
+                if (this.flowLayout.Size.Height > this.Size.Height)
+                {
+                    yLoc = 0;
+                }
+                else
+                {
+                    // Place the layout in the center.
+                    yLoc = (this.Size.Height - this.flowLayout.Size.Height) / 2;
+                }
+
+                this.flowLayout.Location = new System.Drawing.Point(xLoc, yLoc);
+
+                
+
+                // Add tiles to the layout.
+                for (int i = 0; i < map.GetWidth(); i++)
+                {
+                    for (int j = 0; j < map.GetHeight(); j++)
+                    {
+                        TileUI tile = new TileUI(this.controller, map.GetCellAt(i, j));
+                        this.flowLayout.Controls.Add(tile);
+                    }
                 }
             }
+            else
+            {
+                this.flowLayout.Size = new System.Drawing.Size(0, 0);
+            }
+            
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -77,8 +102,6 @@ namespace ZRTSMapEditor
             // Notify the controller of the click.
             controller.OnClickMapCell(x, y);
 
-            Debug.WriteLine("("+p.X+", "+p.Y+")");
-
         }
 
         private void ChangeScenario(object sender, EventArgs e)
@@ -89,17 +112,7 @@ namespace ZRTSMapEditor
             }
         }
 
-        public void notify(ModelComponent observable)
-        {
-            ModelComponentVisitorDelegator delegator = new ModelComponentVisitorDelegator();
-
-            // Handle Gameworld by invalidating the view.
-            RenderMapViewGameworldVisitor renderer = new RenderMapViewGameworldVisitor(this);
-            delegator.AddVisitor(renderer);
-            observable.Accept(delegator);
-        }
-
-        public void Refresh()
+        /*public void Refresh()
         {
             TileFactory tf = TileFactory.Instance;
 
@@ -125,6 +138,11 @@ namespace ZRTSMapEditor
                 }
             }
             pictureBox1.Image = pg;
+        }*/
+
+        private void hScrollBar1_Scroll(object sender, ScrollEventArgs e)
+        {
+        
         }
     }
 }

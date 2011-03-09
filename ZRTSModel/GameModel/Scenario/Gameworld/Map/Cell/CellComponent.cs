@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ZRTSModel.EventHandlers;
 
 namespace ZRTSModel
 {
@@ -11,6 +12,7 @@ namespace ZRTSModel
     [Serializable()]
     public class CellComponent : ModelComponent
     {
+        public event TileChangedHandler TileChangedEvent;
 
         override public void AddChild(ModelComponent child)
         {
@@ -41,6 +43,15 @@ namespace ZRTSModel
                 RemoveChild(component); 
             }
             base.AddChild(child);
+            
+            // Handle notifications
+            if (child is Tile)
+            {
+                if (TileChangedEvent != null)
+                {
+                    TileChangedEvent(this, new TileChangedEventArgs((Tile)child));
+                }
+            }
         }
 
         public Tile GetTile()

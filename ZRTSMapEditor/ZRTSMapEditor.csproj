@@ -77,6 +77,12 @@
     </Compile>
     <Compile Include="Commands\PlayersFormCommands\PlayerDataGridAdapter.cs" />
     <Compile Include="Commands\PlayersFormCommands\PlayerDataGridAdapterCommitter.cs" />
+    <Compile Include="UI\MapViewComposite.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\MapViewComposite.Designer.cs">
+      <DependentUpon>MapViewComposite.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\PlayersForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,7 +92,7 @@
     <Compile Include="UI\RefreshableUI.cs" />
     <Compile Include="UI\RefreshUIOnModelUpdate.cs" />
     <Compile Include="UI\RenderMapViewGameworldVisitor.cs" />
-    <Compile Include="UI\Tile.cs">
+    <Compile Include="UI\TileUI.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="UI\TilePalette.cs">
@@ -113,6 +119,9 @@
     <EmbeddedResource Include="UI\MapEditorView.resx">
       <DependentUpon>MapEditorView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\MapViewComposite.resx">
+      <DependentUpon>MapViewComposite.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\PlayersForm.resx">
       <DependentUpon>PlayersForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -127,6 +136,9 @@
     </Compile>
     <EmbeddedResource Include="UI\TilePalette.resx">
       <DependentUpon>TilePalette.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\TileUI.resx">
+      <DependentUpon>TileUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\UnitPalette\UnitPalette.resx">
       <DependentUpon>UnitPalette.cs</DependentUpon>

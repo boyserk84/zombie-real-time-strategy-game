@@ -9,6 +9,7 @@ namespace ZRTSModel.EventHandlers
     #region ZRTS Delegates
 
     public delegate void ScenarioChangedHandler(Object sender, ScenarioChangedEventArgs args);
+    public delegate void TileChangedHandler(Object sender, TileChangedEventArgs args);
 
     #endregion
 }
