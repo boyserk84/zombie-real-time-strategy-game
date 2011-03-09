@@ -13,6 +13,7 @@ using ZRTSModel.Entities;
 using ZRTSModel.Scenario;
 using ZRTSLogic.Action;
 using ZRTSModel.Factories;
+//using ZRTSModel;
 
 namespace ZRTSLogic
 {
@@ -21,22 +22,17 @@ namespace ZRTSLogic
     /// </summary>
     public class Controller
     {
+        private short DEAD_DISAPPEAR_TICKS = 300; // Number of ticks to wait for a dead unit to disappear
+        private long curTick = 0;
+
         public GameWorld gameWorld;
         public Scenario scenario;
-
-        // Controls all actions that entities may do.
-        ActionController actionController;
 
         // Controls adding, removing, and moving entities.
         EntityLocController locController;
 
-        // Creates Entities to add to the game.
-        EntityCreator creator;
-
-        // Factories
-        UnitFactory unitFactory;
-        BuildingFactory buildingFactory;
-        TileFactory tileFactory;
+		// Updates the visibilty map
+		VisibilityMapLogic visMapLogic;
 
         /// <summary>
         /// This method will take a Scenario as input and will create a Controller object for that Scenario.
@@ -56,57 +52,83 @@ namespace ZRTSLogic
         {
             this.scenario = scenario;
             this.gameWorld = this.scenario.getGameWorld();
-            this.actionController = new ActionController(scenario);
-            this.locController = new EntityLocController(scenario);
+			this.visMapLogic = new VisibilityMapLogic(scenario.getGameWorld(), scenario.getPlayer());
+            this.locController = new EntityLocController(scenario, this.visMapLogic);
             
-
-            setUpFactories();
-            this.creator = new EntityCreator(this.unitFactory, this.buildingFactory);
         }
 
-        private void setUpFactories()
-        {
-            //unitFactory = new UnitFactory();
-            //buildingFactory = new BuildingFactory();
-            //tileFactory = new TileFactory();
-        }
-
-        /// <summary>
-        /// Returns a list of strings where each string denotes a kind of unit in the game. (This is the list of units stored 
-        /// in 'Content/units/unitList.xml')
-        /// </summary>
-        /// <returns></returns>
-        public List<string> getUnitStrings()
-        {
-            return unitFactory.getPrefixes();
-        }
-
-        public List<string> getBuildingStrings()
-        {
-            return buildingFactory.getBuildingTypes();
-        }
-
-        public List<string> getTileStrings()
-        {
-            return tileFactory.getTileTypes();
-        }
-
-        public List<Tile> getTiles()
-        {
-            return tileFactory.getTiles();
-        }
         /// <summary>
         /// This function will be called by the GUI to call for another cycle of the game to be run. This function will
         /// update all of the states of the Entitys in the GameWorld.
         /// </summary>
         public void updateWorld()
         {
+            List<Entity> entitiesToRemove = new List<Entity>();
+
+			// Update all units.
             foreach (Unit u in gameWorld.getUnits())
             {
-                actionController.update(u, locController);
+				updateEntity(u, entitiesToRemove);
             }
 
+			// Update all buildings.
+            foreach (Building b in gameWorld.getBuildings())
+            {
+				updateEntity(b, entitiesToRemove);
+            }
+
+
+            /** Remove any entities **/
+            foreach (Entity e in entitiesToRemove)
+            {
+                locController.removeEntity(e);
+            }
+
+            curTick++;
         }
+
+		/// <summary>
+		/// The basic outline of the updateEntity method is as follows:
+		/// 1, Have the entity perform the current action at the top of it's action queue (if any)
+		/// 2, Check for changes in the entity's stats. (ex: check for death.)
+		/// 3, Have the Entity react to any Events that occur within it's visibility range.
+		/// (Events that either occur to the Entity or events that the Entity can "see")
+		/// 4, Check if the Entity should be removed from the game. (When it's primary state is set to Remove.)
+		/// </summary>
+		/// <param name="entity"></param>
+		/// <param name="entitiesToRemove"></param>
+		private void updateEntity(Entity entity, List<Entity> entitiesToRemove)
+		{
+			/*** Have entity perform it's current action (if any) ***/
+			ActionController.Instance.update(entity, locController);
+
+			Entity.EntityType type = entity.getEntityType();
+			/*** Update stats of Entity ***/
+			if (type == Entity.EntityType.Unit)
+			{
+				UnitStatsLogic.updateUnit((Unit)entity, curTick);
+			}
+			else
+			{
+				// Only Stats update occurs upon death of any StaticEntity right?
+				if (entity.health <= 0)
+				{
+					entity.getState().setPrimaryState(State.PrimaryState.Dead);
+				}
+			}
+
+			/*** Have Entity react to any Events ***/
+			if (type == Entity.EntityType.Unit) // Only Units really need to react to Events.
+			{
+
+			}
+
+			/*** Remove Entity if it needs to be removed. ***/
+			if (entity.getState().getPrimaryState() == State.PrimaryState.Remove)
+			{
+				entitiesToRemove.Add(entity);
+			}
+		}
 
         /// <summary>
         /// Given an Entity and an ActionCommand, this function will attempt to give the Entity the ActionCommand
@@ -116,7 +138,7 @@ namespace ZRTSLogic
         /// <returns>false if the command was rejected, true if the command was accepted.</returns>
         public bool giveActionCommand(Entity entity, ActionCommand command)
         {
-            return actionController.giveCommand(entity, command);
+            return ActionController.Instance.giveCommand(entity, command);
         }
 
         /// <summary>
@@ -143,15 +165,13 @@ namespace ZRTSLogic
             return locController.addEntity(unit, x, y);
         }
 
-        public bool removeEntity(Entity entity)
+		/// <summary>
+		/// Removes an Entity from the game.
+		/// </summary>
+		/// <param name="entity">The entity being removed.</param>
+        public void removeEntity(Entity entity)
         {
-            return true;
+			locController.removeEntity(entity);
         }
-
-        public ActionController getActionController()
-        {
-            return this.actionController;
-        }
-
     }
 }
