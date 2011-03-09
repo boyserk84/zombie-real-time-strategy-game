@@ -94,6 +94,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventHandlers\ScenarioChangedEventArgs.cs" />
+    <Compile Include="EventHandlers\ZRTSEventHandlers.cs" />
     <Compile Include="ModelComponentVisitorDelegator.cs" />
     <Compile Include="NoOpModelComponentVisitor.cs" />
     <Compile Include="Entities\ActionCommand.cs" />

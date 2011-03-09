@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ZRTSModel;
+using ZRTSModel.EventHandlers;
 
 namespace ZRTSMapEditor.MapEditorModel
 {
@@ -15,6 +16,7 @@ namespace ZRTSMapEditor.MapEditorModel
     /// </summary>
     public class MapEditorFullModel : MapEditorModelComponent
     {
+        public event ScenarioChangedHandler ScenarioChangedEvent;
 
         public MapEditorFullModel()
         {
@@ -60,8 +62,16 @@ namespace ZRTSMapEditor.MapEditorModel
                 {
                     RemoveChild(scenario);
                 }
+                base.AddChild(child);
+                if (ScenarioChangedEvent != null)
+                {
+                    ScenarioChangedEvent(this, new ScenarioChangedEventArgs());
+                }
             }
-            base.AddChild(child);
+            else
+            {
+                base.AddChild(child);
+            }
         }
 
         public SelectionState GetSelectionState()
