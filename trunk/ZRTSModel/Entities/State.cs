@@ -18,7 +18,13 @@ namespace ZRTSModel.Entities
         /// This enum represents the possible primary states that an Entity may be in. An Entity may only be in
         /// one primary state at a time.
         /// </summary>
-        public enum PrimaryState : byte{ Idle, Moving, Attacking, Dead, Harvesting };
+        public enum PrimaryState : byte{ Idle,      // Doing nothing, default state
+                                        Moving,     // Entity (a Unit) is moving
+                                        Attacking,  // Entity (a Unit) is attacking
+                                        Dead,       // Entity is dead
+                                        Harvesting, // Entity (a Unit) is harvesting a resource
+                                        Building,   // Entity is performing a BuildAction
+                                        Remove };   // Entity should be removed.
 
         /// <summary>
         /// This enum represents the possible secondary states an Entity may be in. An Entity may be in multiple or
