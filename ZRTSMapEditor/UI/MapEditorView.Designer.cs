@@ -39,9 +39,9 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.separatorToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.playerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tilePalette = new TilePalette();
-            this.unitPalette1 = new UnitPalette();
             this.mapViewComposite1 = new MapViewComposite();
+            this.unitPalette1 = new UnitPalette();
+            this.tilePalette = new TilePalette();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -132,12 +132,13 @@
             this.playerToolStripMenuItem.Text = "Player";
             this.playerToolStripMenuItem.Click += new System.EventHandler(this.playerToolStripMenuItem_Click);
             // 
-            // tilePalette
+            // mapViewComposite1
             // 
-            this.tilePalette.Location = new System.Drawing.Point(12, 67);
-            this.tilePalette.Name = "tilePalette";
-            this.tilePalette.Size = new System.Drawing.Size(129, 193);
-            this.tilePalette.TabIndex = 3;
+            this.mapViewComposite1.AutoScroll = true;
+            this.mapViewComposite1.Location = new System.Drawing.Point(172, 50);
+            this.mapViewComposite1.Name = "mapViewComposite1";
+            this.mapViewComposite1.Size = new System.Drawing.Size(800, 600);
+            this.mapViewComposite1.TabIndex = 5;
             // 
             // unitPalette1
             // 
@@ -146,13 +147,12 @@
             this.unitPalette1.Size = new System.Drawing.Size(130, 300);
             this.unitPalette1.TabIndex = 4;
             // 
-            // mapViewComposite1
+            // tilePalette
             // 
-            this.mapViewComposite1.AutoScroll = true;
-            this.mapViewComposite1.Location = new System.Drawing.Point(172, 50);
-            this.mapViewComposite1.Name = "mapViewComposite1";
-            this.mapViewComposite1.Size = new System.Drawing.Size(800, 600);
-            this.mapViewComposite1.TabIndex = 5;
+            this.tilePalette.Location = new System.Drawing.Point(12, 67);
+            this.tilePalette.Name = "tilePalette";
+            this.tilePalette.Size = new System.Drawing.Size(129, 193);
+            this.tilePalette.TabIndex = 3;
             // 
             // MapEditorView
             // 

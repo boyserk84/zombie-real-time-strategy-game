@@ -53,6 +53,12 @@
     <Compile Include="MapEditorModel\CommandStack\CommandStack.cs" />
     <Compile Include="MapEditorModel\NoOpMapEditorModelVisitor.cs" />
     <Compile Include="MapEditorModel\SelectionState\SelectionState.cs" />
+    <Compile Include="UI\MapPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\MapPanel.Designer.cs">
+      <DependentUpon>MapPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\MapView.cs">
       <SubType>UserControl</SubType>
     </Compile>
