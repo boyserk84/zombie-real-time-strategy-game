@@ -14,3 +14,13 @@ C:\Users\Marc\Desktop\zrts\ZRTSLogic\bin\x86\Debug\ZRTSModel.dll
 C:\Users\Marc\Desktop\zrts\ZRTSLogic\bin\x86\Debug\ZRTSModel.pdb
 C:\Users\Marc\Desktop\zrts\ZRTSLogic\obj\x86\Debug\ZRTSLogic.dll
 C:\Users\Marc\Desktop\zrts\ZRTSLogic\obj\x86\Debug\ZRTSLogic.pdb
+C:\Users\maestro\Desktop\zombie-real-time-strategy-game\ZRTSLogic\bin\x86\Debug\ZRTSLogic.dll
+C:\Users\maestro\Desktop\zombie-real-time-strategy-game\ZRTSLogic\bin\x86\Debug\ZRTSLogic.pdb
+C:\Users\maestro\Desktop\zombie-real-time-strategy-game\ZRTSLogic\bin\x86\Debug\nunit.framework.dll
+C:\Users\maestro\Desktop\zombie-real-time-strategy-game\ZRTSLogic\bin\x86\Debug\ZRTSModel.dll
+C:\Users\maestro\Desktop\zombie-real-time-strategy-game\ZRTSLogic\bin\x86\Debug\ZRTSModel.pdb
+C:\Users\maestro\Desktop\zombie-real-time-strategy-game\ZRTSLogic\bin\x86\Debug\nunit.framework.xml
+C:\Users\maestro\Desktop\zombie-real-time-strategy-game\ZRTSLogic\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\maestro\Desktop\zombie-real-time-strategy-game\ZRTSLogic\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\maestro\Desktop\zombie-real-time-strategy-game\ZRTSLogic\obj\x86\Debug\ZRTSLogic.dll
+C:\Users\maestro\Desktop\zombie-real-time-strategy-game\ZRTSLogic\obj\x86\Debug\ZRTSLogic.pdb

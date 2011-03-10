@@ -119,13 +119,13 @@
     <Compile Include="VisibilityMapLogic.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="UnitTest\" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\ZRTSModel\ZRTSModel.csproj">
       <Project>{2045DCE8-71C3-43E3-871D-D98407D30E58}</Project>
       <Name>ZRTSModel</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UnitTest\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />

@@ -12,7 +12,7 @@ namespace ZRTSModel.Entities
     public class Entity
     {
         static int nextID = 0;
-
+		 
         Player.Player owner; // Determines which Player this entity belongs to.
         public short health, maxHealth;
         State state;
