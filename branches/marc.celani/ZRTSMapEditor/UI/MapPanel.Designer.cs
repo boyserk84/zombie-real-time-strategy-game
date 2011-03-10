@@ -1,6 +1,6 @@
 ﻿namespace ZRTSMapEditor
 {
-    partial class MapViewComposite
+    partial class MapPanel
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,33 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.mapPanel = new MapPanel();
-            this.SuspendLayout();
-            // 
-            // mapPanel
-            // 
-            this.mapPanel.AutoScroll = true;
-            this.mapPanel.Location = new System.Drawing.Point(3, 0);
-            this.mapPanel.Name = "mapPanel";
-            this.mapPanel.Size = new System.Drawing.Size(794, 597);
-            this.mapPanel.TabIndex = 0;
-            // 
-            // MapViewComposite
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoScroll = true;
-            this.Controls.Add(this.mapPanel);
-            this.Name = "MapViewComposite";
-            this.Size = new System.Drawing.Size(800, 600);
-            this.ResumeLayout(false);
-
+            components = new System.ComponentModel.Container();
         }
 
         #endregion
-
-        private MapPanel mapPanel;
-
-
     }
 }
