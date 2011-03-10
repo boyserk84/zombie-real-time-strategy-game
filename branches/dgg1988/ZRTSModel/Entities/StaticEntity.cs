@@ -12,7 +12,6 @@ namespace ZRTSModel.Entities
     [Serializable()]
     public class StaticEntity : Entity
     {
-
         public Cell orginCell;
         public byte width, height;
 

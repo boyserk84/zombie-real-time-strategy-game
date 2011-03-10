@@ -11,7 +11,7 @@ namespace ZRTSModel.Entities
     {
         /** UNIT TYPE **/
         public string unitType;
-
+		 
         /** UNIT STATS **/
         public UnitStats stats;
 

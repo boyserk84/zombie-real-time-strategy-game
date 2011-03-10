@@ -13,7 +13,7 @@ namespace ZRTSModel.GameWorld
         public int index;
 
         public Tile(string tileType, bool passable, int index)
-        {
+        { 
             this.tileType = tileType;
             this.passable = passable;
             this.index = index;

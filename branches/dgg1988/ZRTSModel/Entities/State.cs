@@ -13,7 +13,7 @@ namespace ZRTSModel.Entities
     /// </summary>
     [Serializable()]
     public class State
-    {
+    { 
         /// <summary>
         /// This enum represents the possible primary states that an Entity may be in. An Entity may only be in
         /// one primary state at a time.

@@ -14,7 +14,7 @@ namespace ZRTSModel.GameWorld
     [Serializable()]
     public class GameWorld
     {
-        /*
+        /* 
          * private variables
          */
 

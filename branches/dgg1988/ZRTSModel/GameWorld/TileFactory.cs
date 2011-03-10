@@ -16,7 +16,7 @@ namespace ZRTSModel.GameWorld
     public class TileFactory
     {
         private static TileFactory instance;
-
+		 
         private static string TILES_FILE = "Content/tiles.xml";
         private static string TILES_DIRECTORY = "Content/Images/";
 

@@ -17,7 +17,7 @@ namespace ZRTSModel.Scenario
         public  const byte WORLD_PLAYER = 0;
         public  const byte PLAYER = 1;
         public  const byte ZOMBIE_PLAYER = 2;
-
+		 
         Player.Player player;       // Human Player
         Player.Player worldPlayer;  // "World" Player (Neutral)
         Player.Player zombiePlayer; // Zombie Player (enemy)

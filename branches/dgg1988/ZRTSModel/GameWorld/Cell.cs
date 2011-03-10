@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 using ZRTSModel.Entities;
 
 namespace ZRTSModel.GameWorld
-{
+{ 
     [Serializable()]
     public enum TileType
     {

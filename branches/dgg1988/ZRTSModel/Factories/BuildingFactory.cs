@@ -11,7 +11,7 @@ using ZRTSModel.Exception;
 namespace ZRTSModel.Factories
 {
     public class BuildingFactory
-    {
+    { 
         List<string> buildingTypes;
         Dictionary<string, BuildingStats> statsDict;
 

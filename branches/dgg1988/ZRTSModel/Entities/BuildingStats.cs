@@ -8,7 +8,6 @@ namespace ZRTSModel.Entities
     public class BuildingStats
     {
         public string buildingType;
-
         // Dimensions of the building
         public byte width = 2;
         public byte height = 2;

@@ -17,7 +17,7 @@ namespace ZRTSModel.Player
         {
             get { return this.selected_entities; }
         }
-
+		 
 
         public Player(byte id)
         {

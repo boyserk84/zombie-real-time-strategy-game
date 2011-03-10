@@ -14,7 +14,7 @@ namespace ZRTSModel.GameWorld
     /// </summary>
     [Serializable()]
     public class Map
-    {
+    { 
         /*
          * private variables
          */

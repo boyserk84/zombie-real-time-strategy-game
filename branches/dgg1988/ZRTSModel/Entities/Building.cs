@@ -8,7 +8,6 @@ namespace ZRTSModel.Entities
     [Serializable()]
     public class Building : StaticEntity
     {
-
         public BuildingStats stats;
 
         public bool isCompleted = false; // Has this building ever been completly built?

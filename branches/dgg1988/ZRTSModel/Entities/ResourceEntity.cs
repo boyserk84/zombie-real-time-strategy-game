@@ -7,7 +7,7 @@ namespace ZRTSModel.Entities
 {
     [Serializable()]
     class ResourceEntity : StaticEntity
-    {
+    { 
         public enum ResourceType : byte { Water, Lumber, Food, Metal };
         ResourceType resourceType;
 
