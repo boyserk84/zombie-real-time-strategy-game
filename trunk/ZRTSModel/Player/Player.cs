@@ -10,8 +10,6 @@ namespace ZRTSModel.Player
     public class Player
     {
         byte id;
-        List<Unit> units;
-        List<Building> buildings;
         List<Entity> entities;
         private List<Entity> selected_entities;
 
@@ -24,8 +22,6 @@ namespace ZRTSModel.Player
         public Player(byte id)
         {
             this.id = id;
-            units = new List<Unit>();
-            buildings = new List<Building>();
             entities = new List<Entity>();
             selected_entities = new List<Entity>();
         }
@@ -39,6 +35,11 @@ namespace ZRTSModel.Player
         {
             entities.Remove(entity);
         }
+
+		public bool hasEntity(Entity entity)
+		{
+			return entities.Contains(entity);
+		}
 
 
         public void selectEntities(List<ZRTSModel.Entities.Entity> list)

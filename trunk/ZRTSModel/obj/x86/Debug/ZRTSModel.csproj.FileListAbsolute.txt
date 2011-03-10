@@ -28,3 +28,9 @@ C:\Users\Marc\Desktop\zrts\ZRTSModel\bin\x86\Debug\ZRTSModel.dll
 C:\Users\Marc\Desktop\zrts\ZRTSModel\bin\x86\Debug\ZRTSModel.pdb
 C:\Users\Marc\Desktop\zrts\ZRTSModel\obj\x86\Debug\ZRTSModel.dll
 C:\Users\Marc\Desktop\zrts\ZRTSModel\obj\x86\Debug\ZRTSModel.pdb
+C:\Users\maestro\Desktop\zombie-real-time-strategy-game\ZRTSModel\bin\x86\Debug\ZRTSModel.dll
+C:\Users\maestro\Desktop\zombie-real-time-strategy-game\ZRTSModel\bin\x86\Debug\ZRTSModel.pdb
+C:\Users\maestro\Desktop\zombie-real-time-strategy-game\ZRTSModel\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\maestro\Desktop\zombie-real-time-strategy-game\ZRTSModel\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\maestro\Desktop\zombie-real-time-strategy-game\ZRTSModel\obj\x86\Debug\ZRTSModel.dll
+C:\Users\maestro\Desktop\zombie-real-time-strategy-game\ZRTSModel\obj\x86\Debug\ZRTSModel.pdb
