@@ -39,6 +39,11 @@ namespace ZRTSLogic
         {
             bool success = false;
 
+			if (x < 0 || y < 0 || x >= gw.map.width || y >= gw.map.height)
+			{
+				return false;
+			}
+
             /** Try Inserting into GameWorld first **/
             if (entity.entityType == Entity.EntityType.Unit)
             {

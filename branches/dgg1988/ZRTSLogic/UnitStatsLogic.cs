@@ -15,24 +15,28 @@ namespace ZRTSLogic
 		/// Will update the temporary stats of the Unit.
 		/// </summary>
 		/// <param name="unit"></param>
-		public static void updateUnit(Unit unit, long curTick)
+		public static Unit updateUnit(Unit unit, long curTick)
 		{
-			updateAttackBuff(unit);
-			updateSpeedBuff(unit);
+			unit = updateAttackBuff(unit);
+			unit = updateSpeedBuff(unit);
 			isDead(unit, curTick);
+
+			return unit;
 		}
 
-		private static void updateAttackBuff(Unit unit)
+		private static Unit updateAttackBuff(Unit unit)
 		{
 			/* The attackBuff is affected by a unit's health. The attack buff may be reduced to 50% if the unit loses all of it's health. */
-			double baseAttack = 0.5 + 0.5 * (unit.health / unit.stats.maxHealth);
+			double baseAttack = 0.5 + (unit.health / (2.0 * unit.stats.maxHealth));
 			unit.attackBuff = baseAttack;
+			return unit;
 		}
 
-		private static void updateSpeedBuff(Unit unit)
+		private static Unit updateSpeedBuff(Unit unit)
 		{
-			double baseSpeed = 0.5 + 0.5 * (unit.health / unit.stats.maxHealth);
+			double baseSpeed = 0.5 + (unit.health / (2.0*unit.stats.maxHealth));
 			unit.speedBuff = baseSpeed;
+			return unit;
 		}
 
 		private static bool isDead(Entity entity, long curTick)
