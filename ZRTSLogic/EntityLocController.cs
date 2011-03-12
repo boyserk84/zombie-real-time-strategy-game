@@ -39,14 +39,16 @@ namespace ZRTSLogic
         {
             bool success = false;
 
-            /** Try Inserting into GameWorld first **/
-            if (entity.entityType == Entity.EntityType.Unit)
-            {
-                // The coordinates of the Cell the unit is being inserted into.
+            // The coordinates of the Cell the entity is being inserted into.
                 int xC = (int)Math.Floor(x);
                 int yC = (int)Math.Floor(y);
 
                 Cell c = gw.map.getCell(xC, yC);
+
+            /** Try Inserting into GameWorld first **/
+            if (entity.entityType == Entity.EntityType.Unit)
+            {
+                
                 // Insert into gameworld if the target cell is empty
                 if (c.isValid)
                 {
@@ -60,13 +62,25 @@ namespace ZRTSLogic
 					visMapLogic.updateVisMap(u);
                 }
             }
+
             else if(entity.getEntityType() == Entity.EntityType.Building)
             {
-                success = gw.insert((Building)entity, (int)x, (int)y);
-				if (success)
-				{
-					visMapLogic.updateVisMap((Building)entity);
-				}
+                ///Check if building can be made
+                if (gw.checkResources((Building)entity, scenario.getPlayer()) &&
+                    gw.checkSpace((Building)entity, c))
+                {
+                    success = gw.insert((Building)entity, (int)x, (int)y);
+                    if (success)
+                    {
+                        Building b = (Building)entity;
+                        ///Player pays for building costs
+                        scenario.getPlayer().player_resources[0] -= b.stats.waterCost;
+                        scenario.getPlayer().player_resources[1] -= b.stats.lumberCost;
+                        scenario.getPlayer().player_resources[2] -= b.stats.foodCost;
+                        scenario.getPlayer().player_resources[3] -= b.stats.metalCost;
+                        visMapLogic.updateVisMap((Building)entity);
+                    }
+                }
             }
 
             // If insert into GameWorld was a success, insert into right player
@@ -77,7 +91,6 @@ namespace ZRTSLogic
 
             return success;
         }
-
 
         /// <summary>
         /// This method will update the pointers to the Cell in the GameWorld that is occuppied by the Unit.
