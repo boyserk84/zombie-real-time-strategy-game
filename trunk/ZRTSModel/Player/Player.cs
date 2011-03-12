@@ -12,6 +12,7 @@ namespace ZRTSModel.Player
         byte id;
         List<Entity> entities;
         private List<Entity> selected_entities;
+        public int[] player_resources; //0: Water, 1: Lumber, 2: Food, 3: Metal
 
         public List<Entity> SelectedEntities
         {
@@ -24,6 +25,7 @@ namespace ZRTSModel.Player
             this.id = id;
             entities = new List<Entity>();
             selected_entities = new List<Entity>();
+            player_resources = new int[4];
         }
 
         public void insertEntity(ZRTSModel.Entities.Entity entity)

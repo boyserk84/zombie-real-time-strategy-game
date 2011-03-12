@@ -5,6 +5,7 @@ using System.Text;
 using ZRTSModel.Entities;
 using System.Xml.Serialization;
 using System.IO;
+using ZRTSModel.Player;
 
 namespace ZRTSModel.GameWorld
 {
@@ -116,6 +117,50 @@ namespace ZRTSModel.GameWorld
                     buildings.Remove((Building)e);
                     break;
             }
+        }
+
+        /// <summary>
+        /// Check if there is room for the building
+        /// </summary>
+        /// <param name="b">Building to be built</param>
+        /// <param name="c">Cell to be origin cell</param>
+        /// <returns>True if there is enough space, false if else</returns>
+        public bool checkSpace(Building b, Cell c)
+        {
+            int x = c.Xcoord;
+            int y = c.Ycoord;
+            if (x < 0 || x + b.width > map.width)
+                return false;
+            if (y < 0 || y + b.height > map.height)
+                return false;
+            for (int i = x; i < x + b.width; i++)
+            {
+                for (int j = y; j < y + b.height; j++)
+                {
+                    if (!map.getCell(i, j).isValid)
+                        return false;
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Check's if the player has enough resources to build the Building
+        /// </summary>
+        /// <param name="b">Building to be built</param>
+        /// <param name="p">Player that is building</param>
+        /// <returns>True if the player has enough resources, false if else</returns>
+        public bool checkResources(Building b, ZRTSModel.Player.Player p)
+        {
+            if (b.stats.waterCost > p.player_resources[0])
+                return false;
+            if (b.stats.lumberCost > p.player_resources[1])
+                return false;
+            if (b.stats.foodCost > p.player_resources[2])
+                return false;
+            if (b.stats.metalCost > p.player_resources[3])
+                return false;
+            return true;
         }
 
         public void printValidMap()

@@ -24,3 +24,23 @@ C:\Users\maestro\Desktop\zombie-real-time-strategy-game\ZRTSLogic\obj\x86\Debug\
 C:\Users\maestro\Desktop\zombie-real-time-strategy-game\ZRTSLogic\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\maestro\Desktop\zombie-real-time-strategy-game\ZRTSLogic\obj\x86\Debug\ZRTSLogic.dll
 C:\Users\maestro\Desktop\zombie-real-time-strategy-game\ZRTSLogic\obj\x86\Debug\ZRTSLogic.pdb
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\Trunk\ZRTSLogic\bin\x86\Debug\ZRTSLogic.dll
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\Trunk\ZRTSLogic\bin\x86\Debug\ZRTSLogic.pdb
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\Trunk\ZRTSLogic\bin\x86\Debug\nunit.framework.dll
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\Trunk\ZRTSLogic\bin\x86\Debug\ZRTSModel.dll
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\Trunk\ZRTSLogic\bin\x86\Debug\ZRTSModel.pdb
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\Trunk\ZRTSLogic\bin\x86\Debug\nunit.framework.xml
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\Trunk\ZRTSLogic\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\Trunk\ZRTSLogic\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\Trunk\ZRTSLogic\obj\x86\Debug\ZRTSLogic.dll
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\Trunk\ZRTSLogic\obj\x86\Debug\ZRTSLogic.pdb
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\MyFolder\ZRTSLogic\bin\x86\Debug\ZRTSLogic.dll
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\MyFolder\ZRTSLogic\bin\x86\Debug\ZRTSLogic.pdb
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\MyFolder\ZRTSLogic\bin\x86\Debug\nunit.framework.dll
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\MyFolder\ZRTSLogic\bin\x86\Debug\ZRTSModel.dll
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\MyFolder\ZRTSLogic\bin\x86\Debug\ZRTSModel.pdb
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\MyFolder\ZRTSLogic\bin\x86\Debug\nunit.framework.xml
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\MyFolder\ZRTSLogic\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\MyFolder\ZRTSLogic\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\MyFolder\ZRTSLogic\obj\x86\Debug\ZRTSLogic.dll
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\MyFolder\ZRTSLogic\obj\x86\Debug\ZRTSLogic.pdb
