@@ -26,6 +26,9 @@ namespace ZRTS.UnitTest
             ///at (9,9).
             bool success = testGameController.addEntity(b, 8, 8);
             Assert.False(success);
+            ///Test building ontop of unit at location (17,17). Should fail, because there is a unit there
+            success = testGameController.addEntity(b, 17, 17);
+            Assert.False(success);
             ///Test building at location(0,0). Should succeed.
             success = testGameController.addEntity(b, 0, 0);
             Assert.True(success);
@@ -83,6 +86,9 @@ namespace ZRTS.UnitTest
 
             ///Set controller
             testGameController = new ZRTSLogic.Controller(testScenario);
+
+            ///Add a unit at (17, 17)
+            this.testGameController.addUnit(new ZRTSModel.Entities.Unit(testGameController.scenario.getWorldPlayer(), 20), 17, 17);
 
             ///Initialize Player's resources
             this.testScenario.getPlayer().player_resources[0] = 300;

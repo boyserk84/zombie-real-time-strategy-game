@@ -173,5 +173,22 @@ namespace ZRTSLogic
         {
 			locController.removeEntity(entity);
         }
+
+        /// <summary>
+        /// Gives a command to a unit to build a building.
+        /// </summary>
+        /// <param name="unit">Unit to build the building</param>
+        /// <param name="b">Building to be built</param>
+        /// <param name="c">Origin cell of the building-to-be</param>
+        /// <returns></returns>
+        public bool makeUnitBuild(Unit unit, Building b, Cell c)
+        {
+            if (gameWorld.checkSpace(b, c) && gameWorld.checkResources(b, scenario.getPlayer()))
+            {
+                gameWorld.insert(b, c);
+                return ActionController.Instance.giveCommand(unit, new BuildAction(b, unit, gameWorld));
+            }
+            return false;
+        }
     }
 }
