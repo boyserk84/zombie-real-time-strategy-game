@@ -122,7 +122,7 @@
     <Compile Include="UnitTest\ViewTest.cs" />
     <Compile Include="Utilities\SpriteSheet.cs" />
     <Compile Include="View\View.cs" />
-    <Compile Include="View\ViewObserver.cs" />
+    <Compile Include="View\ViewSelect.cs" />
     <Compile Include="ZRTSGame.cs" />
   </ItemGroup>
   <ItemGroup>

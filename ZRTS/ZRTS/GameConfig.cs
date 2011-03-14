@@ -17,6 +17,7 @@ namespace ZRTS
         public static int TILE_HEIGHT = 20;
 
         public static float DEFAULT_UNIT = 2.5f;
+        public static int IMG_DRAGBOX = 1;
 
     }
 }
