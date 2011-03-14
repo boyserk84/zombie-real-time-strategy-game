@@ -65,21 +65,18 @@ namespace ZRTSLogic
 
             else if(entity.getEntityType() == Entity.EntityType.Building)
             {
-                ///Check if building can be made
-                if (gw.checkResources((Building)entity, scenario.getPlayer()) &&
-                    gw.checkSpace((Building)entity, c))
+                Building b = (Building)entity;
+                b.setOrginCell(c);
+                b.health = 0;
+                success = gw.insert(b, c);
+                if (success)
                 {
-                    success = gw.insert((Building)entity, (int)x, (int)y);
-                    if (success)
-                    {
-                        Building b = (Building)entity;
-                        ///Player pays for building costs
-                        scenario.getPlayer().player_resources[0] -= b.stats.waterCost;
-                        scenario.getPlayer().player_resources[1] -= b.stats.lumberCost;
-                        scenario.getPlayer().player_resources[2] -= b.stats.foodCost;
-                        scenario.getPlayer().player_resources[3] -= b.stats.metalCost;
-                        visMapLogic.updateVisMap((Building)entity);
-                    }
+                    ///Player pays for building costs
+                    scenario.getPlayer().player_resources[0] -= b.stats.waterCost;
+                    scenario.getPlayer().player_resources[1] -= b.stats.lumberCost;
+                    scenario.getPlayer().player_resources[2] -= b.stats.foodCost;
+                    scenario.getPlayer().player_resources[3] -= b.stats.metalCost;
+                    visMapLogic.updateVisMap(b);
                 }
             }
 
