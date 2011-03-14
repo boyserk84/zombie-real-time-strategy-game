@@ -188,6 +188,7 @@ namespace ZRTS
 
             gameView = new View(40, 40, spriteBatch);
             gameView.LoadScenario(this.testGameController.scenario);
+            gamePlayMenu.LoadScenario(this.testGameController.scenario);
             gameView.LoadMap(this.testGameController.gameWorld);
 
 

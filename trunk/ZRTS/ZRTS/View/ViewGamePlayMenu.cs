@@ -12,8 +12,11 @@ namespace ZRTS
         private SpriteSheet gamePlaySprite;
         private SpriteSheet gamePlayIconSprite;
 
+        protected ZRTSModel.Scenario.Scenario scenario;
+
         private int width, height;                  // Width and Height of the screen
         private Microsoft.Xna.Framework.Vector2 location;
+        private Microsoft.Xna.Framework.Vector2 iconLocation;
 
 
         /// <summary>
@@ -40,7 +43,10 @@ namespace ZRTS
         public void loadGamePlaySprite(SpriteSheet sheet)
         {
             gamePlaySprite = sheet;
-            
+
+            iconLocation = Microsoft.Xna.Framework.Vector2.Zero;           
+            iconLocation.X = width - (.91f*gamePlaySprite.frameDimX);
+            iconLocation.Y = height - (.82f*gamePlaySprite.frameDimY);
         }
 
         /// <summary>
@@ -66,6 +72,15 @@ namespace ZRTS
 
         }
 
+        /// <summary>
+        /// Loading game scenario object for process
+        /// </summary>
+        /// <param name="scene"></param>
+        public void LoadScenario(ZRTSModel.Scenario.Scenario scene)
+        {
+            this.scenario = scene;
+        }
+
 
         /// <summary>
         /// Draw
@@ -73,6 +88,8 @@ namespace ZRTS
         public void Draw()
         {
             gamePlaySprite.drawAtCurrentIndex(location);
+            if(scenario.getPlayer().SelectedEntities.Count!=0)
+                gamePlayIconSprite.drawAtCurrentIndex(iconLocation);
         }
 
     }

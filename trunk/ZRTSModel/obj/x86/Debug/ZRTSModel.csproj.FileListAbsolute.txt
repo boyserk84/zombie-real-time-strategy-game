@@ -40,3 +40,9 @@ C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects
 C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\Trunk\ZRTSModel\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\Trunk\ZRTSModel\obj\x86\Debug\ZRTSModel.dll
 C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\Trunk\ZRTSModel\obj\x86\Debug\ZRTSModel.pdb
+\\ad.uiuc.edu\engr\ews\carring2\Desktop\ZRTS\ZRTSModel\bin\x86\Debug\ZRTSModel.dll
+\\ad.uiuc.edu\engr\ews\carring2\Desktop\ZRTS\ZRTSModel\bin\x86\Debug\ZRTSModel.pdb
+\\ad.uiuc.edu\engr\ews\carring2\Desktop\ZRTS\ZRTSModel\obj\x86\Debug\ResolveAssemblyReference.cache
+\\ad.uiuc.edu\engr\ews\carring2\Desktop\ZRTS\ZRTSModel\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+\\ad.uiuc.edu\engr\ews\carring2\Desktop\ZRTS\ZRTSModel\obj\x86\Debug\ZRTSModel.dll
+\\ad.uiuc.edu\engr\ews\carring2\Desktop\ZRTS\ZRTSModel\obj\x86\Debug\ZRTSModel.pdb
