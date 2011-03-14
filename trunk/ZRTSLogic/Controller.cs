@@ -190,5 +190,44 @@ namespace ZRTSLogic
             }
             return false;
         }
+
+
+        /// <summary>
+        /// Checking if (col,row) is within the game boundary
+        /// </summary>
+        /// <param name="colTile">Column tile</param>
+        /// <param name="rowTile">Row tile</param>
+        /// <returns>True if specific (col,row) tile is valid. Otherwise, False is returned!</returns>
+        public bool isWithinGameBound(float colTile, float rowTile)
+        {
+            return colTile < gameWorld.map.width && colTile >= 0 && rowTile < gameWorld.map.height && rowTile >= 0;
+        }
+
+        /// <summary>
+        /// Update selected entities
+        /// </summary>
+        /// <param name="unit"></param>
+        public void updateSelectedEntities(List<ZRTSModel.Entities.Entity> unit)
+        {
+            scenario.getPlayer().selectEntities(unit);
+        }
+
+        /// <summary>
+        /// Register a new observer to the scenario
+        /// </summary>
+        /// <param name="obs">observer</param>
+        public void registerObserver(ZRTSModel.Scenario.Observer obs)
+        {
+            scenario.register(obs);
+        }
+
+        /// <summary>
+        /// Unregister the observer from the scenario
+        /// </summary>
+        /// <param name="obs">removed observer</param>
+        public void unregisterObserver(ZRTSModel.Scenario.Observer obs)
+        {
+            scenario.unregister(obs);
+        }
     }
 }

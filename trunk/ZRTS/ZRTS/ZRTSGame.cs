@@ -24,6 +24,7 @@ namespace ZRTS
         MouseState prevInput;
         SpriteSheet sample_image , sample_tile, sample_util;
         View gameView;
+        ViewSelect gameSelectView;
 
         SpriteFont Font1;
 
@@ -160,6 +161,8 @@ namespace ZRTS
 
             input = new MouseState();
             prevInput = input;
+
+            gameSelectView = new ViewSelect();
             base.Initialize();
         }
 
@@ -175,14 +178,18 @@ namespace ZRTS
             sample_image = new SpriteSheet(Content.Load<Texture2D>("sprites/commandos"), spriteBatch, 21, 35);
             sample_tile = new SpriteSheet(Content.Load<Texture2D>("sprites/green_tile20x20"), spriteBatch, 20, 20);
             sample_util = new SpriteSheet(Content.Load<Texture2D>("sprites/util_misc20x20"), spriteBatch, 20, 20);
-            
+
+            gameSelectView.loadSpriteSheet(sample_util);
 
             gameView = new View(40, 40, spriteBatch);
             gameView.LoadScenario(this.testGameController.scenario);
             gameView.LoadMap(this.testGameController.gameWorld);
+
+
             gameView.LoadSpriteSheet(sample_tile);
             gameView.LoadUnitsSpriteSheet(sample_image);
             gameView.LoadUtilitySpriteSheet(sample_util);
+            testGameController.registerObserver(gameSelectView); 
             // TODO: use this.Content to load your game content here
         }
 
@@ -225,7 +232,8 @@ namespace ZRTS
                 commandX = gameView.convertScreenLocToGameLoc(input.X, input.Y).X;
                 commandY = gameView.convertScreenLocToGameLoc(input.X, input.Y).Y;
 
-                if (isWithInBound(commandX, commandY))
+
+                if (testGameController.isWithinGameBound(commandX, commandY))
                 {
                     foreach (ZRTSModel.Entities.Entity entity in this.testGameController.scenario.getPlayer().SelectedEntities)
                     {
@@ -242,12 +250,22 @@ namespace ZRTS
             // Store the first corner of the "drag box"
             if (input.LeftButton == ButtonState.Pressed && prevInput.LeftButton == ButtonState.Released)
             {
-                if (isWithInBound(selectX, selectY))
+                if (testGameController.isWithinGameBound(selectX, selectY))
                 {
                     selectX = gameView.convertScreenLocToGameLoc(input.X, input.Y).X;
                     selectY = gameView.convertScreenLocToGameLoc(input.X, input.Y).Y;
+
+                    gameView.setFirstCornerOfDragBox(input.X, input.Y);
+                    gameView.IsDragging = true;
                 }
             }
+
+            // While dragging, update the view to draw the box
+            if (input.LeftButton == ButtonState.Pressed)
+            {
+                gameView.setDragBox(input.X, input.Y);
+            }
+
             // "Drag box" is created, select all units within box
             if (input.LeftButton == ButtonState.Released && prevInput.LeftButton == ButtonState.Pressed)
             {
@@ -256,26 +274,29 @@ namespace ZRTS
                 float pressX = selectX;  // coords of press location
                 float pressY = selectY;
 
-                if (isWithInBound(releaseX, releaseY) && isWithInBound(pressX, pressY))
+                if (testGameController.isWithinGameBound(releaseX, releaseY) && testGameController.isWithinGameBound(pressX, pressY))
                 {
-                    List<ZRTSModel.Entities.Entity> entityList = this.testGameController.scenario.getUnits(
+                    /*
+                     * Retrieve all units within the drag box - Use Min and Max to find the topleft and
+                     * bottomright corner
+                     */
+                    this.testGameController.scenario.getUnits(
                         (int)Math.Min(pressX, releaseX),
                         (int)Math.Min(pressY, releaseY),
                         (int)(Math.Max(pressX, releaseX) - Math.Min(pressX, releaseX)),
                         (int)(Math.Max(pressY, releaseY) - Math.Min(pressY, releaseY))
                     );
 
+                    // TODO: remove later (DEBUGGING INFORMATION ONLY)
                     Console.WriteLine("(pressX, pressY) = (" + pressX + "," + pressY + ")");
                     Console.WriteLine("topleft = (" + (int)Math.Min(pressX, releaseX) + "," + (int)Math.Min(pressY, releaseY) + ")");
                     Console.WriteLine("(releaseX, releaseY) = (" + releaseX + "," + releaseY + ")");
                     Console.WriteLine("bottomright = (" + (int)Math.Max(pressX, releaseX) + "," + (int)Math.Max(pressY, releaseY) + ")");
 
-                    if (entityList.Count != 0)
-                    {
-                        this.testGameController.scenario.getPlayer().selectEntities(entityList);
-                    }
                 }
-                
+
+                gameView.IsDragging = false;
+
             }
 
             this.testGameController.updateWorld();
@@ -295,7 +316,7 @@ namespace ZRTS
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             this.gameView.Draw();
-
+            gameSelectView.Draw();
             DrawDebugScreen();
             spriteBatch.End();  // remove this after debug is done.
             base.Draw(gameTime);
