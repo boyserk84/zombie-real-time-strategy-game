@@ -22,9 +22,10 @@ namespace ZRTS
         SpriteBatch spriteBatch;
         MouseState input;
         MouseState prevInput;
-        SpriteSheet sample_image , sample_tile, sample_util;
+        SpriteSheet sample_image , sample_tile, sample_util, menuUI, iconUI;
         View gameView;
         ViewSelect gameSelectView;
+        ViewGamePlayMenu gamePlayMenu;
 
         SpriteFont Font1;
 
@@ -178,7 +179,11 @@ namespace ZRTS
             sample_image = new SpriteSheet(Content.Load<Texture2D>("sprites/commandos"), spriteBatch, 21, 35);
             sample_tile = new SpriteSheet(Content.Load<Texture2D>("sprites/green_tile20x20"), spriteBatch, 20, 20);
             sample_util = new SpriteSheet(Content.Load<Texture2D>("sprites/util_misc20x20"), spriteBatch, 20, 20);
-
+            menuUI = new SpriteSheet(Content.Load<Texture2D>("gamePlayUI/menuUI"), spriteBatch, 299, 211);
+            iconUI = new SpriteSheet(Content.Load<Texture2D>("gamePlayUI/icons"), spriteBatch, 208, 51);
+            gamePlayMenu = new ViewGamePlayMenu(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight,menuUI);
+            gamePlayMenu.loadIconSprite(iconUI);
+            
             gameSelectView.loadSpriteSheet(sample_util);
 
             gameView = new View(40, 40, spriteBatch);
@@ -318,7 +323,9 @@ namespace ZRTS
             this.gameView.Draw();
             gameSelectView.Draw();
             DrawDebugScreen();
+            gamePlayMenu.Draw();
             spriteBatch.End();  // remove this after debug is done.
+
             base.Draw(gameTime);
         }
 
@@ -327,10 +334,10 @@ namespace ZRTS
         /// </summary>
         private void DrawDebugScreen()
         {
-            spriteBatch.DrawString(Font1, "Clicked at game Location : " + commandX + "," + commandY, new Vector2(500, 200), Color.Black);
-            spriteBatch.DrawString(Font1, "Coverted game Location : " + gameView.convertScreenLocToGameLoc(input.X, input.Y).X + "," + gameView.convertScreenLocToGameLoc(input.X, input.Y).Y, new Vector2(500, 300), Color.Black);
-            spriteBatch.DrawString(Font1, "Mouse Location : " + input.X + "," + input.Y, new Vector2(500, 250), Color.Black);
-            spriteBatch.DrawString(Font1, "Unit Location : " + this.testScenario.getGameWorld().getUnits()[0].x + "," + this.testScenario.getGameWorld().getUnits()[0].y, new Vector2(500, 350), Color.Black);
+            spriteBatch.DrawString(Font1, "Clicked at game Location : " + commandX + "," + commandY, new Vector2(500, 0), Color.Black);
+            spriteBatch.DrawString(Font1, "Coverted game Location : " + gameView.convertScreenLocToGameLoc(input.X, input.Y).X + "," + gameView.convertScreenLocToGameLoc(input.X, input.Y).Y, new Vector2(500, 100), Color.Black);
+            spriteBatch.DrawString(Font1, "Mouse Location : " + input.X + "," + input.Y, new Vector2(500, 150), Color.Black);
+            spriteBatch.DrawString(Font1, "Unit Location : " + this.testScenario.getGameWorld().getUnits()[0].x + "," + this.testScenario.getGameWorld().getUnits()[0].y, new Vector2(500, 250), Color.Black);
         }
     }
 }
