@@ -209,7 +209,8 @@ namespace ZRTS
             gameView.LoadSpriteSheet(sample_tile);
             gameView.LoadUnitsSpriteSheet(sample_image);
             gameView.LoadUtilitySpriteSheet(sample_util);
-            testGameController.registerObserver(gameSelectView); 
+            gameView.LoadBuildingSpriteSheet(new SpriteSheet(Content.Load<Texture2D>("gameBuildings/sample_build"), spriteBatch, 32, 28));
+            testGameController.registerObserver(gameSelectView);
             // TODO: use this.Content to load your game content here
         }
 
@@ -285,10 +286,18 @@ namespace ZRTS
                                     }
                                 break;
 
+                            // Build command
                             case PlayerCommand.BUILD:
-                                this.testGameController.makeUnitBuild(entity,
+                                if (this.testGameController.makeUnitBuild(entity,
                             new ZRTSModel.Entities.Building(testGameController.scenario.getPlayer(), new ZRTSModel.Entities.BuildingStats()),
-                            testGameController.gameWorld.map.getCell((int)commandX, (int)commandY));
+                            testGameController.gameWorld.map.getCell((int)commandX, (int)commandY)))
+                                {
+                                    System.Console.Out.WriteLine("Building at " + commandX + ":" + commandY);
+                                }
+                                else
+                                {
+                                    System.Console.Out.WriteLine("Can't place a building at " + commandX + ":" + commandY);
+                                }
                                 break;
                         }
                         
