@@ -181,12 +181,15 @@ namespace ZRTSLogic
         /// <param name="b">Building to be built</param>
         /// <param name="c">Origin cell of the building-to-be</param>
         /// <returns></returns>
-        public bool makeUnitBuild(Unit unit, Building b, Cell c)
+        public bool makeUnitBuild(Entity unit, Building b, Cell c)
         {
-            if (gameWorld.checkSpace(b, c) && gameWorld.checkResources(b, scenario.getPlayer()))
+            if (unit.entityType == Entity.EntityType.Unit)
             {
-                gameWorld.insert(b, c);
-                return ActionController.Instance.giveCommand(unit, new BuildAction(b, unit, gameWorld));
+                if (gameWorld.checkSpace(b, c) && gameWorld.checkResources(b, scenario.getPlayer()))
+                {
+                    gameWorld.insert(b, c);
+                    return ActionController.Instance.giveCommand(unit, new BuildAction(b, (Unit) unit, gameWorld));
+                }
             }
             return false;
         }

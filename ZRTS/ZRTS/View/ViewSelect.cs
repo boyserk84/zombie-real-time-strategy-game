@@ -17,6 +17,7 @@ namespace ZRTS
     {
 
         protected List<Entity> selectedList;      //List of selected Units
+        protected Entity target;                  // target unit (for attacking purpose)
         protected SpriteSheet utilSheet;          // Spritesheet for utilities graphic
 
         
@@ -69,6 +70,13 @@ namespace ZRTS
         /// </summary>
         public List<Entity> getSelectedUnits
         { get { return this.selectedList; } set { this.selectedList = value; } }
+
+        public Entity getTargetUnit
+        {
+            get { return this.target; }
+            set { this.target = value; }
+
+        }
 
 
         /// <summary>
