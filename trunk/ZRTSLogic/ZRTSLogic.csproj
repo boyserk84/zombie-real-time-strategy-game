@@ -118,11 +118,15 @@
     <Compile Include="Pathfinder\PQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitStatsLogic.cs" />
+    <Compile Include="UnitTest\ActionControllerTests.cs" />
+    <Compile Include="UnitTest\EntityLocControllerTest.cs" />
+    <Compile Include="UnitTest\EntityLocControllerTests.cs" />
+    <Compile Include="UnitTest\MoveActionTests.cs" />
+    <Compile Include="UnitTest\UnitStatsLogicTests.cs" />
+    <Compile Include="UnitTest\VisibilityMapLogicTests.cs" />
     <Compile Include="VisibilityMapLogic.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UnitTest\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\ZRTSModel\ZRTSModel.csproj">
       <Project>{2045DCE8-71C3-43E3-871D-D98407D30E58}</Project>

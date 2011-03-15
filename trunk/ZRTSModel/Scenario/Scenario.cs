@@ -86,7 +86,7 @@ namespace ZRTSModel.Scenario
         /// <param name="xoffset">Column offset</param>
         /// <param name="yoffset">Row offset</param>
         /// <returns>List of all units within that boundary</returns>
-        public void getUnits(int s_col, int s_row, int xoffset, int yoffset)
+        public List<ZRTSModel.Entities.Entity> getUnits(int s_col, int s_row, int xoffset, int yoffset)
         {
             // Create a temporary selected list
             List<ZRTSModel.Entities.Entity> unitList = new List<ZRTSModel.Entities.Entity>();
@@ -102,13 +102,8 @@ namespace ZRTSModel.Scenario
                 }//for
             }//for
 
-            // Only change the selection if there are new units to be selected.  The only way to actually be selecting
-            // nothing is if the selected units die or if the game has just started.
-            if (unitList.Count > 0)
-            {
-                viewSelectObserver.getSelectedUnits = unitList;
-                player.selectEntities(viewSelectObserver.getSelectedUnits);
-            }
+            viewSelectObserver.getSelectedUnits = unitList;
+            player.selectEntities(viewSelectObserver.getSelectedUnits);
 
             this.notify();
 
@@ -129,6 +124,8 @@ namespace ZRTSModel.Scenario
             return boundaryList;
              * 
              * */
+
+			return unitList;
         }
 
 
