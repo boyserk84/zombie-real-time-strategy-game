@@ -179,9 +179,9 @@ namespace ZRTSLogic
             {
                 for (int j = 0; j < height; j++)
                 {
-                    if (EntityLocController.findDistance(unit.x, unit.y, xC + i, yC + j) <= dis)
+                    if (EntityLocController.findDistance(unit.x, unit.y, xC + i, yC + j) <= dis )
                     {
-                        cell = gw.map.getCell(xC + i, xC + j);
+                        cell = gw.map.getCell(xC + i, yC + j);
                         dis = EntityLocController.findDistance(unit.x, unit.y, xC + i, yC + j);
                     }
                 }

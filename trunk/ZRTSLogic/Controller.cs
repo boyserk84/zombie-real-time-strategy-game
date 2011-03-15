@@ -124,7 +124,7 @@ namespace ZRTSLogic
 			}
 
 			/*** Remove Entity if it needs to be removed. ***/
-			if (entity.getState().getPrimaryState() == State.PrimaryState.Remove)
+			if (entity.getState().getPrimaryState() == State.PrimaryState.Dead) // Should be remove. Changed for demo.
 			{
 				entitiesToRemove.Add(entity);
 			}
