@@ -43,7 +43,7 @@ namespace ZRTSLogic
             if(actionQueue.Count > 0)
             {
                 ActionCommand command = actionQueue[0];
-
+                //Console.WriteLine(command.actionType);
                 if (command.work())
                 {
                     // Action is done, remove and set Entity's state to idle.

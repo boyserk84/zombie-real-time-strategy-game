@@ -158,6 +158,7 @@ namespace ZRTS
             // Simulating gameplay
             createTestGameWorldSimulateBuildings();
 
+
             // Controller
             this.testGameController = new ZRTSLogic.Controller(this.testScenario);
 
@@ -167,6 +168,13 @@ namespace ZRTS
             //this.testGameController.addUnit(new ZRTSModel.Entities.Unit(testGameController.scenario.getWorldPlayer(), 20, 100, 50, 0), 5, 10);
             this.testGameController.addUnit(new ZRTSModel.Entities.Unit(testGameController.scenario.getWorldPlayer(), 20), 10, 5);
             this.testGameController.addUnit(new ZRTSModel.Entities.Unit(testGameController.scenario.getWorldPlayer(), 20), 20, 10);
+
+
+            testGameController.scenario.getPlayer().player_resources[0] = 300;
+            testGameController.scenario.getPlayer().player_resources[1] = 300;
+            testGameController.scenario.getPlayer().player_resources[2] = 300;
+            testGameController.scenario.getPlayer().player_resources[3] = 300;
+
             input = new MouseState();
             prevInput = input;
 
