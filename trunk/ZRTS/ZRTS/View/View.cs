@@ -239,7 +239,7 @@ namespace ZRTS
         }
 
         /// <summary>
-        /// Translate game Location to screen locaiton for Y
+        /// Translate game Location to screen location for Y
         /// </summary>
         /// <param name="y"></param>
         /// <returns></returns>
@@ -249,21 +249,22 @@ namespace ZRTS
         }
 
         /// <summary>
-        /// Draw all selected units (Not Using this anymore) DEPRECATED!!!!!!!!!!!!!!!!!!!!
+        /// Translate game location to screen location for x (Building Only) 
+        /// Need to move this to dedicated build view
         /// </summary>
-        public void DrawSelected()
+        /// <param name="x"></param>
+        /// <returns></returns>
+        private float translateXScreenBuild(float x)
         {
-            if (this.scenario.getPlayer().SelectedEntities.Count != 0)
-            {
-                foreach (ZRTSModel.Entities.Unit u in this.scenario.getPlayer().SelectedEntities)
-                {
-                    //this.spriteUnits.drawByAction(0, new Vector2(u.x, u.y));
-                    if (u != null)
-                        this.spriteUnits.animateFrame(0, new Vector2(u.x * GameConfig.TILE_WIDTH - (this.spriteUnits.frameDimX / 2), u.y * GameConfig.TILE_HEIGHT - (this.spriteUnits.frameDimY + 5 - GameConfig.TILE_HEIGHT)));
-
-                }
-            }
+            return x * GameConfig.TILE_WIDTH;
         }
+
+        private float translateYScreenBuild(float y)
+        {
+            return y * GameConfig.TILE_HEIGHT;
+        }
+
+
 
         /// <summary>
         /// Draw buildings
@@ -274,7 +275,8 @@ namespace ZRTS
             {
                 foreach (ZRTSModel.Entities.Building u in this.WorldMap.getBuildings())
                 {
-                    spriteBuildings.drawAtCurrentIndex(new Vector2(translateXScreen(u.x), translateYScreen(u.y)));
+                    //System.Console.Out.WriteLine(translateXScreen(u.x) + ":" + translateYScreen(u.y));
+                    spriteBuildings.drawAtCurrentIndex(new Vector2(translateXScreenBuild(u.orginCell.Xcoord), translateYScreenBuild(u.orginCell.Ycoord)));
                 }
             }
         }

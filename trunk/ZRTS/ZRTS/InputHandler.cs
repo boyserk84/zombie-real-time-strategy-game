@@ -34,6 +34,9 @@ namespace ZRTS
 		float commandX, commandY;
 		float selectX, selectY;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
 		public static InputHandler Instance
 		{
 			get
@@ -46,6 +49,13 @@ namespace ZRTS
 			}
 		}
 
+        /// <summary>
+        /// Update Input
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="testGameController"></param>
+        /// <param name="gameView"></param>
+        /// <param name="gamePlayMenu"></param>
 		public void updateInput(MouseState input, Controller testGameController, View gameView, ViewGamePlayMenu gamePlayMenu)
 		{
 			// Right click to give a command
@@ -90,6 +100,12 @@ namespace ZRTS
 			prevInput = input;
 		}
 
+        /// <summary>
+        /// Give a command when click at icons
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="gameView"></param>
+        /// <param name="testGameController"></param>
 		private void giveCommand(MouseState input, View gameView, Controller testGameController)
 		{
 			commandX = gameView.convertScreenLocToGameLoc(input.X, input.Y).X;
@@ -115,6 +131,7 @@ namespace ZRTS
 							break;
 
 						// Attack command
+                        // TODO: Animation of the attack
 						case PlayerCommand.ATTACK:
 							if (entity.entityType == ZRTSModel.Entities.Entity.EntityType.Unit)
 							{
@@ -147,6 +164,13 @@ namespace ZRTS
 			}
 		}
 
+        /// <summary>
+        /// Handle selecting units and buildings by the user
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="testGameController"></param>
+        /// <param name="gameView"></param>
+        /// <param name="gamePlayMenu"></param>
 		private void handleSelecting(MouseState input, Controller testGameController, View gameView, ViewGamePlayMenu gamePlayMenu)
 		{
 			/* Left click to select units */
