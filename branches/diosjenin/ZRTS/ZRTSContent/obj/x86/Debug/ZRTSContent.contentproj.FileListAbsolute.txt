@@ -2,4 +2,5 @@ C:\Users\maestro\Documents\Visual Studio 2010\Projects\ZRTSWorkingCopy\ZRTS\ZRTS
 C:\Users\Jason\Desktop\ZRTS\ZRTS\ZRTS\ZRTSContent\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\Users\Nathan\Documents\Visual Studio 2010\Projects\CS 429 Project\ZRTS\ZRTS\ZRTSContent\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\Users\maestro\Desktop\zombie-real-time-strategy-game\ZRTS\ZRTSContent\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Diosjenin's Documents\Visual Studio 2010\Projects\ZRTS_Temp\ZRTS\ZRTSContent\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2010\Projects\Trunk\ZRTS\ZRTSContent\obj\x86\Debug\ResolveAssemblyReference.cache
+\\ad.uiuc.edu\engr\ews\carring2\Desktop\ZRTS\ZRTS\ZRTSContent\obj\x86\Debug\ResolveAssemblyReference.cache

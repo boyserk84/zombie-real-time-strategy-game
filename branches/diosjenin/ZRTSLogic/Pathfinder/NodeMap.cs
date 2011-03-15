@@ -33,7 +33,7 @@ namespace Pathfinder
         {
             this.height = m.height;
             this.width = m.width;
-            this.nodes = new Node[height, width];
+            this.nodes = new Node[width, height];
             for (int j = 0; j < height; j++)
             {
                 for (int i = 0; i < width; i++)

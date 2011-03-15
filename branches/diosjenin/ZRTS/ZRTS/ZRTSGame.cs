@@ -13,6 +13,17 @@ using ZRTSModel.GameWorld;
 
 namespace ZRTS
 {
+
+    public enum PlayerCommand
+    {
+        BUILD,
+        ATTACK,
+        SELECT,
+        MOVE,
+        CANCEL,
+    }
+
+
     /// <summary>
     /// This is the main type for your game
     /// </summary>
@@ -22,14 +33,12 @@ namespace ZRTS
         SpriteBatch spriteBatch;
         MouseState input;
         MouseState prevInput;
-        SpriteSheet sample_image , sample_tile, sample_util;
+        SpriteSheet sample_image , sample_tile, sample_util, menuUI, iconUI;
         View gameView;
+        ViewSelect gameSelectView;
+        ViewGamePlayMenu gamePlayMenu;
 
         SpriteFont Font1;
-
-        // x and y coords in game
-        float commandX, commandY;
-        float selectX, selectY;
 
         ZRTSModel.Scenario.Scenario testScenario;
         ZRTSLogic.Controller testGameController;
@@ -136,9 +145,9 @@ namespace ZRTS
             // TODO: Add your initialization logic here
             this.IsMouseVisible = true;
             Font1 = Content.Load<SpriteFont>("SpriteFont1");
-            // Create Scenario
-            this.testScenario = new ZRTSModel.Scenario.Scenario(20, 20);
 
+            // Create Scenario
+            this.testScenario = new ZRTSModel.Scenario.Scenario(graphics.PreferredBackBufferWidth/20, 20);
 
             // The most challenging obstacles
             //createTestGameWorld();
@@ -157,9 +166,11 @@ namespace ZRTS
             /** NOTE: Adding Entities should be done through the Controller from now on **/
             //this.testGameController.addUnit(new ZRTSModel.Entities.Unit(testGameController.scenario.getWorldPlayer(), 20, 100, 50, 0), 5, 10);
             this.testGameController.addUnit(new ZRTSModel.Entities.Unit(testGameController.scenario.getWorldPlayer(), 20), 10, 5);
-
+            this.testGameController.addUnit(new ZRTSModel.Entities.Unit(testGameController.scenario.getWorldPlayer(), 20), 20, 10);
             input = new MouseState();
             prevInput = input;
+
+            gameSelectView = new ViewSelect();
             base.Initialize();
         }
 
@@ -175,14 +186,24 @@ namespace ZRTS
             sample_image = new SpriteSheet(Content.Load<Texture2D>("sprites/commandos"), spriteBatch, 21, 35);
             sample_tile = new SpriteSheet(Content.Load<Texture2D>("sprites/green_tile20x20"), spriteBatch, 20, 20);
             sample_util = new SpriteSheet(Content.Load<Texture2D>("sprites/util_misc20x20"), spriteBatch, 20, 20);
+            menuUI = new SpriteSheet(Content.Load<Texture2D>("gamePlayUI/menuUI"), spriteBatch, 299, 211);
+            iconUI = new SpriteSheet(Content.Load<Texture2D>("gamePlayUI/icons"), spriteBatch, 208, 51);
+            gamePlayMenu = new ViewGamePlayMenu(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight,menuUI);
+            gamePlayMenu.loadIconSprite(iconUI);
             
+            gameSelectView.loadSpriteSheet(sample_util);
 
-            gameView = new View(40, 40, spriteBatch);
+            gameView = new View(800,600, spriteBatch);
             gameView.LoadScenario(this.testGameController.scenario);
+            gamePlayMenu.LoadScenario(this.testGameController.scenario);
             gameView.LoadMap(this.testGameController.gameWorld);
+
+
             gameView.LoadSpriteSheet(sample_tile);
             gameView.LoadUnitsSpriteSheet(sample_image);
             gameView.LoadUtilitySpriteSheet(sample_util);
+            gameView.LoadBuildingSpriteSheet(new SpriteSheet(Content.Load<Texture2D>("gameBuildings/sample_build"), spriteBatch, 40, 40));
+            testGameController.registerObserver(gameSelectView); 
             // TODO: use this.Content to load your game content here
         }
 
@@ -213,74 +234,18 @@ namespace ZRTS
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+			// Allows the game to exit
+			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+				this.Exit();
+
+			/** Handle the User's Input **/
             this.input = Mouse.GetState();      // Receive input from mouse
+			InputHandler.Instance.updateInput(this.input, testGameController, gameView, gamePlayMenu);
 
-            // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                this.Exit();
-
-            // Right click to give a command
-            if (input.RightButton == ButtonState.Pressed && prevInput.RightButton == ButtonState.Released)
-            {
-                commandX = gameView.convertScreenLocToGameLoc(input.X, input.Y).X;
-                commandY = gameView.convertScreenLocToGameLoc(input.X, input.Y).Y;
-
-                if (isWithInBound(commandX, commandY))
-                {
-                    foreach (ZRTSModel.Entities.Entity entity in this.testGameController.scenario.getPlayer().SelectedEntities)
-                    {
-                        this.testGameController.giveActionCommand(
-                            entity,
-                            new ZRTSLogic.Action.MoveAction(commandX, commandY, this.testGameController.gameWorld, entity)
-                        );
-                    }
-                }
-            }
-
-            /* Left click to select units */
-
-            // Store the first corner of the "drag box"
-            if (input.LeftButton == ButtonState.Pressed && prevInput.LeftButton == ButtonState.Released)
-            {
-                if (isWithInBound(selectX, selectY))
-                {
-                    selectX = gameView.convertScreenLocToGameLoc(input.X, input.Y).X;
-                    selectY = gameView.convertScreenLocToGameLoc(input.X, input.Y).Y;
-                }
-            }
-            // "Drag box" is created, select all units within box
-            if (input.LeftButton == ButtonState.Released && prevInput.LeftButton == ButtonState.Pressed)
-            {
-                float releaseX = gameView.convertScreenLocToGameLoc(input.X, input.Y).X;     // coords of release location
-                float releaseY = gameView.convertScreenLocToGameLoc(input.X, input.Y).Y;
-                float pressX = selectX;  // coords of press location
-                float pressY = selectY;
-
-                if (isWithInBound(releaseX, releaseY) && isWithInBound(pressX, pressY))
-                {
-                    List<ZRTSModel.Entities.Entity> entityList = this.testGameController.scenario.getUnits(
-                        (int)Math.Min(pressX, releaseX),
-                        (int)Math.Min(pressY, releaseY),
-                        (int)(Math.Max(pressX, releaseX) - Math.Min(pressX, releaseX)),
-                        (int)(Math.Max(pressY, releaseY) - Math.Min(pressY, releaseY))
-                    );
-
-                    Console.WriteLine("(pressX, pressY) = (" + pressX + "," + pressY + ")");
-                    Console.WriteLine("topleft = (" + (int)Math.Min(pressX, releaseX) + "," + (int)Math.Min(pressY, releaseY) + ")");
-                    Console.WriteLine("(releaseX, releaseY) = (" + releaseX + "," + releaseY + ")");
-                    Console.WriteLine("bottomright = (" + (int)Math.Max(pressX, releaseX) + "," + (int)Math.Max(pressY, releaseY) + ")");
-
-                    if (entityList.Count != 0)
-                    {
-                        this.testGameController.scenario.getPlayer().selectEntities(entityList);
-                    }
-                }
-                
-            }
-
+			/** Have the Controller update the Game **/
             this.testGameController.updateWorld();
 
-            prevInput = this.input;
+            //prevInput = this.input;
 
             base.Update(gameTime);
         }
@@ -295,21 +260,24 @@ namespace ZRTS
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             this.gameView.Draw();
-
+            gameSelectView.Draw();
             DrawDebugScreen();
+            gamePlayMenu.Draw();
             spriteBatch.End();  // remove this after debug is done.
+
             base.Draw(gameTime);
         }
 
         /// <summary>
         /// Display debug information
         /// </summary>
-        private void DrawDebugScreen()
+        
+		private void DrawDebugScreen()
         {
-            spriteBatch.DrawString(Font1, "Clicked at game Location : " + commandX + "," + commandY, new Vector2(500, 200), Color.Black);
-            spriteBatch.DrawString(Font1, "Coverted game Location : " + gameView.convertScreenLocToGameLoc(input.X, input.Y).X + "," + gameView.convertScreenLocToGameLoc(input.X, input.Y).Y, new Vector2(500, 300), Color.Black);
-            spriteBatch.DrawString(Font1, "Mouse Location : " + input.X + "," + input.Y, new Vector2(500, 250), Color.Black);
-            spriteBatch.DrawString(Font1, "Unit Location : " + this.testScenario.getGameWorld().getUnits()[0].x + "," + this.testScenario.getGameWorld().getUnits()[0].y, new Vector2(500, 350), Color.Black);
+            //spriteBatch.DrawString(Font1, "Clicked at game Location : " + commandX + "," + commandY, new Vector2(500, 0), Color.Black);
+            spriteBatch.DrawString(Font1, "Coverted game Location : " + gameView.convertScreenLocToGameLoc(input.X, input.Y).X + "," + gameView.convertScreenLocToGameLoc(input.X, input.Y).Y, new Vector2(500, 100), Color.Black);
+            spriteBatch.DrawString(Font1, "Mouse Location : " + input.X + "," + input.Y, new Vector2(500, 150), Color.Black);
+            spriteBatch.DrawString(Font1, "Unit Location : " + this.testScenario.getGameWorld().getUnits()[0].x + "," + this.testScenario.getGameWorld().getUnits()[0].y, new Vector2(500, 250), Color.Black);
         }
     }
 }

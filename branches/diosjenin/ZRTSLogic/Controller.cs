@@ -29,7 +29,7 @@ namespace ZRTSLogic
         public Scenario scenario;
 
         // Controls adding, removing, and moving entities.
-        EntityLocController locController;
+        public EntityLocController locController;
 
 		// Updates the visibilty map
 		VisibilityMapLogic visMapLogic;
@@ -172,6 +172,65 @@ namespace ZRTSLogic
         public void removeEntity(Entity entity)
         {
 			locController.removeEntity(entity);
+        }
+
+        /// <summary>
+        /// Gives a command to a unit to build a building.
+        /// </summary>
+        /// <param name="unit">Unit to build the building</param>
+        /// <param name="b">Building to be built</param>
+        /// <param name="c">Origin cell of the building-to-be</param>
+        /// <returns></returns>
+        public bool makeUnitBuild(Entity unit, Building b, Cell c)
+        {
+            if (unit.entityType == Entity.EntityType.Unit)
+            {
+                if (gameWorld.checkSpace(b, c) && gameWorld.checkResources(b, scenario.getPlayer()))
+                {
+                    gameWorld.insert(b, c);
+                    return ActionController.Instance.giveCommand(unit, new BuildAction(b, (Unit) unit, gameWorld));
+                }
+            }
+            return false;
+        }
+
+
+        /// <summary>
+        /// Checking if (col,row) is within the game boundary
+        /// </summary>
+        /// <param name="colTile">Column tile</param>
+        /// <param name="rowTile">Row tile</param>
+        /// <returns>True if specific (col,row) tile is valid. Otherwise, False is returned!</returns>
+        public bool isWithinGameBound(float colTile, float rowTile)
+        {
+            return colTile < gameWorld.map.width && colTile >= 0 && rowTile < gameWorld.map.height && rowTile >= 0;
+        }
+
+        /// <summary>
+        /// Update selected entities
+        /// </summary>
+        /// <param name="unit"></param>
+        public void updateSelectedEntities(List<ZRTSModel.Entities.Entity> unit)
+        {
+            scenario.getPlayer().selectEntities(unit);
+        }
+
+        /// <summary>
+        /// Register a new observer to the scenario
+        /// </summary>
+        /// <param name="obs">observer</param>
+        public void registerObserver(ZRTSModel.Scenario.Observer obs)
+        {
+            scenario.register(obs);
+        }
+
+        /// <summary>
+        /// Unregister the observer from the scenario
+        /// </summary>
+        /// <param name="obs">removed observer</param>
+        public void unregisterObserver(ZRTSModel.Scenario.Observer obs)
+        {
+            scenario.unregister(obs);
         }
     }
 }

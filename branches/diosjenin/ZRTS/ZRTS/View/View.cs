@@ -17,21 +17,27 @@ namespace ZRTS
     /// 
     /// Author Nattapol Kemavaha
     /// </summary>
-    class View:ViewObserver
+    public class View
     {
         private int cameraWidth, cameraHeight;      // Focused width and height
         private int totalWidth, totalHeight;        // Total width and height of the map
         private float curTime;
+
+        // Drag box
+        private float firstCornerX;
+        private float firstCornerY;
+        private bool isDragging;
 
         // Graphical/Rendering contents
         private SpriteBatch bufferScreen;           // Where all images are drawn on
         private SpriteSheet spriteTiles;            // Spritesheet of tiles
         private SpriteSheet spriteUnits;            // Spritesheet of units
         private SpriteSheet spriteUtil;             // Spritesheet of utilities and misc. stuff
+        private SpriteSheet spriteBuildings;
 
         // Temporary variable
         private int x, y;
-        private Rectangle selectedBox;
+        private Rectangle dragBox;
 
 
         // Model content to be extracted
@@ -65,6 +71,15 @@ namespace ZRTS
             this.cameraHeight = height;
             this.cameraWidth = width;
             this.bufferScreen = null;
+        }
+
+        /// <summary>
+        /// Getter and setter for isDragging
+        /// </summary>
+        public bool IsDragging
+        {
+            get { return this.isDragging; }
+            set { this.isDragging = value; }
         }
 
         /// <summary>
@@ -106,13 +121,22 @@ namespace ZRTS
         }
 
         /// <summary>
+        /// Load buildings spritesheet
+        /// </summary>
+        /// <param name="sheet"></param>
+        public void LoadBuildingSpriteSheet(SpriteSheet sheet)
+        {
+            spriteBuildings = sheet;
+        }
+
+        /// <summary>
         /// Load a misc. and utiltity spritesheet
         /// </summary>
         /// <param name="utilSheet"></param>
         public void LoadUtilitySpriteSheet(SpriteSheet utilSheet)
         {
             this.spriteUtil = utilSheet;
-            this.selectedBox = new Rectangle(-1, -1, 0, 0);
+            this.dragBox = new Rectangle(-1, -1, 0, 0);
         }
         /// <summary>
         /// Rendering Map's terrain corresponding to gameWorld's terrain tile
@@ -123,25 +147,25 @@ namespace ZRTS
             {
                 for (int col = 0; col < this.WorldMap.map.width; ++col)
                 {
-                   
+
                     // getCells(0,0,w,h)[,] IS working
-                    if (this.WorldMap.map.getCells(0, 0, this.WorldMap.map.width, this.WorldMap.map.height)[col, row].isValid ==  true)
-                    
+                    if (this.WorldMap.map.getCells(0, 0, this.WorldMap.map.width, this.WorldMap.map.height)[col, row].isValid == true)
+
                     // Alternative solution
                     // if it passable tile
                     //if (this.WorldMap.map.getCell(col,row).isValid == true)
                     {
-                        this.spriteTiles.drawAtIndex(0, 0, new Vector2(col*GameConfig.TILE_WIDTH,row*GameConfig.TILE_HEIGHT));
+                        this.spriteTiles.drawAtIndex(0, 0, new Vector2(col * GameConfig.TILE_WIDTH, row * GameConfig.TILE_HEIGHT));
                     }
                     else
-                    {  
-                        this.spriteTiles.drawAtIndex(1, 0, new Vector2(col *GameConfig.TILE_WIDTH, row *GameConfig.TILE_HEIGHT));
+                    {
+                        this.spriteTiles.drawAtIndex(1, 0, new Vector2(col * GameConfig.TILE_WIDTH, row * GameConfig.TILE_HEIGHT));
                     }
 
                 }//for 
             }//for
         }
-        
+
         /// <summary>
         /// change Location of a main unit (This function will be eliminated once Unit object is well defined.)
         /// </summary>
@@ -162,14 +186,9 @@ namespace ZRTS
         public Vector2 convertScreenLocToGameLoc(int mouseX, int mouseY)
         {
 
-            float gameLocX = (float) ((double) mouseX / GameConfig.TILE_WIDTH);
-            float gameLocY = (float) ((double) mouseY /  GameConfig.TILE_HEIGHT);
+            float gameLocX = (float)((double)mouseX / GameConfig.TILE_WIDTH);
+            float gameLocY = (float)((double)mouseY / GameConfig.TILE_HEIGHT);
             return new Vector2((gameLocX), (gameLocY));
-        }
-
-        public void selectArea(float selectX, float selectY)
-        {
-            // To do :Do selected area
         }
 
         /// <summary>
@@ -186,16 +205,16 @@ namespace ZRTS
         /// </summary>
         private void DrawEntities()
         {
-            foreach(ZRTSModel.Entities.Unit u in AllUnits())
+            foreach (ZRTSModel.Entities.Unit u in AllUnits())
             {
-                if (isUnitBeingSelected(u))
-                {
-                    // Draw a highlight unit
-                    this.spriteUtil.drawAtIndex(0,0, new Vector2(translateXScreen(u.x), translateYScreen(u.y)));
-                }
+                //if (isUnitBeingSelected(u))
+                //{
+                // Draw a highlight unit
+                //  this.spriteUtil.drawAtIndex(0,0, new Vector2(translateXScreen(u.x), translateYScreen(u.y)));
+                //}
                 //this.spriteUnits.drawByAction(0, new Vector2(u.x, u.y));
-                this.spriteUnits.animateFrame(0, new Vector2(translateXScreen(u.x), translateYScreen(u.y)));
-                
+                this.spriteUnits.drawAtIndex(0, 0, new Vector2(translateXScreen(u.x), translateYScreen(u.y)));
+
             }
         }
 
@@ -226,11 +245,11 @@ namespace ZRTS
         /// <returns></returns>
         private float translateYScreen(float y)
         {
-            return y* GameConfig.TILE_HEIGHT - (this.spriteUnits.frameDimY + 5 - GameConfig.TILE_HEIGHT);
+            return y * GameConfig.TILE_HEIGHT - (this.spriteUnits.frameDimY + 5 - GameConfig.TILE_HEIGHT);
         }
 
         /// <summary>
-        /// Draw all selected units (Not Using this anymore)
+        /// Draw all selected units (Not Using this anymore) DEPRECATED!!!!!!!!!!!!!!!!!!!!
         /// </summary>
         public void DrawSelected()
         {
@@ -246,13 +265,61 @@ namespace ZRTS
             }
         }
 
-
-
-        
-
-        private void DrawSelectedBox()
+        /// <summary>
+        /// Draw buildings
+        /// </summary>
+        public void DrawBuildings()
         {
-            
+            if (this.WorldMap.getBuildings().Count > 0)
+            {
+                foreach (ZRTSModel.Entities.Building u in this.WorldMap.getBuildings())
+                {
+                    spriteBuildings.drawAtCurrentIndex(new Vector2(translateXScreen(u.x), translateYScreen(u.y)));
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Setter for firstCorner of the drag box
+        /// </summary>
+        /// <param name="corner">The screen location of the first click (start of the drag box)</param>
+        public void setFirstCornerOfDragBox(float cornerX, float cornerY)
+        {
+            firstCornerX = cornerX;
+            firstCornerY = cornerY;
+        }
+
+        /// <summary>
+        /// Sets the Drawing Area for the dragBox
+        /// </summary>
+        /// <param name="x2">x coord of 2nd point</param>
+        /// <param name="y2">y coord of 2nd point</param>
+        public void setDragBox(float x2, float y2)
+        {
+            dragBox = new Rectangle(
+                (int)Math.Min(firstCornerX, x2),
+                (int)Math.Min(firstCornerY, y2),
+                (int)(Math.Max(firstCornerX, x2) - Math.Min(firstCornerX, x2)),
+                (int)(Math.Max(firstCornerY, y2) - Math.Min(firstCornerY, y2))
+                );
+        }
+
+        public void resetDragBox()
+        {
+            dragBox.Width = 0;
+            dragBox.Height = 0;
+        }
+
+        /// <summary>
+        /// Draws the drag box for selection
+        /// </summary>
+        private void DrawDragBox()
+        {
+            if (isDragging)
+            {
+                this.spriteUtil.drawAtIndex(GameConfig.IMG_DRAGBOX, 0, dragBox);
+            }
         }
 
 
@@ -262,9 +329,11 @@ namespace ZRTS
         public void Draw()
         {
             bufferScreen.Begin();
-                DrawTerrain();
-                DrawEntities();
-                //DrawSelected();
+            DrawTerrain();
+            DrawBuildings();
+            DrawEntities();
+            DrawDragBox();
+            //DrawSelected();
             //bufferScreen.End();
         }
 

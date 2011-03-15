@@ -39,13 +39,13 @@ namespace ZRTSModel.GameWorld
             this.height = (byte)height;
 
             this.cells = new Cell[width, height];
-            for (int i = 0; i < width; i++)
+            for (byte i = 0; i < width; i++)
             {
-                for (int j = 0; j < height; j++)
+                for (byte j = 0; j < height; j++)
                 {
 					cells[i, j] = new Cell();
-                    cells[i, j].Xcoord = (byte)i;
-                    cells[i, j].Ycoord = (byte)j;
+                    cells[i, j].Xcoord = i;
+                    cells[i, j].Ycoord = j;
                 }
             }
         }
