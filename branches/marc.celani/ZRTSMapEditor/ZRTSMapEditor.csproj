@@ -107,13 +107,12 @@
     <Compile Include="UI\TilePalette.Designer.cs">
       <DependentUpon>TilePalette.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\UnitPalette\UnitPalette.cs">
+    <Compile Include="UI\UnitPalette.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\UnitPalette\UnitPalette.Designer.cs">
+    <Compile Include="UI\UnitPalette.Designer.cs">
       <DependentUpon>UnitPalette.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\UnitPalette\UpdateUnitPalettePlayerListVisitor.cs" />
     <Compile Include="ZRTSMapEditor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="UI\MapView.resx">
@@ -146,7 +145,7 @@
     <EmbeddedResource Include="UI\TileUI.resx">
       <DependentUpon>TileUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\UnitPalette\UnitPalette.resx">
+    <EmbeddedResource Include="UI\UnitPalette.resx">
       <DependentUpon>UnitPalette.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">

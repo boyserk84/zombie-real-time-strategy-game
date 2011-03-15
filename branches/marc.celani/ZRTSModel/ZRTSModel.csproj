@@ -94,6 +94,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventHandlers\PlayerListChangedEventArgs.cs" />
     <Compile Include="EventHandlers\ScenarioChangedEventArgs.cs" />
     <Compile Include="EventHandlers\TileChangedEventArgs.cs" />
     <Compile Include="EventHandlers\ZRTSEventHandlers.cs" />
@@ -152,10 +153,11 @@
     <Compile Include="Player\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveLoad.cs" />
+    <Compile Include="Scenario\Observable.cs" />
     <Compile Include="Scenario\Observer.cs" />
     <Compile Include="Scenario\Scenario.cs" />
     <Compile Include="Scenario\ScenarioObservable.cs" />
-    <Compile Include="StrategizedModelComponentVisitor.cs" />
+    <Compile Include="Scenario\ViewSelectObserver.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GameModel\Scenario\Gameworld\PlayerList\Player\BuildingList\Building\" />

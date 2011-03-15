@@ -13,6 +13,7 @@ namespace ZRTSMapEditor
     public class PlayerDataGridAdapterCommitter : MapEditorCommand
     {
         private List<PlayerDataGridAdapter> adapters;
+        private PlayerList playerList;
 
         /// <summary>
         /// Ensures that a list of adapters are given to the committer.
@@ -21,9 +22,10 @@ namespace ZRTSMapEditor
         {
         }
 
-        public PlayerDataGridAdapterCommitter(List<PlayerDataGridAdapter> adapters)
+        public PlayerDataGridAdapterCommitter(List<PlayerDataGridAdapter> adapters, PlayerList playerList)
         {
             this.adapters = adapters;
+            this.playerList = playerList;
         }
 
         /// <summary>
@@ -37,6 +39,7 @@ namespace ZRTSMapEditor
                 {
                     adapter.Do();
                 }
+                playerList.FireChangedEvent();
             }
         }
 

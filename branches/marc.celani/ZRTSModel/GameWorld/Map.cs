@@ -69,21 +69,22 @@ namespace ZRTSModel.GameWorld
                 return false;
             if (y < 0 || y + e.height > this.height)
                 return false;
-            for (int j = 0; j < this.height; j++)
+            for (int j = y; j < y + e.height; j++)
             {
-                for (int i = 0; i < this.width; i++)
+                for (int i = x; i < x + e.width; i++)
                 {
-                    if (!cells[i, j].isValid)
+                    if (!cells[i,j].isValid)
                         return false;
                 }
             }
 
             // set the appropriate Cell StaticEntity pointers to the given StaticEntity
-            for (int j = 0; j < e.height; j++)
+            for (int j = y; j < y + e.height; j++)
             {
-                for (int i = 0; i < e.width; i++)
+                for (int i = x; i < x + e.width; i++)
                 {
                     cells[i, j].entity = e;
+					cells[i, j].isValid = false;
                 }
             }
 
@@ -199,5 +200,27 @@ namespace ZRTSModel.GameWorld
             }
 
         }
+
+		public void printExploredMap()
+		{
+			for (int j = 0; j < height; j++)
+			{
+				for (int i = 0; i < width; i++)
+				{
+					if (cells[i, j].explored)
+					{
+						Console.Write(" ");
+					}
+					else
+					{
+						Console.Write("x");
+					}
+
+				}
+				Console.WriteLine("");
+
+			}
+
+		}
     }
 }
