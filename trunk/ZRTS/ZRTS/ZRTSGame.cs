@@ -13,6 +13,17 @@ using ZRTSModel.GameWorld;
 
 namespace ZRTS
 {
+
+    public enum PlayerCommand
+    {
+        BUILD,
+        ATTACK,
+        SELECT,
+        MOVE,
+        CANCEL,
+    }
+
+
     /// <summary>
     /// This is the main type for your game
     /// </summary>
@@ -26,6 +37,7 @@ namespace ZRTS
         View gameView;
         ViewSelect gameSelectView;
         ViewGamePlayMenu gamePlayMenu;
+        PlayerCommand currentPlayerCommand;
 
         SpriteFont Font1;
 
@@ -138,9 +150,11 @@ namespace ZRTS
             // TODO: Add your initialization logic here
             this.IsMouseVisible = true;
             Font1 = Content.Load<SpriteFont>("SpriteFont1");
-            // Create Scenario
-            this.testScenario = new ZRTSModel.Scenario.Scenario(20, 20);
 
+            // Create Scenario
+            this.testScenario = new ZRTSModel.Scenario.Scenario(graphics.PreferredBackBufferWidth/20, 20);
+
+            currentPlayerCommand = PlayerCommand.CANCEL;
 
             // The most challenging obstacles
             //createTestGameWorld();
@@ -159,7 +173,7 @@ namespace ZRTS
             /** NOTE: Adding Entities should be done through the Controller from now on **/
             //this.testGameController.addUnit(new ZRTSModel.Entities.Unit(testGameController.scenario.getWorldPlayer(), 20, 100, 50, 0), 5, 10);
             this.testGameController.addUnit(new ZRTSModel.Entities.Unit(testGameController.scenario.getWorldPlayer(), 20), 10, 5);
-
+            this.testGameController.addUnit(new ZRTSModel.Entities.Unit(testGameController.scenario.getWorldPlayer(), 20), 20, 10);
             input = new MouseState();
             prevInput = input;
 
@@ -186,7 +200,7 @@ namespace ZRTS
             
             gameSelectView.loadSpriteSheet(sample_util);
 
-            gameView = new View(40, 40, spriteBatch);
+            gameView = new View(800,600, spriteBatch);
             gameView.LoadScenario(this.testGameController.scenario);
             gamePlayMenu.LoadScenario(this.testGameController.scenario);
             gameView.LoadMap(this.testGameController.gameWorld);
@@ -243,13 +257,41 @@ namespace ZRTS
                 {
                     foreach (ZRTSModel.Entities.Entity entity in this.testGameController.scenario.getPlayer().SelectedEntities)
                     {
-                        this.testGameController.giveActionCommand(
-                            entity,
-                            new ZRTSLogic.Action.MoveAction(commandX, commandY, this.testGameController.gameWorld, entity)
-                        );
+                        // Move command
+                        if (currentPlayerCommand == PlayerCommand.MOVE)
+                        {
+                            this.testGameController.giveActionCommand(
+                                entity,
+                                new ZRTSLogic.Action.MoveAction(commandX, commandY, this.testGameController.gameWorld, entity)
+                            );
+                        }
+
+                        // Attack command
+
+                        if (currentPlayerCommand == PlayerCommand.ATTACK)
+                        {
+                            if (entity.entityType == ZRTSModel.Entities.Entity.EntityType.Unit)
+                            {
+                                this.testGameController.giveActionCommand(entity, 
+                                new ZRTSLogic.Action.SimpleAttackAction((ZRTSModel.Entities.Unit) entity, this.testGameController.scenario.getUnit((int) commandX, (int) commandY)));
+                            }
+                        }
+                        
+
+                        // Build command and build a building
+                        /* Need to put this somewhere inside the gameloop
+                        this.testGameController.makeUnitBuild(entity, 
+                            new ZRTSModel.Entities.Building(testGameController.scenario.getPlayer(), new ZRTSModel.Entities.BuildingStats() ), 
+                            testGameController.gameWorld.map.getCell((int) commandX, (int) commandY) );
+                         * 
+                         * */
+                        
                     }
                 }
             }
+
+
+
 
             /* Left click to select units */
 
@@ -294,14 +336,15 @@ namespace ZRTS
                     );
 
                     // TODO: remove later (DEBUGGING INFORMATION ONLY)
-                    Console.WriteLine("(pressX, pressY) = (" + pressX + "," + pressY + ")");
-                    Console.WriteLine("topleft = (" + (int)Math.Min(pressX, releaseX) + "," + (int)Math.Min(pressY, releaseY) + ")");
-                    Console.WriteLine("(releaseX, releaseY) = (" + releaseX + "," + releaseY + ")");
-                    Console.WriteLine("bottomright = (" + (int)Math.Max(pressX, releaseX) + "," + (int)Math.Max(pressY, releaseY) + ")");
-
+                    //Console.WriteLine("(pressX, pressY) = (" + pressX + "," + pressY + ")");
+                    //Console.WriteLine("topleft = (" + (int)Math.Min(pressX, releaseX) + "," + (int)Math.Min(pressY, releaseY) + ")");
+                    //Console.WriteLine("(releaseX, releaseY) = (" + releaseX + "," + releaseY + ")");
+                    //Console.WriteLine("bottomright = (" + (int)Math.Max(pressX, releaseX) + "," + (int)Math.Max(pressY, releaseY) + ")");
+                    
                 }
 
                 gameView.IsDragging = false;
+                //gameView.resetDragBox();
 
             }
 

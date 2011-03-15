@@ -73,11 +73,27 @@ namespace ZRTS
         }
 
         /// <summary>
+        /// Return a command corresponding to the clicked icon
+        /// </summary>
+        /// <returns></returns>
+        public PlayerCommand getCommand()
+        {
+            return PlayerCommand.MOVE;
+        }
+
+
+        /// <summary>
         /// Loading game scenario object for process
         /// </summary>
         /// <param name="scene"></param>
         public void LoadScenario(ZRTSModel.Scenario.Scenario scene)
         {
+            // Need not to load this scenario into View
+            // Basically just return a command corresponding to the clicked icon
+            // i.e. click at attack icon, will return attack command and then process the game logic in the gameloop inside ZRTS update();
+
+
+
             this.scenario = scene;
         }
 

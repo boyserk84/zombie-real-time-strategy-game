@@ -280,6 +280,12 @@ namespace ZRTS
                 );
         }
 
+        public void resetDragBox()
+        {
+            dragBox.Width = 0;
+            dragBox.Height = 0;
+        }
+
         /// <summary>
         /// Draws the drag box for selection
         /// </summary>
