@@ -29,7 +29,7 @@ namespace ZRTSLogic
         public Scenario scenario;
 
         // Controls adding, removing, and moving entities.
-        EntityLocController locController;
+        public EntityLocController locController;
 
 		// Updates the visibilty map
 		VisibilityMapLogic visMapLogic;

@@ -39,6 +39,11 @@ namespace ZRTSLogic
         {
             bool success = false;
 
+			if (x < 0 || x >= gw.map.width || y < 0 || y >= gw.map.height)
+			{
+				return false;
+			}
+
             // The coordinates of the Cell the entity is being inserted into.
                 int xC = (int)Math.Floor(x);
                 int yC = (int)Math.Floor(y);

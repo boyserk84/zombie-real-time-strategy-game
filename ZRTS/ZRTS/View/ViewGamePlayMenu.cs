@@ -62,6 +62,11 @@ namespace ZRTS
             return -1;
         }
 
+		public bool containsPoint(int x, int y)
+		{
+			return (x >= location.X && x < location.X + width && y >= location.Y && y < location.Y + height);
+		}
+
         /// <summary>
         /// Load sprite sheet of the menu
         /// </summary>

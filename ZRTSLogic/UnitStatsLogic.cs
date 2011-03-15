@@ -25,13 +25,13 @@ namespace ZRTSLogic
 		private static void updateAttackBuff(Unit unit)
 		{
 			/* The attackBuff is affected by a unit's health. The attack buff may be reduced to 50% if the unit loses all of it's health. */
-			double baseAttack = 0.5 + 0.5 * (unit.health / unit.stats.maxHealth);
+			double baseAttack = 0.5 + 0.5 * unit.health / unit.stats.maxHealth;
 			unit.attackBuff = baseAttack;
 		}
 
 		private static void updateSpeedBuff(Unit unit)
 		{
-			double baseSpeed = 0.5 + 0.5 * (unit.health / unit.stats.maxHealth);
+			double baseSpeed = 0.5 + 0.5 * unit.health / unit.stats.maxHealth;
 			unit.speedBuff = baseSpeed;
 		}
 
