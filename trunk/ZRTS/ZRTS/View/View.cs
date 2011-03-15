@@ -255,6 +255,7 @@ namespace ZRTS
             }
         }
 
+
         /// <summary>
         /// Setter for firstCorner of the drag box
         /// </summary>

@@ -257,26 +257,42 @@ namespace ZRTS
                 {
                     foreach (ZRTSModel.Entities.Entity entity in this.testGameController.scenario.getPlayer().SelectedEntities)
                     {
-                        // Move command
-                        if (currentPlayerCommand == PlayerCommand.MOVE)
-                        {
-                            this.testGameController.giveActionCommand(
-                                entity,
-                                new ZRTSLogic.Action.MoveAction(commandX, commandY, this.testGameController.gameWorld, entity)
-                            );
-                        }
 
-                        // Attack command
-
-                        if (currentPlayerCommand == PlayerCommand.ATTACK)
+                        switch (currentPlayerCommand)
                         {
-                            if (entity.entityType == ZRTSModel.Entities.Entity.EntityType.Unit)
-                            {
-                                this.testGameController.giveActionCommand(entity, 
-                                new ZRTSLogic.Action.SimpleAttackAction((ZRTSModel.Entities.Unit) entity, this.testGameController.scenario.getUnit((int) commandX, (int) commandY)));
-                            }
+                            // Move command
+                            case PlayerCommand.MOVE:
+                                    this.testGameController.giveActionCommand(entity,
+                                new ZRTSLogic.Action.MoveAction(commandX, commandY, this.testGameController.gameWorld, entity));
+                                    break;
+                        
+
+                            // Cancel command
+                            case PlayerCommand.CANCEL:
+                                    break;
+
+                            // Attack command
+                            case PlayerCommand.ATTACK:
+                                    if (entity.entityType == ZRTSModel.Entities.Entity.EntityType.Unit)
+                                    {
+                                        ZRTSModel.Entities.Entity temp = this.testGameController.scenario.getUnit((int) commandX, (int) commandY);
+                                        if (temp!=null)
+                                        {
+                                            System.Console.Out.WriteLine("Selected Attack Unit at " + commandX + ":" + commandY);
+                                            this.testGameController.giveActionCommand(entity, 
+                                                     new ZRTSLogic.Action.SimpleAttackAction((ZRTSModel.Entities.Unit) entity, temp));
+                                        }
+                                    }
+                                break;
+
+                            case PlayerCommand.BUILD:
+                                this.testGameController.makeUnitBuild(entity,
+                            new ZRTSModel.Entities.Building(testGameController.scenario.getPlayer(), new ZRTSModel.Entities.BuildingStats()),
+                            testGameController.gameWorld.map.getCell((int)commandX, (int)commandY));
+                                break;
                         }
                         
+
 
                         // Build command and build a building
                         /* Need to put this somewhere inside the gameloop
@@ -310,21 +326,22 @@ namespace ZRTS
                 {
                     int button = gamePlayMenu.onButton(input.X, input.Y);
                     //button corespons with the button pressed 0 to 3 left to right
+                    System.Console.Out.WriteLine("Click: " + button);
                     if (button == 0)
                     {
-
+                        currentPlayerCommand = PlayerCommand.CANCEL;
                     }
                     if (button == 1)
                     {
-
+                        currentPlayerCommand = PlayerCommand.BUILD;
                     }
                     if (button == 2)
                     {
-
+                        currentPlayerCommand = PlayerCommand.MOVE;
                     }
                     if (button == 3)
                     {
-
+                        currentPlayerCommand = PlayerCommand.ATTACK;
                     }
                 }
             }
