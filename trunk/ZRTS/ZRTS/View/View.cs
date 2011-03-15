@@ -33,6 +33,7 @@ namespace ZRTS
         private SpriteSheet spriteTiles;            // Spritesheet of tiles
         private SpriteSheet spriteUnits;            // Spritesheet of units
         private SpriteSheet spriteUtil;             // Spritesheet of utilities and misc. stuff
+        private SpriteSheet spriteBuildings;
 
         // Temporary variable
         private int x, y;
@@ -117,6 +118,15 @@ namespace ZRTS
         public void LoadUnitsSpriteSheet(SpriteSheet unitSheet)
         {
             this.spriteUnits = unitSheet;
+        }
+
+        /// <summary>
+        /// Load buildings spritesheet
+        /// </summary>
+        /// <param name="sheet"></param>
+        public void LoadBuildingSpriteSheet(SpriteSheet sheet)
+        {
+            spriteBuildings = sheet;
         }
 
         /// <summary>
@@ -239,7 +249,7 @@ namespace ZRTS
         }
 
         /// <summary>
-        /// Draw all selected units (Not Using this anymore)
+        /// Draw all selected units (Not Using this anymore) DEPRECATED!!!!!!!!!!!!!!!!!!!!
         /// </summary>
         public void DrawSelected()
         {
@@ -253,6 +263,14 @@ namespace ZRTS
 
                 }
             }
+        }
+
+        /// <summary>
+        /// Draw buildings
+        /// </summary>
+        public void DrawBuildings()
+        {
+            //foreach (ZRTSModel.Entities.Building u in this.scenario.
         }
 
 
