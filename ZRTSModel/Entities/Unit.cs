@@ -27,7 +27,7 @@ namespace ZRTSModel.Entities
 
         /** UNIT LOCATION INFO **/
         Cell myCell;        // The cell the unit currently occupies
-        public float x, y;  // Unit's x and y coordinates in game space.
+        //public float x, y;  // Unit's x and y coordinates in game space. (MOVE TO ENTITY)
 
 		/** ORIENTATION INFO 
 		 * Represents which direction a Unit is facing in the gamewold. **/

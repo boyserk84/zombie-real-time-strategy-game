@@ -20,6 +20,8 @@ namespace ZRTSModel.Entities
         public EntityType entityType;
         int id;
 
+        public float x, y;  // Unit's x and y coordinates in game space.
+
         public long tickKilled = 0;
 
         public enum EntityType { Unit, Building, Resource, Object, NotSet };

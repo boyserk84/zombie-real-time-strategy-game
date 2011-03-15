@@ -30,8 +30,8 @@ namespace ZRTSModel.GameWorld
 
 		public byte Xcoord;
 		public byte Ycoord;
-        public bool isValid;
         public StaticEntity entity;
+        public bool isValid;
         public Tile tile;
 		public bool explored = false;
 
