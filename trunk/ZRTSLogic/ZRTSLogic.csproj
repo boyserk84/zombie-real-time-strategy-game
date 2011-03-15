@@ -113,6 +113,8 @@
     <Compile Include="Pathfinder\Advanced.cs" />
     <Compile Include="Pathfinder\Basic.cs" />
     <Compile Include="Pathfinder\findPath.cs" />
+    <Compile Include="Pathfinder\Node.cs" />
+    <Compile Include="Pathfinder\NodeMap.cs" />
     <Compile Include="Pathfinder\PQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitStatsLogic.cs" />

@@ -36,17 +36,47 @@ namespace Pathfinder
         /// <returns>The path as a list of waypoints</returns>
 		public static List<Cell> between(Map map, Cell start, Cell end, bool advanced)
 		{
+            // begin timing the operation
             startTime = DateTime.Now;
             intendedEnd = end;
-			List<Cell> path = Basic.findPath(map, start, end);
+
+            // convert the given Cell-based data to Node-based data
+            NodeMap nodeMap = new NodeMap(map);
+            Node nodeStart = nodeMap.getNode(start.Xcoord, start.Ycoord);
+            Node nodeEnd = nodeMap.getNode(end.Xcoord, end.Ycoord);
+
+            // perform advanced pre-calculation tasks
+            if (advanced)
+            {
+                // if the end Node is invalid, replace it with the nearest valid Node
+                if (!nodeEnd.isValid)
+                {
+                    DateTime tempStartTime = DateTime.Now;
+                    nodeEnd = Advanced.nearestValidEnd(nodeMap, nodeStart, nodeEnd);
+                    TimeSpan tempSpan = DateTime.Now - tempStartTime;
+                    Console.WriteLine("-> Path end changed from ({0}, {1}) to ({2}, {3}) in {4}", intendedEnd.Xcoord, intendedEnd.Ycoord, nodeEnd.Xcoord, nodeEnd.Ycoord, tempSpan);
+                }
+            }
+
+            // find the path
+			List<Node> nodePath = Basic.findPath(nodeMap, nodeStart, nodeEnd);
+
+            // perform advanced post-calculation tasks
 			if (advanced)
 			{
 				
             }
-            float dist = (float)(path[path.Count - 1].Gscore);
-            map.clean();
+
+            // convert the path from List<Node> format back to List<Cell> format
+            List<Cell> path = new List<Cell>(nodePath.Count);
+            for (int i = 0; i < nodePath.Count; i++)
+                path.Add(map.getCell(nodePath[i].Xcoord, nodePath[i].Ycoord));
+
+            // grab and print path data
+            float dist = (float)(nodePath[nodePath.Count - 1].Gscore);
             span = DateTime.Now - startTime;
             printPath(path, dist);
+
 			return path;
 		}
 
@@ -62,48 +92,16 @@ namespace Pathfinder
 			return between(map, start, end, true);
 		}
 
-        /// <summary>
-        /// Alternative to the basic function; takes raw floating-point start and end coordinates instead of Cells.
-        /// Maps the raw coordinates to the appropriate start and end Cells before proceeding (advanced features are turned on)
-        /// </summary>
-        /// <param name="map">The Map</param>
-        /// <param name="xStart">The starting X coordinate</param>
-        /// <param name="yStart">The starting Y coordinate</param>
-        /// <param name="xEnd">The ending X coordinate</param>
-        /// <param name="yEnd">The ending Y coordinate</param>
-        /// <returns>The path as a list of waypoints</returns>
-		public static List<Cell> between(Map map, float xStart, float yStart, float xEnd, float yEnd)
-		{
-			return between(map, xStart, yStart, xEnd, yEnd, true);
-		}
+
+        /*
+         * helper functions
+         */
 
         /// <summary>
-        /// Alternative to the basic function; takes raw floating-point start and end coordinates instead of Cells.
-        /// Maps the raw coordinates to the appropriate start and end Cells before proceeding (advanced features can be toggled)
+        /// Prints the path to console.
         /// </summary>
-        /// <param name="map">The Map</param>
-        /// <param name="xStart">The starting X coordinate</param>
-        /// <param name="yStart">The starting Y coordinate</param>
-        /// <param name="xEnd">The ending X coordinate</param>
-        /// <param name="yEnd">The ending Y coordinate</param>
-        /// <param name="advanced"> A boolean toggle for advanced functions</param>
-        /// <returns>The path as a list of waypoints</returns>
-		public static List<Cell> between(Map map, float xStart, float yStart, float xEnd, float yEnd, bool advanced)
-		{
-			int x0 = (int)xStart;
-			int y0 = (int)yStart;
-			int x1 = (int)xEnd;
-			int y1 = (int)yEnd;
-			Cell start = map.getCell(x0, y0);
-			Cell end = map.getCell(x1, y1);
-			return between(map, start, end, advanced);
-		}
-
-		/// <summary>
-		/// Prints the path to console.
-		/// </summary>
-		/// <param name="path">The path to print</param>
-		private static void printPath(List<Cell> path, float distance)
+        /// <param name="path">The path to print</param>
+        private static void printPath(List<Cell> path, float distance)
 		{
             Cell end = path[path.Count - 1];
             bool intended = (intendedEnd == path[path.Count - 1]);

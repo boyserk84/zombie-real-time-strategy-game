@@ -19,8 +19,8 @@ namespace ZRTSModel.GameWorld
          * private variables
          */
 
-        public short width;
-        public short height;
+        public byte width;
+        public byte height;
         public Cell[,] cells;
 
 
@@ -35,17 +35,17 @@ namespace ZRTSModel.GameWorld
         /// <param name="height">Intended Map height</param>
         public Map(int width, int height)
         {
-            this.width = (short)width;
-            this.height = (short)height;
+            this.width = (byte)width;
+            this.height = (byte)height;
 
             this.cells = new Cell[width, height];
-            for (int i = 0; i < width; i++)
+            for (byte i = 0; i < width; i++)
             {
-                for (int j = 0; j < height; j++)
+                for (byte j = 0; j < height; j++)
                 {
 					cells[i, j] = new Cell();
-                    cells[i, j].Xcoord = (short)i;
-                    cells[i, j].Ycoord = (short)j;
+                    cells[i, j].Xcoord = i;
+                    cells[i, j].Ycoord = j;
                 }
             }
         }
@@ -162,22 +162,6 @@ namespace ZRTSModel.GameWorld
         /*
          * helper functions
          */
-
-        /// <summary>
-        /// Cleans the prev pointers after a path find operation
-        /// </summary>
-        public void clean()
-        {
-            for (int j = 0; j < height; j++)
-            {
-                for (int i = 0; i < width; i++)
-                {
-                    cells[i, j].prev = null;
-                    cells[i, j].Fscore = 0;
-                    cells[i, j].Gscore = 0;
-                }
-            }
-        }
 
         public void printValidMap()
         {
