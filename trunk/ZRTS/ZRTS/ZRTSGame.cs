@@ -306,6 +306,27 @@ namespace ZRTS
                     gameView.setFirstCornerOfDragBox(input.X, input.Y);
                     gameView.IsDragging = true;
                 }
+                //else 
+                {
+                    int button = gamePlayMenu.onButton(input.X, input.Y);
+                    //button corespons with the button pressed 0 to 3 left to right
+                    if (button == 0)
+                    {
+
+                    }
+                    if (button == 1)
+                    {
+
+                    }
+                    if (button == 2)
+                    {
+
+                    }
+                    if (button == 3)
+                    {
+
+                    }
+                }
             }
 
             // While dragging, update the view to draw the box
