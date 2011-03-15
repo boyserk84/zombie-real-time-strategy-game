@@ -35,6 +35,7 @@ namespace ZRTSModel.GameWorld
         public StaticEntity entity;
         public bool isValid;
         public Tile tile;
+		public bool explored = false;
 
 		// pathfinder-specific
 		public int Fscore = 0;

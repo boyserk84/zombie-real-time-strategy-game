@@ -10,6 +10,7 @@ namespace ZRTSModel.EventHandlers
 
     public delegate void ScenarioChangedHandler(Object sender, ScenarioChangedEventArgs args);
     public delegate void TileChangedHandler(Object sender, TileChangedEventArgs args);
+    public delegate void PlayerListChangedHandler(Object sender, PlayerListChangedEventArgs args);
 
     #endregion
 }

@@ -19,11 +19,13 @@ namespace ZRTSLogic
 
         Scenario scenario;
         GameWorld gw;
+		VisibilityMapLogic visMapLogic;
 
-        public EntityLocController(Scenario scenario)
+        public EntityLocController(Scenario scenario, VisibilityMapLogic visMapLogic)
         {
             this.scenario = scenario;
             this.gw = scenario.getGameWorld();
+			this.visMapLogic = visMapLogic;
         }
 
         /// <summary>
@@ -37,14 +39,16 @@ namespace ZRTSLogic
         {
             bool success = false;
 
-            /** Try Inserting into GameWorld first **/
-            if (entity.entityType == Entity.EntityType.Unit)
-            {
-                // The coordinates of the Cell the unit is being inserted into.
+            // The coordinates of the Cell the entity is being inserted into.
                 int xC = (int)Math.Floor(x);
                 int yC = (int)Math.Floor(y);
 
                 Cell c = gw.map.getCell(xC, yC);
+
+            /** Try Inserting into GameWorld first **/
+            if (entity.entityType == Entity.EntityType.Unit)
+            {
+                
                 // Insert into gameworld if the target cell is empty
                 if (c.isValid)
                 {
@@ -55,11 +59,25 @@ namespace ZRTSLogic
                     u.x = (float)xC + 0.5f;
                     u.y = (float)yC + 0.5f;
                     success = true;
+					visMapLogic.updateVisMap(u);
                 }
             }
-            else // Inserting a Building, ResourceEntity, or ObjectEntity
+
+            else if(entity.getEntityType() == Entity.EntityType.Building)
             {
-                success = gw.insert((StaticEntity)entity, (int)x, (int)y);
+                Building b = (Building)entity;
+                b.setOrginCell(c);
+                b.health = 0;
+                success = gw.insert(b, c);
+                if (success)
+                {
+                    ///Player pays for building costs
+                    scenario.getPlayer().player_resources[0] -= b.stats.waterCost;
+                    scenario.getPlayer().player_resources[1] -= b.stats.lumberCost;
+                    scenario.getPlayer().player_resources[2] -= b.stats.foodCost;
+                    scenario.getPlayer().player_resources[3] -= b.stats.metalCost;
+                    visMapLogic.updateVisMap(b);
+                }
             }
 
             // If insert into GameWorld was a success, insert into right player
@@ -70,7 +88,6 @@ namespace ZRTSLogic
 
             return success;
         }
-
 
         /// <summary>
         /// This method will update the pointers to the Cell in the GameWorld that is occuppied by the Unit.
@@ -89,6 +106,9 @@ namespace ZRTSLogic
                 // NOTE: doesn't check if newCell is already occupied.
                 unit.setCell(newCell);
                 newCell.setUnit(unit);
+
+				// Update the visibility map.
+				this.visMapLogic.updateVisMap(unit);
             }
         }
 
@@ -121,5 +141,48 @@ namespace ZRTSLogic
             scenario.removeEntityFromPlayer(entity);
         }
 
+
+        /** STATIC FUNCTIONS 
+         *  The functions below are meant to be common helper functions.
+         * **/
+
+        public static float findDistance(float x1, float y1, float x2, float y2)
+        {
+            double dis = Math.Pow((double)(x1 - x2), 2) + Math.Pow((double)(y1 - y2), 2);
+            dis = Math.Sqrt(dis);
+            return (float)dis;
+        }
+
+
+        /// <summary>
+        /// This method will find the cell closest to 'unit' that 'entity' is currently occupying.
+        /// </summary>
+        /// <param name="unit"></param>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public static Cell findClosestCell(Unit unit, StaticEntity se, GameWorld gw)
+        {
+            Cell cell = null;
+            float dis = 10000;
+
+            short xC = se.orginCell.Xcoord;
+            short yC = se.orginCell.Ycoord;
+            short width = se.width;
+            short height = se.height;
+
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    if (EntityLocController.findDistance(unit.x, unit.y, xC + i, yC + j) <= dis)
+                    {
+                        cell = gw.map.getCell(xC + i, xC + j);
+                        dis = EntityLocController.findDistance(unit.x, unit.y, xC + i, yC + j);
+                    }
+                }
+            }
+
+            return cell;
+        }
     }
 }

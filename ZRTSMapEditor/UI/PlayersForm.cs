@@ -61,7 +61,7 @@ namespace ZRTSMapEditor
             {
                 adapters.Add((PlayerDataGridAdapter)o);
             }
-            PlayerDataGridAdapterCommitter committer = new PlayerDataGridAdapterCommitter(adapters);
+            PlayerDataGridAdapterCommitter committer = new PlayerDataGridAdapterCommitter(adapters, playerList);
             if (committer.CanBeDone())
             {
                 committer.Do();

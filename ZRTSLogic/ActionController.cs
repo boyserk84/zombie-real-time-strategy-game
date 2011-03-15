@@ -14,11 +14,23 @@ namespace ZRTSLogic
     /// </summary>
     public class ActionController
     {
-        Scenario scenario;
-        public ActionController(Scenario scenario)
+
+		static ActionController instance;
+        private ActionController()
         {
-            this.scenario = scenario;
-        }
+		}
+
+		public static ActionController Instance
+		{
+			get
+			{
+				if (instance == null)
+				{
+					instance = new ActionController();
+				}
+				return instance;
+			}
+		}
 
         /// <summary>
         /// Given an entity, this function will cause the entity to perform whatever action is currently on the entity's
@@ -27,17 +39,21 @@ namespace ZRTSLogic
         /// <param name="entity"></param>
         public void update(Entity entity, EntityLocController locController)
         {
-            Queue<ActionCommand> actionQueue = entity.getActionQueue();
+            List<ActionCommand> actionQueue = entity.getActionQueue();
             if(actionQueue.Count > 0)
             {
-                ActionCommand command = actionQueue.Peek();
+                ActionCommand command = actionQueue[0];
 
                 if (command.work())
                 {
-                    actionQueue.Dequeue();
+                    // Action is done, remove and set Entity's state to idle.
+                    actionQueue.RemoveAt(0);
+                    entity.getState().setPrimaryState(State.PrimaryState.Idle);
                 }
+
                 if (entity.entityType == Entity.EntityType.Unit)
                 {
+                    // Unit may have moved, update it's location in the GameWorld.
                     locController.updateUnitLocation((Unit)entity);
                 }
             }
@@ -56,11 +72,10 @@ namespace ZRTSLogic
             {
                 return false;
             }
-            else if (command.actionType == ActionCommand.ActionType.Move)
-            {
-                return handleUnitCommand(entity, command);
-            }
-            else if (command.actionType == ActionCommand.ActionType.SimpleAttack)
+
+            // Commands that only Units can execute.
+            else if (command.actionType == ActionCommand.ActionType.Move || command.actionType == ActionCommand.ActionType.SimpleAttack
+                        || command.actionType == ActionCommand.ActionType.BuildBuilding)
             {
                 return handleUnitCommand(entity, command);
             }
@@ -77,12 +92,23 @@ namespace ZRTSLogic
             }
 
             // Get the action queue from the entity and clear it.
-            Queue<ActionCommand> queue = entity.getActionQueue();
+            List<ActionCommand> queue = entity.getActionQueue();
             queue.Clear();
 
             // Give the entity the command.
-            entity.getActionQueue().Enqueue(command);
+            entity.getActionQueue().Add(command);
             return true;
+        }
+
+        /// <summary>
+        /// This function will insert a command at the beginning of an Entity's action queue. This will interrupt the action currently
+        /// being performed (if any) by the entity.
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="command"></param>
+        public static void insertIntoActionQueue(Entity entity, ActionCommand command)
+        {
+            entity.getActionQueue().Insert(0, command);
         }
     }
 }
