@@ -37,7 +37,6 @@ namespace ZRTS
         View gameView;
         ViewSelect gameSelectView;
         ViewGamePlayMenu gamePlayMenu;
-        PlayerCommand currentPlayerCommand;
 
         SpriteFont Font1;
 
@@ -150,8 +149,6 @@ namespace ZRTS
             // Create Scenario
             this.testScenario = new ZRTSModel.Scenario.Scenario(graphics.PreferredBackBufferWidth/20, 20);
 
-            currentPlayerCommand = PlayerCommand.CANCEL;
-
             // The most challenging obstacles
             //createTestGameWorld();
 
@@ -205,6 +202,7 @@ namespace ZRTS
             gameView.LoadSpriteSheet(sample_tile);
             gameView.LoadUnitsSpriteSheet(sample_image);
             gameView.LoadUtilitySpriteSheet(sample_util);
+            gameView.LoadBuildingSpriteSheet(new SpriteSheet(Content.Load<Texture2D>("gameBuildings/sample_build"), spriteBatch, 40, 40));
             testGameController.registerObserver(gameSelectView); 
             // TODO: use this.Content to load your game content here
         }

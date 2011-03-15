@@ -270,7 +270,13 @@ namespace ZRTS
         /// </summary>
         public void DrawBuildings()
         {
-            //foreach (ZRTSModel.Entities.Building u in this.scenario.
+            if (this.WorldMap.getBuildings().Count > 0)
+            {
+                foreach (ZRTSModel.Entities.Building u in this.WorldMap.getBuildings())
+                {
+                    spriteBuildings.drawAtCurrentIndex(new Vector2(translateXScreen(u.x), translateYScreen(u.y)));
+                }
+            }
         }
 
 
@@ -324,6 +330,7 @@ namespace ZRTS
         {
             bufferScreen.Begin();
             DrawTerrain();
+            DrawBuildings();
             DrawEntities();
             DrawDragBox();
             //DrawSelected();
