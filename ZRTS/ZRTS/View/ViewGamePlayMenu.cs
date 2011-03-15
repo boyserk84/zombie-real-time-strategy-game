@@ -17,6 +17,8 @@ namespace ZRTS
         private int width, height;                  // Width and Height of the screen
         private Microsoft.Xna.Framework.Vector2 location;
         private Microsoft.Xna.Framework.Vector2 iconLocation;
+        int buttonWidth;
+        int buttonHeight;
 
 
         /// <summary>
@@ -35,6 +37,30 @@ namespace ZRTS
             
         }
 
+        /// <summary>  //this probably isn't in the right place, it is used in control
+        /// returns 0-3 if the mouse is on one of the buttons
+        /// -1 if not
+        /// </summary>
+        /// <param name="x">mouse x pos</param>
+        /// <param name="y">mouse y pos</param>
+        /// <returns></returns>
+        public int onButton(int x, int y)
+        {
+            if (scenario.getPlayer().SelectedEntities.Count != 0)  //change this if there are different menus for different entity types
+            {
+                if (y < iconLocation.Y || y > iconLocation.Y + buttonHeight)
+                    return -1;
+                if (x > iconLocation.X && x < iconLocation.X + buttonWidth)
+                    return 0;
+                if (x > iconLocation.X + buttonWidth && x < iconLocation.X + 2 * buttonWidth)
+                    return 1;
+                if (x > iconLocation.X + 2 * buttonWidth && x < iconLocation.X + 3 * buttonWidth)
+                    return 2;
+                if (x > iconLocation.X + 3 * buttonWidth && x < iconLocation.X + 4 * buttonWidth)
+                    return 3;
+            }
+            return -1;
+        }
 
         /// <summary>
         /// Load sprite sheet of the menu
@@ -47,6 +73,7 @@ namespace ZRTS
             iconLocation = Microsoft.Xna.Framework.Vector2.Zero;           
             iconLocation.X = width - (.91f*gamePlaySprite.frameDimX);
             iconLocation.Y = height - (.82f*gamePlaySprite.frameDimY);
+            
         }
 
         /// <summary>
@@ -56,6 +83,8 @@ namespace ZRTS
         public void loadIconSprite(SpriteSheet sheet)
         {
             gamePlayIconSprite = sheet;
+            buttonWidth = gamePlayIconSprite.frameDimX / 4;
+            buttonHeight = gamePlayIconSprite.frameDimY;
         }
 
         /// <summary>
