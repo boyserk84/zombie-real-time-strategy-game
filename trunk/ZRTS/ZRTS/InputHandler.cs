@@ -29,7 +29,7 @@ namespace ZRTS
 			MOVE,
 			CANCEL,
 		}
-		PlayerCommand currentPlayerCommand = PlayerCommand.MOVE;
+		PlayerCommand currentPlayerCommand = PlayerCommand.CANCEL;
 		MouseState prevInput;
 		float commandX, commandY;
 		float selectX, selectY;
@@ -62,25 +62,24 @@ namespace ZRTS
 					/** Handle Menu Input **/
 					int button = gamePlayMenu.onButton(input.X, input.Y);
 					//button corespons with the button pressed 0 to 3 left to right
-					if (button == 0)
-					{
-						Console.WriteLine("Button 0 Pressed");
-						currentPlayerCommand = PlayerCommand.MOVE;
-					}
-					if (button == 1)
-					{
-						Console.WriteLine("Button 1 Pressed");
-						currentPlayerCommand = PlayerCommand.ATTACK;
-					}
-					if (button == 2)
-					{
-						Console.WriteLine("Button 2 Pressed");
-					}
-					if (button == 3)
-					{
-						Console.WriteLine("Button 3 Pressed");
-						currentPlayerCommand = PlayerCommand.BUILD;
-					}
+
+                    if (button == 0)
+                    {
+                        currentPlayerCommand = PlayerCommand.CANCEL;
+                    }
+                    if (button == 1)
+                    {
+                        currentPlayerCommand = PlayerCommand.BUILD;
+                    }
+                    if (button == 2)
+                    {
+                        currentPlayerCommand = PlayerCommand.MOVE;
+                    }
+                    if (button == 3)
+                    {
+                        currentPlayerCommand = PlayerCommand.ATTACK;
+                    }
+
 				}
 			}
 			else
@@ -112,6 +111,7 @@ namespace ZRTS
 
 						// Cancel command
 						case PlayerCommand.CANCEL:
+                            // TODO: Cancel current action
 							break;
 
 						// Attack command
