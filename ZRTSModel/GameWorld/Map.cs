@@ -90,6 +90,8 @@ namespace ZRTSModel.GameWorld
 
             // set the given StaticEntity's origin Cell to the given (x, y) coordinate and return true
             e.setOrginCell(cells[x, y]);
+
+			Console.WriteLine("Inserted building at: " + x + ", " + y);
             return true;
         }
 
@@ -120,6 +122,7 @@ namespace ZRTSModel.GameWorld
                 for (int i = x; i < x + w; i++)
                 {
                     cells[i, j].entity = null;
+					cells[i, j].isValid = true;
                 }
             }
         }
