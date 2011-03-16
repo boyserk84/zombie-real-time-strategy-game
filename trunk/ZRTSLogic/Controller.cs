@@ -187,8 +187,16 @@ namespace ZRTSLogic
             {
                 if (gameWorld.checkSpace(b, c) && gameWorld.checkResources(b, scenario.getPlayer()))
                 {
-                    locController.addEntity(b, c.Xcoord, c.Ycoord);
-                    return ActionController.Instance.giveCommand(unit, new BuildAction(b, (Unit) unit, gameWorld));
+                    if (locController.addEntity(b, c.Xcoord, c.Ycoord))
+                    {
+                        b.health = 1;
+                        return ActionController.Instance.giveCommand(unit, new BuildAction(b, (Unit)unit, gameWorld));
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                    
                 }
             }
             return false;

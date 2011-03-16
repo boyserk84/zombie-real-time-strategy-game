@@ -271,11 +271,12 @@ namespace ZRTS
         /// </summary>
         public void DrawBuildings()
         {
+            //System.Console.Out.WriteLine("Building in the world " + this.WorldMap.getBuildings().Count);
             if (this.WorldMap.getBuildings().Count > 0)
             {
                 foreach (ZRTSModel.Entities.Building u in this.WorldMap.getBuildings())
                 {
-                    //System.Console.Out.WriteLine(translateXScreen(u.x) + ":" + translateYScreen(u.y));
+                    //System.Console.Out.WriteLine("Draw" + translateXScreen(u.x) + ":" + translateYScreen(u.y));
                     spriteBuildings.drawAtCurrentIndex(new Vector2(translateXScreenBuild(u.orginCell.Xcoord), translateYScreenBuild(u.orginCell.Ycoord)));
                 }
             }

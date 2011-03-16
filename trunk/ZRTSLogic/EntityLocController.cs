@@ -72,7 +72,6 @@ namespace ZRTSLogic
             {
                 Building b = (Building)entity;
                 b.setOrginCell(c);
-                b.health = 0;
                 success = gw.insert(b, c);
                 if (success)
                 {
@@ -88,6 +87,7 @@ namespace ZRTSLogic
             // If insert into GameWorld was a success, insert into right player
             if (success)
             {
+                //System.Console.Out.WriteLine("Success fullying ");
                 scenario.insertEntityIntoPlayer(entity);
             }
 
