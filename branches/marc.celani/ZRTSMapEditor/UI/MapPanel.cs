@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace ZRTSMapEditor
 {
@@ -28,10 +29,12 @@ namespace ZRTSMapEditor
         public void AddControlAtMapCoordinate(Control control, float x, float y)
         {
             if (x <= 40 && y <= 40)
+            {
                 this.Controls.Add(control);
-            else 
+            }
+            else
                 extraControls.Add(control);
-            //this.Controls.SetChildIndex(control, 0);
+            this.Controls.SetChildIndex(control, 0);
             control.Location = new Point((int)(x * (float)pixelsPerMapCoordinate), (int)(y * (float)pixelsPerMapCoordinate));
         }
 
@@ -48,5 +51,6 @@ namespace ZRTSMapEditor
         {
             extraControls.Clear();
         }
+
     }
 }

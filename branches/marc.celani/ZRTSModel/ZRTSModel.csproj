@@ -97,6 +97,8 @@
     <Compile Include="EventHandlers\PlayerListChangedEventArgs.cs" />
     <Compile Include="EventHandlers\ScenarioChangedEventArgs.cs" />
     <Compile Include="EventHandlers\TileChangedEventArgs.cs" />
+    <Compile Include="EventHandlers\UnitAddedEventArgs.cs" />
+    <Compile Include="EventHandlers\UnitRemovedEventArgs.cs" />
     <Compile Include="EventHandlers\ZRTSEventHandlers.cs" />
     <Compile Include="ModelComponentVisitorDelegator.cs" />
     <Compile Include="NoOpModelComponentVisitor.cs" />

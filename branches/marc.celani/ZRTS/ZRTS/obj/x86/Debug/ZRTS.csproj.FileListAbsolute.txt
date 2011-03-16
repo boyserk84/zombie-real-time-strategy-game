@@ -50,3 +50,23 @@ C:\Users\Nathan\Documents\Visual Studio 2010\Projects\CS 429 Project\ZRTS\ZRTS\Z
 C:\Users\Nathan\Documents\Visual Studio 2010\Projects\CS 429 Project\ZRTS\ZRTS\ZRTS\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\Nathan\Documents\Visual Studio 2010\Projects\CS 429 Project\ZRTS\ZRTS\ZRTS\obj\x86\Debug\ZRTS.exe
 C:\Users\Nathan\Documents\Visual Studio 2010\Projects\CS 429 Project\ZRTS\ZRTS\ZRTS\obj\x86\Debug\ZRTS.pdb
+\\ad.uiuc.edu\engr\ews\mcelani2\Desktop\mybranch\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\green_tile.xnb
+\\ad.uiuc.edu\engr\ews\mcelani2\Desktop\mybranch\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\soldier_sample.xnb
+\\ad.uiuc.edu\engr\ews\mcelani2\Desktop\mybranch\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\green_tile20x20.xnb
+\\ad.uiuc.edu\engr\ews\mcelani2\Desktop\mybranch\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\commandos.xnb
+\\ad.uiuc.edu\engr\ews\mcelani2\Desktop\mybranch\ZRTS\ZRTS\bin\x86\Debug\Content\test_spritesheet.xnb
+\\ad.uiuc.edu\engr\ews\mcelani2\Desktop\mybranch\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\util_misc20x20.xnb
+\\ad.uiuc.edu\engr\ews\mcelani2\Desktop\mybranch\ZRTS\ZRTS\bin\x86\Debug\Content\gamePlayUI\menuUI.xnb
+\\ad.uiuc.edu\engr\ews\mcelani2\Desktop\mybranch\ZRTS\ZRTS\bin\x86\Debug\Content\gamePlayUI\icons.xnb
+\\ad.uiuc.edu\engr\ews\mcelani2\Desktop\mybranch\ZRTS\ZRTS\bin\x86\Debug\Content\SpriteFont1.xnb
+\\ad.uiuc.edu\engr\ews\mcelani2\Desktop\mybranch\ZRTS\ZRTS\bin\x86\Debug\ZRTS.exe
+\\ad.uiuc.edu\engr\ews\mcelani2\Desktop\mybranch\ZRTS\ZRTS\bin\x86\Debug\ZRTS.pdb
+\\ad.uiuc.edu\engr\ews\mcelani2\Desktop\mybranch\ZRTS\ZRTS\bin\x86\Debug\nunit.framework.dll
+\\ad.uiuc.edu\engr\ews\mcelani2\Desktop\mybranch\ZRTS\ZRTS\bin\x86\Debug\ZRTSLogic.dll
+\\ad.uiuc.edu\engr\ews\mcelani2\Desktop\mybranch\ZRTS\ZRTS\bin\x86\Debug\ZRTSModel.dll
+\\ad.uiuc.edu\engr\ews\mcelani2\Desktop\mybranch\ZRTS\ZRTS\bin\x86\Debug\ZRTSLogic.pdb
+\\ad.uiuc.edu\engr\ews\mcelani2\Desktop\mybranch\ZRTS\ZRTS\bin\x86\Debug\ZRTSModel.pdb
+\\ad.uiuc.edu\engr\ews\mcelani2\Desktop\mybranch\ZRTS\ZRTS\obj\x86\Debug\ResolveAssemblyReference.cache
+\\ad.uiuc.edu\engr\ews\mcelani2\Desktop\mybranch\ZRTS\ZRTS\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+\\ad.uiuc.edu\engr\ews\mcelani2\Desktop\mybranch\ZRTS\ZRTS\obj\x86\Debug\ZRTS.exe
+\\ad.uiuc.edu\engr\ews\mcelani2\Desktop\mybranch\ZRTS\ZRTS\obj\x86\Debug\ZRTS.pdb

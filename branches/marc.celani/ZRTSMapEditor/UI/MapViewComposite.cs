@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using ZRTSModel;
 using ZRTSMapEditor.MapEditorModel;
 using ZRTSModel.GameWorld;
+using ZRTSModel.EventHandlers;
 
 namespace ZRTSMapEditor
 {
@@ -45,6 +46,8 @@ namespace ZRTSMapEditor
 
             if (scenario != null)
             {
+
+                scenario.GetGameWorld().GetPlayerList().PlayerListChangedEvent += RegisterToNewPlayer;
                 ZRTSModel.Map map = scenario.GetGameWorld().GetMap();
                 TileUI firstTile = new TileUI(this.controller, map.GetCellAt(0, 0));
                 
@@ -103,6 +106,30 @@ namespace ZRTSMapEditor
             if (sender is MapEditorFullModel) // sanity check
             {
                 SetScenario(((MapEditorFullModel)sender).GetScenario());
+            }
+        }
+
+        private void AddUnit(object sender, UnitAddedEventArgs e)
+        {
+            // TODO: Logic to check that it is in view
+            UnitUI unit = new UnitUI(this.controller, e.Unit);
+            this.mapPanel.AddControlAtMapCoordinate(unit, e.Unit.PointLocation.X, e.Unit.PointLocation.Y);
+        }
+
+        private void RemoveUnit(object sender, UnitRemovedEventArgs e)
+        {
+
+        }
+
+        private void RegisterToNewPlayer(object sender, PlayerListChangedEventArgs e)
+        {
+            if (e != null)
+            {
+                foreach (PlayerComponent player in e.PlayersAdded)
+                {
+                    player.GetUnitList().UnitAddedEvent += AddUnit;
+                    player.GetUnitList().UnitRemovedEvent += RemoveUnit;
+                }
             }
         }
     }

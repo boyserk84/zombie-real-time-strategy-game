@@ -19,7 +19,9 @@ namespace ZRTSModel
             if (child is PlayerComponent)
             {
                 base.AddChild(child);
-                PlayerListChangedEvent(this, null);
+                PlayerListChangedEventArgs e = new PlayerListChangedEventArgs();
+                e.PlayersAdded.Add((PlayerComponent)child);
+                PlayerListChangedEvent(this, e);
             }
         }
 
@@ -37,6 +39,20 @@ namespace ZRTSModel
         public void FireChangedEvent()
         {
             PlayerListChangedEvent(this, null);
+        }
+
+        public PlayerComponent GetPlayerByName(string p)
+        {
+            PlayerComponent player = null;
+            foreach (PlayerComponent pc in GetChildren())
+            {
+                if (pc.GetName().Equals(p))
+                {
+                    player = pc;
+                    break;
+                }
+            }
+            return player;
         }
     }
 }

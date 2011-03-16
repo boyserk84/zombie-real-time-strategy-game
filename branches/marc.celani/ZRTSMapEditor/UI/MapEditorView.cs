@@ -61,11 +61,6 @@ namespace ZRTSMapEditor
            // scenarioView1.changeImage(image);
         }
 
-        internal void tileClicked(TileUI tile)
-        {
-            controller.OnClickMapCell(tile.Cell);
-        }
-
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             controller.createNewScenario();

@@ -35,6 +35,7 @@ namespace ZRTSMapEditor
                 unitBox.Image = new Bitmap("Content/Images/grass.png");
                 unitBox.SizeMode = PictureBoxSizeMode.StretchImage;
                 unitBox.Margin = new Padding(1, 1, 1, 1);
+                unitBox.Click += uiUnitIcon_Click;
                 this.flowLayoutPanel1.Controls.Add(unitBox);
             }
             this.flowLayoutPanel1.ResumeLayout();

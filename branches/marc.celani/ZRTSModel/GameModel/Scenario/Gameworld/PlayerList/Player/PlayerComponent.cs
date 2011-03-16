@@ -20,6 +20,9 @@ namespace ZRTSModel
         {
             PlayerResources resources = new PlayerResources();
             AddChild(resources);
+
+            UnitList unitList = new UnitList();
+            AddChild(unitList);
         }
 
         public int GetGold()
@@ -87,6 +90,20 @@ namespace ZRTSModel
         public override void Accept(ModelComponentVisitor visitor)
         {
             visitor.Visit(this);
+        }
+
+        public UnitList GetUnitList()
+        {
+            UnitList list = null;
+            foreach (ModelComponent component in GetChildren())
+            {
+                if (component is UnitList)
+                {
+                    list = (UnitList)component;
+                    break;
+                }
+            }
+            return list;
         }
     }
 }

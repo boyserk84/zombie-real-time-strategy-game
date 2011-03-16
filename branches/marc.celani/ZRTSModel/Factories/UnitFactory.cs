@@ -282,5 +282,25 @@ namespace ZRTSModel.Factories
             }
 
         }
+
+        public UnitComponent Create(string type)
+        {
+            UnitStats unitStats = getStats(type);
+            UnitComponent unit = new UnitComponent();
+            unit.Attack = unitStats.attack;
+            unit.AttackRange = unitStats.attackRange;
+            unit.AttackTicks = unitStats.attackTicks;
+            unit.BuildSpeed = unitStats.buildSpeed;
+            unit.CanAttack = unitStats.canAttack;
+            unit.CanBuild = unitStats.canBuild;
+            unit.CanHarvest = unitStats.canHarvest;
+            unit.CurrentHealth = unitStats.maxHealth;
+            unit.IsZombie = unitStats.isZombie;
+            unit.MaxHealth = unitStats.maxHealth;
+            unit.Speed = unitStats.speed;
+            unit.Type = type;
+            unit.VisibilityRange = unitStats.visibilityRange;
+            return unit;
+        }
     }
 }

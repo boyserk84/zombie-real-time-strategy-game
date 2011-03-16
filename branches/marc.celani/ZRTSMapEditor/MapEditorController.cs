@@ -11,6 +11,7 @@ using ZRTSMapEditor.MapEditorModel;
 using ZRTSModel;
 using ZRTSMapEditor.UI;
 using ZRTSMapEditor.Commands.MapEditorViewCommands;
+using ZRTSModel.Factories;
 
 namespace ZRTSMapEditor
 {
@@ -200,7 +201,7 @@ namespace ZRTSMapEditor
             model.GetSelectionState().SelectionType = typeof(UnitComponent);
         }
 
-        internal void OnClickMapCell(CellComponent cellComponent)
+        internal void OnClickMapCell(CellComponent cellComponent, float xPercent, float yPercent)
         {
             if (model.GetSelectionState().SelectionType == typeof(ZRTSModel.Tile))
             {
@@ -215,7 +216,31 @@ namespace ZRTSMapEditor
             }
             else if (model.GetSelectionState().SelectionType == typeof(UnitComponent))
             {
-                // Get instance of Unit Factory, produce unit, and place on map for the given player.
+                UnitFactory uf = UnitFactory.Instance;
+                UnitComponent unit = uf.Create(model.GetSelectionState().SelectedUnitType);
+                unit.PointLocation = new System.Drawing.PointF(/*(float)cellComponent.X*/ 0 + xPercent, /*(float)cellComponent.Y*/ 0 + yPercent);
+                PlayerComponent player = model.GetScenario().GetGameWorld().GetPlayerList().GetPlayerByName(model.GetSelectionState().SelectedPlayer);
+                AddUnitCommand command = new AddUnitCommand(unit, player, cellComponent);
+
+                if (command.CanBeDone())
+                {
+                    model.GetCommandStack().ExecuteCommand(command);
+                }
+            }
+        }
+
+        internal void OnDragMapCell(CellComponent cell)
+        {
+            if (model.GetSelectionState().SelectionType == typeof(ZRTSModel.Tile))
+            {
+                TileFactory tf = TileFactory.Instance;
+                ZRTSModel.Tile tile = tf.GetImprovedTile(model.GetSelectionState().SelectedTileType);
+                ChangeCellTileCommand command = new ChangeCellTileCommand(cell, tile);
+
+                if (command.CanBeDone())
+                {
+                    model.GetCommandStack().ExecuteCommand(command);
+                }
             }
         }
     }
