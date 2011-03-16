@@ -209,7 +209,7 @@ namespace ZRTS
 					 * Retrieve all units within the drag box - Use Min and Max to find the topleft and
 					 * bottomright corner
 					 */
-					testGameController.scenario.getUnits(
+					testGameController.scenario.selectUnits(
 						(int)Math.Min(pressX, releaseX),
 						(int)Math.Min(pressY, releaseY),
 						(int)(Math.Max(pressX, releaseX) - Math.Min(pressX, releaseX)),

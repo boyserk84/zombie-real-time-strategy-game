@@ -86,7 +86,7 @@ namespace ZRTSModel.Scenario
         /// <param name="xoffset">Column offset</param>
         /// <param name="yoffset">Row offset</param>
         /// <returns>List of all units within that boundary</returns>
-        public List<ZRTSModel.Entities.Entity> getUnits(int s_col, int s_row, int xoffset, int yoffset)
+        public List<ZRTSModel.Entities.Entity> selectUnits(int s_col, int s_row, int xoffset, int yoffset)
         {
             // Create a temporary selected list
             List<ZRTSModel.Entities.Entity> unitList = new List<ZRTSModel.Entities.Entity>();
