@@ -47,7 +47,7 @@ namespace ZRTSMapEditor
             if (scenario != null)
             {
 
-                scenario.GetGameWorld().GetPlayerList().PlayerListChangedEvent += RegisterToNewPlayer;
+                // scenario.GetGameWorld().GetPlayerList().PlayerListChangedEvent += RegisterToNewPlayer;
                 ZRTSModel.Map map = scenario.GetGameWorld().GetMap();
                 TileUI firstTile = new TileUI(this.controller, map.GetCellAt(0, 0));
                 
@@ -112,8 +112,8 @@ namespace ZRTSMapEditor
         private void AddUnit(object sender, UnitAddedEventArgs e)
         {
             // TODO: Logic to check that it is in view
-            UnitUI unit = new UnitUI(this.controller, e.Unit);
-            this.mapPanel.AddControlAtMapCoordinate(unit, e.Unit.PointLocation.X, e.Unit.PointLocation.Y);
+            //UnitUI unit = new UnitUI(this.controller, e.Unit);
+            //this.mapPanel.AddControlAtMapCoordinate(unit, e.Unit.PointLocation.X, e.Unit.PointLocation.Y);
         }
 
         private void RemoveUnit(object sender, UnitRemovedEventArgs e)

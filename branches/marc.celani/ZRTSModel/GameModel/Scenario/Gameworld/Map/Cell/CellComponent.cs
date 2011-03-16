@@ -13,6 +13,9 @@ namespace ZRTSModel
     public class CellComponent : ModelComponent
     {
         public event TileChangedHandler TileChangedEvent;
+        public event EntityInCellChangedHandler UnitAddedEvent;
+        public event EntityInCellChangedHandler UnitRemovedEvent;
+
         private List<ModelComponent> entitiesContainedWithin = new List<ModelComponent>();
 
         override public void AddChild(ModelComponent child)
@@ -36,7 +39,14 @@ namespace ZRTSModel
                     if (resource is MapResource)
                     {
                         toRemove.Add(resource);
-                        entitiesContainedWithin.Clear();
+                        if (entitiesContainedWithin.Count != 0)
+                        {
+                            UnitArgs args = new UnitArgs();
+                            args.Unit = (UnitComponent)entitiesContainedWithin[0];
+                            entitiesContainedWithin.Clear();
+                            if (UnitRemovedEvent != null)
+                                UnitRemovedEvent(this, args);
+                        }
                     }
                 }
                 entitiesContainedWithin.Add(child);
@@ -81,6 +91,12 @@ namespace ZRTSModel
                 if (entity is UnitComponent || entity is MapResource)
                 {
                     entitiesContainedWithin.Add(entity);
+                    if (entity is UnitComponent)
+                    {
+                        UnitArgs args = new UnitArgs();
+                        args.Unit = (UnitComponent)entity;
+                        UnitAddedEvent(this, args);
+                    }
                 }
             }
         }
@@ -93,6 +109,10 @@ namespace ZRTSModel
         public void RemoveEntity(ModelComponent entity)
         {
             entitiesContainedWithin.Remove(entity);
+            UnitArgs args = new UnitArgs();
+            args.Unit = (UnitComponent)entity;
+            if (UnitRemovedEvent != null)
+                UnitRemovedEvent(this, args);
         }
     }
 }

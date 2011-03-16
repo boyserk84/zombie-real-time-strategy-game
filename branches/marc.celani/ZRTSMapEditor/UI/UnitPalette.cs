@@ -32,7 +32,8 @@ namespace ZRTSMapEditor
                 PictureBox unitBox = new PictureBox();
                 unitBox.Name = type;
                 unitBox.Size = new Size(50, 50);
-                unitBox.Image = new Bitmap("Content/Images/grass.png");
+                BitmapManager manager = BitmapManager.Instance;
+                unitBox.Image = manager.getBitmap(type);
                 unitBox.SizeMode = PictureBoxSizeMode.StretchImage;
                 unitBox.Margin = new Padding(1, 1, 1, 1);
                 unitBox.Click += uiUnitIcon_Click;

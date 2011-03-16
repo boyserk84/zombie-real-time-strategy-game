@@ -33,6 +33,8 @@ namespace ZRTSMapEditor
             {
                 // Register for TileChange event.
                 observable.TileChangedEvent += this.ChangeTile;
+                observable.UnitAddedEvent += this.UnitAddedToCell;
+                observable.UnitRemovedEvent += this.UnitRemovedFromCell;
 
                 TileFactory tf = TileFactory.Instance;
                 this.Image = tf.getBitmapImproved(observable.GetTile());
@@ -45,6 +47,19 @@ namespace ZRTSMapEditor
         {
             TileFactory tf = TileFactory.Instance;
             this.Image = tf.getBitmapImproved(args.Tile);
+        }
+
+        private void UnitAddedToCell(Object sender, UnitArgs args)
+        {
+            Controls.Clear();
+            UnitUI unitUI = new UnitUI(controller, args.Unit);
+            Controls.Add(unitUI);
+            unitUI.MouseClick += TileUI_MouseDown;
+        }
+
+        private void UnitRemovedFromCell(Object sender, UnitArgs args)
+        {
+            Controls.Clear();
         }
 
         private void InitializeComponent()
@@ -68,9 +83,9 @@ namespace ZRTSMapEditor
             if (e.Button == MouseButtons.Left)
             {
                 this.DoDragDrop("paint", DragDropEffects.None);
-                float xpercent, ypercent;
-                xpercent = (float)e.X / (float)this.Width;
-                ypercent = (float)e.Y / (float)this.Height;
+                float xpercent = 0, ypercent = 0;
+                // xpercent = (float)e.X / (float)this.Width;
+                // ypercent = (float)e.Y / (float)this.Height;
                 controller.OnClickMapCell(cell, xpercent, ypercent);
                 base.OnClick(e);
             }
@@ -88,7 +103,5 @@ namespace ZRTSMapEditor
                 base.OnClick(e);
             }
         }
-
-
     }
 }
