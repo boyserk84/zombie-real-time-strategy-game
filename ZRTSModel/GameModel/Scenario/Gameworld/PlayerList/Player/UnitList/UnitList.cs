@@ -28,14 +28,18 @@ namespace ZRTSModel
                 base.AddChild(child);
                 UnitAddedEventArgs args = new UnitAddedEventArgs();
                 args.Unit = (UnitComponent) child;
-                UnitAddedEvent(this, args);
+                if (UnitAddedEvent != null)
+                {
+                    UnitAddedEvent(this, args);
+                }
             }
         }
 
         public override void RemoveChild(ModelComponent child)
         {
             base.RemoveChild(child);
-            UnitRemovedEvent(this, new UnitRemovedEventArgs());
+            if (UnitRemovedEvent != null)
+                UnitRemovedEvent(this, new UnitRemovedEventArgs());
         }
     }
 }

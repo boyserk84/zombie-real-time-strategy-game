@@ -60,6 +60,7 @@ namespace ZRTSMapEditor.MapEditorModel{
                 // Create a new Tile and add it to the list.
                 types.Add(type);
                 Bitmap bm = new Bitmap(BITMAPS_DIRECTORY + filename);
+                bm.MakeTransparent(Color.FromArgb(255, 255, 255));
                 bitmaps.Add(type, bm);
             }
 

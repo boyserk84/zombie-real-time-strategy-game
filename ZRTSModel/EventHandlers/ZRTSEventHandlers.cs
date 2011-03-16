@@ -13,6 +13,7 @@ namespace ZRTSModel.EventHandlers
     public delegate void PlayerListChangedHandler(Object sender, PlayerListChangedEventArgs args);
     public delegate void UnitAddedToPlayerListHandler(Object sender, UnitAddedEventArgs args);
     public delegate void UnitRemovedFromPlayerListHandler(Object sender, UnitRemovedEventArgs args);
+    public delegate void EntityInCellChangedHandler(Object sender, UnitArgs args);
 
     #endregion
 }

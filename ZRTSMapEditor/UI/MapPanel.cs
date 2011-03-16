@@ -34,7 +34,6 @@ namespace ZRTSMapEditor
             }
             else
                 extraControls.Add(control);
-            this.Controls.SetChildIndex(control, 0);
             control.Location = new Point((int)(x * (float)pixelsPerMapCoordinate), (int)(y * (float)pixelsPerMapCoordinate));
         }
 

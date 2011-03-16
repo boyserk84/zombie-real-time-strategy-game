@@ -1,3 +1,4 @@
 <Bitmaps>
 	<Bitmap type="soldier" filename="soldier.png" />
+	<Bitmap type="soldier2" filename="soldier2.png" />
 </Bitmaps>

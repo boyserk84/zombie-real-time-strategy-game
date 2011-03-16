@@ -44,10 +44,16 @@ namespace ZRTSMapEditor
         {
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
+            // 
+            // UnitUI
+            // 
+            this.BackColor = System.Drawing.Color.Transparent;
             this.Margin = new System.Windows.Forms.Padding(0);
-            this.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.Size = new System.Drawing.Size(20, 20);
+            this.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
+
         }
     }
 }
