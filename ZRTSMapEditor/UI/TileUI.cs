@@ -68,7 +68,10 @@ namespace ZRTSMapEditor
             if (e.Button == MouseButtons.Left)
             {
                 this.DoDragDrop("paint", DragDropEffects.None);
-                controller.OnClickMapCell(cell);
+                float xpercent, ypercent;
+                xpercent = (float)e.X / (float)this.Width;
+                ypercent = (float)e.Y / (float)this.Height;
+                controller.OnClickMapCell(cell, xpercent, ypercent);
                 base.OnClick(e);
             }
         }
@@ -81,7 +84,7 @@ namespace ZRTSMapEditor
             if (e.Data.GetData(typeof(String)).Equals("paint"))
             {
                 e.Effect = DragDropEffects.None;
-                controller.OnClickMapCell(cell);
+                controller.OnDragMapCell(cell);
                 base.OnClick(e);
             }
         }

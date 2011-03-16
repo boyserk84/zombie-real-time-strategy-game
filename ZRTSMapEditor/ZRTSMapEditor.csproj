@@ -47,7 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChangeScenarioContextVisitor.cs" />
+    <Compile Include="Commands\MapEditorViewCommands\AddUnitCommand.cs" />
     <Compile Include="Commands\MapEditorViewCommands\ChangeCellTileCommand.cs" />
+    <Compile Include="MapEditorModel\BitmapManager.cs" />
     <Compile Include="MapEditorModel\MapEditorModelComponent.cs" />
     <Compile Include="MapEditorModel\MapEditorModelVisitor.cs" />
     <Compile Include="MapEditorModel\CommandStack\CommandStack.cs" />
@@ -113,6 +115,9 @@
     <Compile Include="UI\UnitPalette.Designer.cs">
       <DependentUpon>UnitPalette.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\UnitUI.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ZRTSMapEditor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="UI\MapPanel.resx">
@@ -150,6 +155,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\UnitPalette.resx">
       <DependentUpon>UnitPalette.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\UnitUI.resx">
+      <DependentUpon>UnitUI.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

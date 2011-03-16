@@ -13,6 +13,7 @@ namespace ZRTSModel
     public class CellComponent : ModelComponent
     {
         public event TileChangedHandler TileChangedEvent;
+        private List<ModelComponent> entitiesContainedWithin = new List<ModelComponent>();
 
         override public void AddChild(ModelComponent child)
         {
@@ -35,8 +36,10 @@ namespace ZRTSModel
                     if (resource is MapResource)
                     {
                         toRemove.Add(resource);
+                        entitiesContainedWithin.Clear();
                     }
                 }
+                entitiesContainedWithin.Add(child);
             }
             foreach (ModelComponent component in toRemove)
             {
@@ -69,6 +72,27 @@ namespace ZRTSModel
         public override void Accept(ModelComponentVisitor visitor)
         {
             visitor.Visit(this);
+        }
+
+        public void AddEntity(ModelComponent entity)
+        {
+            if (entitiesContainedWithin.Count == 0)
+            {
+                if (entity is UnitComponent || entity is MapResource)
+                {
+                    entitiesContainedWithin.Add(entity);
+                }
+            }
+        }
+
+        public bool ContainsEntity()
+        {
+            return !(entitiesContainedWithin.Count == 0);
+        }
+
+        public void RemoveEntity(ModelComponent entity)
+        {
+            entitiesContainedWithin.Remove(entity);
         }
     }
 }
