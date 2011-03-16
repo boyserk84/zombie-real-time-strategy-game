@@ -71,6 +71,7 @@ namespace ZRTSModel.GameWorld
             bool worked = map.insert(e, x, y);
             if (worked)
             {
+				Console.WriteLine("Gameworld inserted StaticEntity");
                 switch (e.getEntityType())
                 {
                     case Entity.EntityType.Object:
@@ -80,9 +81,11 @@ namespace ZRTSModel.GameWorld
                         resources.Add((ResourceEntity)e);
                         break;
                     case Entity.EntityType.Building:
-                        buildings.Add((Building)e);
+						Console.WriteLine("Inserted Building");
+                        this.buildings.Add((Building)e);
                         break;
                 }
+
             }
             return worked;
         }
@@ -120,22 +123,22 @@ namespace ZRTSModel.GameWorld
         }
 
         /// <summary>
-        /// Check if there is room for the building
+        /// Check if there is room for the StaticEntity
         /// </summary>
         /// <param name="b">Building to be built</param>
         /// <param name="c">Cell to be origin cell</param>
         /// <returns>True if there is enough space, false if else</returns>
-        public bool checkSpace(Building b, Cell c)
+        public bool checkSpace(StaticEntity e, Cell c)
         {
             int x = c.Xcoord;
             int y = c.Ycoord;
-            if (x < 0 || x + b.width > map.width)
+            if (x < 0 || x + e.width > map.width)
                 return false;
-            if (y < 0 || y + b.height > map.height)
+            if (y < 0 || y + e.height > map.height)
                 return false;
-            for (int i = x; i < x + b.width; i++)
+            for (int i = x; i < x + e.width; i++)
             {
-                for (int j = y; j < y + b.height; j++)
+                for (int j = y; j < y + e.height; j++)
                 {
                     if (!map.getCell(i, j).isValid)
                         return false;
