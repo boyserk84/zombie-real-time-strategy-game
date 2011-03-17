@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ZRTSModel.GameWorld;
+using ZRTSModel.GameEvent;
 
 namespace ZRTSModel.Entities
 {
     [Serializable()]
-    public class Unit : Entity
+    public class Unit : Entity, GameEventObserver
     {
         /** UNIT TYPE **/
         public string unitType;
@@ -24,6 +25,15 @@ namespace ZRTSModel.Entities
 		/// Used to give a Unit a movement speed bonus or penalty.
 		/// </summary>
 		public double speedBuff = 1.0;
+
+		public enum AttackStance
+		{
+			Passive,	// Ignore enemies
+			Guard,		// Attack enemies on site, chase for a short distance before returning to starting position.
+			Agressive	// Attack enemies on site, chase until enemy is dead.
+		};
+
+		AttackStance attackStance = AttackStance.Guard;
 
         /** UNIT LOCATION INFO **/
         Cell myCell;        // The cell the unit currently occupies
@@ -65,5 +75,39 @@ namespace ZRTSModel.Entities
         {
             this.myCell = cell;
         }
+
+
+		/**** GameEventObserver functions ***/
+
+		List<GameSubject> subjects = new List<GameSubject>();
+
+		public void notify(Event gameEvent)
+		{
+			Console.WriteLine("The unit at (" + this.x + ", " + this.y + ") + sees the subject at cell (" + gameEvent.orginCell.Xcoord + ", " + gameEvent.orginCell.Ycoord + ")");
+		}
+
+		public void register(GameSubject subject)
+		{
+			if (!subjects.Contains(subject))
+			{
+				subjects.Add(subject);
+				subject.registerObserver(this);
+			}
+		}
+
+		public void unregister(GameSubject subject)
+		{
+			subject.unregisterObserver(this);
+			subjects.Remove(subject);
+		}
+
+		public void unregisterAll()
+		{
+			foreach (GameSubject s in subjects)
+			{
+				s.unregisterObserver(this);
+			}
+			subjects.Clear();
+		}
     }
 }

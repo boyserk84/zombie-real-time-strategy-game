@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Xml.Serialization;
-
+using ZRTSModel.GameEvent;
 using ZRTSModel.Entities;
 
 namespace ZRTSModel.GameWorld
@@ -21,7 +21,7 @@ namespace ZRTSModel.GameWorld
     /// The class definition for a single Cell.
     /// </summary>
     [Serializable()]
-    public class Cell
+    public class Cell : GameSubject
     {
         /*
          * attributes
