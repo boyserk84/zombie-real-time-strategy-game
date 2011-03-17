@@ -135,10 +135,19 @@ namespace ZRTS
 						case PlayerCommand.ATTACK:
 							if (entity.entityType == ZRTSModel.Entities.Entity.EntityType.Unit)
 							{
+								// Select Unit at the clicked Cell.
 								ZRTSModel.Entities.Entity temp = testGameController.scenario.getUnit((int)commandX, (int)commandY);
+
+								// If there is no Unit, select the StaticEntity on the Cell.
+								if (temp == null)
+								{
+									temp = testGameController.scenario.getGameWorld().map.getCell((int)commandX, (int)commandY).entity;
+								}
+
+								// If there is an Entity on the Cell.
 								if (temp != null)
 								{
-									System.Console.Out.WriteLine("Selected Attack Unit at " + commandX + ":" + commandY);
+									System.Console.Out.WriteLine("Selected Attack at " + commandX + ":" + commandY);
 									testGameController.giveActionCommand(entity,
 											 new ZRTSLogic.Action.SimpleAttackAction((ZRTSModel.Entities.Unit)entity, temp));
 								}

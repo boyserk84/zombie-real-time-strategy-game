@@ -145,27 +145,27 @@ namespace ZRTSModel.Factories
 
             //visibilityRange
             reader.ReadToFollowing("visibilityRange");
-            stats.visibilityRange = reader.ReadContentAsFloat();
+            stats.visibilityRange = reader.ReadElementContentAsFloat();
 
             //buildSpeed
             reader.ReadToFollowing("buildSpeed");
-            stats.buildSpeed = (byte)reader.ReadContentAsInt();
+            stats.buildSpeed = (byte)reader.ReadElementContentAsInt();
 
             //waterCost
             reader.ReadToFollowing("waterCost");
-            stats.waterCost = (byte)reader.ReadContentAsInt();
+            stats.waterCost = (byte)reader.ReadElementContentAsInt();
 
             //foodCost
             reader.ReadToFollowing("foodCost");
-            stats.foodCost = (byte)reader.ReadContentAsInt();
+            stats.foodCost = (byte)reader.ReadElementContentAsInt();
 
             //lumberCost
             reader.ReadToFollowing("lumberCost");
-            stats.lumberCost = (byte)reader.ReadContentAsInt();
+            stats.lumberCost = (byte)reader.ReadElementContentAsInt();
 
             //metalCost
             reader.ReadToFollowing("metalCost");
-            stats.metalCost = (byte)reader.ReadContentAsInt();
+            stats.metalCost = (byte)reader.ReadElementContentAsInt();
 
             //canAttack
             reader.ReadToFollowing("canAttack");
