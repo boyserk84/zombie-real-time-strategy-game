@@ -77,7 +77,6 @@ namespace ZRTSLogic
 				updateEntity(b, entitiesToRemove);
             }
 
-			
 
             /** Remove any entities **/
             foreach (Entity e in entitiesToRemove)

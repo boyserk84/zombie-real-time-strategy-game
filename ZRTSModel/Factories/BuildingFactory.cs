@@ -12,31 +12,18 @@ namespace ZRTSModel.Factories
 {
     public class BuildingFactory
     {
-		private static BuildingFactory instance;
         List<string> buildingTypes;
         Dictionary<string, BuildingStats> statsDict;
 
         string BASE_DIR = "Content/buildings/";
         string BLDG_LIST = "buildings.xml";
 
-        private BuildingFactory()
+        public BuildingFactory()
         {
             buildingTypes = new List<string>();
             statsDict = new Dictionary<string, BuildingStats>();
             readXML();
         }
-
-		public static BuildingFactory Instance
-		{
-			get
-			{
-				if (instance == null)
-				{
-					instance = new BuildingFactory();
-				}
-				return instance;
-			}
-		}
 
         private void readXML()
         {
@@ -71,6 +58,8 @@ namespace ZRTSModel.Factories
                 string xmlBuilding = readFile(BASE_DIR + s + ".xml");
 
                 readBuildingXML(xmlBuilding);
+
+                Console.WriteLine(stats.ToString());
             }
 
             
