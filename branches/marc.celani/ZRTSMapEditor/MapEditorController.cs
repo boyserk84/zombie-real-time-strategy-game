@@ -40,14 +40,11 @@ namespace ZRTSMapEditor
                 {
                     if ((saveStream = saveMapDialog.OpenFile()) != null)
                     {
-                        BinaryFormatter bin = new BinaryFormatter();
-
-                        ScenarioComponent scenario = model.GetScenario();
-                        scenario.SetContainer(null);
-                        bin.Serialize(saveStream, scenario);
+                        ScenarioXMLWriter writer = new ScenarioXMLWriter(saveStream);
+                        writer.BeginWrite();
+                        model.GetScenario().Accept(writer);
+                        writer.EndWrite();
                         saveStream.Close();
-                        model.AddChild(scenario);
-                        // TODO: Change so that the SaveInfo model is updated.
                     }
                 }
             }
