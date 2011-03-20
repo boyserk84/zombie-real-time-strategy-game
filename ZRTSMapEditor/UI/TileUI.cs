@@ -24,7 +24,6 @@ namespace ZRTSMapEditor
         public TileUI(MapEditorController controller, CellComponent observable)
         {
             InitializeComponent();
-
             this.controller = controller;
             this.cell = observable;
 
@@ -39,8 +38,13 @@ namespace ZRTSMapEditor
                 TileFactory tf = TileFactory.Instance;
                 this.Image = tf.getBitmapImproved(observable.GetTile());
             }
-            ((Control)this).AllowDrop = true;
+            AllowDrop = true;
 
+        }
+
+        ~TileUI()
+        {
+            Debug.WriteLine("TileUI destructing.");
         }
 
         private void ChangeTile(Object sender, TileChangedEventArgs args)
@@ -51,7 +55,12 @@ namespace ZRTSMapEditor
 
         private void UnitAddedToCell(Object sender, UnitArgs args)
         {
-            Controls.Clear();
+
+            for (int i = 0; i < Controls.Count; )
+            {
+                if (Controls[0] != null)
+                    Controls[0].Dispose();
+            }
             UnitUI unitUI = new UnitUI(controller, args.Unit);
             Controls.Add(unitUI);
             unitUI.MouseClick += TileUI_MouseDown;
@@ -59,7 +68,11 @@ namespace ZRTSMapEditor
 
         private void UnitRemovedFromCell(Object sender, UnitArgs args)
         {
-            Controls.Clear();
+            for (int i = 0; i < Controls.Count; )
+            {
+                if (Controls[0] != null)
+                    Controls[0].Dispose();
+            }
         }
 
         private void InitializeComponent()
@@ -70,7 +83,7 @@ namespace ZRTSMapEditor
             // TileUI
             // 
             this.Margin = new System.Windows.Forms.Padding(0);
-            this.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.TileUI_DragEnter);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TileUI_MouseDown);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
@@ -102,6 +115,22 @@ namespace ZRTSMapEditor
                 controller.OnDragMapCell(cell);
                 base.OnClick(e);
             }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            Debug.WriteLine("TileUI disposing.");
+            if (disposing)
+            {
+                cell.TileChangedEvent -= this.ChangeTile;
+                cell.UnitAddedEvent -= this.UnitAddedToCell;
+                cell.UnitRemovedEvent -= this.UnitRemovedFromCell;
+                AllowDrop = false;
+                cell = null;
+                // Keep the image from disposing.
+                this.Image = null;
+            }
+            base.Dispose(disposing);
         }
     }
 }

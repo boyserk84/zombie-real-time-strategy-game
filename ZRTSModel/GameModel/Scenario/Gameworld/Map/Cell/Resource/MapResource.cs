@@ -32,7 +32,6 @@ namespace ZRTSModel
         public void setAmountRemaining(int amount)
         {
             amountRemaining = amount;
-            NotifyAll();
         }
     }
 }

@@ -26,23 +26,6 @@ namespace ZRTSModel
             this.height = height;
             cells = new CellComponent[width, height];
 
-            // A default map is all Grass.
-            initializeToGrass(width, height);
-
-
-        }
-
-        private void initializeToGrass(int width, int height)
-        {
-            for (int i = 0; i < width; i++)
-            {
-                for (int j = 0; j < height; j++)
-                {
-                    cells[i, j] = new CellComponent();
-                    cells[i, j].AddChild(new Grass());
-                    cells[i, j].SetContainer(this);
-                }
-            }
         }
 
         override public List<ModelComponent> GetChildren()
@@ -60,12 +43,33 @@ namespace ZRTSModel
 
         public virtual void AddChild(ModelComponent child)
         {
-            // No op - Map's only children are the cells.
+            // Ensure that only cells are children to the map
+            if (child is CellComponent)
+            {
+                CellComponent cell = (CellComponent)child;
+                // Ensure that the cell is inbounds
+                if (cell.X >= 0 && cell.X < width && cell.Y >= 0 && cell.Y < height)
+                {
+                    // Remove cell currently located at that position
+                    if (cells[cell.X, cell.Y] != null)
+                    {
+                        RemoveChild(cells[cell.X, cell.Y]);
+                    }
+                    cells[cell.X, cell.Y] = cell;
+                    base.AddChild(cell);
+                }
+            }
         }
 
         public virtual void RemoveChild(ModelComponent child)
         {
-            // No op - Map's only children are the cells.
+            if (GetChildren().Contains(child))
+            {
+                // This ensures that the child is a cell, and that it is actually contained in the map.
+                CellComponent cell = (CellComponent)child;
+                cells[cell.X, cell.Y] = null;
+                base.RemoveChild(child);
+            }
         }
 
         public CellComponent GetCellAt(int x, int y)

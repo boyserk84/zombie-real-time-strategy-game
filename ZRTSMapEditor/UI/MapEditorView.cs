@@ -28,7 +28,7 @@ namespace ZRTSMapEditor
             // Create the model.
             MapEditorFullModel model = new MapEditorFullModel();
             this.controller = new MapEditorController(model);
-
+            controller.view = this;
             // Further initialize pieces of UI.
             tilePalette.loadImageList();
             tilePalette.setController(controller);

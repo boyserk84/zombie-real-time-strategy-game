@@ -61,15 +61,8 @@
     <Compile Include="UI\MapPanel.Designer.cs">
       <DependentUpon>MapPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\MapView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\MapView.Designer.cs">
-      <DependentUpon>MapView.cs</DependentUpon>
-    </Compile>
     <Compile Include="Commands\MapEditorCommand.cs" />
     <Compile Include="MapEditorController.cs" />
-    <Compile Include="MapEditorModel\CreateObserverListVisitor.cs" />
     <Compile Include="MapEditorModel\MapEditorFullModel.cs" />
     <Compile Include="UI\CreateNewScenarioDialog.cs">
       <SubType>Form</SubType>
@@ -97,9 +90,6 @@
     <Compile Include="UI\PlayersForm.Designer.cs">
       <DependentUpon>PlayersForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\RefreshableUI.cs" />
-    <Compile Include="UI\RefreshUIOnModelUpdate.cs" />
-    <Compile Include="UI\RenderMapViewGameworldVisitor.cs" />
     <Compile Include="UI\TileUI.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -122,9 +112,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="UI\MapPanel.resx">
       <DependentUpon>MapPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\MapView.resx">
-      <DependentUpon>MapView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\CreateNewScenarioDialog.resx">
       <DependentUpon>CreateNewScenarioDialog.cs</DependentUpon>

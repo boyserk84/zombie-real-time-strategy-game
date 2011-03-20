@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 
 namespace ZRTSModel
 {
@@ -28,6 +29,10 @@ namespace ZRTSModel
             return null;
         }
 
+        ~ScenarioComponent()
+        {
+            Debug.WriteLine("Scenario Component destructing.");
+        }
         public override void Accept(ModelComponentVisitor visitor)
         {
             visitor.Visit(this);
