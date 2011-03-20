@@ -18,6 +18,7 @@ namespace ZRTSMapEditor
     public class MapEditorController
     {
         private MapEditorFullModel model;
+        public MapEditorView view;
 
         public MapEditorController(MapEditorFullModel model)
         {
@@ -68,18 +69,11 @@ namespace ZRTSMapEditor
 
             if (openMapDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                // Deserialize the file and load it into the model.
-                BinaryFormatter bin = new BinaryFormatter();
-                ScenarioComponent scenario = (ScenarioComponent)bin.Deserialize(openMapDialog.OpenFile());
-
-                // The observer lists are all null - we must set them to be empty lists.
-                CreateObserverListVisitor visitor = new CreateObserverListVisitor();
-                scenario.Accept(visitor);
-                scenario.GetGameWorld().GetMap().SetCellsToBeContainedInMap();
+                Stream mapFile = openMapDialog.OpenFile();
+                ScenarioXMLReader reader = new ScenarioXMLReader(mapFile);
+                ScenarioComponent scenario = reader.GenerateScenarioFromXML();
+                mapFile.Close();
                 model.AddChild(scenario);
-
-                // Invalidate the Scenario view.
-                scenario.GetGameWorld().NotifyAll();
 
                 // TODO: Update the SaveInfo state.
             }
@@ -93,6 +87,7 @@ namespace ZRTSMapEditor
         {
             if (model.GetScenario() != null)
             {
+                model.GetScenario().RemoveChild(model.GetScenario().GetGameWorld());
                 // TODO: Ask if the user wants to discard the current scenario or save it.
             }
             CreateNewScenarioDialog dialog = new CreateNewScenarioDialog();
@@ -100,11 +95,30 @@ namespace ZRTSMapEditor
 
             if (dialog.ExitWithCreate)
             {
+                // Create a scenario with a map of the appropriate size
                 ScenarioComponent scenario = new ScenarioComponent(dialog.ScenarioWidth, dialog.ScenarioHeight);
+
+                // Add grass cells at each cell.
+                ZRTSModel.Map map = scenario.GetGameWorld().GetMap();
+                for (int i = 0; i < map.GetWidth(); i++)
+                {
+                    for (int j = 0; j < map.GetHeight(); j++)
+                    {
+                        CellComponent cell = new CellComponent();
+                        cell.AddChild(new Grass());
+                        cell.X = i;
+                        cell.Y = j;
+                        map.AddChild(cell);
+                    }
+                }
+
                 // TODO: Update SaveInfo model to change filename and UpToDate flag.
 
                 // Automatically discards old scenario, by overloaded AddChild function.
                 model.AddChild(scenario);
+
+                // We may have just destroyed a large scenario, so collect that garbage.
+                GC.Collect();
             }
             
         }

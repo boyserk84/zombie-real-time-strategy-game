@@ -101,6 +101,7 @@
     <Compile Include="EventHandlers\UnitArgs.cs" />
     <Compile Include="EventHandlers\UnitRemovedEventArgs.cs" />
     <Compile Include="EventHandlers\ZRTSEventHandlers.cs" />
+    <Compile Include="ModelComponentFactoryFactory.cs" />
     <Compile Include="ModelComponentVisitorDelegator.cs" />
     <Compile Include="NoOpModelComponentVisitor.cs" />
     <Compile Include="Entities\ActionCommand.cs" />
@@ -151,11 +152,11 @@
     <Compile Include="GameWorld\TileFactory.cs" />
     <Compile Include="ModelComponent.cs" />
     <Compile Include="ModelComponentLeaf.cs" />
-    <Compile Include="ModelComponentObserver.cs" />
     <Compile Include="ModelComponentVisitor.cs" />
     <Compile Include="Player\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveLoad.cs" />
+    <Compile Include="ScenarioXMLReader.cs" />
     <Compile Include="ScenarioXMLWriter.cs" />
     <Compile Include="Scenario\Observable.cs" />
     <Compile Include="Scenario\Observer.cs" />

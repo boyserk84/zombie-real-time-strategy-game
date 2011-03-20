@@ -59,6 +59,10 @@ namespace ZRTSMapEditor
                 playerList.PlayerListChangedEvent += this.ChangePlayerList;
                 ChangePlayerList(playerList, null);
             }
+            else
+            {
+                playerList = null;
+            }
         }
 
         private void ChangeScenario(object sender, EventArgs e)

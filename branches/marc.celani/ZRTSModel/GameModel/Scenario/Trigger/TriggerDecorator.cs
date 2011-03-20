@@ -6,7 +6,7 @@ using System.Text;
 namespace ZRTSModel.Trigger
 {
     [Serializable()]
-    abstract class TriggerDecorator : Trigger, ModelComponentObserver
+    abstract class TriggerDecorator : Trigger
     {
         private Trigger decorated = null;
         protected bool isMet;
