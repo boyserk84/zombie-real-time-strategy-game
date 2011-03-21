@@ -79,5 +79,11 @@ namespace ZRTSMapEditor.MapEditorModel
         {
             visitor.Visit(this);
         }
+
+        internal void EmptyStacks()
+        {
+            done.Clear();
+            undone.Clear();
+        }
     }
 }
