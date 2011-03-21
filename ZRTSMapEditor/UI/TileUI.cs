@@ -42,11 +42,6 @@ namespace ZRTSMapEditor
 
         }
 
-        ~TileUI()
-        {
-            Debug.WriteLine("TileUI destructing.");
-        }
-
         private void ChangeTile(Object sender, TileChangedEventArgs args)
         {
             TileFactory tf = TileFactory.Instance;

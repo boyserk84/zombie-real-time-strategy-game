@@ -106,6 +106,9 @@
     <Compile Include="NoOpModelComponentVisitor.cs" />
     <Compile Include="Entities\ActionCommand.cs" />
     <Compile Include="Entities\Building.cs" />
+    <Compile Include="GameEvent\Event.cs" />
+    <Compile Include="GameEvent\GameEventObserver.cs" />
+    <Compile Include="GameEvent\GameSubject.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\Gameworld.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\Map\Cell\CellComponent.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\Map\Cell\Resource\ExtendedClasses\MapGold\MapGold.cs" />
@@ -163,6 +166,8 @@
     <Compile Include="Scenario\Scenario.cs" />
     <Compile Include="Scenario\ScenarioObservable.cs" />
     <Compile Include="Scenario\ViewSelectObserver.cs" />
+    <Compile Include="TechTree\ReqList.cs" />
+    <Compile Include="TechTree\TechTree.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GameModel\Scenario\Gameworld\PlayerList\Player\BuildingList\Building\" />

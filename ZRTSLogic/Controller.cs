@@ -29,7 +29,7 @@ namespace ZRTSLogic
         public Scenario scenario;
 
         // Controls adding, removing, and moving entities.
-        EntityLocController locController;
+        public EntityLocController locController;
 
 		// Updates the visibilty map
 		VisibilityMapLogic visMapLogic;
@@ -77,6 +77,7 @@ namespace ZRTSLogic
 				updateEntity(b, entitiesToRemove);
             }
 
+			
 
             /** Remove any entities **/
             foreach (Entity e in entitiesToRemove)
@@ -124,7 +125,7 @@ namespace ZRTSLogic
 			}
 
 			/*** Remove Entity if it needs to be removed. ***/
-			if (entity.getState().getPrimaryState() == State.PrimaryState.Remove)
+			if (entity.getState().getPrimaryState() == State.PrimaryState.Dead) // Should be remove. Changed for demo.
 			{
 				entitiesToRemove.Add(entity);
 			}
@@ -187,8 +188,16 @@ namespace ZRTSLogic
             {
                 if (gameWorld.checkSpace(b, c) && gameWorld.checkResources(b, scenario.getPlayer()))
                 {
-                    gameWorld.insert(b, c);
-                    return ActionController.Instance.giveCommand(unit, new BuildAction(b, (Unit) unit, gameWorld));
+                    if (locController.addEntity(b, c.Xcoord, c.Ycoord))
+                    {
+                        b.health = 1;
+                        return ActionController.Instance.giveCommand(unit, new BuildAction(b, (Unit)unit, gameWorld));
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                    
                 }
             }
             return false;
