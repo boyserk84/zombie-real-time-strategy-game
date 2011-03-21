@@ -21,7 +21,6 @@ namespace ZRTSMapEditor
         private ScenarioComponent context = null;
         private static int PIXELS_PER_COORDINATE = 20;
         Hashtable realizedComponents = new Hashtable();
-        // private Thread workerThread = null;
 
         public MapViewComposite()
         {
@@ -46,11 +45,11 @@ namespace ZRTSMapEditor
 
             // Empty the view.
             this.mapPanel.Hide();
-            for (int i = 0; i < this.mapPanel.Controls.Count; )
+            foreach (Control c in mapPanel.Controls)
             {
-                if (this.mapPanel.Controls[0] != null)
-                    this.mapPanel.Controls[0].Dispose();
+                c.AllowDrop = false;
             }
+            mapPanel.Controls.Clear();
             realizedComponents.Clear();
             this.mapPanel.Show();
 
@@ -86,10 +85,6 @@ namespace ZRTSMapEditor
                 this.mapPanel.Location = new System.Drawing.Point(xLoc, yLoc);
                 this.RealizeView();
             }
-            else
-            {
-                //this.flowLayout.Size = new System.Drawing.Size(0, 0);
-            }
             
         }
 
@@ -108,18 +103,6 @@ namespace ZRTSMapEditor
         }
 
         private void RealizeView()
-        {
-            /*if (workerThread != null)
-            {
-                workerThread.Abort();
-            }
-            workerThread = new Thread(new ThreadStart(DoRealize));
-            workerThread.IsBackground = true;
-            workerThread.Start();*/
-            DoRealize();
-        }
-
-        private void DoRealize()
         {
             // Get the indices of the upper left hand cell that is visible.
             int xPos = HorizontalScroll.Value / PIXELS_PER_COORDINATE;
@@ -165,13 +148,13 @@ namespace ZRTSMapEditor
                 foreach (Object o in componentsToVirtualize)
                 {
                     Control c = (Control)realizedComponents[o];
-                    c.Dispose();
+                    // TileUIs are set up to allow drop - turn this off so that the handle to it is destroyed and so the tileUI can be destroyed by the GC.
+                    c.AllowDrop = false;
+                    mapPanel.Controls.Remove(c);
                     realizedComponents.Remove(o);
-                    this.mapPanel.Controls.Remove(c);
                 }
-                this.mapPanel.ResumeLayout();
+                mapPanel.ResumeLayout();
             }
-            // this.workerThread = null;
         }
     }
 }

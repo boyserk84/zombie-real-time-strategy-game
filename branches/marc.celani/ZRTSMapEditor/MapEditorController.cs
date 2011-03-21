@@ -118,7 +118,9 @@ namespace ZRTSMapEditor
                 model.AddChild(scenario);
 
                 // We may have just destroyed a large scenario, so collect that garbage.
-                GC.Collect();
+                // Commented out - only used for testing purposes.  The C# garbage collector takes a LONG time to be activated if this call is not made,
+                // but if the call is made, it disrupts UI.
+                // GC.Collect();
             }
             
         }
