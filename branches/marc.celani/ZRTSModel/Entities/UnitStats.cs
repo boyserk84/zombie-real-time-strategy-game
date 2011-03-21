@@ -26,7 +26,7 @@ namespace ZRTSModel.Entities
         /** UNIT ABILITIES **/
         public bool canAttack = false;      // Can this Unit attack?
         public bool canHarvest = false;     // Can this Unit harvest resources?
-        public bool canBuild = false;       // Can this Unit build buildings?
+        public bool canBuild = true;       // Can this Unit build buildings?
         public bool isZombie = false;       // Is this Unit a zombie?
     }
 }

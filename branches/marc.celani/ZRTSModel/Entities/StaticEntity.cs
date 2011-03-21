@@ -25,6 +25,7 @@ namespace ZRTSModel.Entities
         public void setOrginCell(Cell orginCell)
         {
             this.orginCell = orginCell;
+			Console.WriteLine(orginCell.Xcoord + ", " + orginCell.Ycoord);
         }
     }
 }

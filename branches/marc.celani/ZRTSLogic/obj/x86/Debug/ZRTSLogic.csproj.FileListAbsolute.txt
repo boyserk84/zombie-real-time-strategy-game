@@ -47,7 +47,6 @@ C:\Users\Marc\Desktop\marc.celani\ZRTSLogic\bin\x86\Debug\ZRTSLogic.pdb
 C:\Users\Marc\Desktop\marc.celani\ZRTSLogic\bin\x86\Debug\nunit.framework.dll
 C:\Users\Marc\Desktop\marc.celani\ZRTSLogic\bin\x86\Debug\ZRTSModel.dll
 C:\Users\Marc\Desktop\marc.celani\ZRTSLogic\bin\x86\Debug\ZRTSModel.pdb
-C:\Users\Marc\Desktop\marc.celani\ZRTSLogic\bin\x86\Debug\nunit.framework.xml
 C:\Users\Marc\Desktop\marc.celani\ZRTSLogic\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\Users\Marc\Desktop\marc.celani\ZRTSLogic\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\Marc\Desktop\marc.celani\ZRTSLogic\obj\x86\Debug\ZRTSLogic.dll

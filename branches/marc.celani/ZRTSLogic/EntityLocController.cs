@@ -39,6 +39,11 @@ namespace ZRTSLogic
         {
             bool success = false;
 
+			if (x < 0 || x >= gw.map.width || y < 0 || y >= gw.map.height)
+			{
+				return false;
+			}
+
             // The coordinates of the Cell the entity is being inserted into.
                 int xC = (int)Math.Floor(x);
                 int yC = (int)Math.Floor(y);
@@ -60,6 +65,12 @@ namespace ZRTSLogic
                     u.y = (float)yC + 0.5f;
                     success = true;
 					visMapLogic.updateVisMap(u);
+
+					// Update the Cells that the unit is observing.
+					updateCellsUnitIsObserving(u);
+
+					// Notify all observers of the cell that a unit has moved onto it.
+					c.notify(new ZRTSModel.GameEvent.Event(c, u, u, ZRTSModel.GameEvent.Event.EventType.MoveEvent));
                 }
             }
 
@@ -67,7 +78,6 @@ namespace ZRTSLogic
             {
                 Building b = (Building)entity;
                 b.setOrginCell(c);
-                b.health = 0;
                 success = gw.insert(b, c);
                 if (success)
                 {
@@ -83,6 +93,7 @@ namespace ZRTSLogic
             // If insert into GameWorld was a success, insert into right player
             if (success)
             {
+                //System.Console.Out.WriteLine("Success fullying ");
                 scenario.insertEntityIntoPlayer(entity);
             }
 
@@ -109,6 +120,12 @@ namespace ZRTSLogic
 
 				// Update the visibility map.
 				this.visMapLogic.updateVisMap(unit);
+
+				// Update the Cells that the unit is observing.
+				updateCellsUnitIsObserving(unit);
+
+				// Notify all observers of the cell that a unit has moved onto the cell.
+				newCell.notify(new ZRTSModel.GameEvent.Event(newCell, unit, unit, ZRTSModel.GameEvent.Event.EventType.MoveEvent));
             }
         }
 
@@ -130,6 +147,7 @@ namespace ZRTSLogic
 
                 // Remove Unit from the Unit List.
                 gw.getUnits().Remove(u);
+				u.unregisterAll();
 
             }
             else
@@ -174,9 +192,9 @@ namespace ZRTSLogic
             {
                 for (int j = 0; j < height; j++)
                 {
-                    if (EntityLocController.findDistance(unit.x, unit.y, xC + i, yC + j) <= dis)
+                    if (EntityLocController.findDistance(unit.x, unit.y, xC + i, yC + j) <= dis )
                     {
-                        cell = gw.map.getCell(xC + i, xC + j);
+                        cell = gw.map.getCell(xC + i, yC + j);
                         dis = EntityLocController.findDistance(unit.x, unit.y, xC + i, yC + j);
                     }
                 }
@@ -184,5 +202,47 @@ namespace ZRTSLogic
 
             return cell;
         }
+
+
+		private void updateCellsUnitIsObserving(Unit unit)
+		{
+			// Have unit stop observing all the cells it is currently observing.
+			unit.unregisterAll();
+
+			byte offset = (byte)unit.stats.visibilityRange;
+
+			int xStart = (short)unit.x - offset;
+			int xEnd = (short)unit.x + offset;
+			int yStart = (short)unit.y - offset;
+			int yEnd = (short)unit.y + offset;
+
+			// Make sure that our bounds are valid. (Assumes that no Unit has a visibility range longer than the map.)
+			if (xStart < 0)
+			{
+				xStart = 0;
+			}
+			else if (xEnd >= gw.map.width)
+			{
+				xEnd = gw.map.width;
+			}
+
+			if (yStart < 0)
+			{
+				yStart = 0;
+			}
+			else if (yEnd >= gw.map.height)
+			{
+				yEnd = gw.map.height;
+			}
+
+			// Set all cell explored flags to true.
+			for (int i = xStart; i < xEnd; i++)
+			{
+				for (int j = yStart; j < yEnd; j++)
+				{
+					unit.register(gw.map.getCell(i, j));
+				}
+			}
+		}
     }
 }

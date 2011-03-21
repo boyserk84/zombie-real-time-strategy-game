@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Xml.Serialization;
-
+using ZRTSModel.GameEvent;
 using ZRTSModel.Entities;
 
 namespace ZRTSModel.GameWorld
@@ -21,27 +21,19 @@ namespace ZRTSModel.GameWorld
     /// The class definition for a single Cell.
     /// </summary>
     [Serializable()]
-    public class Cell
+    public class Cell : GameSubject
     {
         /*
-         * private variables
+         * attributes
          */
         Unit unit = null;
 
-        /* public variables */
-        // general
-		public short Xcoord;
-		public short Ycoord;
+		public byte Xcoord;
+		public byte Ycoord;
         public StaticEntity entity;
         public bool isValid;
         public Tile tile;
 		public bool explored = false;
-
-		// pathfinder-specific
-		public int Fscore = 0;
-		public int Gscore = 0;
-		public int Hscore = 0;
-		public Cell prev = null;
 
 
         /*
@@ -87,8 +79,7 @@ namespace ZRTSModel.GameWorld
          */
 
         /// <summary>
-        /// Given an x and y floating point coordinates, this function will determine if that coordinate is contained by this
-        /// cell.
+        /// Given an x and y floating point coordinates, this function will determine if that coordinate is contained by this cell.
         /// </summary>
         /// <param name="x">The x coordinate in game space.</param>
         /// <param name="y">The y coordinate in game space</param>
