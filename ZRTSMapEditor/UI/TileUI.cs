@@ -117,20 +117,15 @@ namespace ZRTSMapEditor
             }
         }
 
-        protected override void Dispose(bool disposing)
+        public void UnregisterFromEvents()
         {
-            Debug.WriteLine("TileUI disposing.");
-            if (disposing)
-            {
-                cell.TileChangedEvent -= this.ChangeTile;
-                cell.UnitAddedEvent -= this.UnitAddedToCell;
-                cell.UnitRemovedEvent -= this.UnitRemovedFromCell;
-                AllowDrop = false;
-                cell = null;
-                // Keep the image from disposing.
-                this.Image = null;
-            }
-            base.Dispose(disposing);
+            cell.TileChangedEvent -= this.ChangeTile;
+            cell.UnitAddedEvent -= this.UnitAddedToCell;
+            cell.UnitRemovedEvent -= this.UnitRemovedFromCell;
+            AllowDrop = false;
+            cell = null;
+            // Keep the image from disposing.
+            this.Image = null;
         }
     }
 }
