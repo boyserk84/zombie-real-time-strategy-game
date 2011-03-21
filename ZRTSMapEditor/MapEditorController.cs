@@ -75,6 +75,8 @@ namespace ZRTSMapEditor
                 mapFile.Close();
                 model.AddChild(scenario);
 
+                // Clear the stack because we now have a new scenario in context.
+                model.GetCommandStack().EmptyStacks();
                 // TODO: Update the SaveInfo state.
             }
         }
@@ -116,6 +118,9 @@ namespace ZRTSMapEditor
 
                 // Automatically discards old scenario, by overloaded AddChild function.
                 model.AddChild(scenario);
+
+                // Empty the command queue
+                model.GetCommandStack().EmptyStacks();
 
                 // We may have just destroyed a large scenario, so collect that garbage.
                 // Commented out - only used for testing purposes.  The C# garbage collector takes a LONG time to be activated if this call is not made,
