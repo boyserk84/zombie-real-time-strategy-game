@@ -124,10 +124,13 @@
     <Compile Include="View\View.cs" />
     <Compile Include="View\ViewGamePlayMenu.cs" />
     <Compile Include="View\ViewSelect.cs" />
+    <Compile Include="XnaCompositeView\HPBar.cs" />
+    <Compile Include="XnaCompositeView\SelectedEntityUI.cs" />
     <Compile Include="XnaCompositeView\TestUIComponent.cs" />
     <Compile Include="XnaCompositeView\XnaDrawArgs.cs" />
     <Compile Include="XnaCompositeView\XnaUIComponent.cs" />
     <Compile Include="XnaCompositeView\XnaUIFrame.cs" />
+    <Compile Include="XnaCompositeView\ZRTSCompositeViewUIFactory.cs" />
     <Compile Include="XnaUITestGame.cs" />
     <Compile Include="ZRTSGame.cs" />
   </ItemGroup>

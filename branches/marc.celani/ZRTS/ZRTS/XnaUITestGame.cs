@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using ZRTS.XnaCompositeView;
 using Microsoft.Xna.Framework.Graphics;
+using ZRTSModel;
 
 namespace ZRTS
 {
@@ -27,6 +28,12 @@ namespace ZRTS
             graphics.PreferredBackBufferHeight = WINDOW_HEIGHT;
             graphics.PreferredBackBufferWidth = WINDOW_WIDTH;
         }
+
+        protected override void Initialize()
+        {
+            ZRTSCompositeViewUIFactory.Initialize(this);
+            base.Initialize();
+        }
         protected override void LoadContent()
         {
             Content.RootDirectory = "Content";
@@ -38,6 +45,7 @@ namespace ZRTS
 
             TestUIComponent selectionView = new TestUIComponent(this, Color.Blue);
             selectionView.DrawBox = new Rectangle(200, 520, 1080, 200);
+            selectionView.AddChild(ZRTSCompositeViewUIFactory.Instance.BuildSelectedEntityUI(new UnitComponent()));
 
             TestUIComponent buildingView = new TestUIComponent(this, Color.Yellow);
             buildingView.DrawBox = new Rectangle(1080, 0, 200, 520);
