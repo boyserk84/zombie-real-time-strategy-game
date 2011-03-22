@@ -10,7 +10,7 @@ namespace ZRTS
         /// </summary>
         static void Main(string[] args)
         {
-            using (ZRTSGame game = new ZRTSGame())
+            using (XnaUITestGame game = new XnaUITestGame())
             {
                 game.Run();
             }
