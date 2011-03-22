@@ -99,6 +99,7 @@
     <Compile Include="EventHandlers\TileChangedEventArgs.cs" />
     <Compile Include="EventHandlers\UnitAddedEventArgs.cs" />
     <Compile Include="EventHandlers\UnitArgs.cs" />
+    <Compile Include="EventHandlers\UnitHPChangedEventArgs.cs" />
     <Compile Include="EventHandlers\UnitRemovedEventArgs.cs" />
     <Compile Include="EventHandlers\ZRTSEventHandlers.cs" />
     <Compile Include="ModelComponentFactoryFactory.cs" />

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ZRTSModel.EventHandlers;
 
 namespace ZRTSModel
 {
@@ -11,6 +12,8 @@ namespace ZRTSModel
     [Serializable()]
     public class UnitComponent : ModelComponent
     {
+        public event UnitHPChangedHandler HPChangedEventHandlers;
+
         private string type;
 
         public string Type
@@ -32,7 +35,19 @@ namespace ZRTSModel
         public short CurrentHealth
         {
             get { return currentHealth; }
-            set { currentHealth = value; }
+            set 
+            { 
+                short prevHealth = currentHealth;
+                currentHealth = value;
+                if (HPChangedEventHandlers != null)
+                {
+                    UnitHPChangedEventArgs args = new UnitHPChangedEventArgs();
+                    args.OldHP = (int) prevHealth;
+                    args.NewHP = (int) currentHealth;
+                    args.Unit = this;
+                    HPChangedEventHandlers(this, args);
+                }
+            }
         }
 
         public float Speed
