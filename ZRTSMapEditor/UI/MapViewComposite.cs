@@ -48,6 +48,8 @@ namespace ZRTSMapEditor
             foreach (Control c in mapPanel.Controls)
             {
                 c.AllowDrop = false;
+                if (c is TileUI)
+                    ((TileUI)c).UnregisterFromEvents();
             }
             mapPanel.Controls.Clear();
             realizedComponents.Clear();
@@ -148,8 +150,12 @@ namespace ZRTSMapEditor
                 foreach (Object o in componentsToVirtualize)
                 {
                     Control c = (Control)realizedComponents[o];
-                    // TileUIs are set up to allow drop - turn this off so that the handle to it is destroyed and so the tileUI can be destroyed by the GC.
-                    c.AllowDrop = false;
+                    if (c is TileUI)
+                    {
+                        // TileUIs are set up to allow drop - turn this off so that the handle to it is destroyed and so the tileUI can be destroyed by the GC.
+                        c.AllowDrop = false;
+                        ((TileUI)c).UnregisterFromEvents();
+                    }
                     mapPanel.Controls.Remove(c);
                     realizedComponents.Remove(o);
                 }

@@ -45,16 +45,13 @@ namespace ZRTSModel
         {
             if (child != null)
             {
-                children.Add(child);
-
-                // Handles the NotifyAll()
                 child.SetContainer(this);
+                children.Add(child);
             }
         }
 
         public virtual void RemoveChild(ModelComponent child)
         {
-            children.Remove(child);
             child.SetContainer(null);
         }
 
