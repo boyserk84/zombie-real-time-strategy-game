@@ -21,14 +21,20 @@ namespace ZRTSModel
                 base.AddChild(child);
                 PlayerListChangedEventArgs e = new PlayerListChangedEventArgs();
                 e.PlayersAdded.Add((PlayerComponent)child);
-                PlayerListChangedEvent(this, e);
+                if (PlayerListChangedEvent != null)
+                {
+                    PlayerListChangedEvent(this, e);
+                }
             }
         }
 
         public override void RemoveChild(ModelComponent child)
         {
             base.RemoveChild(child);
-            PlayerListChangedEvent(this, null);
+            if (PlayerListChangedEvent != null)
+            {
+                PlayerListChangedEvent(this, null);
+            }
         }
 
         public override void Accept(ModelComponentVisitor visitor)
@@ -38,7 +44,10 @@ namespace ZRTSModel
 
         public void FireChangedEvent()
         {
-            PlayerListChangedEvent(this, null);
+            if (PlayerListChangedEvent != null)
+            {
+                PlayerListChangedEvent(this, null);
+            }
         }
 
         public PlayerComponent GetPlayerByName(string p)

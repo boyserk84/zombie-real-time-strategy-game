@@ -36,7 +36,7 @@ namespace ZRTSNUnitTests
             List<PlayerDataGridAdapter> adapters = new List<PlayerDataGridAdapter>();
             adapters.Add(adapter);
 
-            committer = new PlayerDataGridAdapterCommitter(adapters);
+            committer = new PlayerDataGridAdapterCommitter(adapters, playerList);
         }
 
         [Test]
@@ -58,7 +58,7 @@ namespace ZRTSNUnitTests
             adapters.Add(adapter1);
             adapters.Add(adapter2);
 
-            committer = new PlayerDataGridAdapterCommitter(adapters);
+            committer = new PlayerDataGridAdapterCommitter(adapters, playerList);
             Assert.AreEqual(true, committer.CanBeDone(), "Committer does not realize when the actions can be done.");
         }
 
@@ -72,7 +72,7 @@ namespace ZRTSNUnitTests
             adapters.Add(adapter1);
             adapters.Add(adapter2);
 
-            committer = new PlayerDataGridAdapterCommitter(adapters);
+            committer = new PlayerDataGridAdapterCommitter(adapters, playerList);
             Assert.AreEqual(false, committer.CanBeDone(), "Committer does not realize when the names conflict.");
         }
 
@@ -87,7 +87,7 @@ namespace ZRTSNUnitTests
             adapters.Add(adapter1);
             adapters.Add(adapter2);
 
-            committer = new PlayerDataGridAdapterCommitter(adapters);
+            committer = new PlayerDataGridAdapterCommitter(adapters, playerList);
             Assert.AreEqual(true, committer.CanBeDone(), "Committer does not realize when the names conflict, but one is removed, that it is okay to Do().");
         }
 
@@ -101,7 +101,7 @@ namespace ZRTSNUnitTests
             
             List<PlayerDataGridAdapter> adapters = new List<PlayerDataGridAdapter>();
             adapters.Add(adapter);
-            committer = new PlayerDataGridAdapterCommitter(adapters);
+            committer = new PlayerDataGridAdapterCommitter(adapters, playerList);
 
             Assert.AreEqual(false, committer.CanBeDone(), "Committer does not determine that when an adapter cannot be done, the entire committ cannot be done.");
 
