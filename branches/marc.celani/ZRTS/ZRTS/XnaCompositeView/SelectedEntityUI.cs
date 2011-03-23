@@ -5,6 +5,7 @@ using System.Text;
 using ZRTSModel;
 using Microsoft.Xna.Framework;
 using ZRTSModel.EventHandlers;
+using ZRTS.XnaCompositeView.UIEventHandlers;
 
 namespace ZRTS.XnaCompositeView
 {
@@ -17,18 +18,27 @@ namespace ZRTS.XnaCompositeView
         {
             this.unit = unit;
             unit.HPChangedEventHandlers += UpdateHPBar;
+            this.SizeChanged += onResize;
         }
 
         public void UpdateHPBar(Object sender, UnitHPChangedEventArgs args)
         {
+            HPBar hpBar = getHPBar();
+            hpBar.CurrentHP = args.NewHP;
+        }
+
+        private HPBar getHPBar()
+        {
+            HPBar hpBar = null;
             foreach (XnaUIComponent child in GetChildren())
             {
                 if (child is HPBar)
                 {
-                    ((HPBar)child).CurrentHP = args.NewHP;
+                    hpBar = (HPBar)child;
                     break;
                 }
             }
+            return hpBar;
         }
 
         protected override void Dispose(bool disposing)
@@ -42,7 +52,34 @@ namespace ZRTS.XnaCompositeView
 
         protected override void onDraw(XnaDrawArgs e)
         {
-            e.SpriteBatch.Draw(((XnaUITestGame)Game).SpriteSheet, e.Location, Color.Red);
+            e.SpriteBatch.Draw(((XnaUITestGame)Game).SpriteSheet, e.Location, Color.Teal);
+        }
+
+        private void onResize(Object sender, UISizeChangedEventArgs e)
+        {
+            // Update the position of the scrollbar.
+            HPBar hpBar = getHPBar();
+            if (hpBar != null)
+            {
+                int hpBarHeight = hpBar.DrawBox.Height;
+                int hpBarMargin = 3;
+                int pictureBoxDimension = e.DrawBox.Height - hpBarHeight - 3 * hpBarMargin;
+                hpBar.DrawBox = new Rectangle(hpBar.DrawBox.X, e.DrawBox.Height - hpBarHeight - hpBarMargin, e.DrawBox.Width - (2 * hpBar.DrawBox.X), hpBarHeight);
+                // Get picturebox
+                TestUIComponent pictureBox = null;
+                foreach (XnaUIComponent component in GetChildren())
+                {
+                    if (component is TestUIComponent)
+                    {
+                        pictureBox = (TestUIComponent)component;
+                        break;
+                    }
+                }
+                if (pictureBox != null)
+                {
+                    pictureBox.DrawBox = new Rectangle((e.DrawBox.Width - pictureBoxDimension) / 2, 3, pictureBoxDimension, pictureBoxDimension);
+                }
+            }
         }
     }
 }

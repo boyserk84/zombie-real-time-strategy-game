@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using ZRTS.XnaCompositeView;
 using Microsoft.Xna.Framework.Graphics;
 using ZRTSModel;
+using ZRTSModel.GameModel;
 
 namespace ZRTS
 {
@@ -41,26 +42,55 @@ namespace ZRTS
             XnaUIFrame frame = new XnaUIFrame(this);
             frame.DrawBox = new Rectangle(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
             TestUIComponent mainView = new TestUIComponent(this, Color.Red);
-            mainView.DrawBox = new Rectangle(0, 0, 1080, 520);
+            mainView.DrawBox = new Rectangle(0, 0, 1280, 520);
 
-            TestUIComponent selectionView = new TestUIComponent(this, Color.Blue);
-            selectionView.DrawBox = new Rectangle(200, 520, 1080, 200);
-            selectionView.AddChild(ZRTSCompositeViewUIFactory.Instance.BuildSelectedEntityUI(new UnitComponent()));
+            SelectionState selectionState = new SelectionState();
+            UnitList unitList = new UnitList();
+            unitList.AddChild(new UnitComponent());
+            unitList.AddChild(new UnitComponent());
+            unitList.AddChild(new UnitComponent());
+            unitList.AddChild(new UnitComponent());
+            unitList.AddChild(new UnitComponent());
+            unitList.AddChild(new UnitComponent());
+            unitList.AddChild(new UnitComponent());
 
-            TestUIComponent buildingView = new TestUIComponent(this, Color.Yellow);
-            buildingView.DrawBox = new Rectangle(1080, 0, 200, 520);
+            SelectionView selectionView = new SelectionView(this, selectionState);
+            selectionView.DrawBox = new Rectangle(275, 520, 730, 200);
+            SameSizeChildrenFlowLayout selectedEntityUIHolder = new SameSizeChildrenFlowLayout(this);
+            selectedEntityUIHolder.DrawBox = new Rectangle(215, 25, 450, 150);
+            selectionView.AddChild(selectedEntityUIHolder);
 
-            TestUIComponent commandView = new TestUIComponent(this, Color.Green);
-            commandView.DrawBox = new Rectangle(1080, 520, 200, 200);
+            // Hack: Refresh selection state.
+            selectionState.AddChild(unitList);
+
+            TestUIComponent commandView = new TestUIComponent(this, Color.White);
+            commandView.DrawBox = new Rectangle(1005, 445, 275, 275);
+
+            SameSizeChildrenFlowLayout commandViewButtonBox = new SameSizeChildrenFlowLayout(this);
+            commandViewButtonBox.DrawBox = new Rectangle(10, 10, 255, 255);
+            commandView.AddChild(commandViewButtonBox);
+
+            TestUIComponent exampleButton1 = new TestUIComponent(this, Color.Red);
+            exampleButton1.DrawBox = new Rectangle(0, 0, 85, 85);
+            TestUIComponent exampleButton2 = new TestUIComponent(this, Color.Red);
+            exampleButton2.DrawBox = new Rectangle(0, 0, 85, 85);
+            TestUIComponent exampleButton3 = new TestUIComponent(this, Color.Red);
+            exampleButton3.DrawBox = new Rectangle(0, 0, 85, 85);
+            TestUIComponent exampleButton4 = new TestUIComponent(this, Color.Red);
+            exampleButton4.DrawBox = new Rectangle(0, 0, 85, 85);
+            commandViewButtonBox.AddChild(exampleButton1);
+            commandViewButtonBox.AddChild(exampleButton2);
+            commandViewButtonBox.AddChild(exampleButton3);
+            commandViewButtonBox.AddChild(exampleButton4);
 
             TestUIComponent minimapView = new TestUIComponent(this, Color.White);
-            minimapView.DrawBox = new Rectangle(0, 520, 200, 200);
+            minimapView.DrawBox = new Rectangle(0, 445, 275, 275);
 
             frame.AddChild(mainView);
             frame.AddChild(selectionView);
-            frame.AddChild(buildingView);
             frame.AddChild(commandView);
             frame.AddChild(minimapView);
+            
             Components.Add(frame);
             GraphicsDevice.Viewport = new Microsoft.Xna.Framework.Graphics.Viewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 

@@ -15,6 +15,7 @@ namespace ZRTSModel.EventHandlers
     public delegate void UnitRemovedFromPlayerListHandler(Object sender, UnitRemovedEventArgs args);
     public delegate void EntityInCellChangedHandler(Object sender, UnitArgs args);
     public delegate void UnitHPChangedHandler(Object sender, UnitHPChangedEventArgs args);
+    public delegate void SelectionStateChangedHandler(Object sender, SelectionStateChangedArgs args);
 
     #endregion
 }

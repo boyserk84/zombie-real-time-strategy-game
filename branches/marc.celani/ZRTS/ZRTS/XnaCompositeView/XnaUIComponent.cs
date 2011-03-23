@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ZRTS.XnaCompositeView.UIEventHandlers;
 
 namespace ZRTS.XnaCompositeView
 {
     public abstract class XnaUIComponent : DrawableGameComponent
     {
+        public event DrawBoxChanged SizeChanged;
         // UI members and fields
         private Rectangle drawBox = new Rectangle(0, 0, 0, 0);
         private int scrollX;
@@ -17,7 +19,16 @@ namespace ZRTS.XnaCompositeView
         public Rectangle DrawBox
         {
             get { return drawBox; }
-            set { drawBox = value; }
+            set 
+            { 
+                drawBox = value;
+                if (SizeChanged != null)
+                {
+                    UISizeChangedEventArgs e = new UISizeChangedEventArgs();
+                    e.DrawBox = drawBox;
+                    SizeChanged(this, e);
+                }
+            }
         }
         public int ScrollX
         {
@@ -199,6 +210,20 @@ namespace ZRTS.XnaCompositeView
                 child.SetParent(null);
                 DoLayout();
             }
+        }
+
+        /// <summary>
+        /// Clears the view, disposing each child component.
+        /// </summary>
+        public void Clear()
+        {
+            for (; GetChildren().Count > 0; )
+            {
+                GetChildren()[0].Dispose();
+                GetChildren()[0].Clear();
+                RemoveChild(GetChildren()[0]);
+            }
+
         }
     }
 }
