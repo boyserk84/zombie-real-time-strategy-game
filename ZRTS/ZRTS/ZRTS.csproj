@@ -126,7 +126,11 @@
     <Compile Include="View\ViewSelect.cs" />
     <Compile Include="XnaCompositeView\HPBar.cs" />
     <Compile Include="XnaCompositeView\SelectedEntityUI.cs" />
+    <Compile Include="XnaCompositeView\SameSizeChildrenFlowLayout.cs" />
+    <Compile Include="XnaCompositeView\SelectionView.cs" />
     <Compile Include="XnaCompositeView\TestUIComponent.cs" />
+    <Compile Include="XnaCompositeView\UIEventHandlers\UIEventHandlers.cs" />
+    <Compile Include="XnaCompositeView\UIEventHandlers\UISizeChangedEventArgs.cs" />
     <Compile Include="XnaCompositeView\XnaDrawArgs.cs" />
     <Compile Include="XnaCompositeView\XnaUIComponent.cs" />
     <Compile Include="XnaCompositeView\XnaUIFrame.cs" />

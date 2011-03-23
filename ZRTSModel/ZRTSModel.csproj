@@ -96,12 +96,15 @@
   <ItemGroup>
     <Compile Include="EventHandlers\PlayerListChangedEventArgs.cs" />
     <Compile Include="EventHandlers\ScenarioChangedEventArgs.cs" />
+    <Compile Include="EventHandlers\SelectionStateChangedArgs.cs" />
     <Compile Include="EventHandlers\TileChangedEventArgs.cs" />
     <Compile Include="EventHandlers\UnitAddedEventArgs.cs" />
     <Compile Include="EventHandlers\UnitArgs.cs" />
     <Compile Include="EventHandlers\UnitHPChangedEventArgs.cs" />
     <Compile Include="EventHandlers\UnitRemovedEventArgs.cs" />
     <Compile Include="EventHandlers\ZRTSEventHandlers.cs" />
+    <Compile Include="GameModel\GameModel.cs" />
+    <Compile Include="GameModel\SelectionState\SelectionState.cs" />
     <Compile Include="ModelComponentFactoryFactory.cs" />
     <Compile Include="ModelComponentVisitorDelegator.cs" />
     <Compile Include="NoOpModelComponentVisitor.cs" />
@@ -173,8 +176,6 @@
   <ItemGroup>
     <Folder Include="GameModel\Scenario\Gameworld\PlayerList\Player\BuildingList\Building\" />
     <Folder Include="GameModel\Scenario\Gameworld\PlayerList\Player\UnitList\Unit\ActionQueue\Action\" />
-    <Folder Include="GameModel\ScrollModel\" />
-    <Folder Include="GameModel\SelectionModel\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />

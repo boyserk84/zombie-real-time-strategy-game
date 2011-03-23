@@ -41,12 +41,15 @@ namespace ZRTS.XnaCompositeView
         public SelectedEntityUI BuildSelectedEntityUI(UnitComponent unit)
         {
             SelectedEntityUI seui = new SelectedEntityUI(game, unit);
-            seui.DrawBox = new Rectangle(0, 0, 50, 50);
+            seui.DrawBox = new Rectangle(0, 0, 75, 75);
 
             // Add the HP Bar to the UI.
             HPBar hpBar = new HPBar(game);
-            hpBar.DrawBox = new Rectangle(5, 42, 40, 5);
+            hpBar.DrawBox = new Rectangle(5, 67, 65, 5);
 
+            TestUIComponent pictureBox = new TestUIComponent(game, Color.Silver);
+            pictureBox.DrawBox = new Rectangle(7, 3, 61, 61);
+            seui.AddChild(pictureBox);
             seui.AddChild(hpBar);
             return seui;
         }
