@@ -16,7 +16,7 @@ namespace ZRTSModel.Trigger
             isMet = true;
         }
 
-        override public bool CheckMyCondition(Scenario.Scenario scenario)
+        override public bool CheckMyCondition()
         {
             return true;
         }

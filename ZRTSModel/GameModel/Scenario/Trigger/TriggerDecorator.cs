@@ -22,16 +22,16 @@ namespace ZRTSModel.Trigger
             this.decorated = decorated;
         }
 
-        public void PerformAction(Scenario.Scenario scenario)
+        public void PerformActions()
         {
-            decorated.PerformAction(scenario);
-            PerformAction(scenario);
+            decorated.PerformActions();
+            PerformMyAction();
         }
 
-        public bool Eval(Scenario.Scenario scenario)
+        public bool Eval()
         {
-            bool myCondition = NeedsToBeEvaluated() ? CheckMyCondition(scenario) : IsMet();
-            return myCondition && decorated.Eval(scenario);
+            bool myCondition = NeedsToBeEvaluated() ? CheckMyCondition() : IsMet();
+            return myCondition && decorated.Eval();
         }
 
         public bool IsMet()
@@ -44,107 +44,7 @@ namespace ZRTSModel.Trigger
             return needsToBeEvaled;
         }
 
-        public abstract void PerformMyAction(Scenario.Scenario scenario);
-        public abstract bool CheckMyCondition(Scenario.Scenario scenario);
-
-        public void notify(ModelComponent observable)
-        {
-            observable.Accept(this);
-        }
-
-        public virtual void Visit(ModelComponent component)
-        {
-            // No op
-        }
-
-        public virtual void Visit(Sand sand)
-        {
-            // No op
-        }
-
-        public virtual void Visit(Mountain mountain)
-        {
-            // No op
-        }
-
-        public virtual void Visit(Grass grass)
-        {
-            // No op
-        }
-
-        public virtual void Visit(MapGold gold)
-        {
-            // No op
-        }
-
-        public virtual void Visit(MapMetal metal)
-        {
-            // No op
-        }
-
-        public virtual void Visit(MapWood wood)
-        {
-            // No op
-        }
-
-        public virtual void Visit(MapResource mapResource)
-        {
-            // No op
-        }
-
-        public virtual void Visit(CellComponent cell)
-        {
-            // No op
-        }
-
-        public virtual void Visit(Map map)
-        {
-            // No op
-        }
-
-        public virtual void Visit(Gameworld gameworld)
-        {
-            // No op
-        }
-
-        public virtual void Visit(ScenarioComponent scenario)
-        {
-            // No op
-        }
-
-        public virtual void Visit(PlayerList list)
-        {
-            // No op
-        }
-
-        public virtual void Visit(PlayerComponent player)
-        {
-            // No op
-        }
-
-        public virtual void Visit(BuildingList list)
-        {
-            // No op
-        }
-
-        public virtual void Visit(PlayerResources resources)
-        {
-            // No op
-        }
-
-        public virtual void Visit(UnitList list)
-        {
-            // No op
-        }
-
-        public virtual void Visit(UnitComponent unit)
-        {
-            // No op
-        }
-
-        public virtual void Visit(ActionQueue queue)
-        {
-            // No op
-        }
+        public abstract void PerformMyAction();
+        public abstract bool CheckMyCondition();
     }
 }

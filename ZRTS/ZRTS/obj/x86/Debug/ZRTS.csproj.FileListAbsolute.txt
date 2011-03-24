@@ -92,3 +92,4 @@ C:\Users\Marc\Desktop\marc.celani\ZRTS\ZRTS\obj\x86\Debug\ZRTS.exe
 C:\Users\Marc\Desktop\marc.celani\ZRTS\ZRTS\obj\x86\Debug\ZRTS.pdb
 C:\Users\Marc\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\gameBuildings\sample_build.xnb
 C:\Users\Marc\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\color.xnb
+C:\Users\Marc\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\Menu Font.xnb

@@ -5,12 +5,14 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ZRTS.XnaCompositeView.UIEventHandlers;
+using ZRTS.InputEngines;
 
 namespace ZRTS.XnaCompositeView
 {
     public abstract class XnaUIComponent : DrawableGameComponent
     {
         public event DrawBoxChanged SizeChanged;
+        public event ClickEventHandler OnClick;
         // UI members and fields
         private Rectangle drawBox = new Rectangle(0, 0, 0, 0);
         private int scrollX;
@@ -43,6 +45,11 @@ namespace ZRTS.XnaCompositeView
 
         // Composite pattern members
         private XnaUIComponent container = null;
+
+        public XnaUIComponent Parent
+        {
+            get { return container; }
+        }
         private List<XnaUIComponent> components = new List<XnaUIComponent>();
 
 
@@ -224,6 +231,42 @@ namespace ZRTS.XnaCompositeView
                 RemoveChild(GetChildren()[0]);
             }
 
+        }
+
+
+        internal void Click(InputEngines.XnaMouseEventArgs e)
+        {
+            if (!e.Handled)
+            {
+                if (OnClick != null)
+                {
+                    OnClick(this, e);
+                }
+                if (e.Target != this)
+                {
+                    XnaUIComponent nextTarget = e.Target;
+                    while (nextTarget.Parent != this)
+                    {
+                        nextTarget = nextTarget.Parent;
+                    }
+                    Point currentPoint = e.ClickLocation;
+                    Point offsetPoint = new Point(currentPoint.X, currentPoint.Y);
+                    offsetPoint.X -= ScrollX;
+                    offsetPoint.X -= nextTarget.drawBox.X;
+                    offsetPoint.Y -= ScrollY;
+                    offsetPoint.Y -= nextTarget.drawBox.Y;
+                    e.ClickLocation = offsetPoint;
+                    nextTarget.Click(e);
+
+                    // Repair event
+                    e.ClickLocation = currentPoint;
+                }
+                e.Bubbled = true;
+                if (!e.Handled && (OnClick != null))
+                {
+                    OnClick(this, e);
+                }
+            }
         }
     }
 }

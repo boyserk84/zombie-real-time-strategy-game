@@ -45,13 +45,32 @@ namespace ZRTS.XnaCompositeView
 
             // Add the HP Bar to the UI.
             HPBar hpBar = new HPBar(game);
+            hpBar.MaxHP = unit.MaxHealth;
+            hpBar.CurrentHP = unit.CurrentHealth;
             hpBar.DrawBox = new Rectangle(5, 67, 65, 5);
 
-            TestUIComponent pictureBox = new TestUIComponent(game, Color.Silver);
+            PictureBox pictureBox = BuildPictureBox(unit.Type, "selectionAvatar");
             pictureBox.DrawBox = new Rectangle(7, 3, 61, 61);
             seui.AddChild(pictureBox);
             seui.AddChild(hpBar);
             return seui;
+        }
+
+        public PictureBox BuildPictureBox(string type, string subtype)
+        {
+            PictureBox pictureBox = null;
+            // TODO: Add in logic to parse from XML that returns the appropriate rectangle from the type and subtype.
+            if (type.Equals("soldier") && subtype.Equals("selectionAvatar"))
+            {
+                pictureBox = new PictureBox(game, new Rectangle(2, 0, 75, 75));
+            }
+            else if (type.Equals("soldier") && subtype.Equals("bigAvatar"))
+            {
+                pictureBox = new PictureBox(game, new Rectangle(80, 0, 150, 150));
+            }
+            else 
+                pictureBox = new PictureBox(game, new Rectangle(0, 0, 1, 1));
+            return pictureBox;
         }
     }
 }
