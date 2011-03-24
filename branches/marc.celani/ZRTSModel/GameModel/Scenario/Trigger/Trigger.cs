@@ -5,10 +5,10 @@ using System.Text;
 
 namespace ZRTSModel.Trigger
 {
-    interface Trigger : ModelComponentVisitor
+    interface Trigger
     {
-        void PerformAction(Scenario.Scenario scenario);
-        bool Eval(Scenario.Scenario scenario);
+        void PerformActions();
+        bool Eval();
         bool NeedsToBeEvaluated();
         bool IsMet();
     }

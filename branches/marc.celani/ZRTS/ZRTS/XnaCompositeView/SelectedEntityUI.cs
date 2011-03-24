@@ -6,6 +6,7 @@ using ZRTSModel;
 using Microsoft.Xna.Framework;
 using ZRTSModel.EventHandlers;
 using ZRTS.XnaCompositeView.UIEventHandlers;
+using ZRTS.InputEngines;
 
 namespace ZRTS.XnaCompositeView
 {
@@ -19,6 +20,7 @@ namespace ZRTS.XnaCompositeView
             this.unit = unit;
             unit.HPChangedEventHandlers += UpdateHPBar;
             this.SizeChanged += onResize;
+            this.OnClick += selectUnit;
         }
 
         public void UpdateHPBar(Object sender, UnitHPChangedEventArgs args)
@@ -52,7 +54,7 @@ namespace ZRTS.XnaCompositeView
 
         protected override void onDraw(XnaDrawArgs e)
         {
-            e.SpriteBatch.Draw(((XnaUITestGame)Game).SpriteSheet, e.Location, Color.Teal);
+            e.SpriteBatch.Draw(((XnaUITestGame)Game).SpriteSheet, e.Location, new Rectangle(0, 0, 1, 1), Color.Teal);
         }
 
         private void onResize(Object sender, UISizeChangedEventArgs e)
@@ -79,6 +81,17 @@ namespace ZRTS.XnaCompositeView
                 {
                     pictureBox.DrawBox = new Rectangle((e.DrawBox.Width - pictureBoxDimension) / 2, 3, pictureBoxDimension, pictureBoxDimension);
                 }
+            }
+        }
+
+        private void selectUnit(Object sender, XnaMouseEventArgs e)
+        {
+            if (e.Bubbled)
+            {
+                List<ModelComponent> entities = new List<ModelComponent>();
+                entities.Add(unit);
+                ((XnaUITestGame)Game).Controller.SelectEntities(entities);
+                e.Handled = true;
             }
         }
     }

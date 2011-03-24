@@ -14,7 +14,7 @@ namespace ZRTSModel.Trigger
 
         }
 
-        override public void PerformMyAction(Scenario.Scenario scenario)
+        override public void PerformMyAction()
         {
             // Do nothing
         }

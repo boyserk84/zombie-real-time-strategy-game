@@ -98,35 +98,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionController.cs" />
-    <Compile Include="Action\BuildAction.cs" />
-    <Compile Include="Action\MoveAction.cs" />
-    <Compile Include="Action\SimpleAttackAction.cs" />
-    <Compile Include="Controller.cs" />
-    <Compile Include="EntityCreator.cs" />
-    <Compile Include="EntityLocController.cs" />
-    <Compile Include="Event\Event.cs" />
-    <Compile Include="Event\EventDelegator.cs" />
-    <Compile Include="Event\EventHandler.cs" />
-    <Compile Include="Event\EventQueue.cs" />
-    <Compile Include="Event\MoveEvent.cs" />
-    <Compile Include="Event\MoveEventDelegator.cs" />
-    <Compile Include="Event\NoOpEventHandler.cs" />
-    <Compile Include="Pathfinder\Advanced.cs" />
-    <Compile Include="Pathfinder\Basic.cs" />
-    <Compile Include="Pathfinder\findPath.cs" />
-    <Compile Include="Pathfinder\Node.cs" />
-    <Compile Include="Pathfinder\NodeMap.cs" />
-    <Compile Include="Pathfinder\PQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitStatsLogic.cs" />
-    <Compile Include="UnitTest\ActionControllerTests.cs" />
-    <Compile Include="UnitTest\EntityLocControllerTest.cs" />
-    <Compile Include="UnitTest\EntityLocControllerTests.cs" />
-    <Compile Include="UnitTest\MoveActionTests.cs" />
-    <Compile Include="UnitTest\UnitStatsLogicTests.cs" />
-    <Compile Include="UnitTest\VisibilityMapLogicTests.cs" />
-    <Compile Include="VisibilityMapLogic.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

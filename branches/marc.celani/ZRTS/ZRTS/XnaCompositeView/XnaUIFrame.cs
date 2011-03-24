@@ -25,5 +25,6 @@ namespace ZRTS.XnaCompositeView
         {
             return spriteBatch;
         }
+
     }
 }

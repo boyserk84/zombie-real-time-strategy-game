@@ -5,7 +5,6 @@ using System.Text;
 using System.IO;
 using System.Windows.Forms;
 using System.Runtime.Serialization.Formatters.Binary;
-using ZRTSModel.Scenario;
 using ZRTSModel.GameWorld;
 using ZRTSMapEditor.MapEditorModel;
 using ZRTSModel;
