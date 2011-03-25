@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using ZRTSModel.GameWorld;
+using System.Collections;
 
 namespace Pathfinder
 {
@@ -46,7 +47,7 @@ namespace Pathfinder
 			List<Node> closed = new List<Node>();
 			PQueue adjacentNodes = new PQueue();
             iterations = 0;
-
+            Hashtable prev = new Hashtable();
 			// good ol' A*
 			while (open.Count > 0)											    // iterate until we have examined every appropriate Node
 			{
@@ -64,7 +65,7 @@ namespace Pathfinder
 					if (!open.contains(adjacentNode) || tempGScore < adjacentNode.Gscore)			    // if this Node has not been added to the open list, or if tempGscore is less than the Node's current Gscore
 					{
 						int h = map.pathDistance(adjacentNode, endNode);									// estimate the Node's Hscore
-						adjacentNode.prev = currentNode;												    // set the Node's prev pointer to the current Node
+                        adjacentNode.prev = currentNode;											    // set the Node's prev pointer to the current Node
 						adjacentNode.Hscore = h;														    // set the Node's Hscore
 						adjacentNode.Gscore = tempGScore;												    // set the Node's Gscore
 						adjacentNode.Fscore = tempGScore + h;											    // set the Node's Fscore
@@ -109,8 +110,8 @@ namespace Pathfinder
         /// <returns>A PQueue of all traversable adjacent Nodes</returns>
 		private static PQueue getAdjacentNodes(NodeMap map, PQueue open, List<Node> closed, Node currentNode)
 		{
-			int x = currentNode.Xcoord;
-			int y = currentNode.Ycoord;
+			int x = currentNode.X;
+			int y = currentNode.Y;
             List<Node> immediate = new List<Node>();
             List<Node> diagonal = new List<Node>();
 			PQueue adjacentNodes = new PQueue();
@@ -144,15 +145,15 @@ namespace Pathfinder
                 if (!immediate[i].isValid)
                 {
                     Node one, two = null;
-                    if (immediate[i].Xcoord == x)   // the Node is vertically adjacent
+                    if (immediate[i].X == x)   // the Node is vertically adjacent
                     {
-                        one = map.getNode(x + 1, immediate[i].Ycoord);
-                        two = map.getNode(x - 1, immediate[i].Ycoord);
+                        one = map.getNode(x + 1, immediate[i].Y);
+                        two = map.getNode(x - 1, immediate[i].Y);
                     }
                     else                            // the Node is horizontally adjacent
                     {
-                        one = map.getNode(immediate[i].Xcoord, y - 1);
-                        two = map.getNode(immediate[i].Xcoord, y + 1);
+                        one = map.getNode(immediate[i].X, y - 1);
+                        two = map.getNode(immediate[i].X, y + 1);
                     }
                     if (one != null)
                         diagonal.Remove(one);
@@ -200,10 +201,10 @@ namespace Pathfinder
 			if (path.Count >= 2)
 			{
 				int i = path.Count - 1;
-				int prevX = path[i].Xcoord - path[i - 1].Xcoord;
-				int prevY = path[i].Ycoord - path[i - 1].Ycoord;
-				int curX = endNode.Xcoord - path[i].Xcoord;
-				int curY = endNode.Ycoord - path[i].Ycoord;
+				int prevX = path[i].X - path[i - 1].X;
+				int prevY = path[i].Y - path[i - 1].Y;
+				int curX = endNode.X - path[i].X;
+				int curY = endNode.Y - path[i].Y;
 				if (theta(prevX, prevY) == theta(curX, curY))
 					path.RemoveAt(i);
 			}

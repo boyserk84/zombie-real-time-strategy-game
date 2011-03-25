@@ -70,25 +70,29 @@ namespace ZRTS
                 for (int j = 0; j < map.GetHeight(); j++)
                 {
                     CellComponent cell = new CellComponent();
-                    if (i == j && j == 0)
-                    {
-                        cell.AddChild(new Mountain());
-                    }
-                    else if (i == 1 && j == 1)
-                    {
-                        cell.AddChild(new Sand());
-                    }
-                    else
-                        cell.AddChild(new Grass());
+                    cell.AddChild(new Grass());
                     cell.X = i;
                     cell.Y = j;
                     map.AddChild(cell);
                 }
             }
             model.AddChild(scenario);
+            model.GetScenario().GetGameWorld().GetPlayerList().AddChild(new PlayerComponent());
+            UnitList list = ((PlayerComponent)model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[0]).GetUnitList();
+            UnitComponent soldier1 = new UnitComponent();
+            soldier1.Type = "soldier";
+            list.AddChild(soldier1);
+            soldier1.PointLocation = new PointF((float)1.5, (float)1.0);
+
+            UnitComponent soldier2 = new UnitComponent();
+            soldier2.Type = "soldier";
+            list.AddChild(soldier2);
+            soldier2.PointLocation = new PointF((float)10.5, (float)6.1);
 
             // Create the controller
             controller = new ZRTSController(this);
+            Components.Add(controller);
+
             // Set the mouse visible
             this.IsMouseVisible = true;
             base.Initialize();
@@ -104,6 +108,7 @@ namespace ZRTS
             mainView.DrawBox = new Rectangle(0, 0, 1280, 520);
 
             UnitComponent soldier1 = new UnitComponent();
+            soldier1.Type = "soldier";
             UnitComponent soldier2 = new UnitComponent();
             UnitComponent soldier3 = new UnitComponent();
             UnitComponent soldier4 = new UnitComponent();

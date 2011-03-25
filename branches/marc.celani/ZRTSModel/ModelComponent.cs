@@ -17,6 +17,11 @@ namespace ZRTSModel
         // Composite Pattern members
         private ModelComponent container = null;
 
+        public ModelComponent Parent
+        {
+            get { return container; }
+        }
+
         
         private List<ModelComponent> children = new List<ModelComponent>();
         

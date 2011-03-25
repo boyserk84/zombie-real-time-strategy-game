@@ -86,20 +86,20 @@ namespace Pathfinder
         private static PQueue getRing(NodeMap map, Node center, int offset)
         {
             PQueue ring = new PQueue();
-            int x = center.Xcoord;
-            int y = center.Ycoord;
+            int x = center.X;
+            int y = center.Y;
 
             // grab left and right columns
-            for (int i = y - offset; i <= y + offset; i++)
+            for (int i = Math.Max(y - offset, 0); i <= y + offset; i++)
             {
                 Node Xmin = map.getNode(x - offset, i);
                 Node Xmax = map.getNode(x + offset, i);
-                if (Xmin.isValid)
+                if (Xmin != null && Xmin.isValid)
                 {
                     Xmin.Fscore = map.pathDistance(Xmin, center);
                     ring.enqueue(Xmin);
                 }
-                if (Xmax.isValid)
+                if (Xmax != null && Xmax.isValid)
                 {
                     Xmax.Fscore = map.pathDistance(Xmax, center);
                     ring.enqueue(Xmax);
@@ -109,14 +109,14 @@ namespace Pathfinder
             // grab remainder of top and bottom rows
             for (int i = x - offset + 1; i < x + offset; i++)
             {
-                Node Ymin = map.getNode(i, y - offset);
-                Node Ymax = map.getNode(i, y + offset);
-                if (Ymin.isValid)
+                Node Ymin = map.getNode(i, Math.Max(0, y - offset));
+                Node Ymax = map.getNode(i, Math.Min(map.width -1, y + offset));
+                if (Ymin != null && Ymin.isValid)
                 {
                     Ymin.Fscore = map.pathDistance(Ymin, center);
                     ring.enqueue(Ymin);
                 }
-                if (Ymax.isValid)
+                if (Ymax != null && Ymax.isValid)
                 {
                     Ymax.Fscore = map.pathDistance(Ymax, center);
                     ring.enqueue(Ymax);

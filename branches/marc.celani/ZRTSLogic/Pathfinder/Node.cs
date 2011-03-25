@@ -10,43 +10,20 @@ namespace Pathfinder
     /// </summary>
     class Node
     {
-        /*
-         * attributes
-         */
-
-        public byte Xcoord;
-        public byte Ycoord;
+        public int X;
+        public int Y;
         public bool isValid;
+        public Node prev;
 
         public int Fscore = 0;
         public int Gscore = 0;
         public int Hscore = 0;
-        public Node prev = null;
 
-
-        /*
-         * constructors
-         */
-
-        public Node(byte x, byte y, bool valid)
+        public Node(int x, int y, bool valid)
         {
-            this.Xcoord = x;
-            this.Ycoord = y;
+            this.X = x;
+            this.Y = y;
             this.isValid = valid;
         }
-
-
-        /*
-         * public functions
-         */
-
-
-
-
-        /*
-         * helper functions
-         */
-
-
     }
 }

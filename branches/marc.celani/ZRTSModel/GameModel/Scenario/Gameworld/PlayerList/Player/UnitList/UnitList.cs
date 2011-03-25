@@ -38,8 +38,12 @@ namespace ZRTSModel
         public override void RemoveChild(ModelComponent child)
         {
             base.RemoveChild(child);
-            if (UnitRemovedEvent != null)
-                UnitRemovedEvent(this, new UnitRemovedEventArgs());
+            if (UnitRemovedEvent != null && child is UnitComponent)
+            {
+                UnitRemovedEventArgs args = new UnitRemovedEventArgs();
+                args.Unit = (UnitComponent)child;
+                UnitRemovedEvent(this, args);
+            }
         }
     }
 }

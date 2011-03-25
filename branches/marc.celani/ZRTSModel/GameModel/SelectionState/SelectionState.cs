@@ -11,6 +11,11 @@ namespace ZRTSModel.GameModel
         public event SelectionStateChangedHandler SelectionStateChanged;
 
         List<ModelComponent> selectedEntities = new List<ModelComponent>();
+
+        public List<ModelComponent> SelectedEntities
+        {
+            get { return selectedEntities; }
+        }
         public void SelectEntity(ModelComponent component)
         {
             if (component is UnitComponent /*|| component is BuildingComponent*/)

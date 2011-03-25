@@ -50,17 +50,19 @@ namespace ZRTS.XnaCompositeView
                     }
                 }
             }
+            // Remove current big picture box
+            for (int i = 0; i < GetChildren().Count; i++)
+            {
+                if (GetChildren()[i] is PictureBox)
+                {
+                    GetChildren()[i].Dispose();
+                    RemoveChild(GetChildren()[i]);
+                    i--;
+                }
+            }
             if (count > 0)
             {
-                for (int i = 0; i < GetChildren().Count; i++)
-                {
-                    if (GetChildren()[i] is PictureBox)
-                    {
-                        GetChildren()[i].Dispose();
-                        RemoveChild(GetChildren()[i]);
-                        i--;
-                    }
-                }
+                
                 BuildLargePreviewPictureBoxVisitor visitor = new BuildLargePreviewPictureBoxVisitor();
                 e.SelectedEntities[0].Accept(visitor);
                 PictureBox bigImage = visitor.PictureBox;
@@ -74,7 +76,6 @@ namespace ZRTS.XnaCompositeView
                     visitor2.Layout = holder;
                     e.SelectedEntities[0].Accept(visitor2);
                 }
-
             }
         }
 

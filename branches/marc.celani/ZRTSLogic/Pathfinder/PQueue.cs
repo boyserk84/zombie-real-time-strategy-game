@@ -123,7 +123,7 @@ namespace Pathfinder
             Console.Write("  {0}: ", name);
             for (int i = 0; i < Count; i++)
             {
-                Console.Write("({0}, {1})", pq[i].Xcoord, pq[i].Ycoord);
+                Console.Write("({0}, {1})", pq[i].X, pq[i].Y);
                 if (includeF)
                     Console.Write("+{0}", pq[i].Fscore);
                 if (i < Count - 1)

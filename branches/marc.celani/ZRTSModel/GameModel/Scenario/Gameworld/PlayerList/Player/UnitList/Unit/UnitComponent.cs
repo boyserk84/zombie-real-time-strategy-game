@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ZRTSModel.EventHandlers;
+using ZRTSModel.GameModel;
 
 namespace ZRTSModel
 {
@@ -13,6 +14,15 @@ namespace ZRTSModel
     public class UnitComponent : ModelComponent
     {
         public event UnitHPChangedHandler HPChangedEventHandlers;
+        public event UnitMovedHandler MovedEventHandlers;
+
+        private ActionQueue actionQueue;
+
+        public UnitComponent()
+        {
+            actionQueue = new ActionQueue();
+            AddChild(actionQueue);
+        }
 
         private string type;
 
@@ -126,15 +136,67 @@ namespace ZRTSModel
         public CellComponent Location
         {
             get { return location; }
-            set { location = value; }
         }
 
-        private System.Drawing.PointF pointLocation;
+        private int orientation;
 
-        public System.Drawing.PointF PointLocation
+        public int Orientation
+        {
+            get { return orientation; }
+            set { orientation = value; }
+        }
+
+
+
+        private PointF pointLocation;
+
+        public PointF PointLocation
         {
             get { return pointLocation; }
-            set { pointLocation = value; }
+            set 
+            {
+                UnitMovedEventArgs args = new UnitMovedEventArgs();
+                args.Unit = this;
+                args.OldPoint = pointLocation;
+                args.NewPoint = value;
+
+                pointLocation = value;
+                if (location != null)
+                {
+                    if (location.X != (int)pointLocation.X || location.Y != (int)pointLocation.Y)
+                    {
+                        location.EntitiesContainedWithin.Remove(this);
+                        if (pointLocation != null)
+                        {
+                            Map map = (Map)location.Parent;
+                            location = map.GetCellAt((int)pointLocation.X, (int)pointLocation.Y);
+                            location.EntitiesContainedWithin.Add(this);
+                        }
+                    }
+                }
+                else if (pointLocation != null)
+                {
+                    Map map = ((Gameworld)(Parent.Parent.Parent.Parent)).GetMap();
+                    location = map.GetCellAt((int)pointLocation.X, (int)pointLocation.Y);
+                    location.EntitiesContainedWithin.Add(this);
+                }
+                if (MovedEventHandlers != null)
+                {
+                    MovedEventHandlers(this, args);
+                }
+
+            }
+        }
+
+        public ActionQueue GetActionQueue()
+        {
+            return actionQueue;
+        }
+
+        public override void RemoveChild(ModelComponent child)
+        {
+            if (child != actionQueue)
+                base.RemoveChild(child);
         }
 
         public override void Accept(ModelComponentVisitor visitor)

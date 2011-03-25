@@ -48,7 +48,7 @@ namespace ZRTSModel.Factories
         /// <param name="unit">The Unit being given the UnitStats</param>
         /// <param name="type">denotes what type of UnitStats to use.</param>
         /// <returns></returns>
-        public Unit createUnit(Unit unit, string type)
+        /*public Unit createUnit(Unit unit, string type)
         {
             unit.stats = stats[type];
             unit.health = unit.stats.maxHealth;
@@ -66,7 +66,7 @@ namespace ZRTSModel.Factories
             Unit u = new Unit(owner, stats[type]);
             u.health = u.stats.maxHealth;
             return u;
-        }
+        }*/
 
         /// <summary>
         /// 

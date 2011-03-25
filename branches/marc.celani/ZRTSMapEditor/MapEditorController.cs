@@ -11,6 +11,7 @@ using ZRTSModel;
 using ZRTSMapEditor.UI;
 using ZRTSMapEditor.Commands.MapEditorViewCommands;
 using ZRTSModel.Factories;
+using ZRTSModel.GameModel;
 
 namespace ZRTSMapEditor
 {
@@ -235,7 +236,7 @@ namespace ZRTSMapEditor
             {
                 UnitFactory uf = UnitFactory.Instance;
                 UnitComponent unit = uf.Create(model.GetSelectionState().SelectedUnitType);
-                unit.PointLocation = new System.Drawing.PointF(/*(float)cellComponent.X*/ 0 + xPercent, /*(float)cellComponent.Y*/ 0 + yPercent);
+                unit.PointLocation = new PointF((float)cellComponent.X + xPercent, (float)cellComponent.Y + yPercent);
                 PlayerComponent player = model.GetScenario().GetGameWorld().GetPlayerList().GetPlayerByName(model.GetSelectionState().SelectedPlayer);
                 AddUnitCommand command = new AddUnitCommand(unit, player, cellComponent);
 

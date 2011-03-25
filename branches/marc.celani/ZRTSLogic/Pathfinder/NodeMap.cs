@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using ZRTSModel.GameWorld;
+using ZRTSModel;
 
 namespace Pathfinder
 {
@@ -16,8 +17,8 @@ namespace Pathfinder
          * attributes
          */
 
-        public byte height;
-        public byte width;
+        public int height;
+        public int width;
         private Node[,] nodes;
 
 
@@ -31,15 +32,15 @@ namespace Pathfinder
         /// <param name="m">The Gameworld.Map to copy dimensional and validity data from</param>
         public NodeMap(Map m)
         {
-            this.height = m.height;
-            this.width = m.width;
-            Console.WriteLine("  Node Map Dimensions: ({0}, {1})", this.width, this.height);
+            this.height = m.GetHeight();
+            this.width = m.GetWidth();
+            // Console.WriteLine("  Node Map Dimensions: ({0}, {1})", this.width, this.height);
             this.nodes = new Node[width, height];
             for (int j = 0; j < height; j++)
             {
                 for (int i = 0; i < width; i++)
                 {
-                    nodes[i, j] = new Node(m.getCell(i, j).Xcoord, m.getCell(i,j).Ycoord, m.getCell(i,j).isValid);
+                    nodes[i, j] = new Node(i, j, m.GetCellAt(i, j).GetTile().Passable() && (m.GetCellAt(i, j).EntitiesContainedWithin.Count == 0));
                 }
             }
         }
@@ -88,7 +89,7 @@ namespace Pathfinder
         /// </summary>
         /// <param name="one">The first Node</param>
         /// <param name="two">The second Node</param>
-        /// <returns>A rough integer distance between the two; 10 per vertical/horizontal move, 14 per vertical move</returns>
+        /// <returns>A rough integer distance between the two; 10 per vertical/horizontal move, 14 per diagonal move</returns>
         public int pathDistance(Node one, Node two)
         {
             /*
@@ -100,8 +101,8 @@ namespace Pathfinder
              *		the straight distance is multiplied by 10 to compensate.
              */
 
-            int x = Math.Abs(one.Xcoord - two.Xcoord);
-            int y = Math.Abs(one.Ycoord - two.Ycoord);
+            int x = Math.Abs(one.X - two.X);
+            int y = Math.Abs(one.Y - two.Y);
             int diagonal = Math.Min(x, y);
             int straight = Math.Max(x, y) - diagonal;
             return (10 * straight) + (14 * diagonal);

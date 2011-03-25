@@ -135,8 +135,9 @@ namespace ZRTS.InputEngines
 
                 searching = false;
 
-                foreach (XnaUIComponent component in current.GetChildren())
+                for (int i = current.GetChildren().Count - 1; i >= 0; i--)
                 {
+                    XnaUIComponent component = current.GetChildren()[i];
                     if (component.Visible)
                     {
                         Rectangle box = new Rectangle(component.DrawBox.X, component.DrawBox.Y, component.DrawBox.Width, component.DrawBox.Height);

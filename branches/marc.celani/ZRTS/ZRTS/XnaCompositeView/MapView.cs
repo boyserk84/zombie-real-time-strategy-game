@@ -10,6 +10,9 @@ using ZRTSModel.GameModel;
 using ZRTS.XnaCompositeView;
 using ZRTS.XnaCompositeView.MapViewVisitors;
 using Microsoft.Xna.Framework.Input;
+using ZRTSModel.EventHandlers;
+using System.Collections;
+using ZRTS.InputEngines;
 
 
 namespace ZRTS
@@ -28,6 +31,8 @@ namespace ZRTS
         private TestUIComponent dragBox = null;
         // First point in the dragging, used when the mouse moves to move the dragBox.
         private Point startSelectionBoxPoint;
+        private Hashtable componentToUI = new Hashtable();
+        private MapViewLeftButtonStrategy leftButtonStrategy;
 
         private static int cellDimension = 60;
 
@@ -40,6 +45,24 @@ namespace ZRTS
         public MapView(Game game)
             : base(game)
         {
+            PlayerList players = ((XnaUITestGame)game).Model.GetScenario().GetGameWorld().GetPlayerList();
+            foreach (PlayerComponent player in players.GetChildren())
+            {
+                UnitList unitList = player.GetUnitList();
+                unitList.UnitAddedEvent += onUnitAdded;
+                unitList.UnitRemovedEvent += onUnitRemoved;
+                ZRTSCompositeViewUIFactory factory = ZRTSCompositeViewUIFactory.Instance;
+                foreach (UnitComponent unit in unitList.GetChildren())
+                {
+                    UnitUI unitUI = factory.BuildUnitUI(unit);
+                    unitUI.DrawBox = new Rectangle((int)(unit.PointLocation.X * cellDimension), (int)(unit.PointLocation.Y * cellDimension), unitUI.DrawBox.Width, unitUI.DrawBox.Height);
+                    AddChild(unitUI);
+                    componentToUI.Add(unit, unitUI);
+                    unit.MovedEventHandlers += updateLocationOfUnit;
+                }
+            }
+            leftButtonStrategy = new DrawSelectionBoxStrategy(this);
+            OnClick += moveSelectedUnits;
         }
         /*
         /// <summary>
@@ -90,6 +113,14 @@ namespace ZRTS
             }
         }*/
 
+        private void moveSelectedUnits(Object sender, XnaMouseEventArgs e)
+        {
+            if (e.Bubbled && !e.Handled && e.ButtonPressed == MouseButton.Right)
+            {
+                PointF gamePoint = new PointF((float)(e.ClickLocation.X + ScrollX) / (float)cellDimension, (float)(e.ClickLocation.Y + ScrollY) / (float)cellDimension);
+                ((XnaUITestGame)Game).Controller.MoveSelectedUnitsToPoint(gamePoint);
+            }
+        }
 
         protected override void onDraw(XnaDrawArgs e)
         {
@@ -114,6 +145,29 @@ namespace ZRTS
 
         public override void Update(GameTime gameTime)
         {
+            handleScrolling();
+            handleMouse();
+            base.Update(gameTime);
+        }
+
+        private void handleMouse()
+        {
+            MouseState mouseState = Mouse.GetState();
+
+            // Hack: Assumes the map is in the upper left hand corner.
+            if (mouseState.X < DrawBox.Width && mouseState.Y < DrawBox.Height)
+            {
+                Point mousePoint = new Point(ScrollX + mouseState.X, ScrollY + mouseState.Y);
+                leftButtonStrategy.HandleMouseInput(mouseState.LeftButton == ButtonState.Pressed, mouseState.RightButton == ButtonState.Pressed, mousePoint);
+            }
+            else
+            {
+                leftButtonStrategy.CancelProgress();
+            }
+        }
+
+        private void handleScrolling()
+        {
             KeyboardState keyboardState = Keyboard.GetState();
             Map map = ((XnaUITestGame)Game).Model.GetScenario().GetGameWorld().GetMap();
             if (keyboardState.IsKeyDown(Keys.Left))
@@ -133,7 +187,31 @@ namespace ZRTS
             {
                 ScrollY = Math.Min(ScrollY + SCROLL_SPEED, map.GetHeight() * CellDimension - DrawBox.Height);
             }
-            base.Update(gameTime);
+        }
+
+        public void onUnitAdded(object sender, UnitAddedEventArgs e)
+        {
+            ZRTSCompositeViewUIFactory factory = ZRTSCompositeViewUIFactory.Instance;
+            UnitUI unitUI = factory.BuildUnitUI(e.Unit);
+            unitUI.DrawBox = new Rectangle((int)(e.Unit.PointLocation.X * cellDimension), (int)(e.Unit.PointLocation.Y * cellDimension), unitUI.DrawBox.Width, unitUI.DrawBox.Height); 
+            AddChild(unitUI);
+            componentToUI.Add(e.Unit, unitUI);
+            e.Unit.MovedEventHandlers += updateLocationOfUnit;
+        }
+
+        public void onUnitRemoved(object sender, UnitRemovedEventArgs e)
+        {
+            UnitUI component = (UnitUI)componentToUI[e.Unit];
+            component.Dispose();
+            RemoveChild(component);
+            componentToUI.Remove(e.Unit);
+            e.Unit.MovedEventHandlers -= updateLocationOfUnit;
+        }
+
+        private void updateLocationOfUnit(Object sender, UnitMovedEventArgs e)
+        {
+            UnitUI ui = componentToUI[e.Unit] as UnitUI;
+            ui.DrawBox = new Rectangle((int)(e.NewPoint.X * cellDimension), (int)(e.NewPoint.Y * cellDimension), ui.DrawBox.Width, ui.DrawBox.Height);
         }
     }
 }
