@@ -98,6 +98,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Action\MoveAction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Pathfinder\Advanced.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Pathfinder\Basic.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Pathfinder\FindPath.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Pathfinder\Node.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Pathfinder\NodeMap.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Pathfinder\PQueue.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

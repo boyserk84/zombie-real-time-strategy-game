@@ -82,9 +82,9 @@ namespace ZRTSModel.GameWorld
 
                     // Create a new Tile and add it to the list.
                     tileTypes.Add(type);
-                    Tile tile = new Tile(type, passable, index);
-                    tiles.Add(tile);
-                    tileDict.Add(type, tile);
+                    // Tile tile = new Tile(type, passable, index);
+                    // tiles.Add(tile);
+                    // tileDict.Add(type, tile);
                     Bitmap bm = new Bitmap(TILES_DIRECTORY + type + ".png");
                     bitmaps.Add(type, bm);
             }

@@ -61,7 +61,7 @@ namespace ZRTS.XnaCompositeView
         // UI Methods
         public override void Draw(GameTime gameTime)
         {
-            if (Visible)
+            if (Visible && drawBox.Width > 0 && drawBox.Height > 0)
             {
                 Viewport currentViewport = Game.GraphicsDevice.Viewport;
                 int viewportMaxX = currentViewport.X + currentViewport.Width;

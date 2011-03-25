@@ -6,6 +6,8 @@ using ZRTSModel.GameWorld;
 using ZRTSModel.Entities;
 using Pathfinder;
 using ZRTSLogic;
+using ZRTSModel;
+using ZRTSModel.GameModel;
 
 namespace ZRTSLogic.Action
 {
@@ -13,112 +15,57 @@ namespace ZRTSLogic.Action
     /// This class will represent a "move" action that a unit can make. It will be used to make the unit 
     /// move in the Gameworld.
     /// </summary>
-    public class MoveAction : ActionCommand
+    public class MoveAction : EntityAction
     {
-        float targetX, targetY;
-        List<Cell> path;
-        Cell targetCell; // The current cell being moved to, not the cell containing (targetX, targetY).
-        GameWorld gw;
-        Entity entity;
-        Unit unit;
-        int cellIndex;
-        bool waiting = false;
-        byte ticksWaiting = 0; // Ticks spent waiting for another unit to move. 
+        private float targetX;
+        private float targetY;
+        private List<CellComponent> path = null;
+        private Map map;
+        private int cellIndex;
+        private bool waiting = false;
 
-        byte TICKS_PER_MOVE = 2;       // How many ticks per step in the move action
-        byte WAIT_TICKS = 30;               // How many ticks to wait for another unit to move.
-        byte ticksSinceLastMove = 0;
+        public bool Waiting
+        {
+            get { return waiting; }
+        }
+        private int ticksWaiting = 0; // Ticks spent waiting for another unit to move. 
+
+        private byte TICKS_PER_MOVE = 2;       // How many ticks per step in the move action
+        private byte WAIT_TICKS = 1;               // How many ticks to wait for another unit to move.
+        private byte ticksSinceLastMove = 0;
+
 
         /// <summary>
         /// This constructor will create a MoveAction to the given targetX, and targetY.
         /// </summary>
         /// <param name="targetX">X coordinate destination of the move action in game space.</param>
         /// <param name="targetY">Y coordinate destination of the move action in game space.</param>
-        /// <param name="gw">The GameWorld that the move action is occurring in.</param>
-        /// <param name="entity">The Entity being given the MoveAction. (Should only be given to Units)</param>
-        public MoveAction(float targetX, float targetY, GameWorld gw, Entity entity)
+        public MoveAction(float targetX, float targetY, Map map)
         {
-            this.actionType = ActionType.Move;
             this.targetY = targetY;
             this.targetX = targetX;
-            this.entity = entity;
-            this.gw = gw;
-            unit = (Unit)entity;
-            float startX = unit.x;
-            float startY = unit.y;
-
-            if ((int)targetX >= gw.map.width || (int)targetX < 0 || (int)targetY >= gw.map.height || (int)targetY < 0)
-            {
-                // Invalid target position.
-                path = new List<Cell>();
-            }
-            else
-            {
-                path = findPath.between(gw.map, gw.map.getCell((int)startX, (int)startY), gw.map.getCell((int)targetX, (int)targetY));
-
-                // Don't bother with path if it is just to same cell.
-                if (path.Count > 1)
-                {
-                    targetCell = path[1];
-                    cellIndex = 1;
-                }
-                else
-                {
-                    path = new List<Cell>();
-                }
-            }
-
+            this.map = map;
         }
 
-        /// <summary>
-        /// This function will perform the next step of the move action.
-        /// </summary>
-        /// <returns>Returns true if the move action has been completed, false otherwise.</returns>
-        public override bool work()
-        {
-            // Zero length path, done moving.
-            if (path.Count == 0)
-            {
-                return true;
-            }
-
-            // Enough ticks have occured, take next step in move.
-            if (ticksSinceLastMove % TICKS_PER_MOVE == 0)
-            {   
-                ticksSinceLastMove = 1;
-                return takeStepMiddle();
-            }
-            else
-            {
-                ticksSinceLastMove++;
-            }
-            return false;
-        }
 
         /// <summary>
         /// Variation of the takeStep method. The unit will move to the center of the targetCell. (x + 0.5f, y + 0.5f)
         /// </summary>
         /// <returns>true if at the end of the path, false otherwise.</returns>
-        private bool takeStepMiddle()
+        private bool takeStepMiddle(UnitComponent unit)
         {
+            bool completed = false;
             // Check if we are at the center of the target cell.
-            if (unit.x == targetCell.Xcoord + 0.5f && unit.y == targetCell.Ycoord + 0.5f)
+            if (unit.PointLocation.X == path[0].X + 0.5f && unit.PointLocation.Y == path[0].Y + 0.5f)
             {
+                path.RemoveAt(0);
                 // Are we at the last cell?
-                if (cellIndex + 1 == path.Count)
+                if (path.Count == 0)
                 {
-                    // At end of path, return true to indicate that we are done.
-                    return true;
-                }
-                else
-                {
-                    // Not at end of path, move onto next cell
-                    cellIndex++;
-                    targetCell = path[cellIndex];
+                    completed = true;
                 }
             }
-
-            if (isNextCellVacant())
+            else if (isNextCellVacant(unit))
             {
                 // Next cell is vacant, stop waiting if we were waiting.
                 if (waiting)
@@ -126,131 +73,48 @@ namespace ZRTSLogic.Action
                     waiting = false;
                     ticksWaiting = 0;
                 }
-                unit.getState().setPrimaryState(State.PrimaryState.Moving); // Set unit's state to moving
-                moveMiddle();
+                moveMiddle(unit);
             }
             else
             {
                 // Next cell is not vacant.
                 waiting = true;
                 ticksWaiting++;
-                unit.getState().setPrimaryState(State.PrimaryState.Idle);
 
                 // We've been waiting long enough, compute a new path.
                 if (ticksWaiting % WAIT_TICKS == 0)
                 {
-                    path = findPath.between(gw.map, gw.map.getCell((int)unit.x, (int)unit.y), gw.map.getCell((int)targetX, (int)targetY));
-                    if (path.Count > 1)
-                    {
-                        targetCell = path[1];
-                        cellIndex = 1;
-                    }
-                    else // Returned a path of length 0.
-                    {
-						return true;
-                    }
+                    path = FindPath.between(map, map.GetCellAt((int)unit.PointLocation.X, (int)unit.PointLocation.Y), map.GetCellAt((int)targetX, (int)targetY));
                 }
             }
 
-            return false;
+            return completed;
         }
 
         /// <summary>
         /// Move the unit towards the center of targetCell.
         /// </summary>
-        private void moveMiddle()
+        private void moveMiddle(UnitComponent unit)
         {
-			float speed = (unit.stats.speed * (float)unit.speedBuff);
+			float speed = (unit.Speed /* * (float)unit.speedBuff*/);
 
-            // Need to move along the diagonal.
-            if (!(targetCell.Ycoord + 0.5 == unit.y) && !(targetCell.Xcoord + 0.5f == unit.x))
+            // If we are within the range of the destination point, simply move there
+            if (Math.Sqrt(Math.Pow(path[0].Y + 0.5f - unit.PointLocation.Y, 2) + Math.Pow(path[0].X + 0.5f - unit.PointLocation.X, 2)) <= speed)
             {
-
-                if (Math.Sqrt(Math.Pow(targetCell.Ycoord + 0.5f - unit.y, 2) + Math.Pow(targetCell.Xcoord + 0.5f - unit.x, 2)) <= speed)
-                {
-                    // We are within |unit.speed| of the targetCell's center, set unit's position to center.
-                    unit.x = targetCell.Xcoord + 0.5f;
-                    unit.y = targetCell.Ycoord + 0.5f;
-                }
-                else if (unit.x > targetCell.Xcoord + 0.5f && unit.y > targetCell.Ycoord + 0.5f)
-                {
-                    // Need to move left and up. (NW)
-					changeUnitLocation(-speed / 1.41f, -speed / 1.41f);
-                    unit.orientation = Unit.Orientation.NW;
-
-                }
-                else if (unit.x > targetCell.Xcoord + 0.5f && unit.y <= targetCell.Ycoord + 0.5f)
-                {
-                    // Need to move left and down (SW)
-					changeUnitLocation(-speed / 1.41f, speed / 1.41f);
-                    unit.orientation = Unit.Orientation.SW;
-                }
-                else if (unit.x < targetCell.Xcoord + 0.5f && unit.y > targetCell.Ycoord + 0.5f)
-                {
-                    // Need to move right and up (NE)
-					changeUnitLocation(speed / 1.41f, -speed / 1.41f);
-                    unit.orientation = Unit.Orientation.NE;
-                }
-                else
-                {
-                    // Need to move right and down (SE)
-					changeUnitLocation(speed / 1.41f, speed / 1.41f);
-                    unit.orientation = Unit.Orientation.SE;
-                }
+                PointF directionVector = new PointF(path[0].X + 0.5f - unit.PointLocation.X, path[0].Y + 0.5f - unit.PointLocation.Y);
+                unit.Orientation = (int)Math.Atan2(directionVector.Y, directionVector.X);
+                // We are within |unit.speed| of the targetCell's center, set unit's position to center.
+                unit.PointLocation = new PointF(path[0].X + 0.5f, path[0].Y + 0.5f);
 
             }
-            else if (unit.x > targetCell.Xcoord + 0.5f) // Need to move left (W)
+            else
             {
-                // Are we within unit.speed of the target cell center?
-                if (Math.Abs(unit.x - (targetCell.Xcoord + 0.5f)) > speed)
-                {
-					changeUnitLocation(-speed, 0);
-                    unit.orientation = Unit.Orientation.W;
-                }
-                else
-                {
-                    unit.x = targetCell.Xcoord + 0.5f;
-                }
-
-            }
-            else if (unit.x < targetCell.Xcoord + 0.5f) // Need to move right (E)
-            {
-                if (Math.Abs(unit.x - (targetCell.Xcoord + 0.5f)) > speed)
-                {
-					changeUnitLocation(speed, 0);
-                    unit.orientation = Unit.Orientation.E;
-                }
-                else
-                {
-                    unit.x = targetCell.Xcoord + 0.5f;
-                }
-
-            }
-            else if (unit.y > targetCell.Ycoord + 0.5f) // Need to move down (S)
-            {
-                if (Math.Abs(unit.y - (targetCell.Ycoord + 0.5f)) > speed)
-                {
-					changeUnitLocation(0, -speed);
-                    unit.orientation = Unit.Orientation.S;
-                }
-                else
-                {
-                    unit.y = targetCell.Ycoord + 0.5f;
-                }
-
-            }
-            else if (unit.y < targetCell.Ycoord + 0.5f) // Need to move up (N)
-            {
-                if (Math.Abs(unit.y - (targetCell.Ycoord + 0.5f)) > speed)
-                {
-					changeUnitLocation(0, speed);
-                    unit.orientation = Unit.Orientation.N;
-                }
-                else
-                {
-                    unit.y = targetCell.Ycoord + 0.5f;
-                }
-
+                PointF directionVector = new PointF(path[0].X + 0.5f - unit.PointLocation.X, path[0].Y + 0.5f - unit.PointLocation.Y);
+                float magnitude = (float)Math.Sqrt(Math.Pow((double)directionVector.X, 2.0) + Math.Pow((double)directionVector.Y, 2.0));
+                directionVector.X = directionVector.X / magnitude * unit.Speed;
+                directionVector.Y = directionVector.Y / magnitude * unit.Speed;
+                unit.PointLocation = new PointF(unit.PointLocation.X + directionVector.X, unit.PointLocation.Y + directionVector.Y);
+                unit.Orientation = (int)Math.Atan2(directionVector.Y, directionVector.X);
             }
         }
 
@@ -259,18 +123,18 @@ namespace ZRTSLogic.Action
         /// is empty or not.
         /// </summary>
         /// <returns></returns>
-        private bool isNextCellVacant()
+        private bool isNextCellVacant(UnitComponent unit)
         {
-            int curX = (int)Math.Floor(unit.x);
-            int curY = (int)Math.Floor(unit.y);
+            int curX = (int)unit.PointLocation.X;
+            int curY = (int)unit.PointLocation.Y;
 
             int nextX, nextY;
 
-            if (targetCell.Ycoord < curY)
+            if (path[0].Y < curY)
             {
                 nextY = curY - 1;
             }
-            else if (targetCell.Ycoord > curY)
+            else if (path[0].Y > curY)
             {
                 nextY = curY + 1;
             }
@@ -279,11 +143,11 @@ namespace ZRTSLogic.Action
                 nextY = curY;
             }
 
-            if (targetCell.Xcoord < curX)
+            if (path[0].X < curX)
             {
                 nextX = curX - 1;
             }
-            else if (targetCell.Xcoord > curX)
+            else if (path[0].X > curX)
             {
                 nextX = curX + 1;
             }
@@ -299,20 +163,31 @@ namespace ZRTSLogic.Action
                 return true;
             }
             // Check to make sure that the next cells coords exist within the map's boundaries.
-            else if (nextX < 0 || nextX >= gw.map.width || nextY < 0 || nextY >= gw.map.height)
+            else if (nextX < 0 || nextX >= map.GetWidth() || nextY < 0 || nextY >= map.GetHeight())
             {
                 return false;
             }
 
-
-            return gw.map.getCell(nextX, nextY).isValid;
+            return map.GetCellAt(nextX, nextY).EntitiesContainedWithin.Count == 0;
         }
 
-		private void changeUnitLocation(float offX, float offY)
-		{
-			unit.x += offX;
-			unit.y += offY;
-		}
+        public override bool Work()
+        {
+            UnitComponent unit = (UnitComponent)Parent.Parent;
+            if (path == null)
+            {
+                float startX = unit.PointLocation.X;
+                float startY = unit.PointLocation.Y;
+                path = FindPath.between(map, map.GetCellAt((int)startX, (int)startY), map.GetCellAt((int)targetX, (int)targetY));
+            }
+            // Zero length path, done moving.
+            bool completed = true;
+            if (path.Count != 0)
+            {
+                completed = takeStepMiddle(unit);
+            }
+            return completed;
+        }
     }
 
 }

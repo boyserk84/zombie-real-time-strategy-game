@@ -33,6 +33,11 @@ namespace ZRTSModel
 
         private List<ModelComponent> entitiesContainedWithin = new List<ModelComponent>();
 
+        public List<ModelComponent> EntitiesContainedWithin
+        {
+            get { return entitiesContainedWithin; }
+        }
+
         override public void AddChild(ModelComponent child)
         {
             // Ensure that we only have one tile or resource

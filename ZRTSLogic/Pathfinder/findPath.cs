@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 
 using ZRTSModel.GameWorld;
+using ZRTSModel;
 
 namespace Pathfinder
 {
     /// <summary>
     /// Public interface for pathfinding.
     /// </summary>
-	public class findPath
+	public class FindPath
 	{
         /*
          * private variables
@@ -18,8 +19,6 @@ namespace Pathfinder
 
         static DateTime startTime;
         static TimeSpan span;
-        static Cell intendedEnd;
-
 
 		/*
 		 * public functions
@@ -34,16 +33,15 @@ namespace Pathfinder
         /// <param name="end">The ending Cell</param>
         /// <param name="advanced"> A boolean toggle for advanced functions</param>
         /// <returns>The path as a list of waypoints</returns>
-		public static List<Cell> between(Map map, Cell start, Cell end, bool advanced)
+		public static List<CellComponent> between(Map map, CellComponent start, CellComponent end, bool advanced)
 		{
             // begin timing the operation
-            startTime = DateTime.Now;
-            intendedEnd = end;
+            // startTime = DateTime.Now;
 
             // convert the given Cell-based data to Node-based data
             NodeMap nodeMap = new NodeMap(map);
-            Node nodeStart = nodeMap.getNode(start.Xcoord, start.Ycoord);
-            Node nodeEnd = nodeMap.getNode(end.Xcoord, end.Ycoord);
+            Node nodeStart = nodeMap.getNode(start.X, start.Y);
+            Node nodeEnd = nodeMap.getNode(end.X, end.Y);
 
             // perform advanced pre-calculation tasks
             if (advanced)
@@ -54,7 +52,7 @@ namespace Pathfinder
                     DateTime tempStartTime = DateTime.Now;
                     nodeEnd = Advanced.nearestValidEnd(nodeMap, nodeStart, nodeEnd);
                     TimeSpan tempSpan = DateTime.Now - tempStartTime;
-                    Console.WriteLine("-> Path end changed from ({0}, {1}) to ({2}, {3}) in {4}", intendedEnd.Xcoord, intendedEnd.Ycoord, nodeEnd.Xcoord, nodeEnd.Ycoord, tempSpan);
+                    //Console.WriteLine("-> Path end changed from ({0}, {1}) to ({2}, {3}) in {4}", intendedEnd.Xcoord, intendedEnd.Ycoord, nodeEnd.X, nodeEnd.Y, tempSpan);
                 }
             }
 
@@ -68,9 +66,9 @@ namespace Pathfinder
             }
 
             // convert the path from List<Node> format back to List<Cell> format
-            List<Cell> path = new List<Cell>(nodePath.Count);
+            List<CellComponent> path = new List<CellComponent>(nodePath.Count);
             for (int i = 0; i < nodePath.Count; i++)
-                path.Add(map.getCell(nodePath[i].Xcoord, nodePath[i].Ycoord));
+                path.Add(map.GetCellAt(nodePath[i].X, nodePath[i].Y));
 
             // grab and print path data
             float dist = (float)(nodePath[nodePath.Count - 1].Gscore);
@@ -87,7 +85,7 @@ namespace Pathfinder
         /// <param name="start">The starting Cell</param>
         /// <param name="end">The ending Cell</param>
         /// <returns>The path as a list of waypoints</returns>
-		public static List<Cell> between(Map map, Cell start, Cell end)
+		public static List<CellComponent> between(Map map, CellComponent start, CellComponent end)
 		{
 			return between(map, start, end, true);
 		}
@@ -101,19 +99,19 @@ namespace Pathfinder
         /// Prints the path to console.
         /// </summary>
         /// <param name="path">The path to print</param>
-        private static void printPath(List<Cell> path, float distance)
+        private static void printPath(List<CellComponent> path, float distance)
 		{
-            Cell end = path[path.Count - 1];
-            bool intended = (intendedEnd == path[path.Count - 1]);
-			Console.WriteLine("-> {0} from ({1}, {2}) to ({3}, {4}) found", intended ? "Path" : "Nearest path", path[0].Xcoord, path[0].Ycoord, intendedEnd.Xcoord, intendedEnd.Ycoord);
+            CellComponent end = path[path.Count - 1];
+            // bool intended = (intendedEnd == path[path.Count - 1]);
+			// Console.WriteLine("-> {0} from ({1}, {2}) to ({3}, {4}) found", intended ? "Path" : "Nearest path", path[0].X, path[0].Y, intendedEnd.Xcoord, intendedEnd.Ycoord);
             Console.Write("    Path: ");
 			for (int i = 0; i < path.Count - 1; i++)
-				Console.Write(String.Format("({0}, {1}), ", path[i].Xcoord, path[i].Ycoord));
-			Console.WriteLine(String.Format("({0}, {1})", end.Xcoord, end.Ycoord));
+				Console.Write(String.Format("({0}, {1}), ", path[i].X, path[i].Y));
+			Console.WriteLine(String.Format("({0}, {1})", end.X, end.Y));
             Console.WriteLine("    Waypoints: {0}", path.Count);
             Console.WriteLine("    Cell Distance: {0}", distance/10);
-            Console.WriteLine("    Cells Examined: {0}", Basic.iterations);
-            Console.WriteLine("    Time to Find: {0}", span);
+            // Console.WriteLine("    Cells Examined: {0}", Basic.iterations);
+            // Console.WriteLine("    Time to Find: {0}", span);
 		}
 
 

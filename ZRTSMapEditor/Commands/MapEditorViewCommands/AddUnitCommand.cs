@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ZRTSModel;
+using ZRTSModel.GameModel;
 
 namespace ZRTSMapEditor.Commands.MapEditorViewCommands
 {
@@ -24,7 +25,7 @@ namespace ZRTSMapEditor.Commands.MapEditorViewCommands
         public void Do()
         {
             player.GetUnitList().AddChild(unit);
-            unit.Location = cell;
+            unit.PointLocation = new PointF((float)cell.X, (float)cell.Y);
             cell.AddEntity(unit);
         }
 
@@ -32,7 +33,7 @@ namespace ZRTSMapEditor.Commands.MapEditorViewCommands
         {
             player.GetUnitList().RemoveChild(unit);
             cell.RemoveEntity(unit);
-            unit.Location = null;
+            unit.PointLocation = null;
         }
 
         public bool CanBeDone()

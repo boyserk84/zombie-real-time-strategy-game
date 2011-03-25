@@ -11,6 +11,21 @@ namespace ZRTSModel
     [Serializable()]
     public class ActionQueue : ModelComponent
     {
+        public void Work()
+        {
+            if (GetChildren().Count != 0)
+            {
+                EntityAction action = GetChildren()[0] as EntityAction;
+                if (action.Work())
+                    RemoveChild(action);
+            }
+            
+        }
+        public override void AddChild(ModelComponent child)
+        {
+            if (child is EntityAction)
+                base.AddChild(child);
+        }
         public override void Accept(ModelComponentVisitor visitor)
         {
             visitor.Visit(this);
