@@ -131,25 +131,10 @@ namespace ZRTS
             selectedEntityUIHolder.DrawBox = new Rectangle(215, 25, 450, 150);
             selectionView.AddChild(selectedEntityUIHolder);
 
-            TestUIComponent commandView = new TestUIComponent(this, Color.White);
+            CommandView commandView = new CommandView(this);
             commandView.DrawBox = new Rectangle(1005, 445, 275, 275);
 
             SameSizeChildrenFlowLayout commandViewButtonBox = new SameSizeChildrenFlowLayout(this);
-            commandViewButtonBox.DrawBox = new Rectangle(10, 10, 255, 255);
-            commandView.AddChild(commandViewButtonBox);
-
-            TestUIComponent exampleButton1 = new TestUIComponent(this, Color.Red);
-            exampleButton1.DrawBox = new Rectangle(0, 0, 85, 85);
-            TestUIComponent exampleButton2 = new TestUIComponent(this, Color.Red);
-            exampleButton2.DrawBox = new Rectangle(0, 0, 85, 85);
-            TestUIComponent exampleButton3 = new TestUIComponent(this, Color.Red);
-            exampleButton3.DrawBox = new Rectangle(0, 0, 85, 85);
-            TestUIComponent exampleButton4 = new TestUIComponent(this, Color.Red);
-            exampleButton4.DrawBox = new Rectangle(0, 0, 85, 85);
-            commandViewButtonBox.AddChild(exampleButton1);
-            commandViewButtonBox.AddChild(exampleButton2);
-            commandViewButtonBox.AddChild(exampleButton3);
-            commandViewButtonBox.AddChild(exampleButton4);
 
             TestUIComponent minimapView = new TestUIComponent(this, Color.White);
             minimapView.DrawBox = new Rectangle(0, 445, 275, 275);
