@@ -57,6 +57,11 @@ namespace ZRTSModel
                     args.Unit = this;
                     HPChangedEventHandlers(this, args);
                 }
+                if (CurrentHealth <= 0)
+                {
+                    ModelComponent parent = Parent;
+                    Parent.RemoveChild(this);
+                }
             }
         }
 
