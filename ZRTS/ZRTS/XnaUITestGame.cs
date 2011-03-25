@@ -81,11 +81,16 @@ namespace ZRTS
             UnitList list = ((PlayerComponent)model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[0]).GetUnitList();
             UnitComponent soldier1 = new UnitComponent();
             soldier1.Type = "soldier";
+
+            soldier1.AttackRange = 1.5f;
+            soldier1.CanAttack = true;
+            soldier1.CurrentHealth = 100;
             list.AddChild(soldier1);
             soldier1.PointLocation = new PointF((float)1.5, (float)1.0);
 
             UnitComponent soldier2 = new UnitComponent();
             soldier2.Type = "soldier";
+            soldier2.CurrentHealth = 100;
             list.AddChild(soldier2);
             soldier2.PointLocation = new PointF((float)10.5, (float)6.1);
 

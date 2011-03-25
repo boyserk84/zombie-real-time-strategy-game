@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using ZRTSModel;
 using ZRTSModel.EventHandlers;
+using ZRTS.InputEngines;
 
 namespace ZRTS.XnaCompositeView
 {
@@ -20,6 +21,16 @@ namespace ZRTS.XnaCompositeView
             : base(game, sourceRect)
         {
             this.unit = unit;
+            this.OnClick += getAttacked;
+        }
+
+        private void getAttacked(Object sender, XnaMouseEventArgs e)
+        {
+            if (e.Bubbled && !e.Handled && e.ButtonPressed == MouseButton.Right)
+            {
+                ((XnaUITestGame)Game).Controller.TellSelectedUnitsToAttack(unit);
+                e.Handled = true;
+            }
         }
     }
 }

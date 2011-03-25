@@ -101,6 +101,9 @@
     <Compile Include="Action\MoveAction.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Action\SimpleAttackUnitAction.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Pathfinder\Advanced.cs">
       <SubType>Code</SubType>
     </Compile>

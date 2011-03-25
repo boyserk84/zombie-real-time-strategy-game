@@ -59,6 +59,7 @@ namespace ZRTS
                     AddChild(unitUI);
                     componentToUI.Add(unit, unitUI);
                     unit.MovedEventHandlers += updateLocationOfUnit;
+                    unit.HPChangedEventHandlers += killUnit;
                 }
             }
             leftButtonStrategy = new DrawSelectionBoxStrategy(this);
@@ -119,6 +120,7 @@ namespace ZRTS
             {
                 PointF gamePoint = new PointF((float)(e.ClickLocation.X + ScrollX) / (float)cellDimension, (float)(e.ClickLocation.Y + ScrollY) / (float)cellDimension);
                 ((XnaUITestGame)Game).Controller.MoveSelectedUnitsToPoint(gamePoint);
+                e.Handled = true;
             }
         }
 
@@ -197,6 +199,7 @@ namespace ZRTS
             AddChild(unitUI);
             componentToUI.Add(e.Unit, unitUI);
             e.Unit.MovedEventHandlers += updateLocationOfUnit;
+            e.Unit.HPChangedEventHandlers += killUnit;
         }
 
         public void onUnitRemoved(object sender, UnitRemovedEventArgs e)
@@ -206,12 +209,25 @@ namespace ZRTS
             RemoveChild(component);
             componentToUI.Remove(e.Unit);
             e.Unit.MovedEventHandlers -= updateLocationOfUnit;
+            e.Unit.HPChangedEventHandlers -= killUnit;
         }
 
         private void updateLocationOfUnit(Object sender, UnitMovedEventArgs e)
         {
             UnitUI ui = componentToUI[e.Unit] as UnitUI;
             ui.DrawBox = new Rectangle((int)(e.NewPoint.X * cellDimension), (int)(e.NewPoint.Y * cellDimension), ui.DrawBox.Width, ui.DrawBox.Height);
+        }
+
+        private void killUnit(Object sender, UnitHPChangedEventArgs e)
+        {
+            if (e.NewHP <= 0)
+            {
+                UnitUI ui = (UnitUI)componentToUI[e.Unit];
+                ui.Dispose();
+                RemoveChild(ui);
+                e.Unit.MovedEventHandlers -= updateLocationOfUnit;
+                e.Unit.HPChangedEventHandlers -= killUnit;
+            }
         }
     }
 }
