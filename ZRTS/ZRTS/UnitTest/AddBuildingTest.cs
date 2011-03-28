@@ -21,19 +21,21 @@ namespace ZRTS.UnitTest
         {
             initialize();
             ZRTSModel.Entities.Building b = new ZRTSModel.Entities.Building(testScenario.getPlayer(), new ZRTSModel.Entities.BuildingStats());
-            
+
+            ///Test building ontop of unit at location (17,17). Should fail, because there is a unit there
             ///Test building at location (8,8). Should fail because of impassible tile
             ///at (9,9).
-            bool success = testGameController.addEntity(b, 8, 8);
+            bool success = testGameController.makeUnitBuild(testScenario.getUnit(17, 17), b, testScenario.getGameWorld().map.getCell(17, 17));
             Assert.False(success);
-            ///Test building ontop of unit at location (17,17). Should fail, because there is a unit there
-            success = testGameController.addEntity(b, 17, 17);
+            ///Test building at location (8,8). Should fail because of impassible tile
+            ///at (9,9).
+            success = testGameController.makeUnitBuild(testScenario.getUnit(17, 17), b, testScenario.getGameWorld().map.getCell(8, 8));
             Assert.False(success);
             ///Test building at location(0,0). Should succeed.
-            success = testGameController.addEntity(b, 0, 0);
+            success = testGameController.makeUnitBuild(testScenario.getUnit(17, 17), b, testScenario.getGameWorld().map.getCell(0, 0));
             Assert.True(success);
             ///Test building at location (12,12). Should fail from lack of resources.
-            success = testGameController.addEntity(b, 12, 12);
+            success = testGameController.makeUnitBuild(testScenario.getUnit(17, 17), b, testScenario.getGameWorld().map.getCell(12, 12));
             Assert.False(success);
 
 
@@ -91,10 +93,10 @@ namespace ZRTS.UnitTest
             this.testGameController.addUnit(new ZRTSModel.Entities.Unit(testGameController.scenario.getWorldPlayer(), 20), 17, 17);
 
             ///Initialize Player's resources
-            this.testScenario.getPlayer().player_resources[0] = 300;
-            this.testScenario.getPlayer().player_resources[1] = 300;
-            this.testScenario.getPlayer().player_resources[2] = 300;
-            this.testScenario.getPlayer().player_resources[3] = 300;
+            this.testScenario.getPlayer().player_resources[0] = 150;
+            this.testScenario.getPlayer().player_resources[1] = 150;
+            this.testScenario.getPlayer().player_resources[2] = 150;
+            this.testScenario.getPlayer().player_resources[3] = 150;
         }
         
            
