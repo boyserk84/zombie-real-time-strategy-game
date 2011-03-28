@@ -13,11 +13,10 @@ namespace ZRTS
     /// 
     /// Observer Pattern
     /// </summary>
-    public class ViewSelect:ZRTSModel.Scenario.ViewSelectObserver
+    public class ViewSelect: ZRTS.View.ViewAbstract, ZRTSModel.Scenario.ViewSelectObserver
     {
 
         protected List<Entity> selectedList;      //List of selected Units
-        protected Entity target;                  // target unit (for attacking purpose)
         protected SpriteSheet utilSheet;          // Spritesheet for utilities graphic
 
         
@@ -71,19 +70,12 @@ namespace ZRTS
         public List<Entity> getSelectedUnits
         { get { return this.selectedList; } set { this.selectedList = value; } }
 
-        public Entity getTargetUnit
-        {
-            get { return this.target; }
-            set { this.target = value; }
-
-        }
-
 
         /// <summary>
         /// Load a new spritesheet
         /// </summary>
         /// <param name="sheet"></param>
-        public void loadSpriteSheet(ZRTS.SpriteSheet sheet)
+        public override void loadSheet(ZRTS.SpriteSheet sheet)
         {
             this.utilSheet = sheet;
         }
@@ -91,7 +83,7 @@ namespace ZRTS
         /// <summary>
         /// Draw
         /// </summary>
-        public void Draw()
+        public override void Draw()
         {
             foreach (ZRTSModel.Entities.Entity e in selectedList)
             {
@@ -105,9 +97,9 @@ namespace ZRTS
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
-        private float translateXScreen(float x)
+        protected override float translateXScreen(float x)
         {
-            return x * GameConfig.TILE_WIDTH - (this.utilSheet.frameDimX / 2);
+            return x * GameConfig.TILE_WIDTH -(this.utilSheet.frameDimX / 2);
         }
 
         /// <summary>
@@ -115,9 +107,9 @@ namespace ZRTS
         /// </summary>
         /// <param name="y"></param>
         /// <returns></returns>
-        private float translateYScreen(float y)
+        protected override float translateYScreen(float y)
         {
-            return y * GameConfig.TILE_HEIGHT - (this.utilSheet.frameDimY + 14 /* figure out over here*/ - GameConfig.TILE_HEIGHT);
+            return y * GameConfig.TILE_HEIGHT - (this.utilSheet.frameDimY / 2);
         }
 
         /// <summary>
@@ -133,9 +125,9 @@ namespace ZRTS
         /// <summary>
         /// Update
         /// </summary>
-        public void update() 
+        public override void update() 
         {
-            //System.Console.Out.WriteLine("View Select is notifed!");
+            
         }
     }
 }
