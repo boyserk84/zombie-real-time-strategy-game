@@ -15,9 +15,8 @@ namespace ZRTSModel.Entities
 
         public Cell orginCell;
         public byte width, height;
-        public Type type;
 
-        public StaticEntity(Player.Player owner, short health, short maxHealth, byte width, byte height) : base(owner, health, maxHealth)
+        public StaticEntity(Player.Player owner, short health, byte width, byte height) : base(owner, health)
         {
             this.width = width;
             this.height = height;
@@ -26,11 +25,7 @@ namespace ZRTSModel.Entities
         public void setOrginCell(Cell orginCell)
         {
             this.orginCell = orginCell;
-        }
-
-        public enum Type
-        {
-            Object, Resource, Building
+			Console.WriteLine(orginCell.Xcoord + ", " + orginCell.Ycoord);
         }
     }
 }

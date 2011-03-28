@@ -12,24 +12,28 @@ namespace ZRTSModel.Entities
     public class Entity
     {
         static int nextID = 0;
-
+		 
         Player.Player owner; // Determines which Player this entity belongs to.
         public short health, maxHealth;
         State state;
-        Queue<ActionCommand> actionQueue;
+        List<ActionCommand> actionQueue;
         public EntityType entityType;
         int id;
 
+        public float x, y;  // Unit's x and y coordinates in game space.
+
+        public long tickKilled = 0;
+
         public enum EntityType { Unit, Building, Resource, Object, NotSet };
 
-        public Entity(Player.Player owner, short health, short maxHealth)
+        public Entity(Player.Player owner, short health)
         {
             this.owner = owner;
             this.health = health;
             this.maxHealth = health;
 
             state = new State();
-            actionQueue = new Queue<ActionCommand>();
+            actionQueue = new List<ActionCommand>();
 
             this.entityType = EntityType.NotSet;
 
@@ -48,7 +52,7 @@ namespace ZRTSModel.Entities
             return this.owner;
         }
 
-        public Queue<ActionCommand> getActionQueue()
+        public List<ActionCommand> getActionQueue()
         {
             return this.actionQueue;
         }

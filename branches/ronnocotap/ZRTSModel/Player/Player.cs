@@ -10,24 +10,26 @@ namespace ZRTSModel.Player
     public class Player
     {
         byte id;
-        List<Unit> units;
-        List<Building> buildings;
         List<Entity> entities;
         private List<Entity> selected_entities;
+        public int[] player_resources; //0: Water, 1: Lumber, 2: Food, 3: Metal
 
         public List<Entity> SelectedEntities
         {
             get { return this.selected_entities; }
         }
 
+		public List<Entity> getEntities()
+		{
+			return this.entities;
+		}
 
         public Player(byte id)
         {
             this.id = id;
-            units = new List<Unit>();
-            buildings = new List<Building>();
             entities = new List<Entity>();
             selected_entities = new List<Entity>();
+            player_resources = new int[4];
         }
 
         public void insertEntity(ZRTSModel.Entities.Entity entity)
@@ -39,6 +41,11 @@ namespace ZRTSModel.Player
         {
             entities.Remove(entity);
         }
+
+		public bool hasEntity(Entity entity)
+		{
+			return entities.Contains(entity);
+		}
 
 
         public void selectEntities(List<ZRTSModel.Entities.Entity> list)

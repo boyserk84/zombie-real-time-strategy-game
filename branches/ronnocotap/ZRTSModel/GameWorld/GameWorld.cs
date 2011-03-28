@@ -5,6 +5,7 @@ using System.Text;
 using ZRTSModel.Entities;
 using System.Xml.Serialization;
 using System.IO;
+using ZRTSModel.Player;
 
 namespace ZRTSModel.GameWorld
 {
@@ -53,6 +54,11 @@ namespace ZRTSModel.GameWorld
             return this.units;
         }
 
+        public List<Building> getBuildings()
+        {
+            return this.buildings;
+        }
+
         /// <summary>
         /// Inserts a StaticEntity to the Map and the appropriate List, if possible.
         /// </summary>
@@ -65,18 +71,21 @@ namespace ZRTSModel.GameWorld
             bool worked = map.insert(e, x, y);
             if (worked)
             {
-                switch (e.type)
+				Console.WriteLine("Gameworld inserted StaticEntity");
+                switch (e.getEntityType())
                 {
-                    case StaticEntity.Type.Object:
+                    case Entity.EntityType.Object:
                         objects.Add((ObjectEntity)e);
                         break;
-                    case StaticEntity.Type.Resource:
+                    case Entity.EntityType.Resource:
                         resources.Add((ResourceEntity)e);
                         break;
-                    case StaticEntity.Type.Building:
-                        buildings.Add((Building)e);
+                    case Entity.EntityType.Building:
+						Console.WriteLine("Inserted Building");
+                        this.buildings.Add((Building)e);
                         break;
                 }
+
             }
             return worked;
         }
@@ -99,18 +108,62 @@ namespace ZRTSModel.GameWorld
         public void remove(StaticEntity e)
         {
             map.remove(e);
-            switch (e.type)
+            switch (e.getEntityType())
             {
-                case StaticEntity.Type.Object:
+                case Entity.EntityType.Object:
                     objects.Remove((ObjectEntity)e);
                     break;
-                case StaticEntity.Type.Resource:
+                case Entity.EntityType.Resource:
                     resources.Remove((ResourceEntity)e);
                     break;
-                case StaticEntity.Type.Building:
+                case Entity.EntityType.Building:
                     buildings.Remove((Building)e);
                     break;
             }
+        }
+
+        /// <summary>
+        /// Check if there is room for the StaticEntity
+        /// </summary>
+        /// <param name="b">Building to be built</param>
+        /// <param name="c">Cell to be origin cell</param>
+        /// <returns>True if there is enough space, false if else</returns>
+        public bool checkSpace(StaticEntity e, Cell c)
+        {
+            int x = c.Xcoord;
+            int y = c.Ycoord;
+            if (x < 0 || x + e.width > map.width)
+                return false;
+            if (y < 0 || y + e.height > map.height)
+                return false;
+            for (int i = x; i < x + e.width; i++)
+            {
+                for (int j = y; j < y + e.height; j++)
+                {
+                    if (!map.getCell(i, j).isValid)
+                        return false;
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Check's if the player has enough resources to build the Building
+        /// </summary>
+        /// <param name="b">Building to be built</param>
+        /// <param name="p">Player that is building</param>
+        /// <returns>True if the player has enough resources, false if else</returns>
+        public bool checkResources(Building b, ZRTSModel.Player.Player p)
+        {
+            if (b.stats.waterCost > p.player_resources[0])
+                return false;
+            if (b.stats.lumberCost > p.player_resources[1])
+                return false;
+            if (b.stats.foodCost > p.player_resources[2])
+                return false;
+            if (b.stats.metalCost > p.player_resources[3])
+                return false;
+            return true;
         }
 
         public void printValidMap()

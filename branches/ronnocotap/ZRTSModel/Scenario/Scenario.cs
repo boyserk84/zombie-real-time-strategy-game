@@ -12,7 +12,7 @@ namespace ZRTSModel.Scenario
     /// Triggers.
     /// </summary>
     [Serializable()]
-    public class Scenario:ScenarioObservable
+    public class Scenario:Observable
     {
         public  const byte WORLD_PLAYER = 0;
         public  const byte PLAYER = 1;
@@ -79,15 +79,35 @@ namespace ZRTSModel.Scenario
         }
 
         /// <summary>
-        /// Return all units within a boundary
+        /// assign and pass all units within a boundary to the view select
         /// </summary>
         /// <param name="s_col">Starting col</param>
         /// <param name="s_row">Starting row</param>
         /// <param name="xoffset">Column offset</param>
         /// <param name="yoffset">Row offset</param>
         /// <returns>List of all units within that boundary</returns>
-        public List<Entities.Entity> getUnits(int s_col, int s_row, int xoffset, int yoffset)
+        public List<ZRTSModel.Entities.Entity> selectUnits(int s_col, int s_row, int xoffset, int yoffset)
         {
+            // Create a temporary selected list
+            List<ZRTSModel.Entities.Entity> unitList = new List<ZRTSModel.Entities.Entity>();
+
+            for (int row = s_row; row <= s_row + yoffset; ++row)
+            {
+                for (int col = s_col; col <= s_col + xoffset; ++col)
+                {
+                    if (this.getUnit(col, row) != null)
+                    {
+                        unitList.Add(this.getUnit(col, row));
+                    }
+                }//for
+            }//for
+
+            viewSelectObserver.getSelectedUnits = unitList;
+            player.selectEntities(viewSelectObserver.getSelectedUnits);
+
+            this.notify();
+
+            /*Old stuff just in case we need this
             List<Entities.Entity> boundaryList = new List<Entities.Entity>();
 
             for (int row = s_row; row <= s_row + yoffset; ++row)
@@ -102,6 +122,10 @@ namespace ZRTSModel.Scenario
             }
 
             return boundaryList;
+             * 
+             * */
+
+			return unitList;
         }
 
 

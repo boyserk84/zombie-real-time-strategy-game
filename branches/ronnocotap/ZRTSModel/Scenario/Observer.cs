@@ -6,27 +6,16 @@ using System.Text;
 namespace ZRTSModel.Scenario
 {
     /// <summary>
+    /// Observer Objects
     /// Generic observer object
+    /// 
     /// </summary>
-    [Serializable()]
-    public class Observer
+    // [Serializable()]
+    public interface Observer
     {
-        public ZRTSModel.Scenario.ScenarioObservable observedScenario;
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public Observer()
-        {
-
-        }
-
         /// <summary>
         /// Notify this observer
         /// </summary>
-        public virtual void notify()
-        {
-            // call derived method in the subclass
-        }
+        void update();
     }
 }
