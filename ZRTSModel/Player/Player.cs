@@ -13,6 +13,7 @@ namespace ZRTSModel.Player
         List<Entity> entities;
         private List<Entity> selected_entities;
         public int[] player_resources; //0: Water, 1: Lumber, 2: Food, 3: Metal
+		private List<Player> enemies;
 
         public List<Entity> SelectedEntities
         {
@@ -26,6 +27,7 @@ namespace ZRTSModel.Player
             entities = new List<Entity>();
             selected_entities = new List<Entity>();
             player_resources = new int[4];
+			enemies = new List<Player>();
         }
 
         public void insertEntity(ZRTSModel.Entities.Entity entity)
@@ -59,5 +61,20 @@ namespace ZRTSModel.Player
         {
             selected_entities.Remove(entity);
         }
+
+		public void addEnemy(Player enemy)
+		{
+			enemies.Add(enemy);
+		}
+
+		public void removeEnemy(Player enemy)
+		{
+			enemies.Remove(enemy);
+		}
+
+		public bool isEnemy(Player enemy)
+		{
+			return enemies.Contains(enemy);
+		}
     }
 }

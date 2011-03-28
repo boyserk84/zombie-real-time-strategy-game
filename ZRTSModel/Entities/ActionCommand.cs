@@ -15,7 +15,7 @@ namespace ZRTSModel.Entities
         /// A public enum to identify what kind of action each class that implements ActionCommand is. Every class that
         /// implements ActionCommand must have a corresponding value in this enum.
         /// </summary>
-        public enum ActionType { Move, SimpleAttack, BuildBuilding, BuildUnit, Harvest };
+        public enum ActionType { Move, SimpleAttack, BuildBuilding, BuildUnit, Harvest, Attack };
         public ActionType actionType;
         /// <summary>
         /// Perform the action.
