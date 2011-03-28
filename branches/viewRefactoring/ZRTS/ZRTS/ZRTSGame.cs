@@ -34,7 +34,7 @@ namespace ZRTS
         MouseState input;
         MouseState prevInput;
         SpriteSheet sample_image , sample_tile, sample_util, menuUI, iconUI;
-        View gameView;
+        Viewer gameView;
         ViewSelect gameSelectView;
         ViewGamePlayMenu gamePlayMenu;
 
@@ -199,9 +199,9 @@ namespace ZRTS
             gamePlayMenu = new ViewGamePlayMenu(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight,menuUI);
             gamePlayMenu.loadIconSprite(iconUI);
             
-            gameSelectView.loadSpriteSheet(sample_util);
+            gameSelectView.loadSheet(sample_util);
 
-            gameView = new View(800,600, spriteBatch);
+            gameView = new Viewer(800,600, spriteBatch);
             gameView.LoadScenario(this.testGameController.scenario);
             gamePlayMenu.LoadScenario(this.testGameController.scenario);
             gameView.LoadMap(this.testGameController.gameWorld);
