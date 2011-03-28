@@ -19,5 +19,7 @@ namespace ZRTS
         public static float DEFAULT_UNIT = 2.5f;
         public static int IMG_DRAGBOX = 1;
 
+
+
     }
 }
