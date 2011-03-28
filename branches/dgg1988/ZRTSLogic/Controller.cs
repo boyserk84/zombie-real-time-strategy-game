@@ -54,7 +54,6 @@ namespace ZRTSLogic
             this.gameWorld = this.scenario.getGameWorld();
 			this.visMapLogic = new VisibilityMapLogic(scenario.getGameWorld(), scenario.getPlayer());
             this.locController = new EntityLocController(scenario, this.visMapLogic);
-            
         }
 
         /// <summary>
@@ -68,6 +67,7 @@ namespace ZRTSLogic
 			// Update all units.
             foreach (Unit u in gameWorld.getUnits())
             {
+				GameEventLogic.processEvents(u, gameWorld);
 				updateEntity(u, entitiesToRemove);
             }
 
@@ -95,14 +95,16 @@ namespace ZRTSLogic
 		/// (Events that either occur to the Entity or events that the Entity can "see")
 		/// 4, Check if the Entity should be removed from the game. (When it's primary state is set to Remove.)
 		/// </summary>
-		/// <param name="entity"></param>
-		/// <param name="entitiesToRemove"></param>
+		/// <param name="entity">Entity being updated.</param>
+		/// <param name="entitiesToRemove">List of Entities to be removed.</param>
 		private void updateEntity(Entity entity, List<Entity> entitiesToRemove)
 		{
 			/*** Have entity perform it's current action (if any) ***/
 			ActionController.Instance.update(entity, locController);
 
-			Entity.EntityType type = entity.getEntityType();
+			Entity.EntityType type = entity.getEntityType();	// Enity's type (Unit, Building, Object or Resource)
+			State state = entity.getState();					// Entity's State.
+
 			/*** Update stats of Entity ***/
 			if (type == Entity.EntityType.Unit)
 			{
@@ -113,20 +115,27 @@ namespace ZRTSLogic
 				// Only Stats update occurs upon death of any StaticEntity right?
 				if (entity.health <= 0)
 				{
-					entity.getState().setPrimaryState(State.PrimaryState.Dead);
+					state.setPrimaryState(State.PrimaryState.Dead);
+					entity.tickKilled = curTick;
 				}
 			}
 
 			/*** Have Entity react to any Events ***/
 			if (type == Entity.EntityType.Unit) // Only Units really need to react to Events.
 			{
-
+				GameEventLogic.processEvents((Unit)entity, scenario.getGameWorld());
 			}
 
+
 			/*** Remove Entity if it needs to be removed. ***/
-			if (entity.getState().getPrimaryState() == State.PrimaryState.Dead) // Should be remove. Changed for demo.
+			if (state.getPrimaryState() == State.PrimaryState.Remove)
 			{
 				entitiesToRemove.Add(entity);
+			}
+			/*** Set Entity's state to "Remove" if enough ticks have past since it was killed. ***/
+			else if (state.getPrimaryState() == State.PrimaryState.Dead && curTick - entity.tickKilled > DEAD_DISAPPEAR_TICKS)
+			{
+				state.setPrimaryState(State.PrimaryState.Remove);
 			}
 		}
 

@@ -9,7 +9,7 @@ namespace ZRTSModel.GameEvent
 	{
 		private List<GameEventObserver> observers = new List<GameEventObserver>();
 
-		public void notify(Event gameEvent)
+		public void notify(GameEvent gameEvent)
 		{
 			foreach (GameEventObserver o in observers)
 			{

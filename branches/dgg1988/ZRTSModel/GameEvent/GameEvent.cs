@@ -7,7 +7,7 @@ using ZRTSModel.GameWorld;
 
 namespace ZRTSModel.GameEvent
 {
-	public class Event
+	public class GameEvent
 	{
 		/// <summary>
 		/// The Cell that the Event "occurred" on.
@@ -34,7 +34,7 @@ namespace ZRTSModel.GameEvent
 
 		public enum EventType { MoveEvent, AttackEvent };
 
-		public Event(Cell orginCell, Entity sourceEntity, Entity targetEntity, EventType type)
+		public GameEvent(Cell orginCell, Entity sourceEntity, Entity targetEntity, EventType type)
 		{
 			this.orginCell = orginCell;
 			this.sourceEntity = sourceEntity;

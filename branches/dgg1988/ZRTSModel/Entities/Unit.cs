@@ -33,7 +33,9 @@ namespace ZRTSModel.Entities
 			Agressive	// Attack enemies on site, chase until enemy is dead.
 		};
 
-		AttackStance attackStance = AttackStance.Guard;
+		public AttackStance attackStance = AttackStance.Guard;
+
+		List<GameEvent.GameEvent> eventList = new List<GameEvent.GameEvent>();
 
         /** UNIT LOCATION INFO **/
         Cell myCell;        // The cell the unit currently occupies
@@ -81,11 +83,19 @@ namespace ZRTSModel.Entities
 
 		List<GameSubject> subjects = new List<GameSubject>();
 
-		public void notify(Event gameEvent)
+		/// <summary>
+		/// Add a GameEvent to process.
+		/// </summary>
+		/// <param name="gameEvent">The GameEvent to be processed.</param>
+		public void notify(GameEvent.GameEvent gameEvent)
 		{
-			Console.WriteLine("The unit at (" + this.x + ", " + this.y + ") + sees the subject at cell (" + gameEvent.orginCell.Xcoord + ", " + gameEvent.orginCell.Ycoord + ")");
+			eventList.Add(gameEvent);
 		}
 
+		/// <summary>
+		/// Start observing a GameSubject.
+		/// </summary>
+		/// <param name="subject">The GameSubject to be observed.</param>
 		public void register(GameSubject subject)
 		{
 			if (!subjects.Contains(subject))
@@ -95,12 +105,19 @@ namespace ZRTSModel.Entities
 			}
 		}
 
+		/// <summary>
+		/// Stop observing a GameSubject.
+		/// </summary>
+		/// <param name="subject">The GameSubject to stop observing.</param>
 		public void unregister(GameSubject subject)
 		{
 			subject.unregisterObserver(this);
 			subjects.Remove(subject);
 		}
 
+		/// <summary>
+		/// Stop observing all GameSubjects.
+		/// </summary>
 		public void unregisterAll()
 		{
 			foreach (GameSubject s in subjects)
@@ -108,6 +125,20 @@ namespace ZRTSModel.Entities
 				s.unregisterObserver(this);
 			}
 			subjects.Clear();
+		}
+
+		/// <summary>
+		/// Get the list of GameEvents that need to be processed.
+		/// </summary>
+		/// <returns></returns>
+		public List<GameEvent.GameEvent> getEventList()
+		{
+			return this.eventList;
+		}
+
+		public Entity getEntity()
+		{
+			return this;
 		}
     }
 }

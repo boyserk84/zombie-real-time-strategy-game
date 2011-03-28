@@ -75,7 +75,7 @@ namespace ZRTSLogic
 
             // Commands that only Units can execute.
             else if (command.actionType == ActionCommand.ActionType.Move || command.actionType == ActionCommand.ActionType.SimpleAttack
-                        || command.actionType == ActionCommand.ActionType.BuildBuilding)
+                        || command.actionType == ActionCommand.ActionType.BuildBuilding || command.actionType == ActionCommand.ActionType.Attack)
             {
                 return handleUnitCommand(entity, command);
             }

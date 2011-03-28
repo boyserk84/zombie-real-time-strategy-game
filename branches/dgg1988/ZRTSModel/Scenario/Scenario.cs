@@ -35,6 +35,9 @@ namespace ZRTSModel.Scenario
             player = new Player.Player(PLAYER);
             zombiePlayer = new Player.Player(ZOMBIE_PLAYER);
             gameWorld = new GameWorld.GameWorld(width, height);
+
+			player.addEnemy(zombiePlayer);
+			zombiePlayer.addEnemy(player);
         }
 
         public Player.Player getPlayer()

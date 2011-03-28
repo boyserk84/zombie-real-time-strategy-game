@@ -116,50 +116,55 @@ namespace ZRTS
 			{
 				foreach (ZRTSModel.Entities.Entity entity in testGameController.scenario.getPlayer().SelectedEntities)
 				{
-					switch (currentPlayerCommand)
+					ZRTSModel.GameWorld.Cell cell = testGameController.gameWorld.map.getCell((int)commandX, (int)commandY);
+					if (currentPlayerCommand == PlayerCommand.BUILD)
 					{
-						// Move command
-						case PlayerCommand.MOVE:
-							testGameController.giveActionCommand(entity,
-						new ZRTSLogic.Action.MoveAction(commandX, commandY, testGameController.gameWorld, entity));
-							break;
+						ZRTSModel.Entities.Building building = new ZRTSModel.Entities.Building(testGameController.scenario.getPlayer(), new ZRTSModel.Entities.BuildingStats());
 
-
-						// Cancel command
-						case PlayerCommand.CANCEL:
-                            // TODO: Cancel current action
-							break;
-
-						// Attack command
-                        // TODO: Animation of the attack
-						case PlayerCommand.ATTACK:
+						if (testGameController.makeUnitBuild(entity,building, cell))
+						{
+							System.Console.Out.WriteLine("Building at " + commandX + ":" + commandY);
+						}
+						else
+						{
+							System.Console.Out.WriteLine("Can't place a building at " + commandX + ":" + commandY);
+						}
+					}
+					else
+					{
+						if (cell.entity != null)
+						{
+							// TODO: Check that the Entity belongs to an enemy. If not, Move to the entity instead,
+							// TODO: Check if a Resource was clicked, should be harvested or ignored instead.
+							// TODO: Check if Entity is a frienfly building, if so and the unit can build buildings, have unit repair 
+							// the building instead.
 							if (entity.entityType == ZRTSModel.Entities.Entity.EntityType.Unit)
 							{
-								ZRTSModel.Entities.Entity temp = testGameController.scenario.getUnit((int)commandX, (int)commandY);
-								if (temp != null)
-								{
-									System.Console.Out.WriteLine("Selected Attack Unit at " + commandX + ":" + commandY);
+									// Right-Clicked on an Entity, Attack the Entity.
+									System.Console.Out.WriteLine("Selected Attack Entity at " + commandX + ":" + commandY);
 									testGameController.giveActionCommand(entity,
-											 new ZRTSLogic.Action.SimpleAttackAction((ZRTSModel.Entities.Unit)entity, temp));
-								}
+											 new ZRTSLogic.Action.SimpleAttackAction((ZRTSModel.Entities.Unit)entity, cell.entity));
 							}
-							break;
-
-						// Build command
-						case PlayerCommand.BUILD:
-							if (testGameController.makeUnitBuild(entity,
-						new ZRTSModel.Entities.Building(testGameController.scenario.getPlayer(), new ZRTSModel.Entities.BuildingStats()),
-						testGameController.gameWorld.map.getCell((int)commandX, (int)commandY)))
+						}
+						else if (cell.getUnit() != null)
+						{
+							// Right-Clicked on a Unit, attack the Unit.
+							// TODO: Check that the enemy is an entity.
+							if (entity.entityType == ZRTSModel.Entities.Entity.EntityType.Unit)
 							{
-								System.Console.Out.WriteLine("Building at " + commandX + ":" + commandY);
+									System.Console.Out.WriteLine("Selected Attack Unit at " + commandX + ":" + commandY);
+									ZRTSLogic.Action.AttackAction attackAction = new ZRTSLogic.Action.AttackAction((ZRTSModel.Entities.Unit)entity, cell.getUnit(), testGameController.gameWorld);
+									testGameController.giveActionCommand(entity, attackAction);
+									//testGameController.giveActionCommand(entity,
+											 //new ZRTSLogic.Action.SimpleAttackAction((ZRTSModel.Entities.Unit)entity, cell.getUnit()));
 							}
-							else
-							{
-								System.Console.Out.WriteLine("Can't place a building at " + commandX + ":" + commandY);
-							}
-							break;
+						}
+						else
+						{
+							// Clicked Cell is empty, have the Unit move to the location.
+							testGameController.giveActionCommand(entity, new ZRTSLogic.Action.MoveAction(commandX, commandY, testGameController.gameWorld, entity));
+						}
 					}
-
 				}
 			}
 		}

@@ -99,6 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionController.cs" />
+    <Compile Include="Action\AttackAction.cs" />
     <Compile Include="Action\BuildAction.cs" />
     <Compile Include="Action\MoveAction.cs" />
     <Compile Include="Action\SimpleAttackAction.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="Event\MoveEvent.cs" />
     <Compile Include="Event\MoveEventDelegator.cs" />
     <Compile Include="Event\NoOpEventHandler.cs" />
+    <Compile Include="GameEventLogic.cs" />
     <Compile Include="Pathfinder\Advanced.cs" />
     <Compile Include="Pathfinder\Basic.cs" />
     <Compile Include="Pathfinder\findPath.cs" />

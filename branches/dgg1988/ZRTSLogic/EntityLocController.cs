@@ -70,7 +70,7 @@ namespace ZRTSLogic
 					updateCellsUnitIsObserving(u);
 
 					// Notify all observers of the cell that a unit has moved onto it.
-					c.notify(new ZRTSModel.GameEvent.Event(c, u, u, ZRTSModel.GameEvent.Event.EventType.MoveEvent));
+					c.notify(new ZRTSModel.GameEvent.GameEvent(c, u, u, ZRTSModel.GameEvent.GameEvent.EventType.MoveEvent));
                 }
             }
 
@@ -125,7 +125,7 @@ namespace ZRTSLogic
 				updateCellsUnitIsObserving(unit);
 
 				// Notify all observers of the cell that a unit has moved onto the cell.
-				newCell.notify(new ZRTSModel.GameEvent.Event(newCell, unit, unit, ZRTSModel.GameEvent.Event.EventType.MoveEvent));
+				newCell.notify(new ZRTSModel.GameEvent.GameEvent(newCell, unit, unit, ZRTSModel.GameEvent.GameEvent.EventType.MoveEvent));
             }
         }
 

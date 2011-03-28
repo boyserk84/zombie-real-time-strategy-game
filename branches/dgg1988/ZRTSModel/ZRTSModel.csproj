@@ -96,7 +96,7 @@
   <ItemGroup>
     <Compile Include="Entities\ActionCommand.cs" />
     <Compile Include="Entities\Building.cs" />
-    <Compile Include="GameEvent\Event.cs" />
+    <Compile Include="GameEvent\GameEvent.cs" />
     <Compile Include="GameEvent\GameEventObserver.cs" />
     <Compile Include="GameEvent\GameSubject.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\Gameworld.cs" />
