@@ -122,8 +122,12 @@
     <Compile Include="UnitTest\ViewTest.cs" />
     <Compile Include="Utilities\SpriteSheet.cs" />
     <Compile Include="View\View.cs" />
+    <Compile Include="View\ViewAbstract.cs" />
+    <Compile Include="View\ViewGame.cs" />
     <Compile Include="View\ViewGamePlayMenu.cs" />
     <Compile Include="View\ViewSelect.cs" />
+    <Compile Include="View\ViewUnitMenu.cs" />
+    <Compile Include="View\ViewUtility.cs" />
     <Compile Include="ZRTSGame.cs" />
   </ItemGroup>
   <ItemGroup>
