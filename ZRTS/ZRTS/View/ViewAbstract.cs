@@ -30,7 +30,7 @@ namespace ZRTS.View
         /// <summary>
         /// Draw
         /// </summary>
-        public virtual void draw()
+        public virtual void Draw()
         {
 
         }
