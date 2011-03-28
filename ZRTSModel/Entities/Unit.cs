@@ -33,12 +33,13 @@ namespace ZRTSModel.Entities
 			Agressive	// Attack enemies on site, chase until enemy is dead.
 		};
 
-		public AttackStance attackStance = AttackStance.Guard;
+		AttackStance attackStance;
 
 		List<GameEvent.GameEvent> eventList = new List<GameEvent.GameEvent>();
 
         /** UNIT LOCATION INFO **/
         Cell myCell;        // The cell the unit currently occupies
+		Cell guardCell;		// The Cell the Unit is currently Guarding at.
         //public float x, y;  // Unit's x and y coordinates in game space. (MOVE TO ENTITY)
 
 		/** ORIENTATION INFO 
@@ -51,33 +52,75 @@ namespace ZRTSModel.Entities
         /// </summary>
         /// <param name="owner">Owner</param>
         /// <param name="health">Current Health</param>
-        /// <param name="maxHealth">Maximum Health</param>
-        /// <param name="radius">Radius</param>
-        /// <param name="type">Type of unit</param>
         public Unit(Player.Player owner, short health)
             : base(owner, health)
         {
 
             this.entityType = EntityType.Unit;
             this.stats = new UnitStats();
+			attackStance = AttackStance.Guard;
         }
 
         public Unit(Player.Player owner, UnitStats stats) : base(owner, stats.maxHealth)
         {
             this.stats = stats;
             this.entityType = EntityType.Unit;
+			attackStance = AttackStance.Guard;
         }
 
+		/// <summary>
+		/// Get the Cell the Unit is currently occupying.
+		/// </summary>
+		/// <returns></returns>
         public Cell getCell()
         {
             return this.myCell;
         }
 
+		/// <summary>
+		/// Set the Cell the Unit is currently occupying. NOTE: This does not update the Cell. That should be done seperately.
+		/// </summary>
+		/// <param name="cell"></param>
         public void setCell(Cell cell)
         {
             this.myCell = cell;
         }
 
+		/// <summary>
+		/// Set the Unit's AttackStance.
+		/// </summary>
+		/// <param name="stance"></param>
+		public void setAttackStance(AttackStance stance)
+		{
+			this.attackStance = stance;
+			if (stance == AttackStance.Guard)
+			{
+				this.guardCell = myCell;
+			}
+			else if (stance == AttackStance.Agressive)
+			{
+				this.guardCell = null;
+			}
+		}
+
+		public Cell getGuardCell()
+		{
+			return this.guardCell;
+		}
+
+		public void setGuardCell(Cell cell)
+		{
+			this.guardCell = cell;
+		}
+
+		/// <summary>
+		/// Get the Unit's AttackStance.
+		/// </summary>
+		/// <returns></returns>
+		public AttackStance getAttackStance()
+		{
+			return this.attackStance;
+		}
 
 		/**** GameEventObserver functions ***/
 

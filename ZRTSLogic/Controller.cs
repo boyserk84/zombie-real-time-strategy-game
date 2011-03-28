@@ -128,14 +128,9 @@ namespace ZRTSLogic
 
 
 			/*** Remove Entity if it needs to be removed. ***/
-			if (state.getPrimaryState() == State.PrimaryState.Remove)
+			if (state.getPrimaryState() == State.PrimaryState.Dead)
 			{
 				entitiesToRemove.Add(entity);
-			}
-			/*** Set Entity's state to "Remove" if enough ticks have past since it was killed. ***/
-			else if (state.getPrimaryState() == State.PrimaryState.Dead && curTick - entity.tickKilled > DEAD_DISAPPEAR_TICKS)
-			{
-				state.setPrimaryState(State.PrimaryState.Remove);
 			}
 		}
 
