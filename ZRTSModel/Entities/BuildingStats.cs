@@ -10,17 +10,25 @@ namespace ZRTSModel.Entities
         public string buildingType;
 
         // Dimensions of the building
-        public short width = 1;
-        public short height = 1;
+        public byte width = 2;
+        public byte height = 2;
 
         // Max Health of the building
-        public short maxHealth = 100;
-
-        // How many cycles a build action must complete for the building to be completed.
-        public short buildCycles = 20;
+        public short maxHealth = 2000;
 
         // Can resources be dropped off at this building?
         public bool dropOffResources = false;
+
+        // Can this building produce units?
+        public bool canProduce = false;
+
+        // The types of units that this building can produce.
+        public List<string> productionTypes = new List<string>();
+
+		public short waterCost = 100;
+		public short foodCost = 100;
+		public short lumberCost = 100;
+		public short metalCost = 100;
 
         public override string ToString()
         {
@@ -28,10 +36,7 @@ namespace ZRTSModel.Entities
             output += "Type:\t\t\t" + buildingType + "\n";
             output += "Dimensions:\t\t" + width + " X " + height + "\n";
             output += "Max Health:\t\t" + maxHealth + "\n";
-            output += "Build Cycles:\t\t" + buildCycles + "\n";
             output += "Drop off Resources:\t" + dropOffResources + "\n";
-
-
 
             return output;
         }

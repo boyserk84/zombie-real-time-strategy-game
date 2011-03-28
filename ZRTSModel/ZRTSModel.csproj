@@ -96,6 +96,9 @@
   <ItemGroup>
     <Compile Include="Entities\ActionCommand.cs" />
     <Compile Include="Entities\Building.cs" />
+    <Compile Include="GameEvent\Event.cs" />
+    <Compile Include="GameEvent\GameEventObserver.cs" />
+    <Compile Include="GameEvent\GameSubject.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\Gameworld.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\GameworldVisitor.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\Map\Cell\CellComponent.cs" />
@@ -156,18 +159,13 @@
     <Compile Include="Player\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveLoad.cs" />
+    <Compile Include="Scenario\Observable.cs" />
     <Compile Include="Scenario\Observer.cs" />
     <Compile Include="Scenario\Scenario.cs" />
     <Compile Include="Scenario\ScenarioObservable.cs" />
-    <Compile Include="GameModel\Scenario\Trigger\Action.cs" />
-    <Compile Include="GameModel\Scenario\Trigger\Condition.cs" />
-    <Compile Include="GameModel\Scenario\Trigger\EmptyTrigger.cs" />
-    <Compile Include="GameModel\Scenario\Trigger\EndGameAction.cs" />
-    <Compile Include="GameModel\Scenario\Trigger\PlayerOutOfUnitsCondition.cs" />
-    <Compile Include="GameModel\Scenario\Trigger\Trigger.cs" />
-    <Compile Include="GameModel\Scenario\Trigger\TriggerDecorator.cs" />
-    <Compile Include="GameModel\Scenario\Trigger\TriggerFactory.cs" />
-    <Compile Include="GameModel\Scenario\Trigger\TriggerFactoryFactory.cs" />
+    <Compile Include="Scenario\ViewSelectObserver.cs" />
+    <Compile Include="TechTree\ReqList.cs" />
+    <Compile Include="TechTree\TechTree.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GameModel\Scenario\Gameworld\PlayerList\Player\BuildingList\Building\" />

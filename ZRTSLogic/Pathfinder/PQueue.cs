@@ -8,15 +8,17 @@ using ZRTSModel.GameWorld;
 namespace Pathfinder
 {
     /// <summary>
-    /// A custom-made priority queue for Cells; ordered by ascending Fscore to promote efficient pathfinding.
+    /// A custom-made priority queue for Nodes; ordered by ascending Fscore to promote efficient pathfinding.
     /// </summary>
 	class PQueue
 	{
 		/*
-		 * private variables
+		 * attributes
 		 */
 
-		private List<Cell> pq;
+		private List<Node> pq;
+        public int Count = 0;
+        public bool hasLeadTie = false;
 
 
 		/*
@@ -28,16 +30,21 @@ namespace Pathfinder
         /// </summary>
 		public PQueue()
 		{
-			pq = new List<Cell>();
+			pq = new List<Node>();
 		}
 
         /// <summary>
         /// Copy constructor
         /// </summary>
+        /// <param name="p">The PQueue to copy</param>
         public PQueue(PQueue p)
         {
-            for (int i = 0; i < p.pq.Count(); i++)
-                pq.Add(p.pq[i]);
+            this.pq.Clear();
+            for (int i = 0; i < p.pq.Count; i++)
+            {
+                this.pq.Add(p.pq[i]);
+            }
+            recomputeStats();
         }
 
 
@@ -46,93 +53,104 @@ namespace Pathfinder
          */
 
         /// <summary>
-        /// Removes the first Cell in the PQueue and returns it
+        /// Removes the first Node in the PQueue and returns it
         /// </summary>
-        /// <returns>The first Cell in the PQueue</returns>
-        public Cell dequeue()
+        /// <returns>The first Node in the PQueue</returns>
+        public Node dequeue()
 		{
-			Cell temp = pq[0];
+            if (pq.Count == 0)
+                return null;
+			Node temp = pq[0];
 			pq.RemoveAt(0);
+            recomputeStats();
 			return temp;
 		}
 
         /// <summary>
-        /// Inserts the given Cell by its Fscore
+        /// Inserts the given Node by its Fscore
         /// </summary>
-        /// <param name="cell">The Cell to insert</param>
-		public void enqueue(Cell cell)
+        /// <param name="Node">The Node to insert</param>
+		public void enqueue(Node node)
 		{
-			if (pq.Count == 0)											// if the List is currently empty, add the Cell immediately
-				pq.Add(cell);
+            if (node == null)
+                return;
+			if (pq.Count == 0)
+				pq.Add(node);
 			else
 			{
                 int i = 0;
                 while (i < pq.Count)
                 {
-                    if (cell.Fscore >= pq[i].Fscore)
+                    if (node.Fscore >= pq[i].Fscore)
                         i++;
                     else
                         break;
                 }
-                pq.Insert(i, cell);
-                /*
-				int start = 0;
-				int end = pq.Count - 1;
-				int i = 0;
-				while (start < end)
-				{
-					i = (end + start) / 2;								// otherwise, since the List is already sorted, do a binary search by Fscore
-					if (cell.Fscore == pq[i].Fscore)					// to find the appropriate insertion index.
-						break;											// note that we break on the first match, even if there are multiple matches;
-					else if (cell.Fscore < pq[i].Fscore)				// the next loop fixes ties.
-						end = i;
-					else
-						start = i + 1;
-				}
-				while (i < pq.Count && cell.Fscore == pq[i].Fscore)		// cells with matching Fscores are placed in FIFO order (preference is given to Cells found earlier);
-					i++;												// if the index we found in the previous loop holds a Cell with a matching Fscore,
-				pq.Insert(i, cell);										// increment the index until we find a Cell with a higher Fscore or reach the end of the List.
-                 * */
+                pq.Insert(i, node);
 			}
+            recomputeStats();
 		}
 
         /// <summary>
-        /// Returns the number of Cells in the PQueue
+        /// Returns the Node at the given index without removing it
         /// </summary>
-        /// <returns>The number of Cells in the PQueue</returns>
-		public int count()
-		{
-			return pq.Count;
-		}
+        /// <param name="i">The index to view</param>
+        /// <returns>The Node at the given index</returns>
+        public Node peek(int i)
+        {
+            if (Count <= i)
+                return null;
+            return pq[i];
+        }
 
         /// <summary>
-        /// Returns true if the PQueue contains the given Cell, false otherwise
+        /// Returns true if the PQueue contains the given Node, false otherwise
         /// </summary>
-        /// <param name="cell">The Cell to check for</param>
-        /// <returns>True if the PQueue contains the given Cell, false otherwise</returns>
-		public bool contains(Cell cell)
+        /// <param name="Node">The Node to check for</param>
+        /// <returns>True if the PQueue contains the given Node, false otherwise</returns>
+		public bool contains(Node node)
 		{
-			return pq.Contains(cell);
+			return pq.Contains(node);
 		}
 
         /// <summary>
         /// A debugging function; prints the PQueue's contents
         /// </summary>
         /// <param name="name">The string name of the list to print</param>
-        /// <param name="includeF">Toggle for printing the FScore of each Cell after its coordinates</param>
+        /// <param name="includeF">Toggle for printing the Fscore of each Node after its coordinates</param>
         public void print(string name, bool includeF)
         {
             Console.Write("  {0}: ", name);
-            for (int i = 0; i < pq.Count; i++)
+            for (int i = 0; i < Count; i++)
             {
                 Console.Write("({0}, {1})", pq[i].Xcoord, pq[i].Ycoord);
                 if (includeF)
                     Console.Write("+{0}", pq[i].Fscore);
-                if (i < pq.Count - 1)
+                if (i < Count - 1)
                     Console.Write(", ");
             }
             Console.WriteLine("");
         }
+
+
+        /*
+         * helper functions
+         */
+
+        /// <summary>
+        /// Determines whether there are multiple Nodes in the PQueue with the same lowest Fscore.
+        /// </summary>
+        private void recomputeStats()
+        {
+            this.Count = pq.Count;
+            if (pq.Count < 2)
+                hasLeadTie = false;
+            else if (pq[0].Fscore == pq[1].Fscore)
+                hasLeadTie = true;
+            else
+                hasLeadTie = false;
+        }
+
 
 	}
 }

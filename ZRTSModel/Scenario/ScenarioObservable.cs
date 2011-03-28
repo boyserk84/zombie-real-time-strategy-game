@@ -6,6 +6,11 @@ using System.Text;
 namespace ZRTSModel.Scenario
 {
     /// <summary>
+    /// !!!!!!!!!!!!!!!!!!!!!!!!! DEPRECATED !!!!!!!!!!!!!!!!!!!!!!!
+    /// 
+    /// 
+    /// 
+    /// 
     /// Scenario Observable objects
     /// This class will act as a subject to be observed by the observer, which can be from view object.
     /// </summary>
@@ -52,7 +57,7 @@ namespace ZRTSModel.Scenario
         {
             foreach(Observer obj in this.observersList)
             {
-                obj.notify();
+                //obj.notify();
             }
         }
 

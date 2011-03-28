@@ -19,8 +19,8 @@ namespace ZRTSModel.GameWorld
          * private variables
          */
 
-        public short width;
-        public short height;
+        public byte width;
+        public byte height;
         public Cell[,] cells;
 
 
@@ -35,17 +35,17 @@ namespace ZRTSModel.GameWorld
         /// <param name="height">Intended Map height</param>
         public Map(int width, int height)
         {
-            this.width = (short)width;
-            this.height = (short)height;
+            this.width = (byte)width;
+            this.height = (byte)height;
 
             this.cells = new Cell[width, height];
-            for (int i = 0; i < width; i++)
+            for (byte i = 0; i < width; i++)
             {
-                for (int j = 0; j < height; j++)
+                for (byte j = 0; j < height; j++)
                 {
 					cells[i, j] = new Cell();
-                    cells[i, j].Xcoord = (short)i;
-                    cells[i, j].Ycoord = (short)j;
+                    cells[i, j].Xcoord = i;
+                    cells[i, j].Ycoord = j;
                 }
             }
         }
@@ -69,26 +69,29 @@ namespace ZRTSModel.GameWorld
                 return false;
             if (y < 0 || y + e.height > this.height)
                 return false;
-            for (int j = 0; j < this.height; j++)
+            for (int j = y; j < y + e.height; j++)
             {
-                for (int i = 0; i < this.width; i++)
+                for (int i = x; i < x + e.width; i++)
                 {
-                    if (!cells[i, j].isValid)
+                    if (!cells[i,j].isValid)
                         return false;
                 }
             }
 
             // set the appropriate Cell StaticEntity pointers to the given StaticEntity
-            for (int j = 0; j < e.height; j++)
+            for (int j = y; j < y + e.height; j++)
             {
-                for (int i = 0; i < e.width; i++)
+                for (int i = x; i < x + e.width; i++)
                 {
                     cells[i, j].entity = e;
+					cells[i, j].isValid = false;
                 }
             }
 
             // set the given StaticEntity's origin Cell to the given (x, y) coordinate and return true
             e.setOrginCell(cells[x, y]);
+
+			Console.WriteLine("Inserted building at: " + x + ", " + y);
             return true;
         }
 
@@ -119,6 +122,7 @@ namespace ZRTSModel.GameWorld
                 for (int i = x; i < x + w; i++)
                 {
                     cells[i, j].entity = null;
+					cells[i, j].isValid = true;
                 }
             }
         }
@@ -162,22 +166,6 @@ namespace ZRTSModel.GameWorld
          * helper functions
          */
 
-        /// <summary>
-        /// Cleans the prev pointers after a path find operation
-        /// </summary>
-        public void clean()
-        {
-            for (int j = 0; j < height; j++)
-            {
-                for (int i = 0; i < width; i++)
-                {
-                    cells[i, j].prev = null;
-                    cells[i, j].Fscore = 0;
-                    cells[i, j].Gscore = 0;
-                }
-            }
-        }
-
         public void printValidMap()
         {
             for (int j = 0; j < height; j++)
@@ -199,5 +187,27 @@ namespace ZRTSModel.GameWorld
             }
 
         }
+
+		public void printExploredMap()
+		{
+			for (int j = 0; j < height; j++)
+			{
+				for (int i = 0; i < width; i++)
+				{
+					if (cells[i, j].explored)
+					{
+						Console.Write(" ");
+					}
+					else
+					{
+						Console.Write("x");
+					}
+
+				}
+				Console.WriteLine("");
+
+			}
+
+		}
     }
 }

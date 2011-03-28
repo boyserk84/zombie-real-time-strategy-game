@@ -12,18 +12,31 @@ namespace ZRTSModel.Factories
 {
     public class BuildingFactory
     {
+		private static BuildingFactory instance;
         List<string> buildingTypes;
         Dictionary<string, BuildingStats> statsDict;
 
         string BASE_DIR = "Content/buildings/";
         string BLDG_LIST = "buildings.xml";
 
-        public BuildingFactory()
+        private BuildingFactory()
         {
             buildingTypes = new List<string>();
             statsDict = new Dictionary<string, BuildingStats>();
             readXML();
         }
+
+		public static BuildingFactory Instance
+		{
+			get
+			{
+				if (instance == null)
+				{
+					instance = new BuildingFactory();
+				}
+				return instance;
+			}
+		}
 
         private void readXML()
         {
@@ -58,8 +71,6 @@ namespace ZRTSModel.Factories
                 string xmlBuilding = readFile(BASE_DIR + s + ".xml");
 
                 readBuildingXML(xmlBuilding);
-
-                Console.WriteLine(stats.ToString());
             }
 
             
@@ -73,27 +84,27 @@ namespace ZRTSModel.Factories
             string type = reader.ReadElementContentAsString();
 
             reader.ReadToFollowing("width");
-            short width = (short)reader.ReadElementContentAsInt();
+            byte width = (byte)reader.ReadElementContentAsInt();
 
             reader.ReadToFollowing("height");
-            short height = (short)reader.ReadElementContentAsInt();
+            byte height = (byte)reader.ReadElementContentAsInt();
 
             reader.ReadToFollowing("maxHealth");
             short maxHealth = (short)reader.ReadElementContentAsInt();
 
-            reader.ReadToFollowing("buildCycles");
-            short buildCycles = (short)reader.ReadElementContentAsInt();
-
             reader.ReadToFollowing("dropOffResources");
             bool dropOffResources = reader.ReadElementContentAsBoolean();
+
+            reader.ReadToFollowing("canProduce");
+            bool canProduce = reader.ReadElementContentAsBoolean();
 
             BuildingStats stats = statsDict[type];
             stats.buildingType = type;
             stats.width = width;
             stats.height = height;
             stats.maxHealth = maxHealth;
-            stats.buildCycles = buildCycles;
             stats.dropOffResources = dropOffResources;
+            stats.canProduce = canProduce;
         }
 
         private string readFile(string fileName)
