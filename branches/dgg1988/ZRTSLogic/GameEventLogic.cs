@@ -5,6 +5,7 @@ using System.Text;
 using ZRTSModel.GameEvent;
 using ZRTSModel.Entities;
 using ZRTSModel.GameWorld;
+using ZRTSLogic.Action;
 
 namespace ZRTSLogic
 {
@@ -66,6 +67,7 @@ namespace ZRTSLogic
 		/// <param name="gw">The GameWorld this is occurring in.</param>
 		private static void handleMoveEventUnit(Unit unit, GameEvent gameEvent, GameWorld gw)
 		{
+			Console.Write("Unit at (" + unit.x + ", " + unit.y + "): ");
 			// Check if unit caused this MoveEvent
 			if (gameEvent.sourceEntity == (Entity)unit)
 			{
@@ -84,15 +86,21 @@ namespace ZRTSLogic
 				if (unit.getOwner().isEnemy(gameEvent.sourceEntity.getOwner())) 
 				{
 					// Check if unit is in the Aggressive AttackStance
-					if (unit.attackStance == Unit.AttackStance.Agressive)
+					if (unit.getAttackStance() == Unit.AttackStance.Agressive)
 					{
-						Console.WriteLine("Aggressive attack the entity in cell: " + gameEvent.orginCell.Xcoord + ", " + gameEvent.orginCell.Ycoord + ")");
+						if(isInterruptable(unit))
+						{
+							AttackAction attackAction = new AttackAction(unit, gameEvent.sourceEntity, gw);
+							ActionController.Instance.giveCommand(unit, attackAction);
+							Console.WriteLine("Aggressive attack the entity in cell: " + gameEvent.orginCell.Xcoord + ", " + gameEvent.orginCell.Ycoord + ")");
+						}
 					}
 					
 					// Check if unit is in the Guard AttackStance
-					else if (unit.attackStance == Unit.AttackStance.Guard)
+					else if (unit.getAttackStance() == Unit.AttackStance.Guard)
 					{
-						// TODO: GuardArrack the sourceEntity
+						GuardAttack guardAttack = new GuardAttack(unit, gameEvent.sourceEntity, gw);
+						ActionController.Instance.giveCommand(unit, guardAttack);
 						Console.WriteLine("Guard attack the entity in cell: " + gameEvent.orginCell.Xcoord + ", " + gameEvent.orginCell.Ycoord + ")");
 					}
 				}
@@ -108,7 +116,7 @@ namespace ZRTSLogic
 		private static void handleAttackEventUnit(Unit unit, GameEvent gameEvent, GameWorld gw)
 		{
 			// Check if unit is in the Passive AttackStance.
-			if (unit.attackStance == Unit.AttackStance.Passive)
+			if (unit.getAttackStance() == Unit.AttackStance.Passive)
 			{
 				// Ignore the AttackEvent.
 				return;

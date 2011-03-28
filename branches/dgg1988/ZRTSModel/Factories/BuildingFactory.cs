@@ -72,6 +72,8 @@ namespace ZRTSModel.Factories
             reader.ReadToFollowing("type");
             string type = reader.ReadElementContentAsString();
 
+			BuildingStats stats = statsDict[type];
+
             reader.ReadToFollowing("width");
             byte width = (byte)reader.ReadElementContentAsInt();
 
@@ -87,7 +89,6 @@ namespace ZRTSModel.Factories
             reader.ReadToFollowing("canProduce");
             bool canProduce = reader.ReadElementContentAsBoolean();
 
-            BuildingStats stats = statsDict[type];
             stats.buildingType = type;
             stats.width = width;
             stats.height = height;
@@ -95,6 +96,24 @@ namespace ZRTSModel.Factories
             stats.dropOffResources = dropOffResources;
             stats.canProduce = canProduce;
         }
+
+		private void readUnitsBuildingProduces(XmlReader reader, BuildingStats stats)
+		{
+			bool endOfList = false;
+			while (!endOfList)
+			{
+				try
+				{
+					reader.ReadToFollowing("Unit");
+					string unitType = reader.GetAttribute("type");
+					stats.productionTypes.Add(unitType);
+				}
+				catch
+				{
+					endOfList = true;
+				}
+			}
+		}
 
         private string readFile(string fileName)
         {

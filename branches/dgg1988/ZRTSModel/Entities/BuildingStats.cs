@@ -7,27 +7,55 @@ namespace ZRTSModel.Entities
 {
     public class BuildingStats
     {
+		/// <summary>
+		/// defines the "type" of the building.
+		/// </summary>
         public string buildingType;
 
-        // Dimensions of the building
+        /// <summary>
+        /// Width of the building in number of Cells.
+        /// </summary>
         public byte width = 2;
+		/// <summary>
+		/// Height of the building in number of Cells.
+		/// </summary>
         public byte height = 2;
 
-        // Max Health of the building
+        /// <summary>
+        /// Maximum health of the Building.
+        /// </summary>
         public short maxHealth = 2000;
 
-        // Can resources be dropped off at this building?
+        /// <summary>
+        /// Can Resources be dropped off at the Building.
+        /// </summary>
         public bool dropOffResources = false;
 
-        // Can this building produce units?
+        /// <summary>
+        /// Can this building produce units.
+        /// </summary>
         public bool canProduce = false;
 
-        // The types of units that this building can produce.
+        /// <summary>
+        /// A List of strings that define the types of Units that this building can produce.
+        /// </summary>
         public List<string> productionTypes = new List<string>();
 
+		/// <summary>
+		/// Water cost to build this building.
+		/// </summary>
 		public short waterCost = 100;
+		/// <summary>
+		/// Food cost to build this building.
+		/// </summary>
 		public short foodCost = 100;
+		/// <summary>
+		/// Lumber cost to build this building.
+		/// </summary>
 		public short lumberCost = 100;
+		/// <summary>
+		/// Metal cost to build this building.
+		/// </summary>
 		public short metalCost = 100;
 
         public override string ToString()

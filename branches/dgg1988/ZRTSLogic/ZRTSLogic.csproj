@@ -101,6 +101,7 @@
     <Compile Include="ActionController.cs" />
     <Compile Include="Action\AttackAction.cs" />
     <Compile Include="Action\BuildAction.cs" />
+    <Compile Include="Action\GuardAttack.cs" />
     <Compile Include="Action\MoveAction.cs" />
     <Compile Include="Action\SimpleAttackAction.cs" />
     <Compile Include="Controller.cs" />

@@ -166,8 +166,12 @@ namespace ZRTS
             //this.testScenario.getGameWorld().getUnits().Add(new ZRTSModel.Entities.Unit(0, 20, 100, 50, 0));
             /** NOTE: Adding Entities should be done through the Controller from now on **/
             //this.testGameController.addUnit(new ZRTSModel.Entities.Unit(testGameController.scenario.getWorldPlayer(), 20, 100, 50, 0), 5, 10);
-            this.testGameController.addUnit(new ZRTSModel.Entities.Unit(testGameController.scenario.getPlayer(), 100), 10, 5);
-            this.testGameController.addUnit(new ZRTSModel.Entities.Unit(testGameController.scenario.getZombiePlayer(), 100), 20, 10);
+			ZRTSModel.Entities.Unit unit1 = new ZRTSModel.Entities.Unit(testGameController.scenario.getPlayer(), 100);
+			ZRTSModel.Entities.Unit unit2 = new ZRTSModel.Entities.Unit(testGameController.scenario.getZombiePlayer(), 100);
+            this.testGameController.addUnit(unit1, 10, 5);
+            this.testGameController.addUnit(unit2, 20, 10);
+			unit2.setAttackStance(ZRTSModel.Entities.Unit.AttackStance.Agressive);
+			unit1.setAttackStance(ZRTSModel.Entities.Unit.AttackStance.Guard);
 
 
             testGameController.scenario.getPlayer().player_resources[0] = 300;
