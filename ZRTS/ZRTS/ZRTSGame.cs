@@ -34,7 +34,7 @@ namespace ZRTS
         MouseState input;
         MouseState prevInput;
         SpriteSheet sample_image , sample_tile, sample_util, menuUI, iconUI;
-        Viewer gameView;
+        ZRTS.View.ViewGame gameView;
         ViewSelect gameSelectView;
         ViewGamePlayMenu gamePlayMenu;
 
@@ -44,7 +44,7 @@ namespace ZRTS
         ZRTSLogic.Controller testGameController;
         
         /// This is how to use object from other project (SPIKE)
-        Map testMap = new Map(20, 20);
+        Map testMap = new Map(40, 20);
 
         public ZRTSGame()
         {
@@ -201,16 +201,16 @@ namespace ZRTS
             
             gameSelectView.loadSheet(sample_util);
 
-            gameView = new Viewer(800,600, spriteBatch);
-            gameView.LoadScenario(this.testGameController.scenario);
+            gameView = new ZRTS.View.ViewGame(800,600);
+            //gameView.LoadScenario(this.testGameController.scenario);
             gamePlayMenu.LoadScenario(this.testGameController.scenario);
-            gameView.LoadMap(this.testGameController.gameWorld);
+            gameView.loadGameWorld(this.testGameController.gameWorld);
 
 
-            gameView.LoadSpriteSheet(sample_tile);
-            gameView.LoadUnitsSpriteSheet(sample_image);
-            gameView.LoadUtilitySpriteSheet(sample_util);
-            gameView.LoadBuildingSpriteSheet(new SpriteSheet(Content.Load<Texture2D>("gameBuildings/sample_build"), spriteBatch, 40, 40));
+            gameView.loadSheet(sample_tile);
+            gameView.loadUnitSheet(sample_image);
+            //gameView.LoadUtilitySpriteSheet(sample_util);
+            gameView.loadBuildingSheet(new SpriteSheet(Content.Load<Texture2D>("gameBuildings/sample_build"), spriteBatch, 40, 40));
             testGameController.registerObserver(gameSelectView); 
             // TODO: use this.Content to load your game content here
         }
@@ -248,7 +248,9 @@ namespace ZRTS
 
 			/** Handle the User's Input **/
             this.input = Mouse.GetState();      // Receive input from mouse
-			InputHandler.Instance.updateInput(this.input, testGameController, gameView, gamePlayMenu);
+			
+            //
+            InputHandler.Instance.updateInput(this.input, testGameController, gameView, gamePlayMenu);
 
 			/** Have the Controller update the Game **/
             this.testGameController.updateWorld();
@@ -266,10 +268,10 @@ namespace ZRTS
         {
 			// Can I get the Icon in Cornflower Blue?
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            spriteBatch.Begin();
             this.gameView.Draw();
             gameSelectView.Draw();
-            DrawDebugScreen();
+            //DrawDebugScreen();
             gamePlayMenu.Draw();
             spriteBatch.End();  // remove this after debug is done.
 
@@ -283,9 +285,9 @@ namespace ZRTS
 		private void DrawDebugScreen()
         {
             //spriteBatch.DrawString(Font1, "Clicked at game Location : " + commandX + "," + commandY, new Vector2(500, 0), Color.Black);
-            spriteBatch.DrawString(Font1, "Coverted game Location : " + gameView.convertScreenLocToGameLoc(input.X, input.Y).X + "," + gameView.convertScreenLocToGameLoc(input.X, input.Y).Y, new Vector2(500, 100), Color.Black);
-            spriteBatch.DrawString(Font1, "Mouse Location : " + input.X + "," + input.Y, new Vector2(500, 150), Color.Black);
-            spriteBatch.DrawString(Font1, "Unit Location : " + this.testScenario.getGameWorld().getUnits()[0].x + "," + this.testScenario.getGameWorld().getUnits()[0].y, new Vector2(500, 250), Color.Black);
+            //spriteBatch.DrawString(Font1, "Coverted game Location : " + gameView.convertScreenLocToGameLoc(input.X, input.Y).X + "," + gameView.convertScreenLocToGameLoc(input.X, input.Y).Y, new Vector2(500, 100), Color.Black);
+            //spriteBatch.DrawString(Font1, "Mouse Location : " + input.X + "," + input.Y, new Vector2(500, 150), Color.Black);
+            //spriteBatch.DrawString(Font1, "Unit Location : " + this.testScenario.getGameWorld().getUnits()[0].x + "," + this.testScenario.getGameWorld().getUnits()[0].y, new Vector2(500, 250), Color.Black);
         }
     }
 }

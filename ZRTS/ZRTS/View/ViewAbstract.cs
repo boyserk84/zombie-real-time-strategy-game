@@ -36,23 +36,23 @@ namespace ZRTS.View
         }
 
         /// <summary>
-        /// Translate X screen to game X - location 
+        /// Translate X game location to X screen location
         /// </summary>
-        /// <param name="x"></param>
-        /// <returns></returns>
+        /// <param name="x">X-Game location</param>
+        /// <returns>X Screen location </returns>
         protected virtual float translateXScreen(float x)
         {
-            return x;
+            return x * GameConfig.TILE_WIDTH;
         }
 
         /// <summary>
-        ///  Translate Y screen to game Y - location 
+        ///  Translate Y game location to Y screen location
         /// </summary>
-        /// <param name="y"></param>
-        /// <returns></returns>
+        /// <param name="y">Y-Game location</param>
+        /// <returns>Y screen location</returns>
         protected virtual float translateYScreen(float y)
         {
-            return y;
+            return y * GameConfig.TILE_HEIGHT;
         }
 
         /// <summary>
