@@ -56,7 +56,7 @@ namespace ZRTS
         /// <param name="testGameController"></param>
         /// <param name="gameView"></param>
         /// <param name="gamePlayMenu"></param>
-		public void updateInput(MouseState input, Controller testGameController, View gameView, ViewGamePlayMenu gamePlayMenu)
+		public void updateInput(MouseState input, Controller testGameController, ZRTS.View.ViewGame gameView, ViewGamePlayMenu gamePlayMenu)
 		{
 			// Right click to give a command
 			if (input.RightButton == ButtonState.Pressed && prevInput.RightButton == ButtonState.Released)
@@ -106,7 +106,7 @@ namespace ZRTS
         /// <param name="input"></param>
         /// <param name="gameView"></param>
         /// <param name="testGameController"></param>
-		private void giveCommand(MouseState input, View gameView, Controller testGameController)
+		private void giveCommand(MouseState input, ZRTS.View.ViewScreenConvert gameView, Controller testGameController)
 		{
 			commandX = gameView.convertScreenLocToGameLoc(input.X, input.Y).X;
 			commandY = gameView.convertScreenLocToGameLoc(input.X, input.Y).Y;
@@ -180,7 +180,8 @@ namespace ZRTS
         /// <param name="testGameController"></param>
         /// <param name="gameView"></param>
         /// <param name="gamePlayMenu"></param>
-		private void handleSelecting(MouseState input, Controller testGameController, View gameView, ViewGamePlayMenu gamePlayMenu)
+        
+		private void handleSelecting(MouseState input, Controller testGameController, ZRTS.View.ViewScreenConvert gameView, ViewGamePlayMenu gamePlayMenu)
 		{
 			/* Left click to select units */
 
@@ -192,8 +193,8 @@ namespace ZRTS
 					selectX = gameView.convertScreenLocToGameLoc(input.X, input.Y).X;
 					selectY = gameView.convertScreenLocToGameLoc(input.X, input.Y).Y;
 
-					gameView.setFirstCornerOfDragBox(input.X, input.Y);
-					gameView.IsDragging = true;
+					//gameView.setFirstCornerOfDragBox(input.X, input.Y);
+					//gameView.IsDragging = true;
 				}
 
 			}
@@ -201,7 +202,7 @@ namespace ZRTS
 			// While dragging, update the view to draw the box
 			if (input.LeftButton == ButtonState.Pressed)
 			{
-				gameView.setDragBox(input.X, input.Y);
+				//gameView.setDragBox(input.X, input.Y);
 			}
 
 			// "Drag box" is created, select all units within box
@@ -226,7 +227,7 @@ namespace ZRTS
 					);
 				}
 
-				gameView.IsDragging = false;
+				//gameView.IsDragging = false;
 				//gameView.resetDragBox();
 
 			}

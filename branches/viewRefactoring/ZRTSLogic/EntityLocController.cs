@@ -41,6 +41,7 @@ namespace ZRTSLogic
 
 			if (x < 0 || x >= gw.map.width || y < 0 || y >= gw.map.height)
 			{
+                //System.Console.Out.WriteLine("Retyrb fakse fir addedbtuty");
 				return false;
 			}
 
@@ -57,6 +58,7 @@ namespace ZRTSLogic
                 // Insert into gameworld if the target cell is empty
                 if (c.isValid)
                 {
+                    System.Console.Out.WriteLine("valid add entity");
                     Unit u = (Unit)entity;
                     c.setUnit(u); // Insert into the cell
                     gw.getUnits().Add(u); // Insert into the Unit list

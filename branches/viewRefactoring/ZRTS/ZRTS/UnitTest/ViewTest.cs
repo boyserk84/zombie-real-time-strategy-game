@@ -18,7 +18,7 @@ namespace ZRTS.UnitTest
         [Test]
         public void testConvertScreenLocToGameLoc()
         {
-           View test = new View(50, 50);
+           Viewer test = new Viewer(50, 50);
             int width = 20;
             int height = 20;
             Assert.AreEqual(0, test.convertScreenLocToGameLoc(0, 0).X, "Game X location  should be 0.");

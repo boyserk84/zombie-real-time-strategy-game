@@ -17,7 +17,7 @@ namespace ZRTS
     /// 
     /// Author Nattapol Kemavaha
     /// </summary>
-    public class View
+    public class Viewer
     {
         private int cameraWidth, cameraHeight;      // Focused width and height
         private int totalWidth, totalHeight;        // Total width and height of the map
@@ -53,7 +53,7 @@ namespace ZRTS
         /// <param name="height">Height of view area</param>
         /// <param name="width">Width of view area</param>
         /// <param name="buffer_Screen">Buffer Screen</param>
-        public View(int width, int height, SpriteBatch buffer_Screen)
+        public Viewer(int width, int height, SpriteBatch buffer_Screen)
         {
             this.cameraWidth = width;
             this.cameraHeight = height;
@@ -66,7 +66,7 @@ namespace ZRTS
         /// </summary>
         /// <param name="width">Width of view area</param>
         /// <param name="height">Height of view area</param>
-        public View(int width, int height)
+        public Viewer(int width, int height)
         {
             this.cameraHeight = height;
             this.cameraWidth = width;

@@ -28,7 +28,7 @@ namespace ZRTS.View
       }
 
    
-       public override void  draw()
+       public override void Draw()
        {
  	        //base.draw();
        }

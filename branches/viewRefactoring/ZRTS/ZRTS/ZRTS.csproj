@@ -125,6 +125,7 @@
     <Compile Include="View\ViewAbstract.cs" />
     <Compile Include="View\ViewGame.cs" />
     <Compile Include="View\ViewGamePlayMenu.cs" />
+    <Compile Include="View\ViewScreenConvert.cs" />
     <Compile Include="View\ViewSelect.cs" />
     <Compile Include="View\ViewUnitMenu.cs" />
     <Compile Include="View\ViewUtility.cs" />
