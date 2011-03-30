@@ -66,6 +66,11 @@ namespace ZRTSModel.Entities
             output += "Max Health:\t\t" + maxHealth + "\n";
             output += "Drop off Resources:\t" + dropOffResources + "\n";
 
+			foreach (string s in productionTypes)
+			{
+				output += "Produces: " + s + "\n";
+			}
+
             return output;
         }
     }

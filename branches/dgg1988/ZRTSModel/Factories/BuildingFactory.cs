@@ -14,16 +14,29 @@ namespace ZRTSModel.Factories
     {
         List<string> buildingTypes;
         Dictionary<string, BuildingStats> statsDict;
+		static BuildingFactory instance;
 
         string BASE_DIR = "Content/buildings/";
         string BLDG_LIST = "buildings.xml";
 
-        public BuildingFactory()
+        private BuildingFactory()
         {
             buildingTypes = new List<string>();
             statsDict = new Dictionary<string, BuildingStats>();
             readXML();
         }
+
+		public static BuildingFactory Instance
+		{
+			get
+			{
+				if (instance == null)
+				{
+					instance = new BuildingFactory();
+				}
+				return instance;
+			}
+		}
 
         private void readXML()
         {
@@ -89,23 +102,14 @@ namespace ZRTSModel.Factories
             reader.ReadToFollowing("canProduce");
             bool canProduce = reader.ReadElementContentAsBoolean();
 
-            stats.buildingType = type;
-            stats.width = width;
-            stats.height = height;
-            stats.maxHealth = maxHealth;
-            stats.dropOffResources = dropOffResources;
-            stats.canProduce = canProduce;
-        }
-
-		private void readUnitsBuildingProduces(XmlReader reader, BuildingStats stats)
-		{
+			// Read in what Units this Building can produce.
 			bool endOfList = false;
 			while (!endOfList)
 			{
 				try
 				{
 					reader.ReadToFollowing("Unit");
-					string unitType = reader.GetAttribute("type");
+					string unitType = reader.ReadElementContentAsString();
 					stats.productionTypes.Add(unitType);
 				}
 				catch
@@ -113,7 +117,14 @@ namespace ZRTSModel.Factories
 					endOfList = true;
 				}
 			}
-		}
+
+            stats.buildingType = type;
+            stats.width = width;
+            stats.height = height;
+            stats.maxHealth = maxHealth;
+            stats.dropOffResources = dropOffResources;
+            stats.canProduce = canProduce;
+        }
 
         private string readFile(string fileName)
         {
@@ -150,11 +161,19 @@ namespace ZRTSModel.Factories
             return input;
         }
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns>a List of strings where each string defines the "type" of a BuildingStats object.</returns>
         public List<string> getBuildingTypes()
         {
             return this.buildingTypes;
         }
 
+		/// <summary>
+		/// </summary>
+		/// <param name="type">a string defining the "type" of a BuildingStats object.</param>
+		/// <returns>The BuildingStats object defined by type.</returns>
         public BuildingStats getStats(string type)
         {
             return statsDict[type];
