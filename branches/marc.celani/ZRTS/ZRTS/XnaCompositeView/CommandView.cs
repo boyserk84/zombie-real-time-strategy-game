@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using ZRTSModel.Factories;
+using System.Collections;
+using ZRTS.InputEngines;
 
 namespace ZRTS.XnaCompositeView
 {
@@ -13,6 +16,7 @@ namespace ZRTS.XnaCompositeView
         private PictureBox moveButton;
         private PictureBox attackButton;
         private PictureBox buildButton;
+        private Hashtable uiToBuildingType = new Hashtable();
 
         private SameSizeChildrenFlowLayout buildPanel;
 
@@ -43,13 +47,48 @@ namespace ZRTS.XnaCompositeView
 
             buildButton = factory.BuildPictureBox("button", "build");
             buildButton.DrawBox = new Rectangle(0, 0, 85, 85);
+            buildButton.OnClick += handleBuildButtonClick;
             mainPanel.AddChild(buildButton);
 
             attackButton = factory.BuildPictureBox("button", "attack");
             attackButton.DrawBox = new Rectangle(0, 0, 85, 85);
             mainPanel.AddChild(attackButton);
 
+            // Individual building buttons in the build panel
+
+            List<String> buildingKeys = BuildingFactory.Instance.getBuildingTypes();
+            foreach (String key in buildingKeys)
+            {
+                PictureBox buildingButton = factory.BuildPictureBox(key, "selectionAvatar");
+                buildingButton.OnClick += handleBuildingButtonClick;
+                buildingButton.DrawBox = new Rectangle(0, 0, 85, 85);
+                buildPanel.AddChild(buildingButton);
+                uiToBuildingType.Add(buildingButton, key);
+            }
+
             
+        }
+
+        private void handleBuildingButtonClick(Object sender, XnaMouseEventArgs e)
+        {
+            if (e.Bubbled && !e.Handled)
+            {
+                string buildingType = uiToBuildingType[sender] as string;
+                ((XnaUITestGame)Game).Controller.OnSelectBuildingToBuild(buildingType);
+                mainPanel.Visible = true;
+                buildPanel.Visible = false;
+                e.Handled = true;
+            }
+        }
+
+        private void handleBuildButtonClick(Object sender, XnaMouseEventArgs e)
+        {
+            if (e.Bubbled && !e.Handled)
+            {
+                mainPanel.Visible = false;
+                buildPanel.Visible = true;
+                e.Handled = true;
+            }
         }
 
         protected override void onDraw(XnaDrawArgs e)

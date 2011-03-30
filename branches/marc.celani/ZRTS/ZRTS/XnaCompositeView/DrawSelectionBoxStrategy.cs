@@ -44,6 +44,10 @@ namespace ZRTS.XnaCompositeView
                             {
                                 selectedEntities.Add(((UnitUI)child).Unit);
                             }
+                            else if (child is BuildingUI)
+                            {
+                                selectedEntities.Add(((BuildingUI)child).Building);
+                            }
                         }
                     }
                     ((XnaUITestGame)mapView.Game).Controller.SelectEntities(selectedEntities);

@@ -64,5 +64,19 @@ namespace ZRTSModel
         public abstract void Accept(ModelComponentVisitor visitor);
 
 
+
+        public void AddChildAt(ModelComponent child, int p)
+        {
+            if (child != null)
+            {
+                AddChild(child);
+                // Some classes may override add child to only accept certain children.  Ensure that it got added before placing it in the correct location.
+                if (GetChildren().Contains(child))
+                {
+                    GetChildren().Remove(child);
+                    GetChildren().Insert(0, child);
+                }
+            }
+        }
     }
 }

@@ -171,5 +171,14 @@ namespace ZRTSModel
                 child.Accept(this);
             }
         }
+
+
+        public void Visit(Building building)
+        {
+            output.WriteStartElement("Building");
+            output.WriteElementString("type", building.Type);
+            VisitChildren(building);
+            output.WriteEndElement();
+        }
     }
 }

@@ -31,14 +31,14 @@ namespace ZRTS.InputEngines
             {
                 if (leftMouseDownTarget == null)
                 {
-                    leftMouseDownTarget = getTarget(clickPoint);
+                    leftMouseDownTarget = GetTarget(clickPoint);
                 }
             }
             else
             {
                 if (leftMouseDownTarget != null)
                 {
-                    XnaUIComponent leftMouseUpTarget = getTarget(clickPoint);
+                    XnaUIComponent leftMouseUpTarget = GetTarget(clickPoint);
                     XnaUIComponent commonAncestor = getCommonAncestor(leftMouseDownTarget, leftMouseUpTarget);
 
                     XnaMouseEventArgs e = new XnaMouseEventArgs();
@@ -59,14 +59,14 @@ namespace ZRTS.InputEngines
             {
                 if (rightMouseDownTarget == null)
                 {
-                    rightMouseDownTarget = getTarget(clickPoint);
+                    rightMouseDownTarget = GetTarget(clickPoint);
                 }
             }
             else
             {
                 if (rightMouseDownTarget != null)
                 {
-                    XnaUIComponent rightMouseUpTarget = getTarget(clickPoint);
+                    XnaUIComponent rightMouseUpTarget = GetTarget(clickPoint);
                     XnaUIComponent commonAncestor = getCommonAncestor(rightMouseDownTarget, rightMouseUpTarget);
 
                     XnaMouseEventArgs e = new XnaMouseEventArgs();
@@ -123,7 +123,7 @@ namespace ZRTS.InputEngines
             return commonAncestor;
         }
 
-        private XnaUIComponent getTarget(Point p)
+        public XnaUIComponent GetTarget(Point p)
         {
             XnaUIComponent current = frame;
             bool searching = true;

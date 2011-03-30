@@ -17,6 +17,7 @@ namespace ZRTSModel.EventHandlers
     public delegate void UnitHPChangedHandler(Object sender, UnitHPChangedEventArgs args);
     public delegate void SelectionStateChangedHandler(Object sender, SelectionStateChangedArgs args);
     public delegate void UnitMovedHandler(Object sender, UnitMovedEventArgs args);
+    public delegate void BuildingAddedHandler(Object sender, BuildingAddedEventArgs e);
 
     #endregion
 }

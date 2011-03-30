@@ -15,6 +15,12 @@ namespace ZRTSModel
         // TODO: Replace race with a Race class component.
         private string name;
         private string race;
+        private BuildingList buildingList;
+
+        public BuildingList BuildingList
+        {
+            get { return buildingList; }
+        }
 
         public PlayerComponent()
         {
@@ -23,6 +29,9 @@ namespace ZRTSModel
 
             UnitList unitList = new UnitList();
             AddChild(unitList);
+
+            buildingList = new BuildingList();
+            AddChild(buildingList);
         }
 
         public int GetGold()

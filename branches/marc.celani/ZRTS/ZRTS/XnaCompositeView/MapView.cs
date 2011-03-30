@@ -34,6 +34,12 @@ namespace ZRTS
         private Hashtable componentToUI = new Hashtable();
         private MapViewLeftButtonStrategy leftButtonStrategy;
 
+        public MapViewLeftButtonStrategy LeftButtonStrategy
+        {
+            get { return leftButtonStrategy; }
+            set { leftButtonStrategy = value; }
+        }
+
         private static int cellDimension = 60;
 
         public static int CellDimension
@@ -61,6 +67,8 @@ namespace ZRTS
                     unit.MovedEventHandlers += updateLocationOfUnit;
                     unit.HPChangedEventHandlers += killUnit;
                 }
+                BuildingList buildingList = player.BuildingList;
+                buildingList.BuildingAddedEventHandlers += this.onBuildingAdded;
             }
             leftButtonStrategy = new DrawSelectionBoxStrategy(this);
             OnClick += moveSelectedUnits;
@@ -155,9 +163,18 @@ namespace ZRTS
         private void handleMouse()
         {
             MouseState mouseState = Mouse.GetState();
-
-            // Hack: Assumes the map is in the upper left hand corner.
-            if (mouseState.X < DrawBox.Width && mouseState.Y < DrawBox.Height)
+            XnaUIComponent target = ((XnaUITestGame)Game).MouseInputEngine.GetTarget(new Point(mouseState.X, mouseState.Y));
+            bool within = false;
+            while (target != null)
+            {
+                if (target == this)
+                {
+                    within = true;
+                    break;
+                }
+                target = target.Parent;
+            }
+            if (within)
             {
                 Point mousePoint = new Point(ScrollX + mouseState.X, ScrollY + mouseState.Y);
                 leftButtonStrategy.HandleMouseInput(mouseState.LeftButton == ButtonState.Pressed, mouseState.RightButton == ButtonState.Pressed, mousePoint);
@@ -191,7 +208,7 @@ namespace ZRTS
             }
         }
 
-        public void onUnitAdded(object sender, UnitAddedEventArgs e)
+        private void onUnitAdded(object sender, UnitAddedEventArgs e)
         {
             ZRTSCompositeViewUIFactory factory = ZRTSCompositeViewUIFactory.Instance;
             UnitUI unitUI = factory.BuildUnitUI(e.Unit);
@@ -202,7 +219,7 @@ namespace ZRTS
             e.Unit.HPChangedEventHandlers += killUnit;
         }
 
-        public void onUnitRemoved(object sender, UnitRemovedEventArgs e)
+        private void onUnitRemoved(object sender, UnitRemovedEventArgs e)
         {
             UnitUI component = (UnitUI)componentToUI[e.Unit];
             component.Dispose();
@@ -210,6 +227,14 @@ namespace ZRTS
             componentToUI.Remove(e.Unit);
             e.Unit.MovedEventHandlers -= updateLocationOfUnit;
             e.Unit.HPChangedEventHandlers -= killUnit;
+        }
+
+        private void onBuildingAdded(Object sender, BuildingAddedEventArgs e)
+        {
+            ZRTSCompositeViewUIFactory factory = ZRTSCompositeViewUIFactory.Instance;
+            BuildingUI buildingUI = factory.BuildBuildingUI(e.Building);
+            buildingUI.DrawBox = new Rectangle((int)e.Building.PointLocation.X * cellDimension, (int)e.Building.PointLocation.Y * cellDimension, buildingUI.DrawBox.Width, buildingUI.DrawBox.Height);
+            AddChild(buildingUI);
         }
 
         private void updateLocationOfUnit(Object sender, UnitMovedEventArgs e)

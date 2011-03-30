@@ -119,6 +119,8 @@
     <Compile Include="InputEngines\XnaMouseEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="XnaCompositeView\BuildBuildingMapViewLeftClickStrategy.cs" />
+    <Compile Include="XnaCompositeView\BuildingUI.cs" />
     <Compile Include="XnaCompositeView\CommandView.cs" />
     <Compile Include="XnaCompositeView\DrawSelectionBoxStrategy.cs" />
     <Compile Include="XnaCompositeView\MapViewLeftButtonStrategy.cs" />
