@@ -108,7 +108,7 @@ namespace ZRTSModel
         {
             if (entitiesContainedWithin.Count == 0)
             {
-                if (entity is UnitComponent || entity is MapResource)
+                if (entity is UnitComponent || entity is MapResource || entity is Building)
                 {
                     entitiesContainedWithin.Add(entity);
                     if (entity is UnitComponent)

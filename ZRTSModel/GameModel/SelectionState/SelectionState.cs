@@ -18,7 +18,7 @@ namespace ZRTSModel.GameModel
         }
         public void SelectEntity(ModelComponent component)
         {
-            if (component is UnitComponent /*|| component is BuildingComponent*/)
+            if (component is UnitComponent || component is Building)
             {
                 selectedEntities.Add(component);
                 if (SelectionStateChanged != null)

@@ -101,5 +101,11 @@ namespace ZRTSModel
         {
             // No op
         }
+
+
+        public virtual void Visit(Building building)
+        {
+            Visit((ModelComponent)building);
+        }
     }
 }

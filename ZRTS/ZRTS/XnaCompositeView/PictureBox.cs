@@ -10,6 +10,14 @@ namespace ZRTS.XnaCompositeView
     {
         private Rectangle sourceRect;
 
+        private Color tint = Color.White;
+
+        public Color Tint
+        {
+            get { return tint; }
+            set { tint = value; }
+        }
+
         public PictureBox(Game game, Rectangle sourceRect)
             : base(game)
         {
@@ -17,7 +25,7 @@ namespace ZRTS.XnaCompositeView
         }
         protected override void onDraw(XnaDrawArgs e)
         {
-            e.SpriteBatch.Draw(((XnaUITestGame)Game).SpriteSheet, e.Location, sourceRect, Color.White);
+            e.SpriteBatch.Draw(((XnaUITestGame)Game).SpriteSheet, e.Location, sourceRect, tint);
         }
     }
 }

@@ -98,6 +98,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Action\BuildAction.cs" />
     <Compile Include="Action\MoveAction.cs">
       <SubType>Code</SubType>
     </Compile>

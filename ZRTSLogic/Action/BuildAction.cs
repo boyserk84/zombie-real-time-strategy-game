@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using ZRTSModel.Entities;
 using ZRTSModel.GameWorld;
+using ZRTSModel;
+using Microsoft.Xna.Framework;
+using ZRTSModel.GameModel;
 
 namespace ZRTSLogic.Action
 {
@@ -18,11 +21,10 @@ namespace ZRTSLogic.Action
     /// "buildSpeed" until the building is at maximum health. Then the buildings "isComplete" flag will be set to true, indicating that
     /// the building has been completed.
     /// </summary>
-    public class BuildAction : ActionCommand
+    public class BuildAction : EntityAction
     {
-        Building building;
-        Unit unit;
-        GameWorld gw;
+        private Building building;
+        private Map map;
         short TICKS_PER_CYCLE = 20;
         short curTicks = 0;
 
@@ -30,63 +32,68 @@ namespace ZRTSLogic.Action
         /// </summary>
         /// <param name="building"></param>
         /// <param name="unit"></param>
-        public BuildAction(Building building, Unit unit, GameWorld gw)
+        public BuildAction(Building building, Map map)
         {
             this.building = building;
-            this.unit = unit;
-            this.actionType = ActionType.BuildBuilding;
-            this.gw = gw;
+            this.map = map;
         }
 
         /// <summary>
         /// This function will perform a building cycle if the number of ticks since the last cycle is equal to TICKS_PER_CYCLE.
         /// </summary>
         /// <returns>true if the building is complete and the action is finished, false otherwise.</returns>
-        public override bool work()
+        public override bool Work()
         {
-            // Building is complete, finish action.
-            if (building.health == building.stats.maxHealth)
-            {
-                return true;
-            }
 
-            // Unit cannot build, disregard action.
-            if (!unit.stats.canBuild)
+            if (!building.Completed)    
             {
-                return true;
-            }
-
-            if (curTicks % TICKS_PER_CYCLE == 0)
-            {
-                // Check if unit is adjacent to building.
-                if (isUnitNextToBuilding())
+                if (curTicks % TICKS_PER_CYCLE == 0)
                 {
-                    unit.getState().setPrimaryState(State.PrimaryState.Building);
-                    if (building.stats.maxHealth - building.health <= unit.stats.buildSpeed)
+                    // Check if unit is adjacent to building.
+                    if (isUnitNextToBuilding())
                     {
-                        // Finish the building.
-                        building.health = building.stats.maxHealth;
-                        building.isCompleted = true;
-                        return true;
+                        // Add the building to the model if we have not done so yet.
+                        if (building.Parent == null)
+                        {
+                            // TODO: Ensure that the spaces are cleared.  Perhaps wait/give up, as with move?
+                            PlayerComponent player = Parent.Parent.Parent.Parent as PlayerComponent;
+                            player.BuildingList.AddChild(building);
+                            for (int i = (int)building.PointLocation.X; i < building.PointLocation.X + building.Width; i++)
+                            {
+                                for (int j = (int)building.PointLocation.Y; j < building.PointLocation.Y + building.Height; j++)
+                                {
+                                    building.CellsContainedWithin.Add(map.GetCellAt(i, j));
+                                    map.GetCellAt(i,j).AddEntity(building);
+                                }
+                            }
+                        }
+
+                        if (building.MaxHealth - building.CurrentHealth <= ((UnitComponent)Parent.Parent).BuildSpeed)
+                        {
+                            // Finish the building.
+                            building.CurrentHealth = building.MaxHealth;
+                            building.Completed = true;
+                        }
+                        else
+                        {
+                            // Continue building the building.
+                            building.CurrentHealth += ((UnitComponent)Parent.Parent).BuildSpeed;
+                        }
                     }
                     else
                     {
-                        // Continue building the building.
-                        building.health += unit.stats.buildSpeed;
+                        // Move towards the building. Insert a move action into the Unit's action queue.
+                        CellComponent targetCell = findClosestCell(((UnitComponent)Parent.Parent).PointLocation);
+                        MoveAction moveAction = new MoveAction(targetCell.X, targetCell.Y, map);
+                        Parent.AddChildAt(moveAction, 0);
                     }
                 }
-                else
-                {
-                    // Move towards the building. Insert a move action into the Unit's action queue.
-                    Cell targetCell = EntityLocController.findClosestCell(unit, building, gw);
-                    MoveAction moveAction = new MoveAction(targetCell.Xcoord, targetCell.Ycoord, gw, unit);
-                    ActionController.insertIntoActionQueue(unit, moveAction);
-                }
             }
-
             curTicks++;
-            return false;
+            return building.Completed;
         }
+
+
 
         /// <summary>
         /// This function checks if the unit is occupying a Cell next to the building.
@@ -94,23 +101,53 @@ namespace ZRTSLogic.Action
         /// <returns>true if the unit is next to the building, false otherwise.</returns>
         private bool isUnitNextToBuilding()
         {
-            float xC = building.orginCell.Xcoord;
-            float yC = building.orginCell.Ycoord;
-            short width = building.width;
-            short height = building.height;
-
-            for (int i = 0; i < width; i++)
+            float xC = building.PointLocation.X;
+            float yC = building.PointLocation.Y;
+            int width = building.Width;
+            int height = building.Height;
+            UnitComponent unit = (UnitComponent)Parent.Parent;
+            if (building.PointLocation.X - 1 < unit.PointLocation.X && unit.PointLocation.X < building.PointLocation.X + width + 2)
             {
-                for (int j = 0; j < height; j++)
+                if (building.PointLocation.Y - 1 < unit.PointLocation.Y && unit.PointLocation.Y < building.PointLocation.Y + height + 2)
                 {
-                    if (EntityLocController.findDistance(unit.x, unit.y, xC + i, yC + j) <= 1.99)
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
 
             return false;
+        }
+
+        private static double findDistanceSquared(float x1, float y1, float x2, float y2)
+        {
+            double dis = Math.Pow((double)(x1 - x2), 2) + Math.Pow((double)(y1 - y2), 2);
+            return dis;
+        }
+
+        private CellComponent findClosestCell(PointF point)
+        {
+            double distanceSquared = Math.Pow(map.GetWidth(), 2.0) + Math.Pow(map.GetHeight(), 2.0);
+            CellComponent cell = null;
+            for (int i = Math.Max((int)building.PointLocation.X - 1, 0); i <= building.PointLocation.X + building.Width + 1; i++)
+            {
+                for (int j = Math.Max((int)building.PointLocation.Y - 1, 0); j <= building.PointLocation.Y + building.Height + 1; j++)
+                {
+                    // Ignore cases in the middle of the proposed building site.
+                    if (!(i >= (int)building.PointLocation.X && i < (int)building.PointLocation.X + building.Width && j >= (int)building.PointLocation.Y && j < (int)building.PointLocation.Y + building.Height))
+                    {
+                        double calculatedDistanceSquared = findDistanceSquared(point.X, point.Y, i, j);
+                        if (calculatedDistanceSquared <= distanceSquared)
+                        {
+                            if (map.GetCellAt(i, j) != null)
+                            {
+                                cell = map.GetCellAt(i, j);
+                                distanceSquared = calculatedDistanceSquared;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return cell;
         }
     }
 }

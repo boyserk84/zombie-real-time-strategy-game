@@ -19,5 +19,10 @@ namespace ZRTS.XnaCompositeView.SelectionViewVisitors
         {
             this.pictureBox = ZRTSCompositeViewUIFactory.Instance.BuildPictureBox(unit.Type, "bigAvatar");
         }
+
+        public override void Visit(Building building)
+        {
+            this.pictureBox = ZRTSCompositeViewUIFactory.Instance.BuildPictureBox(building.Type, "bigAvatar");
+        }
     }
 }

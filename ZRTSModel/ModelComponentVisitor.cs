@@ -26,5 +26,6 @@ namespace ZRTSModel
         void Visit(UnitComponent unit);
         void Visit(ActionQueue queue);
         void Visit(ModelComponent component);
+        void Visit(Building building);
     }
 }

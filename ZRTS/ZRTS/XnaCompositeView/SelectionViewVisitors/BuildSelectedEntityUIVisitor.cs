@@ -20,5 +20,11 @@ namespace ZRTS.XnaCompositeView.SelectionViewVisitors
             ZRTSCompositeViewUIFactory factory = ZRTSCompositeViewUIFactory.Instance;
             ui = factory.BuildSelectedEntityUI(unit);
         }
+
+        public override void Visit(Building building)
+        {
+            ZRTSCompositeViewUIFactory factory = ZRTSCompositeViewUIFactory.Instance;
+            ui = factory.BuildSelectedEntityUI(building);
+        }
     }
 }

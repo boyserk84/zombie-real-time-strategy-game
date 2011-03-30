@@ -18,6 +18,13 @@ namespace ZRTS
         private static int WINDOW_WIDTH = 1280;
         private Texture2D spriteSheet;
         private SpriteFont font;
+        private MouseInputEngine mouseInputEngine;
+
+        public MouseInputEngine MouseInputEngine
+        {
+            get { return mouseInputEngine; }
+            set { mouseInputEngine = value; }
+        }
 
         public SpriteFont Font
         {
@@ -85,12 +92,14 @@ namespace ZRTS
             soldier1.AttackRange = 1.5f;
             soldier1.CanAttack = true;
             soldier1.CurrentHealth = 100;
+            soldier1.CanBuild = true;
             list.AddChild(soldier1);
             soldier1.PointLocation = new PointF((float)1.5, (float)1.0);
 
             UnitComponent soldier2 = new UnitComponent();
             soldier2.Type = "soldier";
             soldier2.CurrentHealth = 100;
+            soldier2.CanBuild = true;
             list.AddChild(soldier2);
             soldier2.PointLocation = new PointF((float)10.5, (float)6.1);
 
@@ -111,18 +120,6 @@ namespace ZRTS
             view.DrawBox = new Rectangle(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
             MapView mainView = new MapView(this);
             mainView.DrawBox = new Rectangle(0, 0, 1280, 520);
-
-            UnitComponent soldier1 = new UnitComponent();
-            soldier1.Type = "soldier";
-            UnitComponent soldier2 = new UnitComponent();
-            UnitComponent soldier3 = new UnitComponent();
-            UnitComponent soldier4 = new UnitComponent();
-            UnitComponent soldier5 = new UnitComponent();
-            UnitComponent soldier6 = new UnitComponent();
-            UnitComponent soldier7 = new UnitComponent();
-            soldier1.Type = soldier2.Type = soldier3.Type = soldier4.Type = soldier5.Type = soldier6.Type = soldier7.Type = "soldier";
-
-
 
             SelectionState selectionState = model.GetSelectionState();
             SelectionView selectionView = new SelectionView(this, selectionState);
@@ -147,16 +144,8 @@ namespace ZRTS
             Components.Add(view);
             GraphicsDevice.Viewport = new Microsoft.Xna.Framework.Graphics.Viewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
-            selectionState.SelectEntity(soldier1);
-            selectionState.SelectEntity(soldier2);
-            selectionState.SelectEntity(soldier3);
-            selectionState.SelectEntity(soldier4);
-            selectionState.SelectEntity(soldier5);
-            selectionState.SelectEntity(soldier6);
-            selectionState.SelectEntity(soldier7);
-
-            MouseInputEngine mie = new MouseInputEngine(this, view);
-            Components.Add(mie);
+            mouseInputEngine = new MouseInputEngine(this, view);
+            Components.Add(mouseInputEngine);
 
         }
 

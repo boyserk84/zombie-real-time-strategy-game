@@ -13,6 +13,7 @@ namespace ZRTS.XnaCompositeView
     public class SelectedEntityUI : XnaUIComponent
     {
         private UnitComponent unit;
+        private Building building;
 
         public SelectedEntityUI(Game game, UnitComponent unit)
             : base(game)
@@ -21,6 +22,14 @@ namespace ZRTS.XnaCompositeView
             unit.HPChangedEventHandlers += UpdateHPBar;
             this.SizeChanged += onResize;
             this.OnClick += selectUnit;
+        }
+
+        public SelectedEntityUI(Game game, Building building)
+            : base(game)
+        {
+            this.building = building;
+            this.SizeChanged += onResize;
+            this.OnClick += selectBuilding;
         }
 
         public void UpdateHPBar(Object sender, UnitHPChangedEventArgs args)
@@ -47,7 +56,14 @@ namespace ZRTS.XnaCompositeView
         {
             if (disposing)
             {
-                unit.HPChangedEventHandlers -= UpdateHPBar;
+                if (unit != null)
+                {
+                    unit.HPChangedEventHandlers -= UpdateHPBar;
+                }
+                else if (building != null)
+                {
+
+                }
             }
             base.Dispose(disposing);
         }
@@ -90,6 +106,17 @@ namespace ZRTS.XnaCompositeView
             {
                 List<ModelComponent> entities = new List<ModelComponent>();
                 entities.Add(unit);
+                ((XnaUITestGame)Game).Controller.SelectEntities(entities);
+                e.Handled = true;
+            }
+        }
+
+        private void selectBuilding(Object sender, XnaMouseEventArgs e)
+        {
+            if (e.Bubbled)
+            {
+                List<ModelComponent> entities = new List<ModelComponent>();
+                entities.Add(building);
                 ((XnaUITestGame)Game).Controller.SelectEntities(entities);
                 e.Handled = true;
             }

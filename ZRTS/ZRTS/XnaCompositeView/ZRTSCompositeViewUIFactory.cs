@@ -56,6 +56,24 @@ namespace ZRTS.XnaCompositeView
             return seui;
         }
 
+        public SelectedEntityUI BuildSelectedEntityUI(Building building)
+        {
+            SelectedEntityUI seui = new SelectedEntityUI(game, building);
+            seui.DrawBox = new Rectangle(0, 0, 75, 75);
+
+            // Add the HP Bar to the UI.
+            HPBar hpBar = new HPBar(game);
+            hpBar.MaxHP = building.MaxHealth;
+            hpBar.CurrentHP = building.CurrentHealth;
+            hpBar.DrawBox = new Rectangle(5, 67, 65, 5);
+
+            PictureBox pictureBox = BuildPictureBox(building.Type, "selectionAvatar");
+            pictureBox.DrawBox = new Rectangle(7, 3, 61, 61);
+            seui.AddChild(pictureBox);
+            seui.AddChild(hpBar);
+            return seui;
+        }
+
         public PictureBox BuildPictureBox(string type, string subtype)
         {
             PictureBox pictureBox = null;
@@ -82,6 +100,14 @@ namespace ZRTS.XnaCompositeView
                 unitUI.DrawBox = new Rectangle(0, 0, 32, 54); 
             }
             return unitUI;
+        }
+
+        internal BuildingUI BuildBuildingUI(Building building)
+        {
+            BuildingUI buildingUI = null;
+            buildingUI = new BuildingUI(game, building, new Rectangle(0, 0, 1, 1));
+            buildingUI.DrawBox = new Rectangle(0, 0, 120, 120);
+            return buildingUI;
         }
     }
 }
