@@ -6,4 +6,6 @@
 	<buildCycles>20</buildCycles>
 	<dropOffResources>false</dropOffResources>
 	<canProduce>false</canProduce>
+	<Unit>soldier</Unit>
+	<Unit>laborer</Unit>
 </Building>
