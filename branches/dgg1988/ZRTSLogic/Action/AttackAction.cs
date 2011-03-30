@@ -38,6 +38,12 @@ namespace ZRTSLogic.Action
 				return true;
 			}
 
+			// unit cannot attack, return true.
+			if (!unit.stats.canAttack)
+			{
+				return true;
+			}
+
 			// Target is in range attack target.
 			if (targetIsInRange())
 			{
