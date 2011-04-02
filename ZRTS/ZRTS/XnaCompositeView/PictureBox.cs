@@ -8,7 +8,7 @@ namespace ZRTS.XnaCompositeView
 {
     public class PictureBox : XnaUIComponent
     {
-        private Rectangle sourceRect;
+        protected Rectangle sourceRect;
 
         private Color tint = Color.White;
 
@@ -23,6 +23,7 @@ namespace ZRTS.XnaCompositeView
         {
             this.sourceRect = sourceRect;
         }
+
         protected override void onDraw(XnaDrawArgs e)
         {
             e.SpriteBatch.Draw(((XnaUITestGame)Game).SpriteSheet, e.Location, sourceRect, tint);
