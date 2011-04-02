@@ -86,18 +86,31 @@ namespace ZRTS.XnaCompositeView
             {
                 pictureBox = new PictureBox(game, new Rectangle(80, 0, 150, 150));
             }
-            else 
+            else
                 pictureBox = new PictureBox(game, new Rectangle(0, 0, 1, 1));
             return pictureBox;
         }
 
+        /// <summary>
+        /// Construct a unit UI (image representation)
+        /// </summary>
+        /// <param name="unit"></param>
+        /// <returns></returns>
         public UnitUI BuildUnitUI(UnitComponent unit)
         {
             UnitUI unitUI = null;
             if (unit.Type.Equals("soldier"))
             {
-                unitUI = new UnitUI(game, unit, new Rectangle(2, 128, 16, 27));
-                unitUI.DrawBox = new Rectangle(0, 0, 32, 54); 
+                unitUI = new UnitUI(game, unit, new Rectangle(0, 157, 36, 36));
+                //unitUI = new UnitUI(game, unit, new Rectangle(2, 128, 16, 27));
+                unitUI.DrawBox = new Rectangle(0, 0, GameConfig.UNIT_WIDTH, GameConfig.UNIT_HEIGHT);
+            }
+             // ADD NEW UNIT UI FOR EACH UNIT TYPE HERE
+            else if (unit.Type.Equals("zombie"))
+            {
+                unitUI = new UnitUI(game, unit, new Rectangle(0, 157, 36, 36));
+                unitUI.DrawBox = new Rectangle(0, 0, GameConfig.UNIT_WIDTH, GameConfig.UNIT_HEIGHT);
+                //unitUI.DrawBox = new Rectangle(20, 0, 32, 54);
             }
             return unitUI;
         }

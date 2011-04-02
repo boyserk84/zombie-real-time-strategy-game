@@ -97,7 +97,7 @@ namespace ZRTS
             soldier1.PointLocation = new PointF((float)1.5, (float)1.0);
 
             UnitComponent soldier2 = new UnitComponent();
-            soldier2.Type = "soldier";
+            soldier2.Type = "zombie";
             soldier2.CurrentHealth = 100;
             soldier2.CanBuild = true;
             list.AddChild(soldier2);
