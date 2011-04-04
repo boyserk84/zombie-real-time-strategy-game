@@ -21,6 +21,7 @@ namespace ZRTSModel.GameModel
             if (component is UnitComponent || component is Building)
             {
                 selectedEntities.Add(component);
+				component.Selected = true;
                 if (SelectionStateChanged != null)
                 {
                     SelectionStateChangedArgs e = new SelectionStateChangedArgs();
@@ -32,6 +33,10 @@ namespace ZRTSModel.GameModel
 
         public void ClearSelectionState()
         {
+			foreach (ModelComponent m in selectedEntities)
+			{
+				m.Selected = false;
+			}
             selectedEntities = new List<ModelComponent>();
             if (SelectionStateChanged != null)
             {

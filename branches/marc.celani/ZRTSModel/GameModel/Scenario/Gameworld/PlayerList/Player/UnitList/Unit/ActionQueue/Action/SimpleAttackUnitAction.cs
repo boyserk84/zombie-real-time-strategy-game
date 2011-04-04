@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ZRTSModel.Entities;
-using ZRTSLogic;
 using ZRTSModel;
 using ZRTSModel.GameModel;
-namespace ZRTSLogic.Action
+namespace ZRTSModel
 {
     /// <summary>
     /// This class will represent a simple attack where the unit will attack the target as long as the target is alive and inside
@@ -52,6 +51,7 @@ namespace ZRTSLogic.Action
                         {
                             cannotAttack = true;
                         }
+						unit.createAttackEvent(target);
                     }
                     ticksSinceLastAttk++;
                 }

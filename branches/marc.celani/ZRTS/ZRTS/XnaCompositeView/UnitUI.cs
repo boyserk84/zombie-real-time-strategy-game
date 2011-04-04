@@ -12,11 +12,10 @@ namespace ZRTS.XnaCompositeView
     public class UnitUI : PictureBox
     {
         private UnitComponent unit;
+		bool selected = false;
 
         private int currentFrame = 0;       // Current frame reference
         private float currentElapsedTime = 0f;      // Current time
-
-
 
         public UnitComponent Unit
         {
@@ -27,6 +26,9 @@ namespace ZRTS.XnaCompositeView
         {
             this.unit = unit;
             this.OnClick += getAttacked;
+
+			unit.SelectHandler += new ModelComponentSelectedHandler(onSelectChanged);
+			unit.UnitStateChangedHandlers += new UnitStateChangedHanlder(onUnitStateChanged);
         }
 
         /// <summary>
@@ -72,32 +74,32 @@ namespace ZRTS.XnaCompositeView
         /// <param name="direction"></param>
         private void changePicture(string state, string direction)
         {
-            if (state.Equals("attack"))
+            if (unit.State == UnitComponent.UnitState.ATTACKING)
             {
                 changePicture(0, GameConfig.ZOMBIE_START_Y);
             }
-            else if (state.Equals("move"))
+            else if (unit.State == UnitComponent.UnitState.MOVING)
             {
                 changePicture(0, GameConfig.ZOMBIE_START_Y + GameConfig.ZOMBIE_ACTION_MOVE * GameConfig.UNIT_HEIGHT);
             }
-            else if (state.Equals("dead"))
+            else if (unit.State == UnitComponent.UnitState.DEAD)
             {
                 changePicture(0, GameConfig.ZOMBIE_START_Y + GameConfig.ZOMBIE_ACTION_DEAD * GameConfig.UNIT_HEIGHT);
             }
 
-            if (direction.Equals("N"))
+            if (unit.UnitOrient == UnitComponent.Orient.N)
             {
                 changePicture(GameConfig.ZOMBIE_DIR_N, sourceRect.Y);
             }
-            else if (direction.Equals("S"))
+			else if (unit.UnitOrient == UnitComponent.Orient.S)
             {
                 changePicture(GameConfig.ZOMBIE_DIR_S * GameConfig.UNIT_WIDTH, sourceRect.Y);
             }
-            else if (direction.Equals("E"))
+			else if (unit.UnitOrient == UnitComponent.Orient.E)
             {
                 changePicture(GameConfig.ZOMBIE_DIR_E * GameConfig.UNIT_WIDTH, sourceRect.Y);
             }
-            else if (direction.Equals("W"))
+			else if (unit.UnitOrient == UnitComponent.Orient.W)
             {
                 changePicture(GameConfig.ZOMBIE_DIR_W * GameConfig.UNIT_WIDTH, sourceRect.Y);
             }
@@ -140,6 +142,21 @@ namespace ZRTS.XnaCompositeView
             
         }
 
-        
+		public void onSelectChanged(Object obj, bool selected)
+		{
+			this.selected = selected;
+		}
+
+		public void onUnitStateChanged(Object obj, UnitStateChangedEventArgs args)
+		{
+			currentFrame = 0;
+			updateAnimation();
+		}
+
+		public void onUnitOrientationChange(Object obj, UnitOrientationChangedEventArgs args)
+		{
+			currentFrame = 0;
+			updateAnimation();
+		}
     }
 }

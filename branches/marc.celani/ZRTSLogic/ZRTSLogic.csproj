@@ -98,34 +98,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Action\BuildAction.cs" />
-    <Compile Include="Action\MoveAction.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Action\SimpleAttackUnitAction.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Pathfinder\Advanced.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Pathfinder\Basic.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Pathfinder\FindPath.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Pathfinder\Node.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Pathfinder\NodeMap.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Pathfinder\PQueue.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Action\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ZRTSModel\ZRTSModel.csproj">
       <Project>{2045DCE8-71C3-43E3-871D-D98407D30E58}</Project>
