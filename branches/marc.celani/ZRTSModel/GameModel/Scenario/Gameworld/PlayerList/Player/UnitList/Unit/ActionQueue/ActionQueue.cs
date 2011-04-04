@@ -16,8 +16,11 @@ namespace ZRTSModel
             if (GetChildren().Count != 0)
             {
                 EntityAction action = GetChildren()[0] as EntityAction;
-                if (action.Work())
-                    RemoveChild(action);
+				if (action.Work())
+				{
+					RemoveChild(action);
+					((UnitComponent)Parent).State = UnitComponent.UnitState.ATTACKING;
+				}
             }
             
         }

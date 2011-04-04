@@ -9,10 +9,10 @@ namespace ZRTSModel.EventHandlers
 	public class UnitOrientationChangedEventArgs
 	{
 		public UnitComponent unit;
-		public int oldOrientation;
-		public int newOrientation;
+		public UnitComponent.Orient oldOrientation;
+		public UnitComponent.Orient newOrientation;
 
-		public UnitOrientationChangedEventArgs(UnitComponent unit, int oldOrientation, int newOrientation)
+		public UnitOrientationChangedEventArgs(UnitComponent unit, UnitComponent.Orient oldOrientation, UnitComponent.Orient newOrientation)
 		{
 			this.unit = unit;
 			this.oldOrientation = oldOrientation;

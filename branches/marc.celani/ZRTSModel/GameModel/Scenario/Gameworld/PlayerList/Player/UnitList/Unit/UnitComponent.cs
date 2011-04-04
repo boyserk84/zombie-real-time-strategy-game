@@ -228,26 +228,6 @@ namespace ZRTSModel
 			}
 		}
 
-        private int orientation;
-
-		/// <summary>
-		/// What direction the UnitComponent is currently facing.
-		/// </summary>
-        public int Orientation
-        {
-            get { return orientation; }
-            set {
-				UnitOrientationChangedEventArgs args = new UnitOrientationChangedEventArgs(this, this.orientation, value);
-				orientation = value;
-
-				// Fire off an UnitOrientationChanged event.
-				if (UnitOrienationChangedHandlers != null)
-				{
-					UnitOrienationChangedHandlers(this, args);
-				}
-			
-			}
-        }
 
         private PointF pointLocation;
 
