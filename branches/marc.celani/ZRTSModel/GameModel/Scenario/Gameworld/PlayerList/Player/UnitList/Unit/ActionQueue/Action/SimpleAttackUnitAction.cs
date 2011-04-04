@@ -52,6 +52,45 @@ namespace ZRTSModel
                             cannotAttack = true;
                         }
 						unit.createAttackEvent(target);
+
+						if (target.PointLocation.Y > unit.PointLocation.Y)
+						{
+							if (target.PointLocation.X > unit.PointLocation.X)
+							{
+								unit.UnitOrient = UnitComponent.Orient.SE;
+							}
+							else if (target.PointLocation.X < unit.PointLocation.X)
+							{
+								unit.UnitOrient = UnitComponent.Orient.SW;
+							}
+							else
+							{
+								unit.UnitOrient = UnitComponent.Orient.S;
+							}
+						}
+						else if (target.PointLocation.Y < unit.PointLocation.Y)
+						{
+							if (target.PointLocation.X > unit.PointLocation.X)
+							{
+								unit.UnitOrient = UnitComponent.Orient.NE;
+							}
+							else if (target.PointLocation.X < unit.PointLocation.X)
+							{
+								unit.UnitOrient = UnitComponent.Orient.NW;
+							}
+							else
+							{
+								unit.UnitOrient = UnitComponent.Orient.N;
+							}
+						}
+						else if (target.PointLocation.X < unit.PointLocation.X)
+						{
+							unit.UnitOrient = UnitComponent.Orient.W;
+						}
+						else if (target.PointLocation.X > unit.PointLocation.X)
+						{
+							unit.UnitOrient = UnitComponent.Orient.E;
+						}
                     }
                     ticksSinceLastAttk++;
                 }
