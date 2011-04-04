@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using ZRTSModel;
 using ZRTSModel.EventHandlers;
 using ZRTS.InputEngines;
@@ -16,6 +17,7 @@ namespace ZRTS.XnaCompositeView
 
         private int currentFrame = 0;       // Current frame reference
         private float currentElapsedTime = 0f;      // Current time
+		Texture2D pixel;
 
         public UnitComponent Unit
         {
@@ -29,6 +31,9 @@ namespace ZRTS.XnaCompositeView
 
 			unit.SelectHandler += new ModelComponentSelectedHandler(onSelectChanged);
 			unit.UnitStateChangedHandlers += new UnitStateChangedHanlder(onUnitStateChanged);
+
+			pixel = new Texture2D(game.GraphicsDevice, 1, 1, true, SurfaceFormat.Color);
+			pixel.SetData(new[] { Color.White });
         }
 
         /// <summary>
@@ -122,6 +127,34 @@ namespace ZRTS.XnaCompositeView
                 ++currentFrame;
             }
         }
+
+		protected override void onDraw(XnaDrawArgs e)
+		{
+			base.onDraw(e);
+			if (selected)
+			{
+				// Draw a healthbox for the Unit.
+				Rectangle healthBG = new Rectangle(e.Location.X, e.Location.Y + e.Location.Height - 8, e.Location.Width, 8);
+				e.SpriteBatch.Draw(pixel, healthBG, Color.Black);
+
+				int healthWidth = (int)( e.Location.Width * (1.0 * unit.CurrentHealth / unit.MaxHealth));
+
+				Rectangle healthRect = new Rectangle(e.Location.X, e.Location.Y + e.Location.Height - 8, healthWidth, 8);
+				e.SpriteBatch.Draw(pixel, healthRect, Color.LimeGreen);
+
+				Color neoGreen = new Color(111, 245, 30);
+
+				// Draw a Rectangle around the unit to show that it is selected.
+				Rectangle leftRect = new Rectangle(e.Location.X, e.Location.Y, 2, e.Location.Height);
+				Rectangle rightRect = new Rectangle(e.Location.X + e.Location.Width -2, e.Location.Y, 2, e.Location.Height);
+				Rectangle topRect = new Rectangle(e.Location.X, e.Location.Y, e.Location.Width, 2);
+				Rectangle bottomRect = new Rectangle(e.Location.X, e.Location.Y + e.Location.Height -2, e.Location.Width, 2);
+				e.SpriteBatch.Draw(pixel, leftRect, neoGreen);
+				e.SpriteBatch.Draw(pixel, topRect, neoGreen);
+				e.SpriteBatch.Draw(pixel, rightRect, neoGreen);
+				e.SpriteBatch.Draw(pixel, bottomRect, neoGreen);
+			}
+		}
 
         /// <summary>
         /// Update this unit's view
