@@ -98,7 +98,7 @@ namespace ZRTSModel
             }
         }
 
-		private float speed = 0.1f;          // How much a Unit should move during a move cycle.
+		private float speed = 0.13f;          // How much a Unit should move during a move cycle.
 		/// <summary>
 		/// How far a Unit moves per Move cycle.
 		/// </summary>
