@@ -133,7 +133,7 @@ namespace ZRTS.XnaCompositeView
             //System.Console.Out.WriteLine("TICK" + currentElapsedTime);
             
             // Update animation every 1/4 second
-            if (currentElapsedTime > 250)
+            if (currentElapsedTime > 100)
             {
                 updateAnimation();
                 currentElapsedTime = 0;

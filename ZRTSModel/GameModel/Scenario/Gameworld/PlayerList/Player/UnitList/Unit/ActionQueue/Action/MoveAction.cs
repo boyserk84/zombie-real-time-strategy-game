@@ -30,8 +30,8 @@ namespace ZRTSModel
         }
         private int ticksWaiting = 0; // Ticks spent waiting for another unit to move. 
 
-        private byte TICKS_PER_MOVE = 2;       // How many ticks per step in the move action
-        private byte WAIT_TICKS = 1;               // How many ticks to wait for another unit to move.
+        private byte TICKS_PER_MOVE = 5;       // How many ticks per step in the move action
+        private byte WAIT_TICKS = 15;               // How many ticks to wait for another unit to move.
         private byte ticksSinceLastMove = 0;
 
 
@@ -143,7 +143,7 @@ namespace ZRTSModel
             if (Math.Sqrt(Math.Pow(path[0].Y + 0.5f - unit.PointLocation.Y, 2) + Math.Pow(path[0].X + 0.5f - unit.PointLocation.X, 2)) <= speed)
             {
                 PointF directionVector = new PointF(path[0].X + 0.5f - unit.PointLocation.X, path[0].Y + 0.5f - unit.PointLocation.Y);
-                unit.Orientation = (int)Math.Atan2(directionVector.Y, directionVector.X);
+                //unit.Orientation = (int)Math.Atan2(directionVector.Y, directionVector.X);
                 // We are within |unit.speed| of the targetCell's center, set unit's position to center.
                 unit.PointLocation = new PointF(path[0].X + 0.5f, path[0].Y + 0.5f);
 
@@ -155,7 +155,7 @@ namespace ZRTSModel
                 directionVector.X = directionVector.X / magnitude * unit.Speed;
                 directionVector.Y = directionVector.Y / magnitude * unit.Speed;
                 unit.PointLocation = new PointF(unit.PointLocation.X + directionVector.X, unit.PointLocation.Y + directionVector.Y);
-                unit.Orientation = (int)Math.Atan2(directionVector.Y, directionVector.X);
+                //unit.Orientation = (int)Math.Atan2(directionVector.Y, directionVector.X);
             }
 
 			
@@ -233,7 +233,22 @@ namespace ZRTSModel
             bool completed = true;
             if (path.Count != 0)
             {
-                completed = takeStepMiddle(unit);
+				if (waiting)
+				{
+					if (ticksSinceLastMove % WAIT_TICKS == 0)
+					{
+						waiting = false;
+						ticksSinceLastMove = 1;
+					}
+				}
+				if (waiting == false && ticksSinceLastMove % TICKS_PER_MOVE == 0)
+				{
+					completed = takeStepMiddle(unit);
+					waiting = true;
+					ticksSinceLastMove = 0;
+				}
+				ticksSinceLastMove++;
+				completed = false;
             }
             return completed;
         }

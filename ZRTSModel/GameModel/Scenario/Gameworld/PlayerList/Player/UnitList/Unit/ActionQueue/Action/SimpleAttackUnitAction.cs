@@ -32,7 +32,7 @@ namespace ZRTSModel
 		private void updateUnitOrientation()
 		{
 			PointF directionVector = new PointF((target.PointLocation.X - unit.PointLocation.X), (target.PointLocation.Y - unit.PointLocation.Y));
-            unit.Orientation = (int)Math.Atan2((double)directionVector.Y, (double)directionVector.X);
+            //unit.Orientation = (int)Math.Atan2((double)directionVector.Y, (double)directionVector.X);
 		}
 
         public override bool Work()
