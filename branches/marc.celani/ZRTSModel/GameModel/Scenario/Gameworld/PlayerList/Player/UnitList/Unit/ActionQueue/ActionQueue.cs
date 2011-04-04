@@ -19,7 +19,7 @@ namespace ZRTSModel
 				if (action.Work())
 				{
 					RemoveChild(action);
-					((UnitComponent)Parent).State = UnitComponent.UnitState.ATTACKING;
+					((UnitComponent)Parent).State = UnitComponent.UnitState.IDLE;
 				}
             }
             
