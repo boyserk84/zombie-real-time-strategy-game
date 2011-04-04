@@ -44,6 +44,7 @@ namespace ZRTSModel
                 {
                     if (ticksSinceLastAttk % (unit.AttackTicks * 10) == 0)
                     {
+						unit.State = UnitComponent.UnitState.ATTACKING;
                         updateUnitOrientation();
                         ticksSinceLastAttk = 0;
                         target.CurrentHealth -= unit.Attack;
