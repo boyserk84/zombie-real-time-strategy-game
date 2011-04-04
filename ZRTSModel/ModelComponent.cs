@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using ZRTSModel.EventHandlers;
 namespace ZRTSModel
 {
     /// <summary>
@@ -16,12 +16,29 @@ namespace ZRTSModel
     {
         // Composite Pattern members
         private ModelComponent container = null;
+		public ModelComponentSelectedHandler SelectHandler;
 
         public ModelComponent Parent
         {
             get { return container; }
         }
+		private bool selected;
 
+		public bool Selected
+		{
+			get { return selected; }
+			set { 
+				selected = value;
+				if (selected)
+				{
+					this.OnSelect();
+				}
+				else
+				{
+					this.OnDeselect();
+				}
+			}
+		}
         
         private List<ModelComponent> children = new List<ModelComponent>();
         
@@ -78,5 +95,22 @@ namespace ZRTSModel
                 }
             }
         }
+
+		public void OnSelect()
+		{
+			if (SelectHandler != null)
+			{
+				SelectHandler(this, true);
+			}
+		}
+
+		public void OnDeselect()
+		{
+
+			if (SelectHandler != null)
+			{
+				SelectHandler(this, false);
+			}
+		}
     }
 }

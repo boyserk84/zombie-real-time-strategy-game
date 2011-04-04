@@ -30,6 +30,7 @@ namespace ZRTSModel
         public event TileChangedHandler TileChangedEvent;
         public event EntityInCellChangedHandler UnitAddedEvent;
         public event EntityInCellChangedHandler UnitRemovedEvent;
+		public event UnitAttackedEnemyHandler UnitInCellAttackedEnemyEvent;
 
         private List<ModelComponent> entitiesContainedWithin = new List<ModelComponent>();
 
@@ -115,6 +116,7 @@ namespace ZRTSModel
                     {
                         UnitArgs args = new UnitArgs();
                         args.Unit = (UnitComponent)entity;
+						args.Unit.UnitAttackedEnemyHanlders += new UnitAttackedEnemyHandler(handleUnitInCellAttackingEnemy);
                         UnitAddedEvent(this, args);
                     }
                 }
@@ -131,8 +133,14 @@ namespace ZRTSModel
             entitiesContainedWithin.Remove(entity);
             UnitArgs args = new UnitArgs();
             args.Unit = (UnitComponent)entity;
+			args.Unit.UnitAttackedEnemyHanlders -= new UnitAttackedEnemyHandler(handleUnitInCellAttackingEnemy);
             if (UnitRemovedEvent != null)
                 UnitRemovedEvent(this, args);
         }
+
+		private void handleUnitInCellAttackingEnemy(Object obj, UnitAttackedEnemyArgs e)
+		{
+			Console.WriteLine("Unit in cell attacked enemy");
+		}
     }
 }

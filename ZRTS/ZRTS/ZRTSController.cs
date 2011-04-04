@@ -5,9 +5,9 @@ using System.Text;
 using ZRTSModel;
 using Microsoft.Xna.Framework;
 using ZRTSModel.GameModel;
-using ZRTSLogic.Action;
 using ZRTS.XnaCompositeView;
 using ZRTSModel.Factories;
+
 
 namespace ZRTS
 {
@@ -25,6 +25,7 @@ namespace ZRTS
         {
             SelectionState selectionState = getGameModel().GetSelectionState();
             selectionState.ClearSelectionState();
+
             foreach (ModelComponent entity in EntityList)
             {
                 selectionState.SelectEntity(entity);
@@ -53,7 +54,7 @@ namespace ZRTS
             {
                 foreach (UnitComponent unit in selectedEntities)
                 {
-                    MoveAction moveAction = new MoveAction(point.X, point.Y, getGameModel().GetScenario().GetGameWorld().GetMap());
+                    MoveAction moveAction = new MoveAction(point.X, point.Y, getGameModel().GetScenario().GetGameWorld().GetMap(), unit);
                     ActionQueue aq = unit.GetActionQueue();
                     aq.GetChildren().Clear();
                     aq.AddChild(moveAction);
@@ -86,7 +87,7 @@ namespace ZRTS
                 foreach (UnitComponent u in selectedEntities)
                 {
                     u.GetActionQueue().GetChildren().Clear();
-                    u.GetActionQueue().AddChild(new SimpleAttackUnitAction(u, unit));
+                    u.GetActionQueue().AddChild(new AttackAction(u, unit, getGameModel().GetScenario().GetGameWorld()));
                 }
             }
         }

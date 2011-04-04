@@ -8,7 +8,7 @@ using ZRTSModel;
 using Microsoft.Xna.Framework;
 using ZRTSModel.GameModel;
 
-namespace ZRTSLogic.Action
+namespace ZRTSModel
 {
     /// <summary>
     /// This class will represent an Action that can be given to a unit to tell that unit to "build" a building.
@@ -84,7 +84,7 @@ namespace ZRTSLogic.Action
                     {
                         // Move towards the building. Insert a move action into the Unit's action queue.
                         CellComponent targetCell = findClosestCell(((UnitComponent)Parent.Parent).PointLocation);
-                        MoveAction moveAction = new MoveAction(targetCell.X, targetCell.Y, map);
+						MoveAction moveAction = new MoveAction(targetCell.X, targetCell.Y, map, ((UnitComponent)Parent.Parent));
                         Parent.AddChildAt(moveAction, 0);
                     }
                 }

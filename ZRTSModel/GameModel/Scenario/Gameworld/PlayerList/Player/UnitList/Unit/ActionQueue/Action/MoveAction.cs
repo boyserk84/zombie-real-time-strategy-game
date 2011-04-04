@@ -5,11 +5,10 @@ using System.Text;
 using ZRTSModel.GameWorld;
 using ZRTSModel.Entities;
 using Pathfinder;
-using ZRTSLogic;
 using ZRTSModel;
 using ZRTSModel.GameModel;
 
-namespace ZRTSLogic.Action
+namespace ZRTSModel
 {
     /// <summary>
     /// This class will represent a "move" action that a unit can make. It will be used to make the unit 
@@ -23,6 +22,7 @@ namespace ZRTSLogic.Action
         private Map map;
         private int cellIndex;
         private bool waiting = false;
+		private UnitComponent unit;
 
         public bool Waiting
         {
@@ -40,11 +40,12 @@ namespace ZRTSLogic.Action
         /// </summary>
         /// <param name="targetX">X coordinate destination of the move action in game space.</param>
         /// <param name="targetY">Y coordinate destination of the move action in game space.</param>
-        public MoveAction(float targetX, float targetY, Map map)
+        public MoveAction(float targetX, float targetY, Map map, UnitComponent unit)
         {
             this.targetY = targetY;
             this.targetX = targetX;
             this.map = map;
+			this.unit = unit;
         }
 
 
@@ -98,6 +99,46 @@ namespace ZRTSLogic.Action
         {
 			float speed = (unit.Speed /* * (float)unit.speedBuff*/);
 
+
+			if (path[0].Y + 0.5f > unit.PointLocation.Y)
+			{
+				if (path[0].X + 0.5f> unit.PointLocation.X)
+				{
+					unit.UnitOrient = UnitComponent.Orient.SE;
+				}
+				else if (path[0].X + 0.5f < unit.PointLocation.X)
+				{
+					unit.UnitOrient = UnitComponent.Orient.SW;
+				}
+				else
+				{
+					unit.UnitOrient = UnitComponent.Orient.S;
+				}
+			}
+			else if (path[0].Y + 0.5f < unit.PointLocation.Y)
+			{
+				if (path[0].X + 0.5f> unit.PointLocation.X)
+				{
+					unit.UnitOrient = UnitComponent.Orient.NE;
+				}
+				else if (path[0].X + 0.5f< unit.PointLocation.X)
+				{
+					unit.UnitOrient = UnitComponent.Orient.NW;
+				}
+				else
+				{
+					unit.UnitOrient = UnitComponent.Orient.N;
+				}
+			}
+			else if (path[0].X + 0.5f< unit.PointLocation.X)
+			{
+				unit.UnitOrient = UnitComponent.Orient.W;
+			}
+			else if (path[0].X + 0.5f> unit.PointLocation.X)
+			{
+				unit.UnitOrient = UnitComponent.Orient.E;
+			}
+
             // If we are within the range of the destination point, simply move there
             if (Math.Sqrt(Math.Pow(path[0].Y + 0.5f - unit.PointLocation.Y, 2) + Math.Pow(path[0].X + 0.5f - unit.PointLocation.X, 2)) <= speed)
             {
@@ -116,6 +157,9 @@ namespace ZRTSLogic.Action
                 unit.PointLocation = new PointF(unit.PointLocation.X + directionVector.X, unit.PointLocation.Y + directionVector.Y);
                 unit.Orientation = (int)Math.Atan2(directionVector.Y, directionVector.X);
             }
+
+			
+
         }
 
         /// <summary>
@@ -173,7 +217,12 @@ namespace ZRTSLogic.Action
 
         public override bool Work()
         {
-            UnitComponent unit = (UnitComponent)Parent.Parent;
+            //UnitComponent unit = (UnitComponent)Parent.Parent;
+			if (unit.State != UnitComponent.UnitState.MOVING)
+			{
+				unit.State = UnitComponent.UnitState.MOVING;
+			}
+
             if (path == null)
             {
                 float startX = unit.PointLocation.X;
