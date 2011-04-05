@@ -8,6 +8,9 @@ using ZRTS.InputEngines;
 using Microsoft.Xna.Framework.Graphics;
 namespace ZRTS.XnaCompositeView
 {
+    /// <summary>
+    /// Building UI (View object for building model)
+    /// </summary>
     public class BuildingUI : PictureBox
     {
         private Building building;
@@ -22,11 +25,13 @@ namespace ZRTS.XnaCompositeView
         public BuildingUI(Game game, Building building, Rectangle sourceRect)
             : base(game, sourceRect)
         {
+            
             this.building = building;
             this.OnClick += getAttacked;
 			pixel = new Texture2D(game.GraphicsDevice, 1, 1, true, SurfaceFormat.Color);
 			pixel.SetData(new[] { Color.White });
 			this.building.SelectHandler += new ZRTSModel.EventHandlers.ModelComponentSelectedHandler(onSelectChanged);
+            this.SourceRect = new Rectangle(GameConfig.BUILDING_CONSTRUCTION, GameConfig.BUILDING_START_Y, 216, 216);
         }
 
 
@@ -44,6 +49,27 @@ namespace ZRTS.XnaCompositeView
 			this.selected = selected;
 			Console.WriteLine("Selected: " + selected);
 		}
+
+
+        /// <summary>
+        /// Update animation
+        /// </summary>
+        /// <param name="gameTime"></param>
+        public override void Update(GameTime gameTime)
+        {
+            // TODO: distinguish between being damage and constructed by using state from building
+            if (building.CurrentHealth == building.MaxHealth)
+            {
+
+                this.SourceRect = new Rectangle(GameConfig.BUILDING_FINISH* GameConfig.BUILDING_DIM, GameConfig.BUILDING_START_Y, 216, 216);
+            }
+            else if (building.CurrentHealth > building.MaxHealth / 2)
+            {
+                this.SourceRect = new Rectangle(GameConfig.BUILDING_HALF_FINISH * GameConfig.BUILDING_DIM, GameConfig.BUILDING_START_Y, 216, 216);
+            }
+            
+            base.Update(gameTime);
+        }
 
 		protected override void onDraw(XnaDrawArgs e)
 		{

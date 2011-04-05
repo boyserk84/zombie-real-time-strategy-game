@@ -28,6 +28,8 @@ namespace ZRTS
         public static int ZOMBIE_START_Y = 0;   
         public static int SOLDIER_START_Y = 108 ;
         public static int WORKER_START_Y = 108 + 36 * 3;
+        public static int BUILDING_START_Y = 1037;
+
 
         public static int BIG_AVATAR_START_Y = 808;
         public static int SELECT_AVATAR_START_Y = 960;
@@ -62,6 +64,23 @@ namespace ZRTS
 
         public static int TILE_GRASS = 0;
         public static int TILE_SAND = 1;
+        public static int TILE_GREEN_BORDER_LEFT = 3;
+        public static int TILE_GREEN_BORDER_TOPLEFT = 4;
+        public static int TILE_GREEN_BORDER_TOP = 5;
+        public static int TILE_GREEN_BORDER_TOPRIGHT = 6;
+        public static int TILE_GREEN_BORDER_BOTTOMLEFT = 7;
+        public static int TILE_GREEN_BORDER_BOTTOM = 8;
+        public static int TILE_GREEN_BORDER_BOTTOMRIGHT = 9;
+        public static int TILE_GREEN_BORDER_RIGHT = 10;
+
+        public static int BUILDING_DIM = 216;
+        public static int BUILDING_CONSTRUCTION = 216 * 3;
+        public static int BUILDING_HALF_FINISH = 2;
+        public static int BUILDING_FINISH = 0;
+        public static int BUILDING_DAMAGE = 1;
+
+        public static int BUILDING_HOUSE = 1037;
+        
 
         
         
