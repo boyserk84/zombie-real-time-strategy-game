@@ -26,7 +26,9 @@ namespace ZRTS.XnaCompositeView
 
         protected override void onDraw(XnaDrawArgs e)
         {
-            e.SpriteBatch.Draw(((XnaUITestGame)Game).SpriteSheet, e.Location, sourceRect, tint);
+			Rectangle actualDraw = e.Location;
+			
+            e.SpriteBatch.Draw(((XnaUITestGame)Game).SpriteSheet, actualDraw, sourceRect, tint);
         }
     }
 }
