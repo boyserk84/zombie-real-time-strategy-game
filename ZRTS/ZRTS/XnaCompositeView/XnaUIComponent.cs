@@ -13,6 +13,8 @@ namespace ZRTS.XnaCompositeView
     {
         public event DrawBoxChanged SizeChanged;
         public event ClickEventHandler OnClick;
+        //public event MouseOverEventHandler OnOver;
+
         // UI members and fields
         private Rectangle drawBox = new Rectangle(0, 0, 0, 0);
         private int scrollX;

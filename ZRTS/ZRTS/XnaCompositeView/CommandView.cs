@@ -40,6 +40,8 @@ namespace ZRTS.XnaCompositeView
             moveButton = factory.BuildPictureBox("button", "move");
             moveButton.DrawBox = new Rectangle(GameConfig.BUTTON_MOVE*GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
             moveButton.OnClick += handleMoveButtonClick;
+            //moveButton.OnOver += handleMoveButtonOver;
+            
             mainPanel.AddChild(moveButton);
 
             stopButton = factory.BuildPictureBox("button", "stop");
@@ -156,9 +158,14 @@ namespace ZRTS.XnaCompositeView
             if (e.Bubbled && !e.Handled)
             {
                 e.Handled = true;
-                
                 // First change the command and cursor
             }
+        }
+
+        private void handleMoveButtonOver(object sender, XnaMouseEventArgs e)
+        {
+            //e.ButtonOver = true;
+            System.Console.Out.WriteLine("Move button OVEr!");
         }
 
 
