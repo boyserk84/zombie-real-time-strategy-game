@@ -35,7 +35,9 @@ namespace ZRTS.XnaCompositeView
 
         private void onSelectionChanged(Object sender, SelectionStateChangedArgs e)
         {
+            
             int count = e.SelectedEntities.Count;
+
             SameSizeChildrenFlowLayout holder = getSelectedEntityUIHolder();
 
             // Update the holder
@@ -48,11 +50,18 @@ namespace ZRTS.XnaCompositeView
                     foreach (ModelComponent component in e.SelectedEntities)
                     {
                         BuildSelectedEntityUIVisitor visitor = new BuildSelectedEntityUIVisitor();
-                        component.Accept(visitor);
-                        if (visitor.UI != null)
+                        if (component is UnitComponent)
                         {
-                            holder.AddChild(visitor.UI);
+                            UnitComponent temp = (UnitComponent)component;
+
+                            component.Accept(visitor);
+                            if (visitor.UI != null)
+                            {
+                                holder.AddChild(visitor.UI);
+                            }
+                           
                         }
+                        
                     }
                 }
             }
@@ -66,27 +75,40 @@ namespace ZRTS.XnaCompositeView
                     i--;
                 }
             }
+
             if (count > 0)
             {
-                commandBar.activateButtons();  // show commandView if selected
-
                 BuildLargePreviewPictureBoxVisitor visitor = new BuildLargePreviewPictureBoxVisitor();
-                e.SelectedEntities[0].Accept(visitor);
-                PictureBox bigImage = visitor.PictureBox;
-                bigImage.DrawBox = new Rectangle(25, 25, 150, 150);
-                AddChild(bigImage);
-                if (count == 1 && holder != null)
+
+                if (e.SelectedEntities[0] is UnitComponent)
                 {
-                    // Use the holder to show unit stats.
-                    DisplaySelectedEntityStatsVisitor visitor2 = new DisplaySelectedEntityStatsVisitor();
-                    visitor2.Game = (XnaUITestGame)Game;
-                    visitor2.Layout = holder;
-                    e.SelectedEntities[0].Accept(visitor2);
-                }
+                    // Only non-zombie stat being displayed
+                    if (!((UnitComponent)e.SelectedEntities[0]).IsZombie)
+                    {
+                        // Individual unit
+                        if (count == 1 && holder != null)
+                        {
+                            // Use the holder to show unit stats.
+                            DisplaySelectedEntityStatsVisitor visitor2 = new DisplaySelectedEntityStatsVisitor();
+                            visitor2.Game = (XnaUITestGame)Game;
+                            visitor2.Layout = holder;
+                            e.SelectedEntities[0].Accept(visitor2);
+                        }
+
+                        e.SelectedEntities[0].Accept(visitor);
+                        PictureBox bigImage = visitor.PictureBox;
+                        bigImage.DrawBox = new Rectangle(25, 25, 150, 150);
+                        AddChild(bigImage);
+                       
+
+                        commandBar.activateButtons();  // show commandView if selected
+
+                    } // only non zombie
+                } // unit
             }
             else
             {
-                commandBar.disableButtons();
+                    commandBar.disableButtons(); 
             }
         }
 
@@ -97,6 +119,7 @@ namespace ZRTS.XnaCompositeView
             {
                 if (component is SameSizeChildrenFlowLayout)
                 {
+                   
                     holder = (SameSizeChildrenFlowLayout)component;
                     break;
                 }

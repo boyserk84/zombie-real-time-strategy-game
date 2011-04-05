@@ -19,11 +19,8 @@ namespace ZRTS.InputEngines
         public bool Bubbled;
         public bool SingleTarget;
         public MouseButton ButtonPressed;
-        //public bool ButtonOver;
-       
 
     }
 
     public delegate void ClickEventHandler(Object sender, XnaMouseEventArgs args);
-    //public delegate void MouseOverEventHandler(Object sender, XnaMouseEventArgs args);
 }

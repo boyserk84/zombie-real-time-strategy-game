@@ -14,5 +14,7 @@ namespace ZRTSModel.EventHandlers
             get { return selectedEntities; }
             set { selectedEntities = value; }
         }
+
+
     }
 }
