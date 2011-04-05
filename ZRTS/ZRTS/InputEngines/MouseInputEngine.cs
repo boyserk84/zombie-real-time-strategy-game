@@ -83,7 +83,7 @@ namespace ZRTS.InputEngines
                 {
                     rightMouseDownTarget = currentUIOn;
                     XnaMouseEventArgs e = new XnaMouseEventArgs();
-                    e.Target = leftMouseDownTarget;
+                    e.Target = rightMouseDownTarget;
                     e.ClickLocation = mousePoint;
                     e.Handled = false;
                     e.Bubbled = false;
