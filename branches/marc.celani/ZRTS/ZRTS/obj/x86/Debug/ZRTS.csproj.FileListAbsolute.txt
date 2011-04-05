@@ -116,4 +116,8 @@ C:\Users\maestro\Desktop\marc.celani\ZRTS\ZRTS\obj\x86\Debug\ResolveAssemblyRefe
 C:\Users\maestro\Desktop\marc.celani\ZRTS\ZRTS\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\maestro\Desktop\marc.celani\ZRTS\ZRTS\obj\x86\Debug\ZRTS.exe
 C:\Users\maestro\Desktop\marc.celani\ZRTS\ZRTS\obj\x86\Debug\ZRTS.pdb
+<<<<<<< .mine
+C:\Users\maestro\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\ZRTS_SpriteSheet_All.xnb
+=======
 C:\Users\Marc\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\ZRTS_SpriteSheet_All.xnb
+>>>>>>> .r187

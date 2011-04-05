@@ -105,15 +105,20 @@ namespace ZRTS
             List<ModelComponent> selectedEntities = ((XnaUITestGame)Game).Model.GetSelectionState().SelectedEntities;
             // Ensure each component is a Unit.
             bool allAreUnits = true;
+			bool playerEntities = false;
             foreach (ModelComponent component in selectedEntities)
             {
-                if (!(component is UnitComponent))
-                {
-                    allAreUnits = false;
-                    break;
-                }
+				if (entityBelongsToPlayer(component))
+				{
+					playerEntities = true;
+					if (!(component is UnitComponent))
+					{
+						allAreUnits = false;
+						break;
+					}
+				}
             }
-            if (allAreUnits)
+            if (allAreUnits && playerEntities)
             {
                 foreach (UnitComponent unit in selectedEntities)
                 {
@@ -128,24 +133,29 @@ namespace ZRTS
         {
             List<ModelComponent> selectedEntities = getGameModel().GetSelectionState().SelectedEntities;
             bool canAttack = true;
+			bool playerEntities = false;
             foreach (ModelComponent entity in selectedEntities)
             {
-                if (!(entity is UnitComponent))
-                {
-                    canAttack = false;
-                    break;
-                }
-                else
-                {
-                    UnitComponent u = entity as UnitComponent;
-                    if (!u.CanAttack)
-                    {
-                        canAttack = false;
-                        break;
-                    }
-                }
+				if (entityBelongsToPlayer(entity))
+				{
+					playerEntities = true;
+					if (!(entity is UnitComponent))
+					{
+						canAttack = false;
+						break;
+					}
+					else
+					{
+						UnitComponent u = entity as UnitComponent;
+						if (!u.CanAttack)
+						{
+							canAttack = false;
+							break;
+						}
+					}
+				}
             }
-            if (canAttack)
+            if (canAttack && playerEntities)
             {
                 foreach (UnitComponent u in selectedEntities)
                 {
@@ -234,24 +244,29 @@ namespace ZRTS
         {
             List<ModelComponent> selectedEntities = getGameModel().GetSelectionState().SelectedEntities;
             bool canBuild = true;
+			bool playerEntities = false;
             foreach (ModelComponent entity in selectedEntities)
             {
-                if (!(entity is UnitComponent))
-                {
-                    canBuild = false;
-                    break;
-                }
-                else
-                {
-                    UnitComponent u = entity as UnitComponent;
-                    if (!u.CanBuild)
-                    {
-                        canBuild = false;
-                        break;
-                    }
-                }
+				if (entityBelongsToPlayer(entity))
+				{
+					playerEntities = true;
+					if (!(entity is UnitComponent))
+					{
+						canBuild = false;
+						break;
+					}
+					else
+					{
+						UnitComponent u = entity as UnitComponent;
+						if (!u.CanBuild)
+						{
+							canBuild = false;
+							break;
+						}
+					}
+				}
             }
-            if (canBuild)
+            if (canBuild && playerEntities)
             {
                 // TODO: Check resources.
                 
@@ -270,5 +285,21 @@ namespace ZRTS
         {
             // TODO: Implement
         }
+
+		private bool entityBelongsToPlayer(ModelComponent entity)
+		{
+			PlayerComponent player = (PlayerComponent)((XnaUITestGame)game).Model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[0];
+
+			if (entity is UnitComponent)
+			{
+				return player.GetUnitList().GetChildren().Contains(entity);
+			}
+			else if (entity is Building)
+			{
+				return player.BuildingList.GetChildren().Contains(entity);
+			}
+
+			return false;
+		}
     }
 }

@@ -164,9 +164,18 @@ namespace ZRTS.XnaCompositeView
 				e.SpriteBatch.Draw(pixel, healthBG, Color.Black);
 
 				int healthWidth = (int)( e.Location.Width * (1.0 * unit.CurrentHealth / unit.MaxHealth));
+				Color healthColor = Color.LimeGreen;
 
+				if (1.0 * unit.CurrentHealth / unit.MaxHealth < 0.25)
+				{
+					healthColor = Color.Red;
+				}
+				else if (1.0 * unit.CurrentHealth / unit.MaxHealth < 0.5)
+				{
+					healthColor = Color.Yellow;
+				}
 				Rectangle healthRect = new Rectangle(e.Location.X, e.Location.Y + e.Location.Height - 8, healthWidth, 8);
-				e.SpriteBatch.Draw(pixel, healthRect, Color.LimeGreen);
+				e.SpriteBatch.Draw(pixel, healthRect, healthColor);
 
 				Color neoGreen = new Color(111, 245, 30);
 
