@@ -168,7 +168,7 @@ namespace ZRTS
 
 
         /// <summary>
-        /// 
+        /// select unit to stop
         /// </summary>
         internal void OnSelectUnitToStop()
         {
