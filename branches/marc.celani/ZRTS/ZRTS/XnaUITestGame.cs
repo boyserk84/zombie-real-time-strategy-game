@@ -85,7 +85,9 @@ namespace ZRTS
             }
             model.AddChild(scenario);
             model.GetScenario().GetGameWorld().GetPlayerList().AddChild(new PlayerComponent());
+			model.GetScenario().GetGameWorld().GetPlayerList().AddChild(new PlayerComponent());
             UnitList list = ((PlayerComponent)model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[0]).GetUnitList();
+			UnitList list2 = ((PlayerComponent)model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[1]).GetUnitList();
             UnitComponent soldier1 = new UnitComponent();
             soldier1.Type = "soldier";
             soldier1.IsZombie = false;
@@ -94,15 +96,22 @@ namespace ZRTS
             soldier1.CurrentHealth = 100;
             soldier1.CanBuild = true;
             list.AddChild(soldier1);
-            soldier1.PointLocation = new PointF((float)1.5, (float)1.0);
-
+            soldier1.PointLocation = new PointF((float)1.5, (float)1.5);
+			soldier1.Speed = 0.25f;
             UnitComponent soldier2 = new UnitComponent();
             soldier2.Type = "zombie";
             soldier2.IsZombie = true;
             soldier2.CurrentHealth = 100;
             soldier2.CanBuild = true;
-            list.AddChild(soldier2);
+			soldier2.AttackStance = UnitComponent.UnitAttackStance.Aggressive;
+            list2.AddChild(soldier2);
             soldier2.PointLocation = new PointF((float)10.5, (float)6.1);
+
+			PlayerComponent player1 = (PlayerComponent)model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[0];
+			PlayerComponent player2 = (PlayerComponent)model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[1];
+
+			player1.EnemyList.Add(player2);
+			player2.EnemyList.Add(player1);
 
             // Create the controller
             controller = new ZRTSController(this);

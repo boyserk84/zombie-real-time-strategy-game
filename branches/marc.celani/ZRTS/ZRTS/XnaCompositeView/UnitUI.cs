@@ -141,7 +141,7 @@ namespace ZRTS.XnaCompositeView
         {
             if (unit.IsZombie)
             {
-                System.Console.Out.WriteLine(unit.State + ":" + unit.UnitOrient);
+                //System.Console.Out.WriteLine(unit.State + ":" + unit.UnitOrient);
             }
             if (currentFrame > 3)
             {

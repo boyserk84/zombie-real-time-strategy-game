@@ -122,6 +122,9 @@
     <Compile Include="GameModel\Scenario\Gameworld\CircleShape.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\Entity.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\BuildingList\Building\Building.cs" />
+    <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\BuildingList\Building\BuildingActionQueue\BuildingActionQueue.cs" />
+    <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\BuildingList\Building\BuildingActionQueue\BuildingAction\BuildingAction.cs" />
+    <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\BuildingList\Building\BuildingActionQueue\BuildingAction\ProduceUnit.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\UnitList\Unit\ActionQueue\Action\AttackAction.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\UnitList\Unit\ActionQueue\Action\BuildAction.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\UnitList\Unit\ActionQueue\Action\EntityAction.cs" />

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ZRTSModel
 {
-	class BuildingAction : ModelComponent
+	abstract class BuildingAction : ModelComponent
 	{
 		public abstract bool Work();
 		public override void Accept(ModelComponentVisitor visitor)
