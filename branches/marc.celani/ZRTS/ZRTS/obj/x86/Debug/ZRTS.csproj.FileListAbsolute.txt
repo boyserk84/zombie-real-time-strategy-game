@@ -1,3 +1,26 @@
+C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\green_tile.xnb
+C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\soldier_sample.xnb
+C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\green_tile20x20.xnb
+C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\commandos.xnb
+C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\bin\x86\Debug\Content\test_spritesheet.xnb
+C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\util_misc20x20.xnb
+C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\bin\x86\Debug\Content\gamePlayUI\menuUI.xnb
+C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\bin\x86\Debug\Content\gamePlayUI\icons.xnb
+C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\bin\x86\Debug\Content\gameBuildings\sample_build.xnb
+C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\color.xnb
+C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\bin\x86\Debug\Content\SpriteFont1.xnb
+C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\bin\x86\Debug\Content\Menu Font.xnb
+C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\bin\x86\Debug\ZRTS.exe
+C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\bin\x86\Debug\ZRTS.pdb
+C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\bin\x86\Debug\nunit.framework.dll
+C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\bin\x86\Debug\ZRTSLogic.dll
+C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\bin\x86\Debug\ZRTSModel.dll
+C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\bin\x86\Debug\ZRTSLogic.pdb
+C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\bin\x86\Debug\ZRTSModel.pdb
+C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\obj\x86\Debug\ZRTS.exe
+C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\obj\x86\Debug\ZRTS.pdb
 C:\Users\maestro\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\green_tile.xnb
 C:\Users\maestro\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\soldier_sample.xnb
 C:\Users\maestro\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\green_tile20x20.xnb

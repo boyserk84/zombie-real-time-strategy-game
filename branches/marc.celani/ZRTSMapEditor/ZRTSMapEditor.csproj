@@ -49,12 +49,22 @@
     <Compile Include="ChangeScenarioContextVisitor.cs" />
     <Compile Include="Commands\MapEditorViewCommands\AddUnitCommand.cs" />
     <Compile Include="Commands\MapEditorViewCommands\ChangeCellTileCommand.cs" />
+    <Compile Include="Commands\MapEditorViewCommands\AddBuildingCommand.cs" />
     <Compile Include="MapEditorModel\BitmapManager.cs" />
     <Compile Include="MapEditorModel\MapEditorModelComponent.cs" />
     <Compile Include="MapEditorModel\MapEditorModelVisitor.cs" />
     <Compile Include="MapEditorModel\CommandStack\CommandStack.cs" />
     <Compile Include="MapEditorModel\NoOpMapEditorModelVisitor.cs" />
     <Compile Include="MapEditorModel\SelectionState\SelectionState.cs" />
+    <Compile Include="UI\BuildingPalette.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\BuildingPalette.Designer.cs">
+      <DependentUpon>BuildingPalette.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\BuildingUI.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\MapPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -110,6 +120,12 @@
     </Compile>
     <Compile Include="ZRTSMapEditor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="UI\BuildingPalette.resx">
+      <DependentUpon>BuildingPalette.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\BuildingUI.resx">
+      <DependentUpon>BuildingUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\MapPanel.resx">
       <DependentUpon>MapPanel.cs</DependentUpon>
     </EmbeddedResource>

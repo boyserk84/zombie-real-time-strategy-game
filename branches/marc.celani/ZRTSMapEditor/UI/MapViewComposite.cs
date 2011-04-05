@@ -86,6 +86,11 @@ namespace ZRTSMapEditor
 
                 this.mapPanel.Location = new System.Drawing.Point(xLoc, yLoc);
                 this.RealizeView();
+
+                if (scenario.GetGameWorld().GetPlayerList() != null)
+                {
+                    scenario.GetGameWorld().GetPlayerList().PlayerListChangedEvent += this.PlayerListChanged;
+                }
             }
             
         }
@@ -161,6 +166,34 @@ namespace ZRTSMapEditor
                 }
                 mapPanel.ResumeLayout();
             }
+        }
+
+        private void BuildingAdded(Object sender, BuildingAddedEventArgs args)
+        {
+            BuildingUI b = new BuildingUI(controller, args.Building);
+            b.Location = new Point((int) args.Building.PointLocation.X * PIXELS_PER_COORDINATE, (int)args.Building.PointLocation.Y * PIXELS_PER_COORDINATE);
+            b.Size = new Size(args.Building.Width * PIXELS_PER_COORDINATE, args.Building.Height * PIXELS_PER_COORDINATE);
+            realizedComponents.Add(args.Building, b);
+            Controls.Add(b);
+            b.BringToFront();
+        }
+
+        private void BuildingRemoved(Object sender, BuildingAddedEventArgs args)
+        {
+            Control c = (Control)realizedComponents[args.Building];
+            c.Dispose();
+            realizedComponents.Remove(args.Building);
+        }
+
+        private void PlayerListChanged(Object sender, PlayerListChangedEventArgs args)
+        {
+            if (args != null) {
+            foreach (PlayerComponent p in args.PlayersAdded)
+            {
+                p.BuildingList.BuildingAddedEventHandlers += this.BuildingAdded;
+                p.BuildingList.BuildingRemovedEventHandlers += this.BuildingRemoved;
+            }
+        }
         }
     }
 }

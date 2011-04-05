@@ -36,15 +36,15 @@
             // tileListBox
             // 
             this.tileListBox.FormattingEnabled = true;
-            this.tileListBox.Location = new System.Drawing.Point(15, 82);
+            this.tileListBox.Location = new System.Drawing.Point(15, 59);
             this.tileListBox.Name = "tileListBox";
-            this.tileListBox.Size = new System.Drawing.Size(96, 95);
+            this.tileListBox.Size = new System.Drawing.Size(96, 69);
             this.tileListBox.TabIndex = 0;
             this.tileListBox.SelectedIndexChanged += new System.EventHandler(this.tileListBox_SelectedIndexChanged);
             // 
             // tilePreview
             // 
-            this.tilePreview.Location = new System.Drawing.Point(15, 36);
+            this.tilePreview.Location = new System.Drawing.Point(15, 13);
             this.tilePreview.Name = "tilePreview";
             this.tilePreview.Size = new System.Drawing.Size(73, 40);
             this.tilePreview.TabIndex = 1;
@@ -57,7 +57,7 @@
             this.Controls.Add(this.tilePreview);
             this.Controls.Add(this.tileListBox);
             this.Name = "TilePalette";
-            this.Size = new System.Drawing.Size(129, 193);
+            this.Size = new System.Drawing.Size(129, 140);
             ((System.ComponentModel.ISupportInitialize)(this.tilePreview)).EndInit();
             this.ResumeLayout(false);
 

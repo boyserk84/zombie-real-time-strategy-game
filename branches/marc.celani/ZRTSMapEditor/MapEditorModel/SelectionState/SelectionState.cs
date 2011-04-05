@@ -17,6 +17,7 @@ namespace ZRTSMapEditor.MapEditorModel
         // Used for determining what type of unit, building, or tile should be placed on the map when the user clicks on the map.
         private string selectedUnitType = null;
         private string selectedTileType = null;
+        private string selectedBuildingType = null;
 
         public string SelectedTileType
         {
@@ -35,6 +36,12 @@ namespace ZRTSMapEditor.MapEditorModel
         {
             get { return selectedUnitType; }
             set { selectedUnitType = value; }
+        }
+
+        public string SelectedBuildingType
+        {
+            get { return selectedBuildingType; }
+            set { selectedBuildingType = value; }
         }
 
         public Type SelectionType

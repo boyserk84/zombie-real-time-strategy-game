@@ -219,6 +219,16 @@ namespace ZRTSMapEditor
             model.GetSelectionState().SelectionType = typeof(UnitComponent);
         }
 
+        /// <summary>
+        /// Called by building palette to set in the selection state what type of building has been selected.
+        /// </summary>
+        /// <param name="unitType"></param>
+        internal void SelectBuildingType(string buildingType)
+        {
+            model.GetSelectionState().SelectedBuildingType = buildingType;
+            model.GetSelectionState().SelectionType = typeof(Building);
+        }
+
         internal void OnClickMapCell(CellComponent cellComponent, float xPercent, float yPercent)
         {
             if (model.GetSelectionState().SelectionType == typeof(ZRTSModel.Tile))
@@ -236,9 +246,22 @@ namespace ZRTSMapEditor
             {
                 UnitFactory uf = UnitFactory.Instance;
                 UnitComponent unit = uf.Create(model.GetSelectionState().SelectedUnitType);
-                unit.PointLocation = new PointF((float)cellComponent.X + xPercent, (float)cellComponent.Y + yPercent);
+                //unit.PointLocation = new PointF((float)cellComponent.X + xPercent, (float)cellComponent.Y + yPercent);
                 PlayerComponent player = model.GetScenario().GetGameWorld().GetPlayerList().GetPlayerByName(model.GetSelectionState().SelectedPlayer);
                 AddUnitCommand command = new AddUnitCommand(unit, player, cellComponent);
+
+                if (command.CanBeDone())
+                {
+                    model.GetCommandStack().ExecuteCommand(command);
+                }
+            }
+            else if (model.GetSelectionState().SelectionType == typeof(Building))
+            {
+                BuildingFactory bf = BuildingFactory.Instance;
+                Building building = bf.Build(model.GetSelectionState().SelectedBuildingType, true);
+                //building.PointLocation = new PointF((float)cellComponent.X + xPercent, (float)cellComponent.Y + yPercent);
+                PlayerComponent player = model.GetScenario().GetGameWorld().GetPlayerList().GetPlayerByName(model.GetSelectionState().SelectedPlayer);
+                AddBuildingCommand command = new AddBuildingCommand(building, player, cellComponent);
 
                 if (command.CanBeDone())
                 {

@@ -287,12 +287,12 @@ namespace ZRTSModel
                         }
                     }
                 }
-                else if (pointLocation != null)
+                else if (pointLocation != null && Parent != null)
                 {
 					// Add UnitComponent to new CellComponent
                     Map map = ((Gameworld)(Parent.Parent.Parent.Parent)).GetMap();
                     location = map.GetCellAt((int)pointLocation.X, (int)pointLocation.Y);
-                    location.EntitiesContainedWithin.Add(this);
+                    location.AddEntity(this);
 
 					// Have UnitComponent listen to cells withing its visibility range.
 					listenToCellsWithinVisibilityRange();

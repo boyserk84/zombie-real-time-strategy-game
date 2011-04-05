@@ -37,7 +37,20 @@ namespace ZRTSMapEditor
 
                 TileFactory tf = TileFactory.Instance;
                 this.Image = tf.getBitmapImproved(observable.GetTile());
+
+                foreach (ModelComponent m in observable.EntitiesContainedWithin)
+                {
+                    if (m is UnitComponent)
+                    {
+                        UnitUI unitUI = new UnitUI(controller, m as UnitComponent);
+                        Controls.Add(unitUI);
+                        unitUI.MouseClick += TileUI_MouseDown;
+                    }
+                }
             }
+
+            
+
             AllowDrop = true;
 
         }
