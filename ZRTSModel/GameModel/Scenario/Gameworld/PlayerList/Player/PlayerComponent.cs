@@ -39,6 +39,8 @@ namespace ZRTSModel
 
             buildingList = new BuildingList();
             AddChild(buildingList);
+
+			enemyList = new List<PlayerComponent>();
         }
 
         public int GetGold()

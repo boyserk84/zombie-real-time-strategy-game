@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ZRTSModel
 {
-	class BuildingActionQueue : ModelComponent
+	public class BuildingActionQueue : ModelComponent
 	{
 		public void Work()
 		{

@@ -272,7 +272,7 @@ namespace ZRTS
         private void updateLocationOfUnit(Object sender, UnitMovedEventArgs e)
         {
             UnitUI ui = componentToUI[e.Unit] as UnitUI;
-            ui.DrawBox = new Rectangle((int)(e.NewPoint.X * cellDimension), (int)(e.NewPoint.Y * cellDimension), ui.DrawBox.Width, ui.DrawBox.Height);
+            ui.DrawBox = new Rectangle((int)(e.NewPoint.X * cellDimension) - ui.DrawBox.Width/2, (int)(e.NewPoint.Y * cellDimension)-ui.DrawBox.Height/2, ui.DrawBox.Width, ui.DrawBox.Height);
         }
 
         /// <summary>

@@ -465,7 +465,16 @@ namespace ZRTSModel
 			{}
 			else // Saw another Unit added to a CellComponent.
 			{
-				
+				if (unitIsAnEnemy(e.Unit) && this.AttackStance == UnitAttackStance.Aggressive && this.actionQueue.GetChildren().Count == 0)
+				{
+					ModelComponent temp = Parent;
+					while (!(temp is Gameworld))
+					{
+						temp = temp.Parent;
+					}
+					AttackAction attackAction = new AttackAction(this, e.Unit,(Gameworld)temp);
+					actionQueue.AddChild(attackAction);
+				}
 			}
 		}
 
