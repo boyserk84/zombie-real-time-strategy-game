@@ -13,9 +13,11 @@ namespace ZRTS
 {
     public class ZRTSController : GameComponent
     {
+		Game game;
         public ZRTSController(Game game)
             : base(game)
         {
+			this.game = game;
         }
         /// <summary>
         /// Selects the entities in the list of model components.
@@ -26,9 +28,56 @@ namespace ZRTS
             SelectionState selectionState = getGameModel().GetSelectionState();
             selectionState.ClearSelectionState();
 
+			bool hasUnits = false;
+			bool hasPlayerEntities = false;
+			PlayerComponent player = (PlayerComponent)((XnaUITestGame)game).Model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[0];
+			foreach (ModelComponent entity in EntityList)
+			{
+				if (entity is UnitComponent)
+				{
+					hasUnits = true;
+
+					if (player.GetUnitList().GetChildren().Contains(entity))
+					{
+						hasPlayerEntities = true;
+					}
+				}
+				else if (entity is Building)
+				{
+					if (player.BuildingList.GetChildren().Contains(entity))
+					{
+						hasPlayerEntities = true;
+					}
+				}
+			}
+
             foreach (ModelComponent entity in EntityList)
             {
-                selectionState.SelectEntity(entity);
+				if (hasUnits && hasPlayerEntities)
+				{
+					if (entity is UnitComponent && player.GetUnitList().GetChildren().Contains(entity))
+					{
+						selectionState.SelectEntity(entity);
+					}
+				}
+				else if (hasPlayerEntities)
+				{
+					if (entity is Building && player.BuildingList.GetChildren().Contains(entity))
+					{
+						selectionState.SelectEntity(entity);
+					}
+				}
+				else if (hasUnits)
+				{
+					if (entity is UnitComponent)
+					{
+						selectionState.SelectEntity(entity);
+					}
+				}
+				else
+				{
+					selectionState.SelectEntity(entity);
+				}
             }
         }
 
