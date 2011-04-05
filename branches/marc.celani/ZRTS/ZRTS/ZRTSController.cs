@@ -129,6 +129,9 @@ namespace ZRTS
                 }
             }
         }
+
+
+
         public void TellSelectedUnitsToAttack(UnitComponent unit)
         {
             List<ModelComponent> selectedEntities = getGameModel().GetSelectionState().SelectedEntities;

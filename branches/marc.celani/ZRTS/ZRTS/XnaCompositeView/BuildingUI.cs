@@ -24,7 +24,8 @@ namespace ZRTS.XnaCompositeView
         {
             this.building = building;
             this.OnClick += getAttacked;
-			pixel = new Texture2D(game.GraphicsDevice, 1, 1);
+			pixel = new Texture2D(game.GraphicsDevice, 1, 1, true, SurfaceFormat.Color);
+			this.building.SelectHandler += new ZRTSModel.EventHandlers.ModelComponentSelectedHandler(onSelectChanged);
         }
 
 
@@ -40,6 +41,7 @@ namespace ZRTS.XnaCompositeView
 		private void onSelectChanged(Object obj, bool selected)
 		{
 			this.selected = selected;
+			Console.WriteLine("Selected: " + selected);
 		}
 
 		protected override void onDraw(XnaDrawArgs e)
