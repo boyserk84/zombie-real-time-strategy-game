@@ -72,6 +72,12 @@ namespace ZRTSModel
 			// Target is not in range, move to it.
 			else
 			{
+				if(moveAction != null && !targetIsInRange(target.PointLocation.X, target.PointLocation.Y, moveAction.targetX, moveAction.targetY))
+				{
+					moveAction = null;
+				}
+
+
 				// Create a MoveAction if it is needed.
 				if (moveAction == null)
 				{
@@ -107,6 +113,44 @@ namespace ZRTSModel
 				UnitComponent tUnit = (UnitComponent)target;
 
 				double dis = Math.Sqrt(Math.Pow((tUnit.PointLocation.X - unit.PointLocation.X), 2) + Math.Pow(tUnit.PointLocation.Y - unit.PointLocation.Y, 2));
+				return (dis <= unit.AttackRange);
+			}
+			else
+			{
+				/*
+				StaticEntity se = (StaticEntity)(target);
+				float xC = se.orginCell.Xcoord;
+				float yC = se.orginCell.Ycoord;
+				short width = se.width;
+				short height = se.height;
+
+				for (int i = 0; i < width; i++)
+				{
+					for (int j = 0; j < height; j++)
+					{
+						if (EntityLocController.findDistance(unit.x, unit.y, xC + i, yC + j) <= unit.stats.attackRange)
+						{
+							return true;
+						}
+					}
+				}
+				 */
+			}
+
+			return false;
+		}
+
+		/// <summary>
+		/// This function will check if the target entity is within range of the unit.
+		/// </summary>
+		/// <returns>true if the target is withing the unit's range, false if it is not.</returns>
+		private bool targetIsInRange(float x1, float y1, float x2, float y2)
+		{
+			if (target is UnitComponent)
+			{
+				UnitComponent tUnit = (UnitComponent)target;
+
+				double dis = Math.Sqrt(Math.Pow((x1 - x2), 2) + Math.Pow(y1 - y2, 2));
 				return (dis <= unit.AttackRange);
 			}
 			else
