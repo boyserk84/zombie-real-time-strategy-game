@@ -23,7 +23,8 @@ namespace ZRTS
     ///     This class will extract each game object and translate each object's game location into a screen location
     ///     as well as interpret which frame (or animation) to be displayed (or played).
     /// 
-    /// Author Nattapol Kemavaha
+    /// Original Author Nattapol Kemavaha
+    /// Modifier/Author Marc Celani
     /// </summary>
     public class MapView : XnaUIComponent
     {
@@ -40,7 +41,7 @@ namespace ZRTS
             set { leftButtonStrategy = value; }
         }
 
-        private static int cellDimension = 60;
+        private static int cellDimension = GameConfig.TILE_DIM;         // Dimension of each cell (square pixel)
 
         public static int CellDimension
         {
@@ -122,6 +123,11 @@ namespace ZRTS
             }
         }*/
 
+        /// <summary>
+        /// Trigger function in the event of selected unit is moving
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void moveSelectedUnits(Object sender, XnaMouseEventArgs e)
         {
             if (e.Bubbled && !e.Handled && e.ButtonPressed == MouseButton.Right)
@@ -160,6 +166,9 @@ namespace ZRTS
             base.Update(gameTime);
         }
 
+        /// <summary>
+        /// Handle mouse click on the game screen
+        /// </summary>
         private void handleMouse()
         {
             MouseState mouseState = Mouse.GetState();
@@ -185,6 +194,9 @@ namespace ZRTS
             }
         }
 
+        /// <summary>
+        /// Handle scrolling of the game view
+        /// </summary>
         private void handleScrolling()
         {
             KeyboardState keyboardState = Keyboard.GetState();
@@ -208,6 +220,11 @@ namespace ZRTS
             }
         }
 
+        /// <summary>
+        /// Trigger fucntion in the event of new unit being added
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void onUnitAdded(object sender, UnitAddedEventArgs e)
         {
             ZRTSCompositeViewUIFactory factory = ZRTSCompositeViewUIFactory.Instance;
@@ -219,6 +236,11 @@ namespace ZRTS
             e.Unit.HPChangedEventHandlers += killUnit;
         }
 
+        /// <summary>
+        /// Trigger function in the event of unit being removed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void onUnitRemoved(object sender, UnitRemovedEventArgs e)
         {
             UnitUI component = (UnitUI)componentToUI[e.Unit];
@@ -229,6 +251,11 @@ namespace ZRTS
             e.Unit.HPChangedEventHandlers -= killUnit;
         }
 
+        /// <summary>
+        /// Trigger funciton in the event of a new building being added
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void onBuildingAdded(Object sender, BuildingAddedEventArgs e)
         {
             ZRTSCompositeViewUIFactory factory = ZRTSCompositeViewUIFactory.Instance;
@@ -237,12 +264,22 @@ namespace ZRTS
             AddChild(buildingUI);
         }
 
+        /// <summary>
+        /// Trigger function in the event of unit moving across the screen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void updateLocationOfUnit(Object sender, UnitMovedEventArgs e)
         {
             UnitUI ui = componentToUI[e.Unit] as UnitUI;
             ui.DrawBox = new Rectangle((int)(e.NewPoint.X * cellDimension), (int)(e.NewPoint.Y * cellDimension), ui.DrawBox.Width, ui.DrawBox.Height);
         }
 
+        /// <summary>
+        /// Trigger function in the event of unit's health point has changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void killUnit(Object sender, UnitHPChangedEventArgs e)
         {
             if (e.NewHP <= 0)

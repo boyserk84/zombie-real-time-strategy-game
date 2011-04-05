@@ -77,7 +77,7 @@ namespace ZRTS
                 for (int j = 0; j < map.GetHeight(); j++)
                 {
                     CellComponent cell = new CellComponent();
-                    cell.AddChild(new Grass());
+                    cell.AddChild(new Sand());
                     cell.X = i;
                     cell.Y = j;
                     map.AddChild(cell);
@@ -98,6 +98,7 @@ namespace ZRTS
 
             UnitComponent soldier2 = new UnitComponent();
             soldier2.Type = "zombie";
+            soldier2.IsZombie = true;
             soldier2.CurrentHealth = 100;
             soldier2.CanBuild = true;
             list.AddChild(soldier2);
@@ -114,7 +115,7 @@ namespace ZRTS
         protected override void LoadContent()
         {
             Content.RootDirectory = "Content";
-            spriteSheet = Content.Load<Texture2D>("sprites/color");
+            spriteSheet = Content.Load<Texture2D>("sprites/ZRTS_SpriteSheet_All"); //ZRTS_SpriteSheet_All
             font = Content.Load<SpriteFont>("Menu Font");
             view = new XnaUIFrame(this);
             view.DrawBox = new Rectangle(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -130,8 +131,9 @@ namespace ZRTS
 
             CommandView commandView = new CommandView(this);
             commandView.DrawBox = new Rectangle(1005, 445, 275, 275);
-
             SameSizeChildrenFlowLayout commandViewButtonBox = new SameSizeChildrenFlowLayout(this);
+            selectionView.commandBar = commandView; // Register commandView to selection View
+
 
             TestUIComponent minimapView = new TestUIComponent(this, Color.White);
             minimapView.DrawBox = new Rectangle(0, 445, 275, 275);

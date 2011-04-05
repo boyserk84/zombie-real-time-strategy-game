@@ -23,21 +23,50 @@ namespace ZRTS
         public static int UNIT_WIDTH = 36;
         public static int UNIT_HEIGHT = 36;
 
+        // Absolute Y location on the spritehseet
+        public static int TILE_START_Y = 468;
+        public static int ZOMBIE_START_Y = 0;   
+        public static int SOLDIER_START_Y = 108 ;
+        public static int WORKER_START_Y = 108 + 36 * 3;
 
-        public static int ZOMBIE_START_X = 0;   // Absolute X location on the spritesheet
-        public static int ZOMBIE_START_Y = 157;   // Absolute Y location on the spritehseet
+        public static int BIG_AVATAR_START_Y = 808;
+        public static int SELECT_AVATAR_START_Y = 960;
 
         // Frame reference
-        public static int ZOMBIE_ACTION_ATTACK= 0;
-        public static int ZOMBIE_ACTION_MOVE= 1;
-        public static int ZOMBIE_ACTION_DEAD = 2;
-        public static int ZOMBIE_DIR_N = 0;
-        public static int ZOMBIE_DIR_S = 4;
-        public static int ZOMBIE_DIR_W = 12;
-        public static int ZOMBIE_DIR_E = 8;
-        public static int ZOMBIE_DIR_SE = 0;
-        public static int ZOMBIE_DIR_SW = 0;
-        public static int ZOMBIE_DIR_NE = 0;
-        public static int ZOMBIE_DIR_NW = 0;
+        public static int ACTION_ATTACK= 0;
+        public static int ACTION_MOVE= 1;
+        public static int ACTION_DEAD = 2;
+        public static int DIR_N = 0;
+        public static int DIR_S = 4;
+        public static int DIR_W = 12;
+        public static int DIR_E = 8;
+        public static int DIR_SE = 28;
+        public static int DIR_SW = 24;
+        public static int DIR_NE = 16;
+        public static int DIR_NW = 20;
+
+
+        public static int TILE_DIM = 36;        // Tile Dimension
+
+        public static int BUTTON_STOP = 6;
+        public static int BUTTON_MOVE = 0;
+        public static int BUTTON_ATTACK = 12;
+        public static int BUTTON_BUILD = 6;
+
+        public static int BUTTON_START_Y_SECOND = 648+80 ;
+        public static int BUTTON_START_Y = 648;
+        public static int BUTTON_DIM = 80;
+        public static int BUTTON_NORMAL = 0;
+        public static int BUTTON_MOUSE_OVER = 1;
+        public static int BUTTON_MOUSE_PRESS = 2;
+
+        public static int TILE_GRASS = 0;
+        public static int TILE_SAND = 1;
+
+        
+        
+
+
+
     }
 }

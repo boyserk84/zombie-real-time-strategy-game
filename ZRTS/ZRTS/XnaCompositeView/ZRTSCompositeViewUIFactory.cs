@@ -38,6 +38,11 @@ namespace ZRTS.XnaCompositeView
             }
         }
 
+        /// <summary>
+        /// Select Entity UI (Icon represent the unit)
+        /// </summary>
+        /// <param name="unit"></param>
+        /// <returns></returns>
         public SelectedEntityUI BuildSelectedEntityUI(UnitComponent unit)
         {
             SelectedEntityUI seui = new SelectedEntityUI(game, unit);
@@ -78,13 +83,34 @@ namespace ZRTS.XnaCompositeView
         {
             PictureBox pictureBox = null;
             // TODO: Add in logic to parse from XML that returns the appropriate rectangle from the type and subtype.
+            if (type.Equals("button"))
+            {
+                if (subtype.Equals("move"))
+                {
+                    return new PictureBox(game, new Rectangle(GameConfig.BUTTON_MOVE*GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
+                }
+                else if (subtype.Equals("attack"))
+                {
+                    return new PictureBox(game, new Rectangle(GameConfig.BUTTON_ATTACK*GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
+                }
+                else if (subtype.Equals("build"))
+                {
+                    return new PictureBox(game, new Rectangle(GameConfig.BUTTON_BUILD*GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y_SECOND, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
+                }
+                else if (subtype.Equals("stop"))
+                {
+                    return new PictureBox(game, new Rectangle(GameConfig.BUTTON_STOP * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
+                }
+            }
+
+
             if (type.Equals("soldier") && subtype.Equals("selectionAvatar"))
             {
-                pictureBox = new PictureBox(game, new Rectangle(2, 0, 75, 75));
+                pictureBox = new PictureBox(game, new Rectangle(0, GameConfig.SELECT_AVATAR_START_Y, 76, 76));
             }
             else if (type.Equals("soldier") && subtype.Equals("bigAvatar"))
             {
-                pictureBox = new PictureBox(game, new Rectangle(80, 0, 150, 150));
+                pictureBox = new PictureBox(game, new Rectangle(0, GameConfig.BIG_AVATAR_START_Y, 150, 150));
             }
             else
                 pictureBox = new PictureBox(game, new Rectangle(0, 0, 1, 1));
@@ -101,16 +127,22 @@ namespace ZRTS.XnaCompositeView
             UnitUI unitUI = null;
             if (unit.Type.Equals("soldier"))
             {
-                unitUI = new UnitUI(game, unit, new Rectangle(0, 157, 36, 36));
+                unitUI = new UnitUI(game, unit, new Rectangle(0, GameConfig.SOLDIER_START_Y, 36, 36));
                 //unitUI = new UnitUI(game, unit, new Rectangle(2, 128, 16, 27));
                 unitUI.DrawBox = new Rectangle(0, 0, GameConfig.UNIT_WIDTH, GameConfig.UNIT_HEIGHT);
             }
-             // ADD NEW UNIT UI FOR EACH UNIT TYPE HERE
+             
             else if (unit.Type.Equals("zombie"))
             {
-                unitUI = new UnitUI(game, unit, new Rectangle(0, 157, 36, 36));
+                unitUI = new UnitUI(game, unit, new Rectangle(0, GameConfig.ZOMBIE_START_Y, 36, 36));
                 unitUI.DrawBox = new Rectangle(0, 0, GameConfig.UNIT_WIDTH, GameConfig.UNIT_HEIGHT);
                 //unitUI.DrawBox = new Rectangle(20, 0, 32, 54);
+            }
+
+            else if (unit.Type.Equals("worker"))
+            {
+                unitUI = new UnitUI(game, unit, new Rectangle(0, GameConfig.WORKER_START_Y, 36, 36));
+                unitUI.DrawBox = new Rectangle(0, 0, GameConfig.UNIT_WIDTH, GameConfig.UNIT_HEIGHT);
             }
             return unitUI;
         }

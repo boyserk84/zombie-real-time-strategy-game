@@ -77,36 +77,60 @@ namespace ZRTS.XnaCompositeView
         /// </summary>
         /// <param name="state"></param>
         /// <param name="direction"></param>
-        private void changePicture(string state, string direction)
+        private void changePicture()
         {
+            int unitType = GameConfig.SOLDIER_START_Y;
+            if (unit.IsZombie)
+            {
+                unitType = GameConfig.ZOMBIE_START_Y;
+            }
+            
+
             if (unit.State == UnitComponent.UnitState.ATTACKING)
             {
-                changePicture(0, GameConfig.ZOMBIE_START_Y);
+                changePicture(0, unitType + GameConfig.ACTION_ATTACK);
             }
-            else if (unit.State == UnitComponent.UnitState.MOVING)
+            else if (unit.State == UnitComponent.UnitState.MOVING || unit.State == UnitComponent.UnitState.IDLE)
             {
-                changePicture(0, GameConfig.ZOMBIE_START_Y + GameConfig.ZOMBIE_ACTION_MOVE * GameConfig.UNIT_HEIGHT);
+                changePicture(0, unitType + GameConfig.ACTION_MOVE * GameConfig.UNIT_HEIGHT);
             }
             else if (unit.State == UnitComponent.UnitState.DEAD)
             {
-                changePicture(0, GameConfig.ZOMBIE_START_Y + GameConfig.ZOMBIE_ACTION_DEAD * GameConfig.UNIT_HEIGHT);
+                changePicture(0, unitType + GameConfig.ACTION_DEAD * GameConfig.UNIT_HEIGHT);
             }
+
 
             if (unit.UnitOrient == UnitComponent.Orient.N)
             {
-                changePicture(GameConfig.ZOMBIE_DIR_N, sourceRect.Y);
+                changePicture((GameConfig.DIR_N + currentFrame) * GameConfig.UNIT_WIDTH, sourceRect.Y);
             }
 			else if (unit.UnitOrient == UnitComponent.Orient.S)
             {
-                changePicture(GameConfig.ZOMBIE_DIR_S * GameConfig.UNIT_WIDTH, sourceRect.Y);
+                changePicture((GameConfig.DIR_S + currentFrame) * GameConfig.UNIT_WIDTH, sourceRect.Y);
             }
 			else if (unit.UnitOrient == UnitComponent.Orient.E)
             {
-                changePicture(GameConfig.ZOMBIE_DIR_E * GameConfig.UNIT_WIDTH, sourceRect.Y);
+                changePicture((GameConfig.DIR_E + currentFrame) * GameConfig.UNIT_WIDTH, sourceRect.Y);
             }
 			else if (unit.UnitOrient == UnitComponent.Orient.W)
             {
-                changePicture(GameConfig.ZOMBIE_DIR_W * GameConfig.UNIT_WIDTH, sourceRect.Y);
+                changePicture((GameConfig.DIR_W + currentFrame) * GameConfig.UNIT_WIDTH, sourceRect.Y);
+            }
+            else if (unit.UnitOrient == UnitComponent.Orient.NE)
+            {
+                changePicture((GameConfig.DIR_NE+ currentFrame) * GameConfig.UNIT_WIDTH, sourceRect.Y);
+            }
+            else if (unit.UnitOrient == UnitComponent.Orient.SE)
+            {
+                changePicture((GameConfig.DIR_SE + currentFrame) * GameConfig.UNIT_WIDTH, sourceRect.Y);
+            }
+            else if (unit.UnitOrient == UnitComponent.Orient.NW)
+            {
+                changePicture((GameConfig.DIR_NW + currentFrame) * GameConfig.UNIT_WIDTH, sourceRect.Y);
+            }
+            else if (unit.UnitOrient == UnitComponent.Orient.SW)
+            {
+                changePicture((GameConfig.DIR_SW + currentFrame) * GameConfig.UNIT_WIDTH, sourceRect.Y);
             }
         }
 
@@ -115,15 +139,17 @@ namespace ZRTS.XnaCompositeView
         /// </summary>
         private void updateAnimation()
         {
-
-            // NEED STATE AND DIRECTION INFO FROM UnitComponent
-
+            if (unit.IsZombie)
+            {
+                System.Console.Out.WriteLine(unit.State + ":" + unit.UnitOrient);
+            }
             if (currentFrame > 3)
             {
                 currentFrame = 0;
-            } else {
-                changePicture("move","W");  // right now, just manually change
-                sourceRect.X += GameConfig.UNIT_WIDTH * currentFrame;
+            }
+            else
+            {
+                changePicture();
                 ++currentFrame;
             }
         }
@@ -131,7 +157,7 @@ namespace ZRTS.XnaCompositeView
 		protected override void onDraw(XnaDrawArgs e)
 		{
 			base.onDraw(e);
-			if (selected)
+			if (selected && !unit.IsZombie)
 			{
 				// Draw a healthbox for the Unit.
 				Rectangle healthBG = new Rectangle(e.Location.X, e.Location.Y + e.Location.Height - 8, e.Location.Width, 8);

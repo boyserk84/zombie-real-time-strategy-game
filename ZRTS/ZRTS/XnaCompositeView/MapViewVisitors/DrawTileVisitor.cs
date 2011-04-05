@@ -21,17 +21,17 @@ namespace ZRTS.XnaCompositeView.MapViewVisitors
         }
         public override void Visit(Grass grass)
         {
-            spriteBatch.Draw(texture, drawRectangle, new Rectangle(2, 80, 20, 20), Color.White);
+            spriteBatch.Draw(texture, drawRectangle, new Rectangle(GameConfig.TILE_GRASS * GameConfig.TILE_DIM, GameConfig.TILE_START_Y, GameConfig.TILE_DIM, GameConfig.TILE_DIM), Color.White);
         }
 
         public override void Visit(Mountain mountain)
         {
-            spriteBatch.Draw(texture, drawRectangle, new Rectangle(25, 80, 20, 20), Color.White);
+            spriteBatch.Draw(texture, drawRectangle, new Rectangle(25, GameConfig.TILE_START_Y, GameConfig.TILE_DIM, GameConfig.TILE_DIM), Color.White);
         }
 
         public override void Visit(Sand sand)
         {
-            spriteBatch.Draw(texture, drawRectangle, new Rectangle(48, 80, 20, 20), Color.White);
+            spriteBatch.Draw(texture, drawRectangle, new Rectangle(GameConfig.TILE_SAND * GameConfig.TILE_DIM, GameConfig.TILE_START_Y, GameConfig.TILE_DIM, GameConfig.TILE_DIM), Color.White);
         }
     }
 }
