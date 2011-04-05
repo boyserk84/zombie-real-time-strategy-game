@@ -25,6 +25,7 @@ namespace ZRTS.XnaCompositeView
             this.building = building;
             this.OnClick += getAttacked;
 			pixel = new Texture2D(game.GraphicsDevice, 1, 1, true, SurfaceFormat.Color);
+			pixel.SetData(new[] { Color.White });
 			this.building.SelectHandler += new ZRTSModel.EventHandlers.ModelComponentSelectedHandler(onSelectChanged);
         }
 
