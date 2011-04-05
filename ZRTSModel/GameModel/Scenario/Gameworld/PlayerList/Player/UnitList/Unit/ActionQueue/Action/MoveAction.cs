@@ -228,7 +228,8 @@ namespace ZRTSModel
                 float startX = unit.PointLocation.X;
                 float startY = unit.PointLocation.Y;
                 path = FindPath.between(map, map.GetCellAt((int)startX, (int)startY), map.GetCellAt((int)targetX, (int)targetY));
-            }
+				path.RemoveAt(0);
+			}
             // Zero length path, done moving.
             bool completed = true;
             if (path.Count != 0)
