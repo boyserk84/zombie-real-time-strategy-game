@@ -23,7 +23,7 @@ namespace ZRTS.XnaCompositeView
             building = factory.BuildPictureBox(buildingType, "mapView");
             
             // TODO: replace "2" with stats from the building factory.
-            building.DrawBox = new Microsoft.Xna.Framework.Rectangle(0, 0, MapView.CellDimension /* *2 */ , MapView.CellDimension /* *2 */ );
+            building.DrawBox = new Microsoft.Xna.Framework.Rectangle(0, 0, MapView.CellDimension * 2, MapView.CellDimension * 2);
             building.OnClick += placeBuilding;
         }
 

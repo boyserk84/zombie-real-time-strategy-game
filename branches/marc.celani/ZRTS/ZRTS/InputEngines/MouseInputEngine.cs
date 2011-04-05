@@ -16,6 +16,7 @@ namespace ZRTS.InputEngines
         private XnaUIFrame frame;
         private XnaUIComponent leftMouseDownTarget = null;
         private XnaUIComponent rightMouseDownTarget = null;
+        private XnaUIComponent mouseHoverTarget = null;
 
         public MouseInputEngine(Game game, XnaUIFrame frame)
             : base(game)
@@ -26,30 +27,51 @@ namespace ZRTS.InputEngines
         public override void Update(GameTime gameTime)
         {
             MouseState mouseState = Mouse.GetState();
-            Point clickPoint = new Point(mouseState.X, mouseState.Y);
+            Point mousePoint = new Point(mouseState.X, mouseState.Y);
+            XnaUIComponent currentUIOn = GetTarget(mousePoint);
+
+            // Fire all events for mouse down, mouse up, and clicks
             if (mouseState.LeftButton == ButtonState.Pressed)
             {
                 if (leftMouseDownTarget == null)
                 {
-                    leftMouseDownTarget = GetTarget(clickPoint);
+                    leftMouseDownTarget = GetTarget(mousePoint);
+                    XnaMouseEventArgs e = new XnaMouseEventArgs();
+                    e.Target = leftMouseDownTarget;
+                    e.ClickLocation = mousePoint;
+                    e.Handled = false;
+                    e.Bubbled = false;
+                    e.ButtonPressed = MouseButton.Left;
+                    e.SingleTarget = true;
+                    frame.MouseDown(e);
                 }
             }
             else
             {
                 if (leftMouseDownTarget != null)
                 {
-                    XnaUIComponent leftMouseUpTarget = GetTarget(clickPoint);
+                    XnaUIComponent leftMouseUpTarget = currentUIOn;
                     XnaUIComponent commonAncestor = getCommonAncestor(leftMouseDownTarget, leftMouseUpTarget);
+                    if (commonAncestor != null)
+                    {
+                        XnaMouseEventArgs mouseUpEventArgs = new XnaMouseEventArgs();
+                        mouseUpEventArgs.Target = commonAncestor;
+                        mouseUpEventArgs.ClickLocation = mousePoint;
+                        mouseUpEventArgs.Handled = false;
+                        mouseUpEventArgs.Bubbled = false;
+                        mouseUpEventArgs.ButtonPressed = MouseButton.Left;
+                        mouseUpEventArgs.SingleTarget = (leftMouseDownTarget == leftMouseUpTarget);
+                        //frame.MouseUp(mouseUpEventArgs);
 
-                    XnaMouseEventArgs e = new XnaMouseEventArgs();
-                    e.Target = commonAncestor;
-                    e.ClickLocation = clickPoint;
-                    e.Handled = false;
-                    e.Bubbled = false;
-                    e.ButtonPressed = MouseButton.Left;
-                    e.SingleTarget = (leftMouseDownTarget == leftMouseUpTarget);
-                    frame.Click(e);
-                    
+                        XnaMouseEventArgs e = new XnaMouseEventArgs();
+                        e.Target = commonAncestor;
+                        e.ClickLocation = mousePoint;
+                        e.Handled = false;
+                        e.Bubbled = false;
+                        e.ButtonPressed = MouseButton.Left;
+                        e.SingleTarget = (leftMouseDownTarget == leftMouseUpTarget);
+                        frame.Click(e);
+                    }
                     // Reset the state.
                     leftMouseDownTarget = null;
                 }
@@ -59,32 +81,124 @@ namespace ZRTS.InputEngines
             {
                 if (rightMouseDownTarget == null)
                 {
-                    rightMouseDownTarget = GetTarget(clickPoint);
+                    rightMouseDownTarget = currentUIOn;
+                    XnaMouseEventArgs e = new XnaMouseEventArgs();
+                    e.Target = leftMouseDownTarget;
+                    e.ClickLocation = mousePoint;
+                    e.Handled = false;
+                    e.Bubbled = false;
+                    e.ButtonPressed = MouseButton.Right;
+                    e.SingleTarget = true;
+                    frame.MouseDown(e);
                 }
             }
             else
             {
                 if (rightMouseDownTarget != null)
                 {
-                    XnaUIComponent rightMouseUpTarget = GetTarget(clickPoint);
+                    XnaUIComponent rightMouseUpTarget = GetTarget(mousePoint);
                     XnaUIComponent commonAncestor = getCommonAncestor(rightMouseDownTarget, rightMouseUpTarget);
 
-                    XnaMouseEventArgs e = new XnaMouseEventArgs();
-                    e.Target = commonAncestor;
-                    e.ClickLocation = clickPoint;
-                    e.Handled = false;
-                    e.Bubbled = false;
-                    e.ButtonPressed = MouseButton.Right;
-                    e.SingleTarget = (rightMouseDownTarget == rightMouseUpTarget);
-                    frame.Click(e);
-                    
-                    // Reset the state.
-                    leftMouseDownTarget = null;
+                    if (commonAncestor != null)
+                    {
+                        XnaMouseEventArgs mouseUpEventArgs = new XnaMouseEventArgs();
+                        mouseUpEventArgs.Target = commonAncestor;
+                        mouseUpEventArgs.ClickLocation = mousePoint;
+                        mouseUpEventArgs.Handled = false;
+                        mouseUpEventArgs.Bubbled = false;
+                        mouseUpEventArgs.ButtonPressed = MouseButton.Left;
+                        mouseUpEventArgs.SingleTarget = (rightMouseDownTarget == rightMouseUpTarget);
+                        frame.MouseUp(mouseUpEventArgs);
+
+                        XnaMouseEventArgs e = new XnaMouseEventArgs();
+                        e.Target = commonAncestor;
+                        e.ClickLocation = mousePoint;
+                        e.Handled = false;
+                        e.Bubbled = false;
+                        e.ButtonPressed = MouseButton.Right;
+                        e.SingleTarget = (rightMouseDownTarget == rightMouseUpTarget);
+                        frame.Click(e);
+                    }
                     // Reset the state.
                     rightMouseDownTarget = null;
                 }
             }
+
+            // Handle mouse enter and exit events.
+            if (mouseHoverTarget != currentUIOn)
+            {
+                // Base case : First time entering.
+                if (mouseHoverTarget == null)
+                {
+                    XnaUIComponent current = currentUIOn;
+                    Stack<XnaUIComponent> stack = new Stack<XnaUIComponent>();
+                    while (current != null)
+                    {
+                        stack.Push(current);
+                        current = current.Parent;
+                    }
+                    while (stack.Count > 0)
+                    {
+                        current = stack.Pop();
+                        current.MouseEnter();
+                    }
+                }
+                else
+                {
+                    // Mouse has moved
+                    XnaUIComponent current = mouseHoverTarget;
+                    XnaUIComponent ancestor = getCommonAncestor(currentUIOn, mouseHoverTarget);
+                    while (current != ancestor)
+                    {
+                        current.MouseLeave();
+                        current = current.Parent;
+                    }
+                    current = currentUIOn;
+                    Stack<XnaUIComponent> stack = new Stack<XnaUIComponent>();
+                    while (current != ancestor)
+                    {
+                        stack.Push(current);
+                        current = current.Parent;
+                    }
+                    while (stack.Count > 0)
+                    {
+                        current = stack.Pop();
+                        current.MouseEnter();
+                    }
+                }
+                mouseHoverTarget = currentUIOn;
+            }
             base.Update(gameTime);
+        }
+
+        private XnaUIComponent GetHoverTarget(Point p)
+        {
+            XnaUIComponent current = frame;
+            bool searching = true;
+
+            while (searching)
+            {
+                p.X += current.ScrollX;
+                p.Y += current.ScrollY;
+
+                searching = false;
+
+                for (int i = current.GetChildren().Count - 1; i >= 0; i--)
+                {
+                    XnaUIComponent component = current.GetChildren()[i];
+                    Rectangle box = new Rectangle(component.DrawBox.X, component.DrawBox.Y, component.DrawBox.Width, component.DrawBox.Height);
+
+                    if (contains(p, box))
+                    {
+                        current = component;
+                        p.X -= component.DrawBox.X;
+                        p.Y -= component.DrawBox.Y;
+                        searching = true;
+                        break;
+                    }
+                }
+            }
+            return current;
         }
 
         private XnaUIComponent getCommonAncestor(XnaUIComponent c1, XnaUIComponent c2)

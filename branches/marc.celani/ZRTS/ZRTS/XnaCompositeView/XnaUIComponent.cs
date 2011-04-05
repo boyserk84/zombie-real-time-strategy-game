@@ -13,6 +13,11 @@ namespace ZRTS.XnaCompositeView
     {
         public event DrawBoxChanged SizeChanged;
         public event ClickEventHandler OnClick;
+        public event ClickEventHandler OnMouseDown;
+        public event ClickEventHandler OnMouseUp;
+        public event EventHandler OnMouseEnter;
+        public event EventHandler OnMouseLeave;
+
         //public event MouseOverEventHandler OnOver;
 
         // UI members and fields
@@ -235,6 +240,75 @@ namespace ZRTS.XnaCompositeView
 
         }
 
+        internal void MouseDown(XnaMouseEventArgs e)
+        {
+            if (!e.Handled)
+            {
+                if (OnMouseDown != null)
+                {
+                    OnMouseDown(this, e);
+                }
+                if (e.Target != this)
+                {
+                    XnaUIComponent nextTarget = e.Target;
+                    while (nextTarget.Parent != this)
+                    {
+                        nextTarget = nextTarget.Parent;
+                    }
+                    Point currentPoint = e.ClickLocation;
+                    Point offsetPoint = new Point(currentPoint.X, currentPoint.Y);
+                    offsetPoint.X -= ScrollX;
+                    offsetPoint.X -= nextTarget.drawBox.X;
+                    offsetPoint.Y -= ScrollY;
+                    offsetPoint.Y -= nextTarget.drawBox.Y;
+                    e.ClickLocation = offsetPoint;
+                    nextTarget.Click(e);
+
+                    // Repair event
+                    e.ClickLocation = currentPoint;
+                }
+                e.Bubbled = true;
+                if (!e.Handled && (OnMouseDown != null))
+                {
+                    OnMouseDown(this, e);
+                }
+            }
+        }
+
+        internal void MouseUp(XnaMouseEventArgs e)
+        {
+            if (!e.Handled)
+            {
+                if (OnMouseUp != null)
+                {
+                    OnMouseUp(this, e);
+                }
+                if (e.Target != this)
+                {
+                    XnaUIComponent nextTarget = e.Target;
+                    while (nextTarget.Parent != this)
+                    {
+                        nextTarget = nextTarget.Parent;
+                    }
+                    Point currentPoint = e.ClickLocation;
+                    Point offsetPoint = new Point(currentPoint.X, currentPoint.Y);
+                    offsetPoint.X -= ScrollX;
+                    offsetPoint.X -= nextTarget.drawBox.X;
+                    offsetPoint.Y -= ScrollY;
+                    offsetPoint.Y -= nextTarget.drawBox.Y;
+                    e.ClickLocation = offsetPoint;
+                    nextTarget.Click(e);
+
+                    // Repair event
+                    e.ClickLocation = currentPoint;
+                }
+                e.Bubbled = true;
+                if (!e.Handled && (OnMouseUp != null))
+                {
+                    OnMouseUp(this, e);
+                }
+            }
+        }
 
         internal void Click(InputEngines.XnaMouseEventArgs e)
         {
@@ -268,6 +342,22 @@ namespace ZRTS.XnaCompositeView
                 {
                     OnClick(this, e);
                 }
+            }
+        }
+
+        internal void MouseEnter()
+        {
+            if (OnMouseEnter != null)
+            {
+                OnMouseEnter(null, null);
+            }
+        }
+
+        internal void MouseLeave()
+        {
+            if (OnMouseLeave != null)
+            {
+                OnMouseLeave(null, null);
             }
         }
     }
