@@ -5,12 +5,14 @@ using System.Text;
 using ZRTSModel;
 using Microsoft.Xna.Framework;
 using ZRTS.InputEngines;
-
+using Microsoft.Xna.Framework.Graphics;
 namespace ZRTS.XnaCompositeView
 {
     public class BuildingUI : PictureBox
     {
         private Building building;
+		bool selected = false;
+		Texture2D pixel;
 
         public Building Building
         {
@@ -22,6 +24,7 @@ namespace ZRTS.XnaCompositeView
         {
             this.building = building;
             this.OnClick += getAttacked;
+			pixel = new Texture2D(game.GraphicsDevice, 1, 1);
         }
 
 
