@@ -212,7 +212,7 @@ namespace ZRTSModel
 
 		public enum Orient {N, S, E, W, NW, NE, SW, SE};
 
-		private Orient orient;
+		private Orient orient = Orient.S;
 		public Orient UnitOrient
 		{
 			get { return this.orient; }

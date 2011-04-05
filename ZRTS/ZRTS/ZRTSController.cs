@@ -25,6 +25,20 @@ namespace ZRTS
         /// <param name="?"></param>
         public void SelectEntities(List<ModelComponent> EntityList)
         {
+
+            // Filter out zombie unit from player's selected list
+            for (int i = 0; i < EntityList.Count; ++i )
+            {
+                if (EntityList[i] is UnitComponent)
+                {
+                    if (((UnitComponent)EntityList[i]).IsZombie)
+                    {
+                        EntityList.Remove(EntityList[i]);
+                    }
+                }
+            }
+
+
             SelectionState selectionState = getGameModel().GetSelectionState();
             selectionState.ClearSelectionState();
 
@@ -180,6 +194,7 @@ namespace ZRTS
                    UnitComponent unit = (UnitComponent)e;
                    unit.GetActionQueue().GetChildren().Clear();
                    unit.State = UnitComponent.UnitState.IDLE;
+                   
                }
            }
         }
