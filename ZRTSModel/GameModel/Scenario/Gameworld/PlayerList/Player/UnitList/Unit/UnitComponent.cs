@@ -49,6 +49,27 @@ namespace ZRTSModel
 			UnitAddedToCellHandlers = handleUnitAddedToCell;
         }
 
+		public UnitComponent(Entities.UnitStats stats)
+		{
+			actionQueue = new ActionQueue();
+			AddChild(actionQueue);
+			UnitAddedToCellHandlers = handleUnitAddedToCell;
+
+			this.maxHealth = stats.maxHealth;
+			this.currentHealth = stats.maxHealth;
+			this.speed = stats.speed;
+			this.buildSpeed = stats.buildSpeed;
+			this.canAttack = stats.canAttack;
+			this.canBuild = stats.canBuild;
+			this.canHarvest = stats.canHarvest;
+			this.isZombie = stats.isZombie;
+			this.type = stats.type;
+			this.visibilityRange = stats.visibilityRange;
+			this.attack = stats.attack;
+			this.attackRange = stats.attackRange;
+			this.attackTicks = stats.attackTicks;
+		}
+
         private string type;
 
 		/// <summary>

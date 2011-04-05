@@ -52,6 +52,8 @@ namespace ZRTSModel
                     // Check if unit is adjacent to building.
                     if (isUnitNextToBuilding())
                     {
+						UnitComponent unit = (UnitComponent)Parent.Parent;
+						unit.State = UnitComponent.UnitState.BUILDING;
                         // Add the building to the model if we have not done so yet.
                         if (building.Parent == null)
                         {
@@ -67,6 +69,7 @@ namespace ZRTSModel
                                 }
                             }
                         }
+
 
                         if (building.MaxHealth - building.CurrentHealth <= ((UnitComponent)Parent.Parent).BuildSpeed)
                         {
