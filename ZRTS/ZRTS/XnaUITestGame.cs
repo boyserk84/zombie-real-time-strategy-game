@@ -103,9 +103,20 @@ namespace ZRTS
             soldier2.IsZombie = true;
             soldier2.CurrentHealth = 100;
             soldier2.CanBuild = true;
+			soldier2.CanAttack = true;
 			soldier2.AttackStance = UnitComponent.UnitAttackStance.Aggressive;
             list2.AddChild(soldier2);
             soldier2.PointLocation = new PointF((float)10.5, (float)6.1);
+
+			UnitComponent soldier3 = new UnitComponent();
+			soldier3.Type = "zombie";
+			soldier3.IsZombie = true;
+			soldier3.CurrentHealth = 100;
+			soldier3.CanBuild = true;
+			soldier3.CanAttack = true;
+			soldier3.AttackStance = UnitComponent.UnitAttackStance.Aggressive;
+			list2.AddChild(soldier3);
+			soldier3.PointLocation = new PointF((float)12.5, (float)4.0);
 
 			PlayerComponent player1 = (PlayerComponent)model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[0];
 			PlayerComponent player2 = (PlayerComponent)model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[1];

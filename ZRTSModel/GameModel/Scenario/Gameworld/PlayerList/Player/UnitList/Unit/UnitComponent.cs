@@ -465,6 +465,7 @@ namespace ZRTSModel
 			{}
 			else // Saw another Unit added to a CellComponent.
 			{
+				Console.WriteLine("Saw another unit");
 				if (unitIsAnEnemy(e.Unit) && this.AttackStance == UnitAttackStance.Aggressive && this.actionQueue.GetChildren().Count == 0)
 				{
 					ModelComponent temp = Parent;

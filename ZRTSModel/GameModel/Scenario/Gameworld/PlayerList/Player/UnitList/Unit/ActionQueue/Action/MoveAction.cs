@@ -16,8 +16,8 @@ namespace ZRTSModel
     /// </summary>
     public class MoveAction : EntityAction
     {
-        private float targetX;
-        private float targetY;
+        public float targetX;
+        public float targetY;
         private List<CellComponent> path = null;
         private Map map;
         private int cellIndex;
