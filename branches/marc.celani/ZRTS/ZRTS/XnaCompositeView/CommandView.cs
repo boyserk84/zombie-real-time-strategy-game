@@ -38,21 +38,25 @@ namespace ZRTS.XnaCompositeView
 
             ZRTSCompositeViewUIFactory factory = ZRTSCompositeViewUIFactory.Instance;
             moveButton = factory.BuildPictureBox("button", "move");
-            moveButton.DrawBox = new Rectangle(0, 0, 85, 85);
+            moveButton.DrawBox = new Rectangle(GameConfig.BUTTON_MOVE*GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
+            moveButton.OnClick += handleMoveButtonClick;
             mainPanel.AddChild(moveButton);
 
             stopButton = factory.BuildPictureBox("button", "stop");
-            stopButton.DrawBox = new Rectangle(0, 0, 85, 85);
+            stopButton.DrawBox = new Rectangle(GameConfig.BUTTON_STOP*GameConfig.BUTTON_DIM,GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
+            stopButton.OnClick += handleStopButtonClick;
             mainPanel.AddChild(stopButton);
 
             buildButton = factory.BuildPictureBox("button", "build");
-            buildButton.DrawBox = new Rectangle(0, 0, 85, 85);
+            buildButton.DrawBox = new Rectangle(GameConfig.BUTTON_BUILD*GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y_SECOND, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
             buildButton.OnClick += handleBuildButtonClick;
             mainPanel.AddChild(buildButton);
 
             attackButton = factory.BuildPictureBox("button", "attack");
-            attackButton.DrawBox = new Rectangle(0, 0, 85, 85);
+            attackButton.DrawBox = new Rectangle(GameConfig.BUTTON_ATTACK * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
+            attackButton.OnClick += handleAttackButtonClick;
             mainPanel.AddChild(attackButton);
+            mainPanel.Visible = false;
 
             // Individual building buttons in the build panel
 
@@ -68,6 +72,23 @@ namespace ZRTS.XnaCompositeView
 
             
         }
+
+        /// <summary>
+        /// hide all command buttons
+        /// </summary>
+        public void disableButtons()
+        {
+            mainPanel.Visible = false;
+        }
+
+        /// <summary>
+        /// Show all command buttons
+        /// </summary>
+        public void activateButtons()
+        {
+            mainPanel.Visible = true;
+        }
+
 
         private void handleBuildingButtonClick(Object sender, XnaMouseEventArgs e)
         {
@@ -90,6 +111,57 @@ namespace ZRTS.XnaCompositeView
                 e.Handled = true;
             }
         }
+
+        /// <summary>
+        /// Trigger action when stop button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void handleStopButtonClick(object sender, XnaMouseEventArgs e)
+        {
+            System.Console.Out.WriteLine("STOP BUTTON IS CLICKED!");
+            if (e.Bubbled && !e.Handled)
+            {
+                e.Handled = true;
+                ((XnaUITestGame)Game).Controller.OnSelectUnitToStop();
+            }
+        }
+
+        /// <summary>
+        /// Trigger attack when attack button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void handleAttackButtonClick(object sender, XnaMouseEventArgs e)
+        {
+            System.Console.Out.WriteLine("Attack button is clicked!");
+            // HACK // SAME EFFECT
+            if (e.Bubbled && !e.Handled)
+            {
+                e.Handled = true;
+                //((XnaUITestGame)Game).Controller.TellSelectedUnitsToAttack((ZRTSModel.UnitComponent) sender);
+            }
+
+        }
+
+        /// <summary>
+        /// Trigger move command when move button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void handleMoveButtonClick(object sender, XnaMouseEventArgs e)
+        {
+            System.Console.Out.WriteLine("Move button is clicked!");
+            //HACK // SAME EFFECT
+            if (e.Bubbled && !e.Handled)
+            {
+                e.Handled = true;
+                
+                // First change the command and cursor
+            }
+        }
+
+
 
         protected override void onDraw(XnaDrawArgs e)
         {

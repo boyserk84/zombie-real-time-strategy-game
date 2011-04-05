@@ -13,7 +13,10 @@ namespace ZRTS.XnaCompositeView
     public class SelectionView : XnaUIComponent
     {
         private SelectionState selectionState;
-        
+
+        public CommandView commandBar;
+
+
         public SelectionView(Game game, SelectionState selectionState)
             : base(game)
         {
@@ -26,6 +29,9 @@ namespace ZRTS.XnaCompositeView
             // For test purposes only.
             e.SpriteBatch.Draw(((XnaUITestGame)Game).SpriteSheet, e.Location, new Rectangle(0, 0, 1, 1), Color.YellowGreen);
         }
+
+
+
 
         private void onSelectionChanged(Object sender, SelectionStateChangedArgs e)
         {
@@ -62,7 +68,8 @@ namespace ZRTS.XnaCompositeView
             }
             if (count > 0)
             {
-                
+                commandBar.activateButtons();  // show commandView if selected
+
                 BuildLargePreviewPictureBoxVisitor visitor = new BuildLargePreviewPictureBoxVisitor();
                 e.SelectedEntities[0].Accept(visitor);
                 PictureBox bigImage = visitor.PictureBox;
@@ -76,6 +83,10 @@ namespace ZRTS.XnaCompositeView
                     visitor2.Layout = holder;
                     e.SelectedEntities[0].Accept(visitor2);
                 }
+            }
+            else
+            {
+                commandBar.disableButtons();
             }
         }
 

@@ -166,6 +166,24 @@ namespace ZRTS
             changeMapViewLeftClickStrategyToBuild(buildingType);
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        internal void OnSelectUnitToStop()
+        {
+           List<ModelComponent> selectedEntities = ((XnaUITestGame)Game).Model.GetSelectionState().SelectedEntities;
+           foreach (ModelComponent e in selectedEntities)
+           {
+               if (e is UnitComponent)
+               {
+                   UnitComponent unit = (UnitComponent)e;
+                   unit.GetActionQueue().GetChildren().Clear();
+                   unit.State = UnitComponent.UnitState.IDLE;
+               }
+           }
+        }
+
         /// <summary>
         /// Notifies the map view of the selection so that it may change its strategy for handling mouse messages in order to show the
         /// building image before placing as well as to build the building on placement.
