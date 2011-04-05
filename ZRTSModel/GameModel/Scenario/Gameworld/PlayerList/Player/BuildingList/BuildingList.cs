@@ -9,7 +9,8 @@ namespace ZRTSModel
     [Serializable()]
     public class BuildingList : ModelComponent
     {
-        public event BuildingAddedHandler BuildingAddedEventHandlers;
+        public event BuildingAddedOrRemovedHandler BuildingAddedEventHandlers;
+        public event BuildingAddedOrRemovedHandler BuildingRemovedEventHandlers;
 
         public override void AddChild(ModelComponent child)
         {
@@ -25,6 +26,22 @@ namespace ZRTSModel
                 }
             }
         }
+
+        public override void RemoveChild(ModelComponent child)
+        {
+            if (child is Building)
+            {
+                Building building = child as Building;
+                base.RemoveChild(child);
+                if (BuildingRemovedEventHandlers != null)
+                {
+                    BuildingAddedEventArgs e = new BuildingAddedEventArgs();
+                    e.Building = building;
+                    BuildingRemovedEventHandlers(this, e);
+                }
+            }
+        }
+
         public override void Accept(ModelComponentVisitor visitor)
         {
             visitor.Visit(this);

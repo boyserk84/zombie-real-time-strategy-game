@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
 namespace ZRTSMapEditor
 {
-    partial class UnitPalette : UserControl
+    partial class BuildingPalette : UserControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -30,7 +30,6 @@ namespace ZRTSMapEditor
         private void InitializeComponent()
         {
             this.previewBox = new System.Windows.Forms.PictureBox();
-            this.uiPlayerList = new System.Windows.Forms.ComboBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.previewBox)).BeginInit();
             this.SuspendLayout();
@@ -43,32 +42,22 @@ namespace ZRTSMapEditor
             this.previewBox.TabIndex = 0;
             this.previewBox.TabStop = false;
             // 
-            // uiPlayerList
-            // 
-            this.uiPlayerList.FormattingEnabled = true;
-            this.uiPlayerList.Location = new System.Drawing.Point(3, 60);
-            this.uiPlayerList.Name = "uiPlayerList";
-            this.uiPlayerList.Size = new System.Drawing.Size(124, 21);
-            this.uiPlayerList.TabIndex = 2;
-            this.uiPlayerList.SelectedIndexChanged += new System.EventHandler(this.uiPlayerList_SelectedIndexChanged);
-            // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.AutoScroll = true;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 87);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 59);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(124, 172);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(124, 153);
             this.flowLayoutPanel1.TabIndex = 3;
             // 
-            // UnitPalette
+            // BuildingPalette
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.flowLayoutPanel1);
-            this.Controls.Add(this.uiPlayerList);
             this.Controls.Add(this.previewBox);
-            this.Name = "UnitPalette";
-            this.Size = new System.Drawing.Size(130, 262);
+            this.Name = "BuildingPalette";
+            this.Size = new System.Drawing.Size(130, 217);
             ((System.ComponentModel.ISupportInitialize)(this.previewBox)).EndInit();
             this.ResumeLayout(false);
 
@@ -77,7 +66,6 @@ namespace ZRTSMapEditor
         #endregion
 
         private System.Windows.Forms.PictureBox previewBox;
-        public ComboBox uiPlayerList;
         private FlowLayoutPanel flowLayoutPanel1;
     }
 }

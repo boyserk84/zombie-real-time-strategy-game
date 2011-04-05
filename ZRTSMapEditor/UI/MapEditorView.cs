@@ -31,8 +31,9 @@ namespace ZRTSMapEditor
             // Further initialize pieces of UI.
             tilePalette.loadImageList();
             tilePalette.setController(controller);
-            mapViewComposite1.Init(controller, model);
-            unitPalette1.Init(controller, model);
+            mapViewComposite.Init(controller, model);
+            unitPalette.Init(controller, model);
+            buildingPalette1.Init(controller, model);
 
         }
 

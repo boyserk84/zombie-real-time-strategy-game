@@ -27,6 +27,8 @@ namespace ZRTSModel
             set { y = value; }
         }
 
+
+
         public event TileChangedHandler TileChangedEvent;
         public event EntityInCellChangedHandler UnitAddedEvent;
         public event EntityInCellChangedHandler UnitRemovedEvent;
@@ -117,7 +119,14 @@ namespace ZRTSModel
                         UnitArgs args = new UnitArgs();
                         args.Unit = (UnitComponent)entity;
 						args.Unit.UnitAttackedEnemyHanlders += new UnitAttackedEnemyHandler(handleUnitInCellAttackingEnemy);
-                        UnitAddedEvent(this, args);
+                        if (UnitAddedEvent != null)
+                        {
+                            UnitAddedEvent(this, args);
+                        }
+                    }
+                    if (entity is Building)
+                    {
+                        // do nothing special?
                     }
                 }
             }

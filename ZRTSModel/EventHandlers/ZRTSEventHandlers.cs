@@ -14,7 +14,7 @@ namespace ZRTSModel.EventHandlers
     public delegate void EntityInCellChangedHandler(Object sender, UnitArgs args);
     public delegate void UnitHPChangedHandler(Object sender, UnitHPChangedEventArgs args);
     public delegate void SelectionStateChangedHandler(Object sender, SelectionStateChangedArgs args);
-    public delegate void BuildingAddedHandler(Object sender, BuildingAddedEventArgs e);
+    public delegate void BuildingAddedOrRemovedHandler(Object sender, BuildingAddedEventArgs e);
 	public delegate void ModelComponentSelectedHandler(Object sender, bool selected);
 
 

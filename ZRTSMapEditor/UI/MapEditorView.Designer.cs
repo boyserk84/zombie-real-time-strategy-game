@@ -39,9 +39,10 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.separatorToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.playerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mapViewComposite1 = new MapViewComposite();
-            this.unitPalette1 = new UnitPalette();
+            this.mapViewComposite = new MapViewComposite();
+            this.unitPalette = new UnitPalette();
             this.tilePalette = new TilePalette();
+            this.buildingPalette1 = new BuildingPalette();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -138,35 +139,43 @@
             this.playerToolStripMenuItem.Text = "Player";
             this.playerToolStripMenuItem.Click += new System.EventHandler(this.playerToolStripMenuItem_Click);
             // 
-            // mapViewComposite1
+            // mapViewComposite
             // 
-            this.mapViewComposite1.AutoScroll = true;
-            this.mapViewComposite1.Location = new System.Drawing.Point(172, 50);
-            this.mapViewComposite1.Name = "mapViewComposite1";
-            this.mapViewComposite1.Size = new System.Drawing.Size(800, 600);
-            this.mapViewComposite1.TabIndex = 5;
+            this.mapViewComposite.AutoScroll = true;
+            this.mapViewComposite.Location = new System.Drawing.Point(172, 50);
+            this.mapViewComposite.Name = "mapViewComposite";
+            this.mapViewComposite.Size = new System.Drawing.Size(800, 600);
+            this.mapViewComposite.TabIndex = 5;
             // 
-            // unitPalette1
+            // unitPalette
             // 
-            this.unitPalette1.Location = new System.Drawing.Point(12, 266);
-            this.unitPalette1.Name = "unitPalette1";
-            this.unitPalette1.Size = new System.Drawing.Size(130, 300);
-            this.unitPalette1.TabIndex = 4;
+            this.unitPalette.Location = new System.Drawing.Point(12, 175);
+            this.unitPalette.Name = "unitPalette";
+            this.unitPalette.Size = new System.Drawing.Size(130, 225);
+            this.unitPalette.TabIndex = 4;
             // 
             // tilePalette
             // 
-            this.tilePalette.Location = new System.Drawing.Point(12, 67);
+            this.tilePalette.Location = new System.Drawing.Point(12, 27);
             this.tilePalette.Name = "tilePalette";
-            this.tilePalette.Size = new System.Drawing.Size(129, 193);
+            this.tilePalette.Size = new System.Drawing.Size(129, 142);
             this.tilePalette.TabIndex = 3;
+            // 
+            // buildingPalette1
+            // 
+            this.buildingPalette1.Location = new System.Drawing.Point(12, 388);
+            this.buildingPalette1.Name = "buildingPalette1";
+            this.buildingPalette1.Size = new System.Drawing.Size(130, 262);
+            this.buildingPalette1.TabIndex = 6;
             // 
             // MapEditorView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 662);
-            this.Controls.Add(this.mapViewComposite1);
-            this.Controls.Add(this.unitPalette1);
+            this.Controls.Add(this.buildingPalette1);
+            this.Controls.Add(this.mapViewComposite);
+            this.Controls.Add(this.unitPalette);
             this.Controls.Add(this.tilePalette);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -198,7 +207,8 @@
         private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator separatorToolStripMenuItem;
-        private UnitPalette unitPalette1;
-        private MapViewComposite mapViewComposite1;
+        private UnitPalette unitPalette;
+        private MapViewComposite mapViewComposite;
+        private BuildingPalette buildingPalette1;
     }
 }
