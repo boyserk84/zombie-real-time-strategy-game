@@ -38,6 +38,7 @@ namespace ZRTS.XnaCompositeView
 
             ZRTSCompositeViewUIFactory factory = ZRTSCompositeViewUIFactory.Instance;
             moveButton = factory.BuildPictureBox("button", "move");
+           
             moveButton.DrawBox = new Rectangle(GameConfig.BUTTON_MOVE*GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
             moveButton.OnClick += handleMoveButtonClick;
             moveButton.OnMouseEnter += handleMoveButtonOver;
@@ -171,14 +172,15 @@ namespace ZRTS.XnaCompositeView
             System.Console.Out.WriteLine("Move button OVEr!");
             
             // TODO: Fix this !!!!Not drawing?
-            //moveButton.DrawBox = new Rectangle((GameConfig.BUTTON_MOVE + GameConfig.BUTTON_MOUSE_PRESS) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
+            //moveButton.DrawBox = new Rectangle((GameConfig.BUTTON_BUILD) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
+            moveButton.DrawBox = new Rectangle((GameConfig.BUTTON_MOVE + GameConfig.BUTTON_MOUSE_PRESS) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
             //moveButton.Visible = true;
         }
 
         private void handleMoveButtonAway(object sender, EventArgs e)
         {
             System.Console.Out.WriteLine("Move button away!");
-            moveButton.DrawBox = new Rectangle(GameConfig.BUTTON_MOVE * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
+            //moveButton.DrawBox = new Rectangle(GameConfig.BUTTON_MOVE * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
         }
     
 

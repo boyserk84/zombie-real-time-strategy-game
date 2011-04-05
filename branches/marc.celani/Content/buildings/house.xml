@@ -1,7 +1,7 @@
 <Building>
 	<type>house</type>
-	<width>1</width>
-	<height>1</height>
+	<width>6</width>
+	<height>6</height>
 	<maxHealth>200</maxHealth>
 	<buildCycles>20</buildCycles>
 	<dropOffResources>false</dropOffResources>

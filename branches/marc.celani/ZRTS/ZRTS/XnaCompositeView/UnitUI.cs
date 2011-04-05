@@ -57,8 +57,7 @@ namespace ZRTS.XnaCompositeView
         /// <param name="y"></param>
         private void changePicture(int x, int y)
         {
-            this.sourceRect.X = x;
-            this.sourceRect.Y = y;
+            this.SourceRect = new Rectangle(x, y, this.SourceRect.Width, this.SourceRect.Height);
         }
 
         /// <summary>
@@ -68,8 +67,9 @@ namespace ZRTS.XnaCompositeView
         /// <param name="row"></param>
         private void changePictureByFrame(int col, int row)
         {
-            this.sourceRect.X = col * this.sourceRect.Width ;
-            this.sourceRect.Y = row * this.sourceRect.Height;
+            this.SourceRect = new Rectangle(col * this.SourceRect.Width, row * this.SourceRect.Height, this.SourceRect.Width, this.SourceRect.Height);
+            //this.SourceRect.X = col * this.SourceRect.Width ;
+            //this.SourceRect.Y = row * this.SourceRect.Height;
         }
 
         /// <summary>
@@ -102,35 +102,35 @@ namespace ZRTS.XnaCompositeView
 
             if (unit.UnitOrient == UnitComponent.Orient.N)
             {
-                changePicture((GameConfig.DIR_N + currentFrame) * GameConfig.UNIT_WIDTH, sourceRect.Y);
+                changePicture((GameConfig.DIR_N + currentFrame) * GameConfig.UNIT_WIDTH, SourceRect.Y);
             }
 			else if (unit.UnitOrient == UnitComponent.Orient.S)
             {
-                changePicture((GameConfig.DIR_S + currentFrame) * GameConfig.UNIT_WIDTH, sourceRect.Y);
+                changePicture((GameConfig.DIR_S + currentFrame) * GameConfig.UNIT_WIDTH, SourceRect.Y);
             }
 			else if (unit.UnitOrient == UnitComponent.Orient.E)
             {
-                changePicture((GameConfig.DIR_E + currentFrame) * GameConfig.UNIT_WIDTH, sourceRect.Y);
+                changePicture((GameConfig.DIR_E + currentFrame) * GameConfig.UNIT_WIDTH, SourceRect.Y);
             }
 			else if (unit.UnitOrient == UnitComponent.Orient.W)
             {
-                changePicture((GameConfig.DIR_W + currentFrame) * GameConfig.UNIT_WIDTH, sourceRect.Y);
+                changePicture((GameConfig.DIR_W + currentFrame) * GameConfig.UNIT_WIDTH, SourceRect.Y);
             }
             else if (unit.UnitOrient == UnitComponent.Orient.NE)
             {
-                changePicture((GameConfig.DIR_NE+ currentFrame) * GameConfig.UNIT_WIDTH, sourceRect.Y);
+                changePicture((GameConfig.DIR_NE+ currentFrame) * GameConfig.UNIT_WIDTH, SourceRect.Y);
             }
             else if (unit.UnitOrient == UnitComponent.Orient.SE)
             {
-                changePicture((GameConfig.DIR_SE + currentFrame) * GameConfig.UNIT_WIDTH, sourceRect.Y);
+                changePicture((GameConfig.DIR_SE + currentFrame) * GameConfig.UNIT_WIDTH, SourceRect.Y);
             }
             else if (unit.UnitOrient == UnitComponent.Orient.NW)
             {
-                changePicture((GameConfig.DIR_NW + currentFrame) * GameConfig.UNIT_WIDTH, sourceRect.Y);
+                changePicture((GameConfig.DIR_NW + currentFrame) * GameConfig.UNIT_WIDTH, SourceRect.Y);
             }
             else if (unit.UnitOrient == UnitComponent.Orient.SW)
             {
-                changePicture((GameConfig.DIR_SW + currentFrame) * GameConfig.UNIT_WIDTH, sourceRect.Y);
+                changePicture((GameConfig.DIR_SW + currentFrame) * GameConfig.UNIT_WIDTH, SourceRect.Y);
             }
         }
 

@@ -8,9 +8,17 @@ namespace ZRTS.XnaCompositeView
 {
     public class PictureBox : XnaUIComponent
     {
-        protected Rectangle sourceRect;
+        private Rectangle sourceRect;
+
+        protected Rectangle SourceRect
+        {
+            get { return sourceRect; }
+            set { sourceRect = value; }
+        }
 
         private Color tint = Color.White;
+
+        
 
         public Color Tint
         {

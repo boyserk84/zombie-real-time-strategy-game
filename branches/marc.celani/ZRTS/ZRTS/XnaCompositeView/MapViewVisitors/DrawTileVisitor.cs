@@ -21,6 +21,7 @@ namespace ZRTS.XnaCompositeView.MapViewVisitors
         }
         public override void Visit(Grass grass)
         {
+            // TODO: add additinal logic for using different grass texture
             spriteBatch.Draw(texture, drawRectangle, new Rectangle(GameConfig.TILE_GRASS * GameConfig.TILE_DIM, GameConfig.TILE_START_Y, GameConfig.TILE_DIM, GameConfig.TILE_DIM), Color.White);
         }
 
