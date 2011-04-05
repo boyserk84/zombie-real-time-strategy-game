@@ -8,6 +8,12 @@ namespace ZRTSModel
 {
     public class Building : ModelComponent
     {
+		public Building()
+		{
+			this.actionQueue = new BuildingActionQueue();
+			AddChild(this.actionQueue);
+		}
+
         private string type;
 
         public string Type
@@ -128,6 +134,15 @@ namespace ZRTSModel
             get { return cellsContainedWithin; }
             set { cellsContainedWithin = value; }
         }
+
+		private BuildingActionQueue actionQueue = new BuildingActionQueue();
+
+		public BuildingActionQueue BuildingActionQueue
+		{
+			get { return this.actionQueue; }
+			set { this.actionQueue = value; }
+
+		}
 
         public override void Accept(ModelComponentVisitor visitor)
         {
