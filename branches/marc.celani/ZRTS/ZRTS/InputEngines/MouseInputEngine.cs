@@ -62,7 +62,7 @@ namespace ZRTS.InputEngines
                         mouseUpEventArgs.Bubbled = false;
                         mouseUpEventArgs.ButtonPressed = MouseButton.Left;
                         mouseUpEventArgs.SingleTarget = (leftMouseDownTarget == leftMouseUpTarget);
-                        //frame.MouseUp(mouseUpEventArgs);
+                        frame.MouseUp(mouseUpEventArgs);
 
                         XnaMouseEventArgs e = new XnaMouseEventArgs();
                         e.Target = commonAncestor;
