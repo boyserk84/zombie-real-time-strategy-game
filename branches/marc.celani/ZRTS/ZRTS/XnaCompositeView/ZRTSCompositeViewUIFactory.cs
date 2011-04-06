@@ -103,6 +103,25 @@ namespace ZRTS.XnaCompositeView
                 }
             }
 
+            // Building Icon
+            if (type.Equals("building"))
+            {
+                if (subtype.Equals("house"))
+                {
+                    //todo add contents;
+                    return new PictureBox(game, new Rectangle(0, 0, 1, 1));
+                }
+            }
+
+            // UnitIcon
+            if (type.Equals("unitBuild"))
+            {
+                if (subtype.Equals("soldier"))
+                {
+                    return new PictureBox(game, new Rectangle(0, GameConfig.SELECT_AVATAR_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
+                }
+            }
+
 
             if (type.Equals("soldier") && subtype.Equals("selectionAvatar"))
             {
