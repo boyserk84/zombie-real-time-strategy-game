@@ -116,7 +116,6 @@ namespace ZRTSModel
                     this.state = UnitState.DEAD;
                     ModelComponent parent = Parent;
                     Parent.RemoveChild(this);
-					Console.WriteLine("Parent removed child");
                 }
             }
         }
