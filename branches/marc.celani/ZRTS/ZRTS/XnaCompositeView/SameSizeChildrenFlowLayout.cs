@@ -33,7 +33,7 @@ namespace ZRTS.XnaCompositeView
                 XnaUIComponent firstComponent = GetChildren()[0];
                 int boxWidth = firstComponent.DrawBox.Width;
                 int boxHeight = firstComponent.DrawBox.Height;
-                int numberOfElementInRow = DrawBox.Width / boxWidth;
+                int numberOfElementInRow = DrawBox.Width / (boxWidth);
                 int current = 0;
                 foreach (XnaUIComponent component in GetChildren())
                 {

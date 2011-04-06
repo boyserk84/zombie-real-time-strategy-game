@@ -6,7 +6,7 @@ using System.Text;
 namespace ZRTSModel.Trigger
 {
     [Serializable()]
-    abstract class Condition : TriggerDecorator
+    public abstract class Condition : TriggerDecorator
     {
         public Condition(Trigger decorated)
             : base(decorated)

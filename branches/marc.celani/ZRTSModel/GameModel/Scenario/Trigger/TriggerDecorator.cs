@@ -6,13 +6,13 @@ using System.Text;
 namespace ZRTSModel.Trigger
 {
     [Serializable()]
-    abstract class TriggerDecorator : Trigger
+    public abstract class TriggerDecorator : Trigger
     {
         private Trigger decorated = null;
         protected bool isMet;
         protected bool needsToBeEvaled = true;
 
-        private TriggerDecorator()
+        public TriggerDecorator()
         {
 
         }
@@ -22,16 +22,16 @@ namespace ZRTSModel.Trigger
             this.decorated = decorated;
         }
 
-        public void PerformActions()
+        public virtual void PerformActions()
         {
-            decorated.PerformActions();
-            PerformMyAction();
+            //decorated.PerformActions();
+            //PerformMyAction();
         }
 
-        public bool Eval()
+        public virtual bool Eval()
         {
-            bool myCondition = NeedsToBeEvaluated() ? CheckMyCondition() : IsMet();
-            return myCondition && decorated.Eval();
+			Console.WriteLine("Condition Checked");
+			return false;
         }
 
         public bool IsMet()

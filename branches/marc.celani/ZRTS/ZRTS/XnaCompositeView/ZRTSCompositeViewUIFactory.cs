@@ -136,6 +136,20 @@ namespace ZRTS.XnaCompositeView
             return pictureBox;
         }
 
+		public ProduceUnitButton BuildProduceUnitButton(string unitType)
+		{
+			Rectangle sourceRect;
+			//if (unitType.Equals("soldier"))
+            //{
+                sourceRect = new Rectangle(0, GameConfig.SELECT_AVATAR_START_Y, 76, 76);
+            //}
+
+			ProduceUnitButton button = new ProduceUnitButton(game, sourceRect, unitType);
+			button.UnitType = unitType;
+
+			return button;
+		}
+
         /// <summary>
         /// Construct a unit UI (image representation)
         /// </summary>

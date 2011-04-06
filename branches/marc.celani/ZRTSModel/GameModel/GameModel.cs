@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ZRTSModel.EventHandlers;
 
 namespace ZRTSModel.GameModel
 {
     public class GameModel : ModelComponent
     {
+		public GameVictoryStateChangedHandler VictoryStateChangedHandler;
+
         private PlayerComponent playerInContext;
 
         /// <summary>
@@ -55,5 +58,22 @@ namespace ZRTSModel.GameModel
             }
             return selectionState;
         }
+
+		public enum GameVictoryState { Undecided, PlayerWin, PlayerLost };
+		private GameVictoryState victoryState = GameVictoryState.Undecided;
+
+		public GameVictoryState VictoryState
+		{
+			get { return this.victoryState; }
+			set
+			{
+				Console.WriteLine("Victory State Changed");
+				this.victoryState = value;
+				if (VictoryStateChangedHandler != null)
+				{
+					VictoryStateChangedHandler(this, new GameVictoryStateChangeEventArgs(this.victoryState));
+				}
+			}
+		}
     }
 }

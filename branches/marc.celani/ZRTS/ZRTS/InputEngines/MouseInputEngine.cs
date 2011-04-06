@@ -43,6 +43,7 @@ namespace ZRTS.InputEngines
                     e.Bubbled = false;
                     e.ButtonPressed = MouseButton.Left;
                     e.SingleTarget = true;
+					e.time = System.Environment.TickCount;
                     frame.MouseDown(e);
                 }
             }
@@ -70,6 +71,7 @@ namespace ZRTS.InputEngines
                         e.Bubbled = false;
                         e.ButtonPressed = MouseButton.Left;
                         e.SingleTarget = (leftMouseDownTarget == leftMouseUpTarget);
+						e.time = System.Environment.TickCount;
                         frame.Click(e);
                     }
                     // Reset the state.
@@ -89,6 +91,7 @@ namespace ZRTS.InputEngines
                     e.Bubbled = false;
                     e.ButtonPressed = MouseButton.Right;
                     e.SingleTarget = true;
+					e.time = System.Environment.TickCount;
                     frame.MouseDown(e);
                 }
             }
@@ -117,6 +120,7 @@ namespace ZRTS.InputEngines
                         e.Bubbled = false;
                         e.ButtonPressed = MouseButton.Right;
                         e.SingleTarget = (rightMouseDownTarget == rightMouseUpTarget);
+						e.time = System.Environment.TickCount;
                         frame.Click(e);
                     }
                     // Reset the state.

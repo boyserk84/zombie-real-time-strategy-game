@@ -12,14 +12,22 @@ namespace ZRTSModel
     [Serializable()]
     public class ScenarioComponent : ModelComponent
     {
-        public ScenarioComponent()
-        {
-
-        }
+		public List<Trigger.Trigger> triggers;
         public ScenarioComponent(int x, int y)
         {
             AddChild(new Gameworld(x, y));
+			triggers = new List<Trigger.Trigger>();
         }
+
+		public ScenarioComponent()
+		{
+			triggers = new List<Trigger.Trigger>();
+		}
+
+		public void addTrigger(Trigger.Trigger trigger)
+		{
+			triggers.Add(trigger);
+		}
 
         public Gameworld GetGameWorld()
         {

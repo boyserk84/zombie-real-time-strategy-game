@@ -116,6 +116,7 @@ namespace ZRTSModel
                     this.state = UnitState.DEAD;
                     ModelComponent parent = Parent;
                     Parent.RemoveChild(this);
+					Console.WriteLine("Parent removed child");
                 }
             }
         }
@@ -466,7 +467,6 @@ namespace ZRTSModel
 			{}
 			else // Saw another Unit added to a CellComponent.
 			{
-				Console.WriteLine("Saw another unit");
 				if (unitIsAnEnemy(e.Unit) && this.AttackStance == UnitAttackStance.Aggressive && this.actionQueue.GetChildren().Count == 0)
 				{
 					ModelComponent temp = Parent;

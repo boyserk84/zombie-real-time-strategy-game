@@ -19,6 +19,7 @@ namespace ZRTS.InputEngines
         public bool Bubbled;
         public bool SingleTarget;
         public MouseButton ButtonPressed;
+		public long time;
 
     }
 

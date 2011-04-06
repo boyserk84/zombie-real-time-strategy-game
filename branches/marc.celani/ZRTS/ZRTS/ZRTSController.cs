@@ -8,6 +8,7 @@ using ZRTSModel.GameModel;
 using ZRTS.XnaCompositeView;
 using ZRTSModel.Factories;
 using ZRTSModel;
+using ZRTSModel.Trigger;
 
 
 namespace ZRTS
@@ -193,6 +194,16 @@ namespace ZRTS
 					b.BuildingActionQueue.Work();
 				}
             }
+
+			List<Trigger> triggers = getGameModel().GetScenario().triggers;
+
+			foreach (Trigger t in triggers)
+			{
+				if (t.Eval())
+				{
+					t.PerformActions();
+				}
+			}
             base.Update(gameTime);
         }
 

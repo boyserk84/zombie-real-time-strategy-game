@@ -124,6 +124,7 @@
     <Compile Include="XnaCompositeView\CommandView.cs" />
     <Compile Include="XnaCompositeView\DrawSelectionBoxStrategy.cs" />
     <Compile Include="XnaCompositeView\MapViewLeftButtonStrategy.cs" />
+    <Compile Include="XnaCompositeView\ProduceUnitButton.cs" />
     <Compile Include="XnaCompositeView\SelectionViewVisitors\BuildLargePreviewPictureBoxVisitor.cs" />
     <Compile Include="XnaCompositeView\MapView.cs" />
     <Compile Include="XnaCompositeView\HPBar.cs" />
