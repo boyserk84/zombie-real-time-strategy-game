@@ -85,7 +85,7 @@ namespace ZRTS.XnaCompositeView
             List<String> buildingKeys = BuildingFactory.Instance.getBuildingTypes();
             foreach (String key in buildingKeys)
             {
-                PictureBox buildingButton = factory.BuildPictureBox(key, "selectionAvatar");
+                PictureBox buildingButton = factory.BuildPictureBox("building", key);
                 buildingButton.OnClick += handleBuildingButtonClick;
                 buildingButton.DrawBox = new Rectangle(0, 0, 85, 85);
                 buildPanel.AddChild(buildingButton);
@@ -95,7 +95,7 @@ namespace ZRTS.XnaCompositeView
 			List<String> unitKeys = UnitFactory.Instance.getPrefixes();
 			foreach (String key in buildingKeys)
 			{
-				PictureBox unitButton = factory.BuildPictureBox(key, "selectionAvatar");
+				PictureBox unitButton = factory.BuildPictureBox("unitBuild", "soldier");
 				unitButton.OnClick += handleUnitProduceButtonClick;
 				unitButton.DrawBox = new Rectangle(0, 0, 85, 85);
 				produceUnitPanel.AddChild(unitButton);
