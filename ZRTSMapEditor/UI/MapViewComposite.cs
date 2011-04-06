@@ -91,6 +91,11 @@ namespace ZRTSMapEditor
                 {
                     scenario.GetGameWorld().GetPlayerList().PlayerAddedEvent += this.PlayerAdded;
                     scenario.GetGameWorld().GetPlayerList().PlayerRemovedEvent += this.PlayerRemoved;
+                    foreach (PlayerComponent p in scenario.GetGameWorld().GetPlayerList().GetChildren())
+                    {
+                        p.BuildingList.BuildingAddedEventHandlers += this.BuildingAdded;
+                        p.BuildingList.BuildingRemovedEventHandlers += this.BuildingRemoved;
+                    }
                 }
             }
             
@@ -225,12 +230,22 @@ namespace ZRTSMapEditor
             {
                 foreach (PlayerComponent p in args.PlayersAddedOrRemoved)
                 {
-                    foreach (Building b in p.BuildingList.GetChildren())
+                    List<ModelComponent> copyList = new List<ModelComponent>();
+                    copyList.AddRange(p.BuildingList.GetChildren());
+                    foreach (Building b in copyList)
                     {
                         p.BuildingList.RemoveChild(b);
                     }
                     p.BuildingList.BuildingAddedEventHandlers -= this.BuildingAdded;
                     p.BuildingList.BuildingRemovedEventHandlers -= this.BuildingRemoved;
+
+                    copyList = new List<ModelComponent>();
+                    copyList.AddRange(p.GetUnitList().GetChildren());
+                    foreach (UnitComponent u in copyList)
+                    {
+                        p.GetUnitList().RemoveChild(u);
+                        u.Location.RemoveEntity(u);
+                    }
                 }
             }
         }

@@ -12,6 +12,10 @@ namespace ZRTSModel
     [Serializable()]
     public class ScenarioComponent : ModelComponent
     {
+        public ScenarioComponent()
+        {
+
+        }
         public ScenarioComponent(int x, int y)
         {
             AddChild(new Gameworld(x, y));

@@ -23,16 +23,16 @@ namespace ZRTSModel
         }
 
         // Dimensions of the building
-        private byte width;
+        private int width;
 
-        public byte Width
+        public int Width
         {
             get { return width; }
             set { width = value; }
         }
-        private byte height;
+        private int height;
 
-        public byte Height
+        public int Height
         {
             get { return height; }
             set { height = value; }

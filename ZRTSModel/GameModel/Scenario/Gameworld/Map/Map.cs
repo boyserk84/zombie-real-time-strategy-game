@@ -41,7 +41,7 @@ namespace ZRTSModel
             return list;
         }
 
-        public virtual void AddChild(ModelComponent child)
+        public override void AddChild(ModelComponent child)
         {
             // Ensure that only cells are children to the map
             if (child is CellComponent)
@@ -61,7 +61,7 @@ namespace ZRTSModel
             }
         }
 
-        public virtual void RemoveChild(ModelComponent child)
+        public override void RemoveChild(ModelComponent child)
         {
             if (GetChildren().Contains(child))
             {
