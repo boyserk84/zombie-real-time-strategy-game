@@ -80,6 +80,7 @@ namespace ZRTS.XnaCompositeView
         private void changePicture()
         {
             int unitType = GameConfig.SOLDIER_START_Y;
+            
             if (unit.IsZombie)
             {
                 unitType = GameConfig.ZOMBIE_START_Y;
@@ -139,13 +140,9 @@ namespace ZRTS.XnaCompositeView
         /// </summary>
         private void updateAnimation()
         {
-            if (unit.IsZombie)
-            {
-                //System.Console.Out.WriteLine(unit.State + ":" + unit.UnitOrient);
-            }
             if (currentFrame > 3)
             {
-                if (unit.CurrentHealth > 0)
+                if (unit.State != UnitComponent.UnitState.DEAD || unit.CurrentHealth > 0)
                 {
                     currentFrame = 0;
                 }
