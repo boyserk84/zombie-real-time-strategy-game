@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ZRTSModel;
 using ZRTSModel.GameModel;
 using ZRTS.InputEngines;
+using ZRTSModel.Trigger;
 
 namespace ZRTS
 {
@@ -92,7 +93,7 @@ namespace ZRTS
             UnitComponent soldier1 = new UnitComponent();
             soldier1.Type = "soldier";
             soldier1.IsZombie = false;
-            soldier1.AttackRange = 1.5f;
+            soldier1.AttackRange = 6.0f;
             soldier1.CanAttack = true;
             soldier1.CurrentHealth = 100;
             soldier1.CanBuild = true;
@@ -134,6 +135,13 @@ namespace ZRTS
 
             // Set the mouse visible
             this.IsMouseVisible = true;
+
+			// Add triggers
+			LoseWhenAllPlayersUnitsAreDead lose = new LoseWhenAllPlayersUnitsAreDead(player1, scenario);
+			scenario.triggers.Add(lose);
+			WinWhenAllEnemyUnitsDead win = new WinWhenAllEnemyUnitsDead(player2, scenario);
+			scenario.triggers.Add(win);
+
             base.Initialize();
         }
         protected override void LoadContent()

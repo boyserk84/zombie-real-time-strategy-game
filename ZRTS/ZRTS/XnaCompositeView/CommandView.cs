@@ -24,7 +24,9 @@ namespace ZRTS.XnaCompositeView
         private SameSizeChildrenFlowLayout buildPanel;
 
 		private SameSizeChildrenFlowLayout produceUnitPanel;
-        private ZRTSCompositeViewUIFactory factory = ZRTSCompositeViewUIFactory.Instance;
+		private ZRTSCompositeViewUIFactory factory = ZRTSCompositeViewUIFactory.Instance;
+		long lastClick = 0;
+		const int MSECONDS_PER_CLICK = 100;
 
         public CommandView(Game game)
             : base(game)
@@ -217,9 +219,13 @@ namespace ZRTS.XnaCompositeView
             moveButton.setPicturebox(new Rectangle((GameConfig.BUTTON_MOVE) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
         }
 
-		private void handleUnitProduceButtonClick(object sender, EventArgs e)
+		private void handleUnitProduceButtonClick(object sender, XnaMouseEventArgs e)
 		{
-			((XnaUITestGame)Game).Controller.TellSelectedBuildingToBuild();
+			if(e.time - lastClick > MSECONDS_PER_CLICK){
+				((XnaUITestGame)Game).Controller.TellSelectedBuildingToBuild();
+				e.Handled = true;
+				lastClick = e.time;
+			}
 		}
         private void handleStopButtonOver(object sender, EventArgs e)
         {

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ZRTSModel.Trigger
 {
-    interface Trigger
+    public interface Trigger
     {
         void PerformActions();
         bool Eval();

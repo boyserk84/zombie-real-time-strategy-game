@@ -57,8 +57,9 @@ namespace ZRTSMapEditor
             {
                 playerList = context.GetGameWorld().GetPlayerList();
                 playerList.PlayerAddedEvent += this.ChangePlayerList;
-                playerList.PlayerRemovedEvent += this.ChangePlayerList;
+                //playerList.PlayerRemovedEvent += this.ChangePlayerList;
                 ChangePlayerList(playerList, null);
+				playerList.PlayerRemovedEvent += this.ChangePlayerList;
             }
             else
             {

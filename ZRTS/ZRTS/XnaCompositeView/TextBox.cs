@@ -11,6 +11,7 @@ namespace ZRTS.XnaCompositeView
     {
         private string text = "";
         private string alignment = "left";
+		Color color = Color.White;
 
         public string Alignment
         {
@@ -33,6 +34,14 @@ namespace ZRTS.XnaCompositeView
             this.text = text;
             this.alignment = alignment;
         }
+
+		public TextBox(Game game, string text, string alignment, Color color)
+			: base(game)
+		{
+			this.text = text;
+			this.alignment = alignment;
+			this.color = color;
+		}
         protected override void onDraw(XnaDrawArgs e)
         {
             SpriteFont font = ((XnaUITestGame)Game).Font;
@@ -42,7 +51,7 @@ namespace ZRTS.XnaCompositeView
                 Vector2 desiredSize = font.MeasureString(text);
                 destPos.X += (float)e.Location.Width - desiredSize.X;
             }
-            e.SpriteBatch.DrawString(font, text, destPos, Color.White);
+            e.SpriteBatch.DrawString(font, text, destPos, color);
         }
     }
 }

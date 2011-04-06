@@ -16,6 +16,8 @@ namespace ZRTSModel.EventHandlers
     public delegate void SelectionStateChangedHandler(Object sender, SelectionStateChangedArgs args);
     public delegate void BuildingAddedOrRemovedHandler(Object sender, BuildingAddedEventArgs e);
 	public delegate void ModelComponentSelectedHandler(Object sender, bool selected);
+	public delegate void UnitListChangedHandler(Object sender, UnitListChangedEventArgs args);
+	public delegate void GameVictoryStateChangedHandler(Object sender, GameVictoryStateChangeEventArgs args);
 
 
 	/** Unit Based Events **/

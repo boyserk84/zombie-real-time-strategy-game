@@ -139,10 +139,6 @@ namespace ZRTSModel.Factories
             reader.ReadToFollowing("attack");
             stats.attack = (short)reader.ReadElementContentAsInt();
 
-            //canAttack
-            reader.ReadToFollowing("canAttack");
-            stats.canAttack = reader.ReadElementContentAsBoolean();
-
             /*// attackTicks
             reader.ReadToFollowing("attackTicks");
             stats.attackTicks = (byte)reader.ReadElementContentAsInt();
@@ -170,7 +166,7 @@ namespace ZRTSModel.Factories
             //metalCost
             reader.ReadToFollowing("metalCost");
             stats.metalCost = (byte)reader.ReadElementContentAsInt();
-
+			*/
             //canAttack
             reader.ReadToFollowing("canAttack");
             stats.canAttack = reader.ReadElementContentAsBoolean();
@@ -184,8 +180,8 @@ namespace ZRTSModel.Factories
             stats.canBuild = reader.ReadElementContentAsBoolean();
 
             //isZombie
-            reader.ReadToFollowing("isZombie");
-            stats.isZombie = reader.ReadElementContentAsBoolean();*/
+            //reader.ReadToFollowing("isZombie");
+            //stats.isZombie = reader.ReadElementContentAsBoolean();
 
         }
 

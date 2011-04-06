@@ -6,7 +6,7 @@ using System.Text;
 namespace ZRTSModel.Trigger
 {
     [Serializable()]
-    abstract class Action : TriggerDecorator
+    public abstract class Action : TriggerDecorator
     {
 
         public Action(Trigger decorated)
