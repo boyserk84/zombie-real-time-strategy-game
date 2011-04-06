@@ -12,6 +12,7 @@ using ZRTSMapEditor.UI;
 using ZRTSMapEditor.Commands.MapEditorViewCommands;
 using ZRTSModel.Factories;
 using ZRTSModel.GameModel;
+using System.Drawing;
 
 namespace ZRTSMapEditor
 {
@@ -19,6 +20,8 @@ namespace ZRTSMapEditor
     {
         private MapEditorFullModel model;
         public MapEditorView view;
+
+        
 
         public MapEditorController(MapEditorFullModel model)
         {
@@ -170,6 +173,7 @@ namespace ZRTSMapEditor
         {
             model.GetSelectionState().SelectionType = typeof(ZRTSModel.Tile);
             model.GetSelectionState().SelectedTileType = type;
+            setPreviewImage(type);
         }
 
         /// <summary>
@@ -217,6 +221,7 @@ namespace ZRTSMapEditor
         {
             model.GetSelectionState().SelectedUnitType = unitType;
             model.GetSelectionState().SelectionType = typeof(UnitComponent);
+            //setPreviewImage(unitType);
         }
 
         /// <summary>
@@ -227,6 +232,7 @@ namespace ZRTSMapEditor
         {
             model.GetSelectionState().SelectedBuildingType = buildingType;
             model.GetSelectionState().SelectionType = typeof(Building);
+           // setPreviewImage(buildingType);
         }
 
         internal void OnClickMapCell(CellComponent cellComponent, float xPercent, float yPercent)
@@ -283,6 +289,12 @@ namespace ZRTSMapEditor
                     model.GetCommandStack().ExecuteCommand(command);
                 }
             }
+        }
+
+        public void setPreviewImage(string type)
+        {
+
+            view.setPreviewImage(type);
         }
     }
 }

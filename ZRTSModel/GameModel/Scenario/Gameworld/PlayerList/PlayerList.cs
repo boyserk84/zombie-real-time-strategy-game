@@ -12,7 +12,8 @@ namespace ZRTSModel
     [Serializable()]
     public class PlayerList : ModelComponent
     {
-        public event PlayerListChangedHandler PlayerListChangedEvent;
+        public event PlayerListChangedHandler PlayerAddedEvent;
+        public event PlayerListChangedHandler PlayerRemovedEvent;
 
         public override void AddChild(ModelComponent child)
         {
@@ -20,10 +21,10 @@ namespace ZRTSModel
             {
                 base.AddChild(child);
                 PlayerListChangedEventArgs e = new PlayerListChangedEventArgs();
-                e.PlayersAdded.Add((PlayerComponent)child);
-                if (PlayerListChangedEvent != null)
+                e.PlayersAddedOrRemoved.Add((PlayerComponent)child);
+                if (PlayerAddedEvent != null)
                 {
-                    PlayerListChangedEvent(this, e);
+                    PlayerAddedEvent(this, e);
                 }
             }
         }
@@ -31,9 +32,11 @@ namespace ZRTSModel
         public override void RemoveChild(ModelComponent child)
         {
             base.RemoveChild(child);
-            if (PlayerListChangedEvent != null)
+            PlayerListChangedEventArgs e = new PlayerListChangedEventArgs();
+            e.PlayersAddedOrRemoved.Add((PlayerComponent)child);
+            if (PlayerRemovedEvent != null)
             {
-                PlayerListChangedEvent(this, null);
+                PlayerRemovedEvent(this, e);
             }
         }
 
@@ -44,9 +47,9 @@ namespace ZRTSModel
 
         public void FireChangedEvent()
         {
-            if (PlayerListChangedEvent != null)
+            if (PlayerAddedEvent != null)
             {
-                PlayerListChangedEvent(this, null);
+                PlayerAddedEvent(this, null);
             }
         }
 

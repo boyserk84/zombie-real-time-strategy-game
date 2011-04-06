@@ -26,25 +26,16 @@ namespace ZRTSMapEditor.Commands.MapEditorViewCommands
         {
             int x = cell.X;
             int y = cell.Y;
-            building.PointLocation = new PointF((float)x, (float)y);
-            for (int i = 0; i < building.Width; i++)
-            {
-                for (int j = 0; j < building.Height; j++)
-                {
-                    CellComponent c = ((Map)cell.Parent).GetCellAt(x + i, y + j);
-                    c.AddEntity(building);
-                    building.CellsContainedWithin.Add(c);
-                }
-            }
+            building.PointLocation = new PointF((float)x, (float)y); 
             player.BuildingList.AddChild(building);
+            // Set it again!
+            building.PointLocation = new PointF((float)x, (float)y); 
         }
 
         public void Undo()
         {
-            //TODO: fix this
-            player.BuildingList.RemoveChild(building);
-            cell.RemoveEntity(building);
             building.PointLocation = null;
+            player.BuildingList.RemoveChild(building);
         }
 
         public bool CanBeDone()
