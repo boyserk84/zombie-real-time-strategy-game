@@ -121,6 +121,23 @@ namespace ZRTS
 			list2.AddChild(soldier3);
 			soldier3.PointLocation = new PointF((float)12.5, (float)4.0);
 
+
+                UnitComponent[] zombiesList = new UnitComponent[5];
+                for (int i = 0; i < zombiesList.GetLength(0); ++i)
+                {
+                    zombiesList[i] = new UnitComponent();
+                    zombiesList[i].Type = "zombie";
+                    zombiesList[i].IsZombie = true;
+                    zombiesList[i].CurrentHealth = 100;
+                    zombiesList[i].CanBuild = true;
+                    zombiesList[i].CanAttack = true;
+                    zombiesList[i].AttackRange = 2.5f;
+                    zombiesList[i].AttackStance = UnitComponent.UnitAttackStance.Aggressive;
+                    list2.AddChild(zombiesList[i]);
+                    zombiesList[i].PointLocation = new PointF((float) 10f + i*1.5f, (float) 10f + i * 1.0f);
+                }
+            
+
 			PlayerComponent player1 = (PlayerComponent)model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[0];
 			PlayerComponent player2 = (PlayerComponent)model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[1];
 
@@ -186,6 +203,8 @@ namespace ZRTS
         protected override void Draw(GameTime gameTime)
         {
             // Can I get the Icon in Cornflower Blue?
+
+
             GraphicsDevice.Clear(Color.CornflowerBlue);
             base.Draw(gameTime);
         }
