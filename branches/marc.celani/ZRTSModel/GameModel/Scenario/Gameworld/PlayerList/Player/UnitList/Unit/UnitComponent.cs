@@ -113,6 +113,7 @@ namespace ZRTSModel
                 }
                 if (CurrentHealth <= 0)
                 {
+                    this.state = UnitState.DEAD;
                     ModelComponent parent = Parent;
                     Parent.RemoveChild(this);
                 }

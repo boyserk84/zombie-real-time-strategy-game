@@ -243,12 +243,14 @@ namespace ZRTS
         /// <param name="e"></param>
         private void onUnitRemoved(object sender, UnitRemovedEventArgs e)
         {
+            /**
             UnitUI component = (UnitUI)componentToUI[e.Unit];
             component.Dispose();
             RemoveChild(component);
             componentToUI.Remove(e.Unit);
             e.Unit.MovedEventHandlers -= updateLocationOfUnit;
             e.Unit.HPChangedEventHandlers -= killUnit;
+             * **/
         }
 
         /// <summary>
@@ -285,11 +287,18 @@ namespace ZRTS
             
             if (e.NewHP <= 0)
             {
+                // Do not remove the unit until the animation is done for at least 3 seconds
+                //System.Console.Out.WriteLine("Kill Unit");
+                /**
                 UnitUI ui = (UnitUI)componentToUI[e.Unit];
+                
                 ui.Dispose();
+                
                 RemoveChild(ui);
+                **/
                 e.Unit.MovedEventHandlers -= updateLocationOfUnit;
                 e.Unit.HPChangedEventHandlers -= killUnit;
+                
             }
             
            
