@@ -88,6 +88,7 @@ namespace ZRTS
 			model.GetScenario().GetGameWorld().GetPlayerList().AddChild(new PlayerComponent());
             UnitList list = ((PlayerComponent)model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[0]).GetUnitList();
 			UnitList list2 = ((PlayerComponent)model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[1]).GetUnitList();
+            
             UnitComponent soldier1 = new UnitComponent();
             soldier1.Type = "soldier";
             soldier1.IsZombie = false;
@@ -98,6 +99,7 @@ namespace ZRTS
             list.AddChild(soldier1);
             soldier1.PointLocation = new PointF((float)1.5, (float)1.5);
 			soldier1.Speed = 0.25f;
+
             UnitComponent soldier2 = new UnitComponent();
             soldier2.Type = "zombie";
             soldier2.IsZombie = true;

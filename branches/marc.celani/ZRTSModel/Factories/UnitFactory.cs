@@ -139,6 +139,10 @@ namespace ZRTSModel.Factories
             reader.ReadToFollowing("attack");
             stats.attack = (short)reader.ReadElementContentAsInt();
 
+            //canAttack
+            reader.ReadToFollowing("canAttack");
+            stats.canAttack = reader.ReadElementContentAsBoolean();
+
             /*// attackTicks
             reader.ReadToFollowing("attackTicks");
             stats.attackTicks = (byte)reader.ReadElementContentAsInt();
