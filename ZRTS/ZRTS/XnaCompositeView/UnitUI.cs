@@ -145,7 +145,10 @@ namespace ZRTS.XnaCompositeView
             }
             if (currentFrame > 3)
             {
-                currentFrame = 0;
+                if (unit.CurrentHealth > 0)
+                {
+                    currentFrame = 0;
+                }
             }
             else
             {
