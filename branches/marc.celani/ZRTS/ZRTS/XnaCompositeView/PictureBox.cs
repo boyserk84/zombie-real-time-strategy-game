@@ -38,5 +38,10 @@ namespace ZRTS.XnaCompositeView
 			
             e.SpriteBatch.Draw(((XnaUITestGame)Game).SpriteSheet, actualDraw, sourceRect, tint);
         }
+
+        public void setPicturebox(Rectangle r)
+        {
+            sourceRect = r;
+        }
     }
 }
