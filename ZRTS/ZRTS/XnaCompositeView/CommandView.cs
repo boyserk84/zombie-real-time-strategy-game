@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using ZRTSModel.Factories;
 using System.Collections;
 using ZRTS.InputEngines;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace ZRTS.XnaCompositeView
 {
@@ -17,9 +18,12 @@ namespace ZRTS.XnaCompositeView
         private PictureBox attackButton;
         private PictureBox buildButton;
         private Hashtable uiToBuildingType = new Hashtable();
+		private Texture2D pixel;
+		private Color color;
 
         private SameSizeChildrenFlowLayout buildPanel;
 
+		private SameSizeChildrenFlowLayout produceUnitPanel;
         private ZRTSCompositeViewUIFactory factory = ZRTSCompositeViewUIFactory.Instance;
 
         public CommandView(Game game)
@@ -38,7 +42,13 @@ namespace ZRTS.XnaCompositeView
             mainPanel.DrawBox = new Rectangle(10, 10, 255, 255);
             AddChild(mainPanel);
 
+			// Produce Units Panel
+			produceUnitPanel = new SameSizeChildrenFlowLayout(game);
+			produceUnitPanel.DrawBox = new Rectangle(10, 10, 255, 255);
+			produceUnitPanel.Visible = false;
+			AddChild(produceUnitPanel);
 
+            ZRTSCompositeViewUIFactory factory = ZRTSCompositeViewUIFactory.Instance;
             moveButton = factory.BuildPictureBox("button", "move");
             moveButton.DrawBox = new Rectangle(GameConfig.BUTTON_MOVE * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
             moveButton.OnClick += handleMoveButtonClick;
@@ -81,7 +91,21 @@ namespace ZRTS.XnaCompositeView
                 uiToBuildingType.Add(buildingButton, key);
             }
 
+			List<String> unitKeys = UnitFactory.Instance.getPrefixes();
+			foreach (String key in buildingKeys)
+			{
+				PictureBox unitButton = factory.BuildPictureBox(key, "selectionAvatar");
+				unitButton.OnClick += handleUnitProduceButtonClick;
+				unitButton.DrawBox = new Rectangle(0, 0, 85, 85);
+				produceUnitPanel.AddChild(unitButton);
+				uiToBuildingType.Add(unitButton, key);
+			}
 
+
+			pixel = new Texture2D(game.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
+			pixel.SetData(new[] { Color.White });
+			color = new Color(100, 60, 88);
+            
         }
 
         /// <summary>
@@ -99,6 +123,16 @@ namespace ZRTS.XnaCompositeView
         {
             mainPanel.Visible = true;
         }
+
+		public void activateProduceUnitButtons()
+		{
+			produceUnitPanel.Visible = true;
+		}
+
+		public void deactivateProduceUnitButtons()
+		{
+			produceUnitPanel.Visible = false;
+		}
 
 
         private void handleBuildingButtonClick(Object sender, XnaMouseEventArgs e)
@@ -182,6 +216,10 @@ namespace ZRTS.XnaCompositeView
             moveButton.setPicturebox(new Rectangle((GameConfig.BUTTON_MOVE) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
         }
 
+		private void handleUnitProduceButtonClick(object sender, EventArgs e)
+		{
+			((XnaUITestGame)Game).Controller.TellSelectedBuildingToBuild();
+		}
         private void handleStopButtonOver(object sender, EventArgs e)
         {
             stopButton.setPicturebox(new Rectangle((GameConfig.BUTTON_STOP + GameConfig.BUTTON_MOUSE_OVER) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
@@ -210,7 +248,8 @@ namespace ZRTS.XnaCompositeView
 
         protected override void onDraw(XnaDrawArgs e)
         {
-            e.SpriteBatch.Draw(((XnaUITestGame)Game).SpriteSheet, e.Location, new Rectangle(0, 0, 1, 1), Color.White);
+
+            e.SpriteBatch.Draw(pixel, e.Location, new Rectangle(0, 0, 1, 1), color);
         }
     }
 }

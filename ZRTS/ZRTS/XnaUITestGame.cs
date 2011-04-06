@@ -157,7 +157,7 @@ namespace ZRTS
             selectionView.commandBar = commandView; // Register commandView to selection View
 
 
-            TestUIComponent minimapView = new TestUIComponent(this, Color.White);
+            TestUIComponent minimapView = new TestUIComponent(this, new Color(100, 60, 88));
             minimapView.DrawBox = new Rectangle(0, 445, 275, 275);
 
             view.AddChild(mainView);

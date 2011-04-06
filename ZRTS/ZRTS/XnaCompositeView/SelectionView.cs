@@ -108,10 +108,15 @@ namespace ZRTS.XnaCompositeView
 
                     } // only non zombie
                 } // unit
+				else if (e.SelectedEntities[0] is Building)
+				{
+					commandBar.activateProduceUnitButtons();
+				}
             }
             else
             {
-                    commandBar.disableButtons(); 
+                    commandBar.disableButtons();
+					commandBar.deactivateProduceUnitButtons();
             }
         }
 
