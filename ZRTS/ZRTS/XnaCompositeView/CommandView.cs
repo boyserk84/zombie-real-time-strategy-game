@@ -57,6 +57,8 @@ namespace ZRTS.XnaCompositeView
             moveButton.OnClick += handleMoveButtonClick;
             moveButton.OnMouseEnter += handleMoveButtonOver;
             moveButton.OnMouseLeave += handleMoveButtonAway;
+            moveButton.OnMouseDown += handleMoveButtonDown;
+            moveButton.OnMouseUp += handleMoveButtonUp;
 
             mainPanel.AddChild(moveButton);
 
@@ -65,6 +67,8 @@ namespace ZRTS.XnaCompositeView
             stopButton.OnClick += handleStopButtonClick;
             stopButton.OnMouseEnter += handleStopButtonOver;
             stopButton.OnMouseLeave += handleStopButtonAway;
+            stopButton.OnMouseDown += handleStopButtonDown;
+            stopButton.OnMouseUp += handleStopButtonUp;
             mainPanel.AddChild(stopButton);
 
             buildButton = factory.BuildPictureBox("button", "build");
@@ -72,6 +76,8 @@ namespace ZRTS.XnaCompositeView
             buildButton.OnClick += handleBuildButtonClick;
             buildButton.OnMouseEnter += handleBuildButtonOver;
             buildButton.OnMouseLeave += handleBuildButtonAway;
+            buildButton.OnMouseDown += handleBuildButtonDown;
+            buildButton.OnMouseUp += handleBuildButtonUp;
             mainPanel.AddChild(buildButton);
 
             attackButton = factory.BuildPictureBox("button", "attack");
@@ -79,6 +85,8 @@ namespace ZRTS.XnaCompositeView
             attackButton.OnClick += handleAttackButtonClick;
             attackButton.OnMouseEnter += handleAttackButtonOver;
             attackButton.OnMouseLeave += handleAttackButtonAway;
+            attackButton.OnMouseDown += handleAttackButtonDown;
+            attackButton.OnMouseUp += handleAttackButtonUp;
             mainPanel.AddChild(attackButton);
             mainPanel.Visible = false;
 
@@ -182,10 +190,10 @@ namespace ZRTS.XnaCompositeView
         /// <param name="e"></param>
         private void handleAttackButtonClick(object sender, XnaMouseEventArgs e)
         {
-            System.Console.Out.WriteLine("Attack button is clicked!");
             // HACK // SAME EFFECT
             if (e.Bubbled && !e.Handled)
             {
+                System.Console.Out.WriteLine("Attack button is clicked!");
                 e.Handled = true;
                 //((XnaUITestGame)Game).Controller.TellSelectedUnitsToAttack((ZRTSModel.UnitComponent) sender);
             }
@@ -199,34 +207,35 @@ namespace ZRTS.XnaCompositeView
         /// <param name="e"></param>
         private void handleMoveButtonClick(object sender, XnaMouseEventArgs e)
         {
-            System.Console.Out.WriteLine("Move button is clicked!");
             //HACK // SAME EFFECT
             if (e.Bubbled && !e.Handled)
             {
+                System.Console.Out.WriteLine("Move button is clicked!");
                 e.Handled = true;
                 //moveButton.DrawBox = new Rectangle((GameConfig.BUTTON_MOVE + GameConfig.BUTTON_MOUSE_PRESS) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
                 // First change the command and cursor
             }
         }
 
+        // Move Button
         private void handleMoveButtonOver(object sender, EventArgs e)
         {
             moveButton.setPicturebox(new Rectangle((GameConfig.BUTTON_MOVE + GameConfig.BUTTON_MOUSE_OVER) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
         }
-
         private void handleMoveButtonAway(object sender, EventArgs e)
         {
             moveButton.setPicturebox(new Rectangle((GameConfig.BUTTON_MOVE) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
         }
-
-		private void handleUnitProduceButtonClick(object sender, XnaMouseEventArgs e)
-		{
-			if(e.time - lastClick > MSECONDS_PER_CLICK){
-				((XnaUITestGame)Game).Controller.TellSelectedBuildingToBuild();
-				e.Handled = true;
-				lastClick = e.time;
-			}
-		}
+        private void handleMoveButtonDown(object sender, EventArgs e)
+        {
+            moveButton.setPicturebox(new Rectangle((GameConfig.BUTTON_MOVE + GameConfig.BUTTON_MOUSE_PRESS) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
+        }
+        private void handleMoveButtonUp(object sender, EventArgs e)
+        {
+            moveButton.setPicturebox(new Rectangle((GameConfig.BUTTON_MOVE + GameConfig.BUTTON_MOUSE_OVER) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
+        }
+        
+        // Stop Button
         private void handleStopButtonOver(object sender, EventArgs e)
         {
             stopButton.setPicturebox(new Rectangle((GameConfig.BUTTON_STOP + GameConfig.BUTTON_MOUSE_OVER) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
@@ -235,6 +244,16 @@ namespace ZRTS.XnaCompositeView
         {
             stopButton.setPicturebox(new Rectangle((GameConfig.BUTTON_STOP) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
         }
+        private void handleStopButtonDown(object sender, EventArgs e)
+        {
+            stopButton.setPicturebox(new Rectangle((GameConfig.BUTTON_STOP + GameConfig.BUTTON_MOUSE_PRESS) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
+        }
+        private void handleStopButtonUp(object sender, EventArgs e)
+        {
+            stopButton.setPicturebox(new Rectangle((GameConfig.BUTTON_STOP + GameConfig.BUTTON_MOUSE_OVER) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
+        }
+
+        // Build Button
         private void handleBuildButtonOver(object sender, EventArgs e)
         {
             buildButton.setPicturebox(new Rectangle((GameConfig.BUTTON_BUILD + GameConfig.BUTTON_MOUSE_OVER) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y_SECOND, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
@@ -243,6 +262,16 @@ namespace ZRTS.XnaCompositeView
         {
             buildButton.setPicturebox(new Rectangle((GameConfig.BUTTON_BUILD) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y_SECOND, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
         }
+        private void handleBuildButtonDown(object sender, EventArgs e)
+        {
+            buildButton.setPicturebox(new Rectangle((GameConfig.BUTTON_BUILD + GameConfig.BUTTON_MOUSE_PRESS) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y_SECOND, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
+        }
+        private void handleBuildButtonUp(object sender, EventArgs e)
+        {
+            buildButton.setPicturebox(new Rectangle((GameConfig.BUTTON_BUILD + GameConfig.BUTTON_MOUSE_OVER) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y_SECOND, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
+        }
+
+        // Attack Button
         private void handleAttackButtonOver(object sender, EventArgs e)
         {
             attackButton.setPicturebox(new Rectangle((GameConfig.BUTTON_ATTACK + GameConfig.BUTTON_MOUSE_OVER) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
@@ -251,7 +280,24 @@ namespace ZRTS.XnaCompositeView
         {
             attackButton.setPicturebox(new Rectangle((GameConfig.BUTTON_ATTACK) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
         }
+        private void handleAttackButtonDown(object sender, EventArgs e)
+        {
+            attackButton.setPicturebox(new Rectangle((GameConfig.BUTTON_ATTACK + GameConfig.BUTTON_MOUSE_PRESS) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
+        }
+        private void handleAttackButtonUp(object sender, EventArgs e)
+        {
+            attackButton.setPicturebox(new Rectangle((GameConfig.BUTTON_ATTACK + GameConfig.BUTTON_MOUSE_OVER) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
+        }
 
+        private void handleUnitProduceButtonClick(object sender, XnaMouseEventArgs e)
+        {
+            if (e.time - lastClick > MSECONDS_PER_CLICK)
+            {
+                ((XnaUITestGame)Game).Controller.TellSelectedBuildingToBuild();
+                e.Handled = true;
+                lastClick = e.time;
+            }
+        }
 
         protected override void onDraw(XnaDrawArgs e)
         {

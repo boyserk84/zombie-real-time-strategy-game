@@ -262,7 +262,7 @@ namespace ZRTS.XnaCompositeView
                     offsetPoint.Y -= ScrollY;
                     offsetPoint.Y -= nextTarget.drawBox.Y;
                     e.ClickLocation = offsetPoint;
-                    nextTarget.Click(e);
+                    nextTarget.MouseDown(e);
 
                     // Repair event
                     e.ClickLocation = currentPoint;
@@ -297,7 +297,7 @@ namespace ZRTS.XnaCompositeView
                     offsetPoint.Y -= ScrollY;
                     offsetPoint.Y -= nextTarget.drawBox.Y;
                     e.ClickLocation = offsetPoint;
-                    nextTarget.Click(e);
+                    nextTarget.MouseUp(e);
 
                     // Repair event
                     e.ClickLocation = currentPoint;
