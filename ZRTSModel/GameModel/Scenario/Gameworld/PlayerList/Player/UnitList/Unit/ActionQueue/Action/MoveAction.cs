@@ -21,7 +21,7 @@ namespace ZRTSModel
         private List<CellComponent> path = null;
         private Map map;
         private int cellIndex;
-        private bool waiting = false;
+        private bool waiting = true;
 		private UnitComponent unit;
 
         public bool Waiting
@@ -32,7 +32,7 @@ namespace ZRTSModel
 
         private byte TICKS_PER_MOVE = 5;       // How many ticks per step in the move action
         private byte WAIT_TICKS = 15;               // How many ticks to wait for another unit to move.
-        private byte ticksSinceLastMove = 0;
+        private byte ticksSinceLastMove = 1;
 
 
         /// <summary>
