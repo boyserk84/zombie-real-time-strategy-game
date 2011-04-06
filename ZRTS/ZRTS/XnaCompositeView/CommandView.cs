@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework;
 using ZRTSModel.Factories;
 using System.Collections;
 using ZRTS.InputEngines;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace ZRTS.XnaCompositeView
 {
@@ -20,6 +19,8 @@ namespace ZRTS.XnaCompositeView
         private Hashtable uiToBuildingType = new Hashtable();
 
         private SameSizeChildrenFlowLayout buildPanel;
+
+        private ZRTSCompositeViewUIFactory factory = ZRTSCompositeViewUIFactory.Instance;
 
         public CommandView(Game game)
             : base(game)
@@ -37,30 +38,34 @@ namespace ZRTS.XnaCompositeView
             mainPanel.DrawBox = new Rectangle(10, 10, 255, 255);
             AddChild(mainPanel);
 
-            ZRTSCompositeViewUIFactory factory = ZRTSCompositeViewUIFactory.Instance;
+
             moveButton = factory.BuildPictureBox("button", "move");
-           
-            moveButton.DrawBox = new Rectangle(GameConfig.BUTTON_MOVE*GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
+            moveButton.DrawBox = new Rectangle(GameConfig.BUTTON_MOVE * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
             moveButton.OnClick += handleMoveButtonClick;
             moveButton.OnMouseEnter += handleMoveButtonOver;
             moveButton.OnMouseLeave += handleMoveButtonAway;
-            //moveButton.OnOver += handleMoveButtonOver;
-            
+
             mainPanel.AddChild(moveButton);
 
             stopButton = factory.BuildPictureBox("button", "stop");
-            stopButton.DrawBox = new Rectangle(GameConfig.BUTTON_STOP*GameConfig.BUTTON_DIM,GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
+            stopButton.DrawBox = new Rectangle(GameConfig.BUTTON_STOP * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
             stopButton.OnClick += handleStopButtonClick;
+            stopButton.OnMouseEnter += handleStopButtonOver;
+            stopButton.OnMouseLeave += handleStopButtonAway;
             mainPanel.AddChild(stopButton);
 
             buildButton = factory.BuildPictureBox("button", "build");
-            buildButton.DrawBox = new Rectangle(GameConfig.BUTTON_BUILD*GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y_SECOND, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
+            buildButton.DrawBox = new Rectangle(GameConfig.BUTTON_BUILD * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y_SECOND, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
             buildButton.OnClick += handleBuildButtonClick;
+            buildButton.OnMouseEnter += handleBuildButtonOver;
+            buildButton.OnMouseLeave += handleBuildButtonAway;
             mainPanel.AddChild(buildButton);
 
             attackButton = factory.BuildPictureBox("button", "attack");
             attackButton.DrawBox = new Rectangle(GameConfig.BUTTON_ATTACK * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
             attackButton.OnClick += handleAttackButtonClick;
+            attackButton.OnMouseEnter += handleAttackButtonOver;
+            attackButton.OnMouseLeave += handleAttackButtonAway;
             mainPanel.AddChild(attackButton);
             mainPanel.Visible = false;
 
@@ -76,7 +81,7 @@ namespace ZRTS.XnaCompositeView
                 uiToBuildingType.Add(buildingButton, key);
             }
 
-            
+
         }
 
         /// <summary>
@@ -169,29 +174,43 @@ namespace ZRTS.XnaCompositeView
 
         private void handleMoveButtonOver(object sender, EventArgs e)
         {
-            //e.ButtonOver = true;
-            System.Console.Out.WriteLine("Move button OVEr!");
-            
-            // TODO: Fix this !!!!Not drawing?
-            //moveButton.DrawBox = new Rectangle((GameConfig.BUTTON_BUILD) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
-            moveButton.DrawBox = new Rectangle((GameConfig.BUTTON_MOVE + GameConfig.BUTTON_MOUSE_PRESS) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
-            //moveButton.Visible = true;
+            moveButton.setPicturebox(new Rectangle((GameConfig.BUTTON_MOVE + GameConfig.BUTTON_MOUSE_OVER) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
         }
 
         private void handleMoveButtonAway(object sender, EventArgs e)
         {
-            System.Console.Out.WriteLine("Move button away!");
-            //moveButton.DrawBox = new Rectangle(GameConfig.BUTTON_MOVE * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
+            moveButton.setPicturebox(new Rectangle((GameConfig.BUTTON_MOVE) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
         }
-    
 
+        private void handleStopButtonOver(object sender, EventArgs e)
+        {
+            stopButton.setPicturebox(new Rectangle((GameConfig.BUTTON_STOP + GameConfig.BUTTON_MOUSE_OVER) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
+        }
+        private void handleStopButtonAway(object sender, EventArgs e)
+        {
+            stopButton.setPicturebox(new Rectangle((GameConfig.BUTTON_STOP) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
+        }
+        private void handleBuildButtonOver(object sender, EventArgs e)
+        {
+            buildButton.setPicturebox(new Rectangle((GameConfig.BUTTON_BUILD + GameConfig.BUTTON_MOUSE_OVER) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y_SECOND, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
+        }
+        private void handleBuildButtonAway(object sender, EventArgs e)
+        {
+            buildButton.setPicturebox(new Rectangle((GameConfig.BUTTON_BUILD) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y_SECOND, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
+        }
+        private void handleAttackButtonOver(object sender, EventArgs e)
+        {
+            attackButton.setPicturebox(new Rectangle((GameConfig.BUTTON_ATTACK + GameConfig.BUTTON_MOUSE_OVER) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
+        }
+        private void handleAttackButtonAway(object sender, EventArgs e)
+        {
+            attackButton.setPicturebox(new Rectangle((GameConfig.BUTTON_ATTACK) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
+        }
 
 
         protected override void onDraw(XnaDrawArgs e)
         {
-			Texture2D pixel = new Texture2D(e.SpriteBatch.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
-			pixel.SetData(new[] { Color.White });
-            e.SpriteBatch.Draw(pixel, e.Location, new Rectangle(0, 0, 1, 1), Color.White);
+            e.SpriteBatch.Draw(((XnaUITestGame)Game).SpriteSheet, e.Location, new Rectangle(0, 0, 1, 1), Color.White);
         }
     }
 }
