@@ -7,12 +7,12 @@ namespace ZRTSModel.EventHandlers
 {
     public class PlayerListChangedEventArgs : EventArgs
     {
-        private List<PlayerComponent> playersAdded = new List<PlayerComponent>();
+        private List<PlayerComponent> playersAddedOrRemoved = new List<PlayerComponent>();
 
-        public List<PlayerComponent> PlayersAdded
+        public List<PlayerComponent> PlayersAddedOrRemoved
         {
-            get { return playersAdded; }
-            set { playersAdded = value; }
+            get { return playersAddedOrRemoved; }
+            set { playersAddedOrRemoved = value; }
         }
     }
 }

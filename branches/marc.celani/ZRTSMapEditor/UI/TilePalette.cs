@@ -50,9 +50,10 @@ namespace ZRTSMapEditor
             }
         }
 
-        public Image getSelectedImage()
+        public void setPreviewImage(string type)
         {
-            return tilePreview.Image;
+            TileFactory tf = TileFactory.Instance;
+            tilePreview.Image = tf.getBitmap(type);
         }
 
         public string getSelectedImageName()

@@ -124,7 +124,40 @@ namespace ZRTSModel
         public PointF PointLocation
         {
             get { return pointLocation; }
-            set { pointLocation = value; }
+            set
+            {
+                pointLocation = value;
+                // Make sure building has been added to tree.
+                if (this.Parent != null)
+                {
+                    if (value != null)
+                    {
+                        pointLocation = value;
+                        Map m = ((Gameworld)this.Parent.Parent.Parent.Parent).GetMap();
+                        CellComponent cell = m.GetCellAt((int)pointLocation.X, (int)pointLocation.Y);
+                        int x = cell.X;
+                        int y = cell.Y;
+                        for (int i = 0; i < this.Width; i++)
+                        {
+                            for (int j = 0; j < this.Height; j++)
+                            {
+                                CellComponent c = ((Map)cell.Parent).GetCellAt(x + i, y + j);
+                                c.AddEntity(this);
+                                this.CellsContainedWithin.Add(c);
+                            }
+                        }
+                    }
+
+                    else
+                    {
+                        foreach (CellComponent c in this.CellsContainedWithin)
+                        {
+                            c.RemoveEntity(this);
+                        }
+                        this.CellsContainedWithin.Clear();
+                    }
+                }
+            }
         }
 
         private List<CellComponent> cellsContainedWithin = new List<CellComponent>();

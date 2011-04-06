@@ -140,11 +140,14 @@ namespace ZRTSModel
         public void RemoveEntity(ModelComponent entity)
         {
             entitiesContainedWithin.Remove(entity);
-            UnitArgs args = new UnitArgs();
-            args.Unit = (UnitComponent)entity;
-			args.Unit.UnitAttackedEnemyHanlders -= new UnitAttackedEnemyHandler(handleUnitInCellAttackingEnemy);
-            if (UnitRemovedEvent != null)
-                UnitRemovedEvent(this, args);
+            if (entity is UnitComponent)
+            {
+                UnitArgs args = new UnitArgs();
+                args.Unit = (UnitComponent)entity;
+                args.Unit.UnitAttackedEnemyHanlders -= new UnitAttackedEnemyHandler(handleUnitInCellAttackingEnemy);
+                if (UnitRemovedEvent != null)
+                    UnitRemovedEvent(this, args);
+            }
         }
 
 		private void handleUnitInCellAttackingEnemy(Object obj, UnitAttackedEnemyArgs e)

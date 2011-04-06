@@ -89,7 +89,8 @@ namespace ZRTSMapEditor
 
                 if (scenario.GetGameWorld().GetPlayerList() != null)
                 {
-                    scenario.GetGameWorld().GetPlayerList().PlayerListChangedEvent += this.PlayerListChanged;
+                    scenario.GetGameWorld().GetPlayerList().PlayerAddedEvent += this.PlayerAdded;
+                    scenario.GetGameWorld().GetPlayerList().PlayerRemovedEvent += this.PlayerRemoved;
                 }
             }
             
@@ -149,6 +150,28 @@ namespace ZRTSMapEditor
                         {
                             componentsToVirtualize.Remove(cell);
                         }
+                        foreach (ModelComponent m in cell.EntitiesContainedWithin)
+                        {
+                            if (m is Building)
+                            {
+                                Building building = (Building)m;
+                                if (!realizedComponents.Contains(m))
+                                {
+                                    BuildingUI b = new BuildingUI(controller, building);
+                                    b.Location = new Point((int)building.PointLocation.X * PIXELS_PER_COORDINATE, (int)building.PointLocation.Y * PIXELS_PER_COORDINATE);
+                                    b.Size = new Size(building.Width * PIXELS_PER_COORDINATE, building.Height * PIXELS_PER_COORDINATE);
+                                    realizedComponents.Add(building, b);
+                                    // Don't bundle the buildings or else BringToFront won't work
+                                    mapPanel.Controls.Add(b);
+                                    b.BringToFront();
+                                }
+                                else
+                                {
+                                    componentsToVirtualize.Remove(m);
+                                }
+                            }
+                            
+                        }
                     }
                 }
                 mapPanel.Controls.AddRange(controlsToAdd.ToArray());
@@ -174,7 +197,7 @@ namespace ZRTSMapEditor
             b.Location = new Point((int) args.Building.PointLocation.X * PIXELS_PER_COORDINATE, (int)args.Building.PointLocation.Y * PIXELS_PER_COORDINATE);
             b.Size = new Size(args.Building.Width * PIXELS_PER_COORDINATE, args.Building.Height * PIXELS_PER_COORDINATE);
             realizedComponents.Add(args.Building, b);
-            Controls.Add(b);
+            mapPanel.Controls.Add(b);
             b.BringToFront();
         }
 
@@ -185,15 +208,31 @@ namespace ZRTSMapEditor
             realizedComponents.Remove(args.Building);
         }
 
-        private void PlayerListChanged(Object sender, PlayerListChangedEventArgs args)
+        private void PlayerAdded(Object sender, PlayerListChangedEventArgs args)
         {
             if (args != null) {
-            foreach (PlayerComponent p in args.PlayersAdded)
+            foreach (PlayerComponent p in args.PlayersAddedOrRemoved)
             {
                 p.BuildingList.BuildingAddedEventHandlers += this.BuildingAdded;
                 p.BuildingList.BuildingRemovedEventHandlers += this.BuildingRemoved;
             }
         }
+        }
+
+        private void PlayerRemoved(Object sender, PlayerListChangedEventArgs args)
+        {
+            if (args != null)
+            {
+                foreach (PlayerComponent p in args.PlayersAddedOrRemoved)
+                {
+                    foreach (Building b in p.BuildingList.GetChildren())
+                    {
+                        p.BuildingList.RemoveChild(b);
+                    }
+                    p.BuildingList.BuildingAddedEventHandlers -= this.BuildingAdded;
+                    p.BuildingList.BuildingRemovedEventHandlers -= this.BuildingRemoved;
+                }
+            }
         }
     }
 }

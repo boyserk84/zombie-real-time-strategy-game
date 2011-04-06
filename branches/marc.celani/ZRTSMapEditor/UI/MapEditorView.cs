@@ -80,5 +80,10 @@ namespace ZRTSMapEditor
         {
             controller.RedoLastUndoCommand();
         }
+
+        public void setPreviewImage(string type)
+        {
+            tilePalette.setPreviewImage(type);
+        }
     }
 }

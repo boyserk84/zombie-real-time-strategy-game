@@ -33,7 +33,6 @@ namespace ZRTSMapEditor.Commands.MapEditorViewCommands
         {
             player.GetUnitList().RemoveChild(unit);
             cell.RemoveEntity(unit);
-            unit.PointLocation = null;
         }
 
         public bool CanBeDone()
