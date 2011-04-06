@@ -11,6 +11,10 @@ namespace ZRTSModel
     [Serializable()]
     public class Gameworld : ModelComponent
     {
+        public Gameworld()
+        {
+
+        }
 
         public Gameworld(int x, int y)
         {

@@ -83,6 +83,8 @@ namespace ZRTSModel
         public void Visit(CellComponent cell)
         {
             output.WriteStartElement("Cell");
+            output.WriteAttributeString("X", cell.X.ToString());
+            output.WriteAttributeString("Y", cell.Y.ToString());
             VisitChildren(cell);
             output.WriteEndElement();
         }
@@ -90,8 +92,8 @@ namespace ZRTSModel
         public void Visit(Map map)
         {
             output.WriteStartElement("Map");
-            output.WriteElementString("width", map.GetWidth().ToString());
-            output.WriteElementString("height", map.GetHeight().ToString());
+            output.WriteAttributeString("Width", map.GetWidth().ToString());
+            output.WriteAttributeString("Height", map.GetHeight().ToString());
             VisitChildren(map);
             output.WriteEndElement();
         }
@@ -120,7 +122,11 @@ namespace ZRTSModel
         public void Visit(PlayerComponent player)
         {
             output.WriteStartElement("Player");
-            output.WriteElementString("name", player.GetName());
+            output.WriteAttributeString("Name", player.GetName());
+            output.WriteAttributeString("Race", player.GetRace());
+            output.WriteAttributeString("Gold", player.GetGold().ToString());
+            output.WriteAttributeString("Metal", player.GetMetal().ToString());
+            output.WriteAttributeString("Wood", player.GetWood().ToString());
             VisitChildren(player);
             output.WriteEndElement();
         }
@@ -134,9 +140,7 @@ namespace ZRTSModel
 
         public void Visit(PlayerResources resources)
         {
-            output.WriteStartElement("PlayerResources");
-            VisitChildren(resources);
-            output.WriteEndElement();
+            // Do nothing
         }
 
         public void Visit(UnitList list)
@@ -149,7 +153,19 @@ namespace ZRTSModel
         public void Visit(UnitComponent unit)
         {
             output.WriteStartElement("Unit");
-            output.WriteElementString("type", unit.Type);
+            output.WriteAttributeString("Type", unit.Type);
+            output.WriteAttributeString("CanAttack", unit.CanAttack.ToString());
+            output.WriteAttributeString("Attack", unit.Attack.ToString());
+            output.WriteAttributeString("AttackRange", unit.AttackRange.ToString());
+            output.WriteAttributeString("AttackTicks", unit.AttackTicks.ToString());
+            output.WriteAttributeString("BuildSpeed", unit.BuildSpeed.ToString());
+            output.WriteAttributeString("CanBuild", unit.CanBuild.ToString());
+            output.WriteAttributeString("CanHarvest", unit.CanHarvest.ToString());
+            output.WriteAttributeString("CurrentHealth", unit.CurrentHealth.ToString());
+            output.WriteAttributeString("MaxHealth", unit.MaxHealth.ToString());
+            output.WriteAttributeString("X", unit.PointLocation.X.ToString());
+            output.WriteAttributeString("Y", unit.PointLocation.Y.ToString());
+            output.WriteAttributeString("Speed", unit.Speed.ToString());
             VisitChildren(unit);
             output.WriteEndElement();
         }
@@ -176,7 +192,24 @@ namespace ZRTSModel
         public void Visit(Building building)
         {
             output.WriteStartElement("Building");
-            output.WriteElementString("type", building.Type);
+            output.WriteAttributeString("Type", building.Type);
+            output.WriteAttributeString("CurrentHealth", building.CurrentHealth.ToString());
+            output.WriteAttributeString("MaxHealth", building.MaxHealth.ToString());
+            output.WriteAttributeString("X", building.PointLocation.X.ToString());
+            output.WriteAttributeString("Y", building.PointLocation.Y.ToString());
+            output.WriteAttributeString("CanProduce", building.CanProduce.ToString());
+            output.WriteAttributeString("Completed", building.Completed.ToString());
+            output.WriteAttributeString("DropOffResources", building.DropOffResources.ToString());
+            output.WriteAttributeString("FoodCost", building.FoodCost.ToString());
+            output.WriteAttributeString("Height", building.Height.ToString());
+            output.WriteAttributeString("Width", building.Width.ToString());
+            output.WriteAttributeString("LumberCost", building.LumberCost.ToString());
+            output.WriteAttributeString("MetalCost", building.MetalCost.ToString());
+            output.WriteAttributeString("WaterCost", building.WaterCost.ToString());
+            foreach (string s in building.ProductionTypes)
+            {
+                output.WriteAttributeString("ProductionType", s);
+            }
             VisitChildren(building);
             output.WriteEndElement();
         }
