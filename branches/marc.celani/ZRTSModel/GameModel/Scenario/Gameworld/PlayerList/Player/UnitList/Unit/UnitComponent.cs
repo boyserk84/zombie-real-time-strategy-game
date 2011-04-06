@@ -483,17 +483,25 @@ namespace ZRTSModel
 		{
 			// Find the PlayerComponent of unit.
 			ModelComponent temp = unit.Parent;
-			while(!(temp is PlayerComponent))
+			while(!(temp is PlayerComponent || temp == null))
 			{
 				temp = temp.Parent;
+			}
+			if (temp == null)
+			{
+				return false;
 			}
 			PlayerComponent unitOwner = (PlayerComponent)temp;
 
 			// Find the PlayerComponent of this UnitComponent;
 			temp = this.Parent;
-			while (!(temp is PlayerComponent))
+			while (!(temp is PlayerComponent || temp == null))
 			{
 				temp = temp.Parent;
+			}
+			if (temp == null)
+			{
+				return false;
 			}
 			PlayerComponent myOwner = (PlayerComponent)temp;
 

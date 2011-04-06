@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using ZRTSModel.GameModel;
 using ZRTS.XnaCompositeView;
 using ZRTSModel.Factories;
+using ZRTSModel;
 
 
 namespace ZRTS
@@ -184,6 +185,13 @@ namespace ZRTS
                 {
                     unit.GetActionQueue().Work();
                 }
+
+				List<ModelComponent> buildings = player.BuildingList.GetChildren();
+
+				foreach (Building b in buildings)
+				{
+					b.BuildingActionQueue.Work();
+				}
             }
             base.Update(gameTime);
         }
@@ -192,6 +200,19 @@ namespace ZRTS
         {
             changeMapViewLeftClickStrategyToBuild(buildingType);
         }
+
+		public void TellSelectedBuildingToBuild()
+		{
+			List<ModelComponent> selectedEntities = getGameModel().GetSelectionState().SelectedEntities;
+
+			if (selectedEntities.Count > 0 && selectedEntities[0] is Building)
+			{
+				Building b = (Building)selectedEntities[0];
+				ProduceUnit produceAction = new ZRTSModel.ProduceUnit(b, "soldier");
+				b.BuildingActionQueue.AddChild(produceAction);
+				Console.WriteLine("Gave building produce unit command.");
+			}
+		}
 
 
         /// <summary>

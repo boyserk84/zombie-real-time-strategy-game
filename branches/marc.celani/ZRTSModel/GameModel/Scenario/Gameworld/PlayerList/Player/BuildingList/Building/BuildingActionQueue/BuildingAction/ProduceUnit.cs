@@ -11,7 +11,7 @@ using ZRTSModel.GameModel;
 
 namespace ZRTSModel
 {
-	class ProduceUnit : BuildingAction
+	public class ProduceUnit : BuildingAction
 	{
 		Building building;
 		public string unitType;
