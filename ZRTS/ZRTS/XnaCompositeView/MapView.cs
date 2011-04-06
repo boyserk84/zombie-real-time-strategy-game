@@ -282,6 +282,7 @@ namespace ZRTS
         /// <param name="e"></param>
         private void killUnit(Object sender, UnitHPChangedEventArgs e)
         {
+            
             if (e.NewHP <= 0)
             {
                 UnitUI ui = (UnitUI)componentToUI[e.Unit];
@@ -290,6 +291,8 @@ namespace ZRTS
                 e.Unit.MovedEventHandlers -= updateLocationOfUnit;
                 e.Unit.HPChangedEventHandlers -= killUnit;
             }
+            
+           
         }
     }
 }

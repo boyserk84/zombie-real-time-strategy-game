@@ -48,6 +48,7 @@ namespace ZRTS.XnaCompositeView
 			produceUnitPanel.Visible = false;
 			AddChild(produceUnitPanel);
 
+
             ZRTSCompositeViewUIFactory factory = ZRTSCompositeViewUIFactory.Instance;
             moveButton = factory.BuildPictureBox("button", "move");
             moveButton.DrawBox = new Rectangle(GameConfig.BUTTON_MOVE * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);

@@ -152,6 +152,7 @@ namespace ZRTS.XnaCompositeView
             BuildingUI buildingUI = null;
             buildingUI = new BuildingUI(game, building, new Rectangle(0, 0, 1, 1));
             buildingUI.DrawBox = new Rectangle(0, 0, building.Width * GameConfig.TILE_DIM, building.Height * GameConfig.TILE_DIM);
+
             return buildingUI;
         }
     }
