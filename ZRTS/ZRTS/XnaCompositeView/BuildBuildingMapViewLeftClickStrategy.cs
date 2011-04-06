@@ -21,9 +21,11 @@ namespace ZRTS.XnaCompositeView
             this.buildingType = buildingType;
             ZRTSCompositeViewUIFactory factory = ZRTSCompositeViewUIFactory.Instance;
             building = factory.BuildPictureBox(buildingType, "mapView");
-            
+            int width = ZRTSModel.Factories.BuildingFactory.Instance.getStats(buildingType).width;
+			int height = ZRTSModel.Factories.BuildingFactory.Instance.getStats(buildingType).height;
+
             // TODO: replace "2" with stats from the building factory.
-            building.DrawBox = new Microsoft.Xna.Framework.Rectangle(0, 0, MapView.CellDimension * 2, MapView.CellDimension * 2);
+            building.DrawBox = new Microsoft.Xna.Framework.Rectangle(0, 0,  width * GameConfig.TILE_DIM, height * GameConfig.TILE_DIM);
             building.OnClick += placeBuilding;
         }
 

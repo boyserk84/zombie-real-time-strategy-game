@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using ZRTSModel.EventHandlers;
 using ZRTS.XnaCompositeView.UIEventHandlers;
 using ZRTS.InputEngines;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace ZRTS.XnaCompositeView
 {
@@ -70,7 +71,9 @@ namespace ZRTS.XnaCompositeView
 
         protected override void onDraw(XnaDrawArgs e)
         {
-            e.SpriteBatch.Draw(((XnaUITestGame)Game).SpriteSheet, e.Location, new Rectangle(0, 0, 1, 1), Color.Teal);
+			Texture2D pixel = new Texture2D(e.SpriteBatch.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
+			pixel.SetData(new[] { Color.White });
+            e.SpriteBatch.Draw(pixel, e.Location, new Rectangle(0, 0, 1, 1), Color.Teal);
         }
 
         private void onResize(Object sender, UISizeChangedEventArgs e)
