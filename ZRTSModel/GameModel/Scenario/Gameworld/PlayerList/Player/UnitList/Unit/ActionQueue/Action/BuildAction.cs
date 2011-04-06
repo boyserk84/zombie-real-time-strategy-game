@@ -66,6 +66,7 @@ namespace ZRTSModel
                                 {
                                     building.CellsContainedWithin.Add(map.GetCellAt(i, j));
                                     map.GetCellAt(i,j).AddEntity(building);
+									Console.WriteLine(i + ", " + j);
                                 }
                             }
                         }

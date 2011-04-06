@@ -124,6 +124,8 @@ namespace ZRTS
 			player1.EnemyList.Add(player2);
 			player2.EnemyList.Add(player1);
 
+			Console.WriteLine(ZRTSModel.Factories.BuildingFactory.Instance.getBuildingTypes()[0]);
+
             // Create the controller
             controller = new ZRTSController(this);
             Components.Add(controller);
