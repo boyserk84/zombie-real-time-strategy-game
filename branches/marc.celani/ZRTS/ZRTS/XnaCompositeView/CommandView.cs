@@ -13,6 +13,8 @@ namespace ZRTS.XnaCompositeView
     public class CommandView : XnaUIComponent
     {
         private SameSizeChildrenFlowLayout mainPanel;
+        private PictureBox backgroundPanel;
+        private PictureBox mainBgPanel;
         private PictureBox stopButton;
         private PictureBox moveButton;
         private PictureBox attackButton;
@@ -33,6 +35,16 @@ namespace ZRTS.XnaCompositeView
         {
             this.DrawBox = new Rectangle(0, 0, 275, 275);
 
+
+            // Background Panel
+            backgroundPanel = new PictureBox(game, new Rectangle(GameConfig.BUILDPANEL_START_X, GameConfig.BUILDING_START_Y, 275, 275));
+            backgroundPanel.DrawBox = new Rectangle(0, 0, 275, 275);
+            AddChild(backgroundPanel);
+
+
+            // TODO: Need to eliminate dark purple solid background
+
+
             // buildPanel
             buildPanel = new SameSizeChildrenFlowLayout(game);
             buildPanel.Visible = false;
@@ -51,9 +63,10 @@ namespace ZRTS.XnaCompositeView
 			AddChild(produceUnitPanel);
 
 
+
             ZRTSCompositeViewUIFactory factory = ZRTSCompositeViewUIFactory.Instance;
             moveButton = factory.BuildPictureBox("button", "move");
-            moveButton.DrawBox = new Rectangle(GameConfig.BUTTON_MOVE * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
+            moveButton.DrawBox = new Rectangle(0, 0, GameConfig.BUTTON_DIM , GameConfig.BUTTON_DIM );
             moveButton.OnClick += handleMoveButtonClick;
             moveButton.OnMouseEnter += handleMoveButtonOver;
             moveButton.OnMouseLeave += handleMoveButtonAway;
@@ -63,7 +76,7 @@ namespace ZRTS.XnaCompositeView
             mainPanel.AddChild(moveButton);
 
             stopButton = factory.BuildPictureBox("button", "stop");
-            stopButton.DrawBox = new Rectangle(GameConfig.BUTTON_STOP * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
+            stopButton.DrawBox = new Rectangle(0, 0, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
             stopButton.OnClick += handleStopButtonClick;
             stopButton.OnMouseEnter += handleStopButtonOver;
             stopButton.OnMouseLeave += handleStopButtonAway;
@@ -105,11 +118,21 @@ namespace ZRTS.XnaCompositeView
 			List<String> unitKeys = UnitFactory.Instance.getPrefixes();
 			foreach (String key in buildingKeys)
 			{
-				PictureBox unitButton = factory.BuildPictureBox("unitBuild", "soldier");
-				unitButton.OnClick += handleUnitProduceButtonClick;
-				unitButton.DrawBox = new Rectangle(0, 0, 85, 85);
-				produceUnitPanel.AddChild(unitButton);
-				uiToBuildingType.Add(unitButton, key);
+                PictureBox unitButton = null;
+                if (key.Equals("barracks"))
+                {
+                    unitButton = factory.BuildPictureBox("unitBuild", "soldier");
+
+                }
+                else if (key.Equals("house"))
+                {
+                    unitButton = factory.BuildPictureBox("unitBuild", "worker");
+                }
+
+                unitButton.OnClick += handleUnitProduceButtonClick;
+                unitButton.DrawBox = new Rectangle(0, 0, 85, 85);
+                produceUnitPanel.AddChild(unitButton);
+                uiToBuildingType.Add(unitButton, key);
 			}
 
 
@@ -302,7 +325,7 @@ namespace ZRTS.XnaCompositeView
         protected override void onDraw(XnaDrawArgs e)
         {
 
-            e.SpriteBatch.Draw(pixel, e.Location, new Rectangle(0, 0, 1, 1), color);
+            //e.SpriteBatch.Draw(pixel, e.Location, new Rectangle(0, 0, 1, 1), color);
         }
     }
 }

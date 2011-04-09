@@ -212,6 +212,9 @@ namespace ZRTS
             changeMapViewLeftClickStrategyToBuild(buildingType);
         }
 
+        /// <summary>
+        /// Insert building's action queue to build something
+        /// </summary>
 		public void TellSelectedBuildingToBuild()
 		{
 			List<ModelComponent> selectedEntities = getGameModel().GetSelectionState().SelectedEntities;
@@ -219,9 +222,20 @@ namespace ZRTS
 			if (selectedEntities.Count > 0 && selectedEntities[0] is Building)
 			{
 				Building b = (Building)selectedEntities[0];
-				ProduceUnit produceAction = new ZRTSModel.ProduceUnit(b, "soldier");
+                ProduceUnit produceAction= null;
+                if (b.Type.Equals("house"))
+                {
+                    Console.WriteLine("Worker produced!!!");
+                    produceAction = new ZRTSModel.ProduceUnit(b, "worker");
+                }
+                else
+                {
+                    Console.WriteLine("Solider produced!!!");
+                    produceAction = new ZRTSModel.ProduceUnit(b, "soldier");
+                }
+				 
 				b.BuildingActionQueue.AddChild(produceAction);
-				Console.WriteLine("Gave building produce unit command.");
+				//Console.WriteLine("Gave building produce unit command.");
 			}
 		}
 

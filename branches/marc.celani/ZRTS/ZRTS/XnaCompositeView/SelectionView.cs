@@ -15,7 +15,8 @@ namespace ZRTS.XnaCompositeView
     {
         private SelectionState selectionState;
 
-        public CommandView commandBar;
+        private PictureBox mainBgPanel;         // background of the panel
+        public CommandView commandBar;              // Coordinate with commandBar
 
 
         public SelectionView(Game game, SelectionState selectionState)
@@ -23,14 +24,16 @@ namespace ZRTS.XnaCompositeView
         {
             this.selectionState = selectionState;
             selectionState.SelectionStateChanged += onSelectionChanged;
+            mainBgPanel = new PictureBox(game, new Rectangle(GameConfig.MAINPANEL_START_X, GameConfig.MAINPANEL_START_Y, 730, 200));
+            mainBgPanel.DrawBox = new Rectangle(0, 0, 730, 200);
+            AddChild(mainBgPanel);
         }
         
         protected override void onDraw(XnaDrawArgs e)
         {
             // For test purposes only.
 			Texture2D pixel = new Texture2D(e.SpriteBatch.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
-			pixel.SetData(new[] { Color.White });
-            e.SpriteBatch.Draw(pixel, e.Location, new Rectangle(0, 0, 1, 1), Color.YellowGreen);
+			pixel.SetData(new[] { Color.White }); 
         }
 
 

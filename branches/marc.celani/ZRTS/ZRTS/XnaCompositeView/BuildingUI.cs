@@ -31,7 +31,20 @@ namespace ZRTS.XnaCompositeView
 			pixel = new Texture2D(game.GraphicsDevice, 1, 1, true, SurfaceFormat.Color);
 			pixel.SetData(new[] { Color.White });
 			this.building.SelectHandler += new ZRTSModel.EventHandlers.ModelComponentSelectedHandler(onSelectChanged);
-            this.SourceRect = new Rectangle(GameConfig.BUILDING_CONSTRUCTION, GameConfig.BUILDING_START_Y, 216, 216);
+
+            if (building.Type.Equals("barracks"))
+            {
+                this.SourceRect = new Rectangle(GameConfig.BUILDING_CONSTRUCTION, GameConfig.BUILDING_START_Y, 216, 216);
+            }
+            else if (building.Type.Equals("hospital"))
+            {
+                this.SourceRect = new Rectangle(GameConfig.BUILDING_CONSTRUCTION + 5, GameConfig.BUILDING_START_Y, 216, 216);
+            }
+            else if (building.Type.Equals("house"))
+            {
+                System.Console.Out.WriteLine("House is buildingUI");
+                this.SourceRect = new Rectangle(GameConfig.BUILDING_CONSTRUCTION + 4, GameConfig.BUILDING_START_Y, 216, 216);
+            }
         }
 
 
@@ -71,6 +84,10 @@ namespace ZRTS.XnaCompositeView
             base.Update(gameTime);
         }
 
+        /// <summary>
+        /// Draw stat of the selected building
+        /// </summary>
+        /// <param name="e"></param>
 		protected override void onDraw(XnaDrawArgs e)
 		{
 			base.onDraw(e);
