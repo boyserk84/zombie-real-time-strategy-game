@@ -10,6 +10,11 @@ using ZRTS.InputEngines;
 
 namespace ZRTS.XnaCompositeView
 {
+    /// <summary>
+    /// This class will represent a view (graphical) represention of the UnitComponent (Unit game model)
+    /// 
+    /// Event-handling based system/pattern
+    /// </summary>
     public class UnitUI : PictureBox
     {
         private UnitComponent unit;
@@ -18,11 +23,20 @@ namespace ZRTS.XnaCompositeView
         private int currentFrame = 0;       // Current frame reference
         private float currentElapsedTime = 0f;      // Current time
 		Texture2D pixel;
+        private int unitType;       // Type frame
 
         public UnitComponent Unit
         {
             get { return unit; }
         }
+
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="game">Game component</param>
+        /// <param name="unit">Unit Model</param>
+        /// <param name="sourceRect">Location of the image representing this unit on the spritesheet</param>
         public UnitUI(Game game, UnitComponent unit, Rectangle sourceRect)
             : base(game, sourceRect)
         {
@@ -34,6 +48,14 @@ namespace ZRTS.XnaCompositeView
 
 			pixel = new Texture2D(game.GraphicsDevice, 1, 1, true, SurfaceFormat.Color);
 			pixel.SetData(new[] { Color.White });
+
+            unitType = GameConfig.SOLDIER_START_Y;
+
+            if (unit.IsZombie)
+            {
+                unitType = GameConfig.ZOMBIE_START_Y;
+            }
+
         }
 
         /// <summary>
@@ -75,51 +97,49 @@ namespace ZRTS.XnaCompositeView
         /// <summary>
         /// Change picture/image frame based on state and direction
         /// </summary>
-        /// <param name="state"></param>
-        /// <param name="direction"></param>
         private void changePicture()
         {
-            int unitType = GameConfig.SOLDIER_START_Y;
-            
-            if (unit.IsZombie)
-            {
-                unitType = GameConfig.ZOMBIE_START_Y;
-            }
-            
-
             if (unit.State == UnitComponent.UnitState.ATTACKING)
             {
-                changePicture(0, unitType + GameConfig.ACTION_ATTACK);
+                changePicture(SourceRect.X, unitType + GameConfig.ACTION_ATTACK);
             }
             else if (unit.State == UnitComponent.UnitState.MOVING || unit.State == UnitComponent.UnitState.IDLE)
             {
-                changePicture(0, unitType + GameConfig.ACTION_MOVE * GameConfig.UNIT_HEIGHT);
+                changePicture(SourceRect.X, unitType + GameConfig.ACTION_MOVE * GameConfig.UNIT_HEIGHT);
             }
             else if (unit.State == UnitComponent.UnitState.DEAD)
             {
-                changePicture(0, unitType + GameConfig.ACTION_DEAD * GameConfig.UNIT_HEIGHT);
+                changePicture(SourceRect.X, unitType + GameConfig.ACTION_DEAD * GameConfig.UNIT_HEIGHT);
             }
 
+            changePictureByOrientation();
 
+        }
+
+        /// <summary>
+        /// change a picture by orientation
+        /// </summary>
+        private void changePictureByOrientation()
+        {
             if (unit.UnitOrient == UnitComponent.Orient.N)
             {
                 changePicture((GameConfig.DIR_N + currentFrame) * GameConfig.UNIT_WIDTH, SourceRect.Y);
             }
-			else if (unit.UnitOrient == UnitComponent.Orient.S)
+            else if (unit.UnitOrient == UnitComponent.Orient.S)
             {
                 changePicture((GameConfig.DIR_S + currentFrame) * GameConfig.UNIT_WIDTH, SourceRect.Y);
             }
-			else if (unit.UnitOrient == UnitComponent.Orient.E)
+            else if (unit.UnitOrient == UnitComponent.Orient.E)
             {
                 changePicture((GameConfig.DIR_E + currentFrame) * GameConfig.UNIT_WIDTH, SourceRect.Y);
             }
-			else if (unit.UnitOrient == UnitComponent.Orient.W)
+            else if (unit.UnitOrient == UnitComponent.Orient.W)
             {
                 changePicture((GameConfig.DIR_W + currentFrame) * GameConfig.UNIT_WIDTH, SourceRect.Y);
             }
             else if (unit.UnitOrient == UnitComponent.Orient.NE)
             {
-                changePicture((GameConfig.DIR_NE+ currentFrame) * GameConfig.UNIT_WIDTH, SourceRect.Y);
+                changePicture((GameConfig.DIR_NE + currentFrame) * GameConfig.UNIT_WIDTH, SourceRect.Y);
             }
             else if (unit.UnitOrient == UnitComponent.Orient.SE)
             {
@@ -140,20 +160,24 @@ namespace ZRTS.XnaCompositeView
         /// </summary>
         private void updateAnimation()
         {
+
             if (currentFrame > 3)
             {
-                if (unit.State != UnitComponent.UnitState.DEAD || unit.CurrentHealth > 0)
-                {
-                    currentFrame = 0;
-                }
+                currentFrame = 0;   //reset 
             }
-            else
+
+            changePicture();
+
+            if ((unit.State != UnitComponent.UnitState.DEAD && unit.CurrentHealth > 0) || (unit.State == UnitComponent.UnitState.DEAD && currentFrame < 3))
             {
-                changePicture();
                 ++currentFrame;
             }
         }
 
+        /// <summary>
+        /// Draw stat of this unit if being selected
+        /// </summary>
+        /// <param name="e"></param>
 		protected override void onDraw(XnaDrawArgs e)
 		{
 			base.onDraw(e);

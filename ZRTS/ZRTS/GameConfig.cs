@@ -28,11 +28,16 @@ namespace ZRTS
         public static int ZOMBIE_START_Y = 0;   
         public static int SOLDIER_START_Y = 108 ;
         public static int WORKER_START_Y = 108 + 36 * 3;
+
         public static int BUILDING_START_Y = 1037;
 
+        public static int BUILDPANEL_START_X = 865;
+        public static int MAINPANEL_START_X = 706;
+        public static int MAINPANEL_START_Y = 808;
 
         public static int BIG_AVATAR_START_Y = 808;
         public static int SELECT_AVATAR_START_Y = 960;
+        public static int WORKER_START_X = 77;
 
         // Frame reference
         public static int ACTION_ATTACK= 0;
@@ -61,6 +66,9 @@ namespace ZRTS
         public static int BUTTON_NORMAL = 0;
         public static int BUTTON_MOUSE_OVER = 1;
         public static int BUTTON_MOUSE_PRESS = 2;
+
+        public static int BUTTON_UNIT_DIM = 77;
+
 
         public static int TILE_GRASS = 0;
         public static int TILE_SAND = 1;

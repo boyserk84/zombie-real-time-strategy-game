@@ -73,7 +73,7 @@ namespace ZRTS.XnaCompositeView
         {
 			Texture2D pixel = new Texture2D(e.SpriteBatch.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
 			pixel.SetData(new[] { Color.White });
-            e.SpriteBatch.Draw(pixel, e.Location, new Rectangle(0, 0, 1, 1), Color.Teal);
+            //e.SpriteBatch.Draw(pixel, e.Location, new Rectangle(0, 0, 1, 1), Color.Teal);
         }
 
         private void onResize(Object sender, UISizeChangedEventArgs e)

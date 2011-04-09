@@ -111,6 +111,11 @@ namespace ZRTS.XnaCompositeView
                     //todo add contents;
                     return new PictureBox(game, new Rectangle(0, 0, 1, 1));
                 }
+                else if (subtype.Equals("barrack"))
+                {
+                    //Todo add contetns
+                    return new PictureBox(game, new Rectangle(0, 0, 1, 1));
+                }
             }
 
             // UnitIcon
@@ -118,18 +123,24 @@ namespace ZRTS.XnaCompositeView
             {
                 if (subtype.Equals("soldier"))
                 {
-                    return new PictureBox(game, new Rectangle(0, GameConfig.SELECT_AVATAR_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
+                    return new PictureBox(game, new Rectangle(0, GameConfig.SELECT_AVATAR_START_Y, GameConfig.BUTTON_UNIT_DIM, GameConfig.BUTTON_UNIT_DIM ));
                 }
+                else if (subtype.Equals("worker"))
+                {
+                    // TODO: change this to reflect worker's icon
+                    //System.Console.Out.WriteLine("Return worker picturebox");
+                    return new PictureBox(game, new Rectangle(GameConfig.WORKER_START_X, GameConfig.SELECT_AVATAR_START_Y, GameConfig.BUTTON_UNIT_DIM, GameConfig.BUTTON_UNIT_DIM ));
+                } 
             }
 
 
             if (type.Equals("soldier") && subtype.Equals("selectionAvatar"))
             {
-                pictureBox = new PictureBox(game, new Rectangle(0, GameConfig.SELECT_AVATAR_START_Y, 76, 76));
+                pictureBox = new PictureBox(game, new Rectangle(0, GameConfig.SELECT_AVATAR_START_Y, GameConfig.BUTTON_UNIT_DIM, GameConfig.BUTTON_UNIT_DIM));
             }
             else if (type.Equals("soldier") && subtype.Equals("bigAvatar"))
             {
-                pictureBox = new PictureBox(game, new Rectangle(0, GameConfig.BIG_AVATAR_START_Y, 150, 150));
+                pictureBox = new PictureBox(game, new Rectangle(0, GameConfig.BIG_AVATAR_START_Y, 150, 152));
             }
             else
                 pictureBox = new PictureBox(game, new Rectangle(0, 0, 1, 1));

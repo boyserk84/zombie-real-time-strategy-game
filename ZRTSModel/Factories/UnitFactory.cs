@@ -108,6 +108,7 @@ namespace ZRTSModel.Factories
                     UnitStats uStat = new UnitStats();
                     uStat.type = s;
                     stats.Add(s, uStat);
+                    //Console.WriteLine(s);
                 }
                 catch
                 {
@@ -115,6 +116,7 @@ namespace ZRTSModel.Factories
                 }
             }
 
+            
             reader.Close();
         }
 

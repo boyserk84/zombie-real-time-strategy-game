@@ -22,7 +22,7 @@ namespace ZRTS.XnaCompositeView
         {
 			Texture2D pixel = new Texture2D(e.SpriteBatch.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
 			pixel.SetData(new[] { Color.White });
-            e.SpriteBatch.Draw(pixel, e.Location, new Rectangle(0, 0, 1, 1), Color.Blue);
+            //e.SpriteBatch.Draw(pixel, e.Location, new Rectangle(0, 0, 1, 1), Color.Blue);
         }
 
         public override void DoLayout()
@@ -30,6 +30,8 @@ namespace ZRTS.XnaCompositeView
             int count = GetChildren().Count;
             if (count > 0)
             {
+                // TODO: how to set space between icons
+                //System.Console.Out.WriteLine(count);
                 XnaUIComponent firstComponent = GetChildren()[0];
                 int boxWidth = firstComponent.DrawBox.Width;
                 int boxHeight = firstComponent.DrawBox.Height;
@@ -37,7 +39,14 @@ namespace ZRTS.XnaCompositeView
                 int current = 0;
                 foreach (XnaUIComponent component in GetChildren())
                 {
-                    component.DrawBox = new Rectangle((current % numberOfElementInRow) * boxWidth, (current / numberOfElementInRow) * boxHeight, boxWidth, boxHeight);
+                    int x = (current % numberOfElementInRow) * boxWidth;
+                    int y = (current / numberOfElementInRow) * boxHeight;
+
+                    y = y + 7* (current/3);
+                    x = x + 7 * (current%3);
+
+                    component.DrawBox = new Rectangle(x, y, boxWidth, boxHeight);
+
                     current++;
                 }
             }
