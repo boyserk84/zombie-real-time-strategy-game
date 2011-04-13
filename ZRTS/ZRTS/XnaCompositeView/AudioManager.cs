@@ -21,9 +21,9 @@ namespace ZRTS.XnaCompositeView
         /// <param name="Content">The ContentManager to use</param>
         public static void Initialize(ContentManager Content)
         {
-            Soldier_Attack = Content.Load<SoundEffect>("Audio/Soldier_Attack");
-            Worker_Dying = Content.Load<SoundEffect>("Audio/Worker_Dying");
-            Zombie_Dying = Content.Load<SoundEffect>("Audio/Zombie_Dying");
+            Soldier_Attack = Content.Load<SoundEffect>("audio/Soldier_Attack");
+            Worker_Dying = Content.Load<SoundEffect>("audio/Worker_Dying");
+            Zombie_Dying = Content.Load<SoundEffect>("audio/Zombie_Dying");
         }
 
         // Sound Effects
