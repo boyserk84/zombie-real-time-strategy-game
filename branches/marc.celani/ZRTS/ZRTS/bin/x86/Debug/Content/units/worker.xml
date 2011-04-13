@@ -1,8 +1,8 @@
 <Unit>
 	<maxHealth>200</maxHealth>
-	<speed>0.1</speed>
-	<attackRange>4.0</attackRange>
-	<attack>20</attack>
+	<speed>0.4</speed>
+	<attackRange>1.0</attackRange>
+	<attack>1</attack>
 	<attackTicks>10</attackTicks>
 	<visibilityRange>6.0</visibilityRange>
 	<buildSpeed>30</buildSpeed>
@@ -11,7 +11,7 @@
 	<lumberCost>10</lumberCost>
 	<metalCost>10</metalCost>
 	<canAttack>true</canAttack>
-	<canHarvest>false</canHarvest>
+	<canHarvest>true</canHarvest>
 	<canBuild>false</canBuild>
 	<isZombie>false</isZombie>
 </Unit>

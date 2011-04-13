@@ -54,12 +54,13 @@ namespace ZRTS.XnaCompositeView
             hpBar.CurrentHP = unit.CurrentHealth;
             hpBar.DrawBox = new Rectangle(5, 67, 65, 5);
 
-            PictureBox pictureBox = BuildPictureBox(unit.Type, "selectionAvatar");
+            PictureBox pictureBox = BuildPictureBox("selectionAvatar",unit.Type);
             pictureBox.DrawBox = new Rectangle(7, 3, 61, 61);
             seui.AddChild(pictureBox);
             seui.AddChild(hpBar);
             return seui;
         }
+
 
         public SelectedEntityUI BuildSelectedEntityUI(Building building)
         {
@@ -72,7 +73,7 @@ namespace ZRTS.XnaCompositeView
             hpBar.CurrentHP = building.CurrentHealth;
             hpBar.DrawBox = new Rectangle(5, 67, 65, 5);
 
-            PictureBox pictureBox = BuildPictureBox(building.Type, "selectionAvatar");
+            PictureBox pictureBox = BuildPictureBox("selectionAvatar", building.Type);
             pictureBox.DrawBox = new Rectangle(7, 3, 61, 61);
             seui.AddChild(pictureBox);
             seui.AddChild(hpBar);
@@ -123,27 +124,47 @@ namespace ZRTS.XnaCompositeView
             {
                 if (subtype.Equals("soldier"))
                 {
-                    return new PictureBox(game, new Rectangle(0, GameConfig.SELECT_AVATAR_START_Y, GameConfig.BUTTON_UNIT_DIM, GameConfig.BUTTON_UNIT_DIM ));
+                    return new PictureBox(game, new Rectangle(1141, 1038, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM ));
                 }
                 else if (subtype.Equals("worker"))
                 {
-                    // TODO: change this to reflect worker's icon
-                    //System.Console.Out.WriteLine("Return worker picturebox");
-                    return new PictureBox(game, new Rectangle(GameConfig.WORKER_START_X, GameConfig.SELECT_AVATAR_START_Y, GameConfig.BUTTON_UNIT_DIM, GameConfig.BUTTON_UNIT_DIM ));
-                } 
+                    return new PictureBox(game, new Rectangle(1141 + GameConfig.BUTTON_DIM, 1038, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
+                }
+            }
+
+            // Selection Avator
+            if (type.Equals("selectionAvator"))
+            {
+                if (subtype.Equals("soldier"))
+                {
+                    System.Console.Out.WriteLine("Selected Soldider multipley");
+                    return new PictureBox(game, new Rectangle(0, GameConfig.SELECT_AVATAR_START_Y, GameConfig.BUTTON_UNIT_DIM, GameConfig.BUTTON_UNIT_DIM));
+                }
+                else if (subtype.Equals("worker"))
+                {
+                    return new PictureBox(game, new Rectangle(0, GameConfig.SELECT_AVATAR_START_Y, GameConfig.BUTTON_UNIT_DIM, GameConfig.BUTTON_UNIT_DIM));
+                }
             }
 
 
-            if (type.Equals("soldier") && subtype.Equals("selectionAvatar"))
+            // Big Avator
+            if (type.Equals("bigAvatar"))
             {
-                pictureBox = new PictureBox(game, new Rectangle(0, GameConfig.SELECT_AVATAR_START_Y, GameConfig.BUTTON_UNIT_DIM, GameConfig.BUTTON_UNIT_DIM));
+                if (subtype.Equals("soldier"))
+                {
+                    System.Console.Out.WriteLine("Selected Soldier BIGGGGGGGGGGGGGGG");
+                    return new PictureBox(game, new Rectangle(0, GameConfig.BIG_AVATAR_START_Y, 150, 152));
+                }
+                else if (subtype.Equals("worker"))
+                {
+
+                }
             }
-            else if (type.Equals("soldier") && subtype.Equals("bigAvatar"))
-            {
-                pictureBox = new PictureBox(game, new Rectangle(0, GameConfig.BIG_AVATAR_START_Y, 150, 152));
-            }
+
             else
                 pictureBox = new PictureBox(game, new Rectangle(0, 0, 1, 1));
+
+
             return pictureBox;
         }
 

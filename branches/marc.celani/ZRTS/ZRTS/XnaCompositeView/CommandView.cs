@@ -115,24 +115,30 @@ namespace ZRTS.XnaCompositeView
                 uiToBuildingType.Add(buildingButton, key);
             }
 
+            // Get unit's information 
 			List<String> unitKeys = UnitFactory.Instance.getPrefixes();
+
 			foreach (String key in buildingKeys)
 			{
                 PictureBox unitButton = null;
                 if (key.Equals("barracks"))
                 {
                     unitButton = factory.BuildPictureBox("unitBuild", "soldier");
-
+                    unitButton.OnClick += handleUnitProduceButtonClick;
+                    unitButton.DrawBox = new Rectangle(0, 0, 85, 85);
+                    produceUnitPanel.AddChild(unitButton);
+                    uiToBuildingType.Add(unitButton, key);
+                    continue;
                 }
                 else if (key.Equals("house"))
                 {
                     unitButton = factory.BuildPictureBox("unitBuild", "worker");
+                    unitButton.OnClick += handleUnitProduceButtonClick;
+                    unitButton.DrawBox = new Rectangle(0, 0, 85, 85);
+                    produceUnitPanel.AddChild(unitButton);
+                    uiToBuildingType.Add(unitButton, key);
+                    continue;
                 }
-
-                unitButton.OnClick += handleUnitProduceButtonClick;
-                unitButton.DrawBox = new Rectangle(0, 0, 85, 85);
-                produceUnitPanel.AddChild(unitButton);
-                uiToBuildingType.Add(unitButton, key);
 			}
 
 

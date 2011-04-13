@@ -11,6 +11,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ZRTS.XnaCompositeView
 {
+
+    /// <summary>
+    /// 
+    /// </summary>
     public class SelectedEntityUI : XnaUIComponent
     {
         private UnitComponent unit;
