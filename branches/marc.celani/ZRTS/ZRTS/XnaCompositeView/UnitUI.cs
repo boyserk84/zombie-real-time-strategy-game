@@ -140,6 +140,11 @@ namespace ZRTS.XnaCompositeView
                     AudioManager.Worker_Dying.Play();
                     playDyingSound = true;
                 }
+                else if (Unit.Type.Equals("zombie") && playDyingSound == false)
+                {
+                    AudioManager.Zombie_Dying.Play();
+                    playDyingSound = true;
+                }
             }
 
             changePictureByOrientation();

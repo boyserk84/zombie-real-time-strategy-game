@@ -23,10 +23,12 @@ namespace ZRTS.XnaCompositeView
         {
             Soldier_Attack = Content.Load<SoundEffect>("Audio/Soldier_Attack");
             Worker_Dying = Content.Load<SoundEffect>("Audio/Worker_Dying");
+            Zombie_Dying = Content.Load<SoundEffect>("Audio/Zombie_Dying");
         }
 
         // Sound Effects
         public static SoundEffect Soldier_Attack;
         public static SoundEffect Worker_Dying;
+        public static SoundEffect Zombie_Dying;
     }
 }
