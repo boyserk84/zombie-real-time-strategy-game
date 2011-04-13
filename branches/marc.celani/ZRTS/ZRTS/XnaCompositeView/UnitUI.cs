@@ -25,6 +25,8 @@ namespace ZRTS.XnaCompositeView
 		Texture2D pixel;
         private int unitType;       // Type frame
 
+        bool playDyingSound = false;
+
         public UnitComponent Unit
         {
             get { return unit; }
@@ -45,6 +47,7 @@ namespace ZRTS.XnaCompositeView
 
 			unit.SelectHandler += new ModelComponentSelectedHandler(onSelectChanged);
 			unit.UnitStateChangedHandlers += new UnitStateChangedHanlder(onUnitStateChanged);
+            unit.UnitAttackedEnemyHanlders += new UnitAttackedEnemyHandler(onAttack);
 
 			pixel = new Texture2D(game.GraphicsDevice, 1, 1, true, SurfaceFormat.Color);
 			pixel.SetData(new[] { Color.White });
@@ -81,6 +84,17 @@ namespace ZRTS.XnaCompositeView
                 ((XnaUITestGame)Game).Controller.TellSelectedUnitsToAttack(unit);
                 e.Handled = true;
             }
+        }
+
+        /// <summary>
+        /// Triggered if this unit attacks
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void onAttack(Object sender, UnitAttackedEnemyArgs e)
+        {
+            if(Unit.Type.Equals("soldier"))
+                AudioManager.Soldier_Attack.Play();
         }
 
         /// <summary>
@@ -121,6 +135,11 @@ namespace ZRTS.XnaCompositeView
             else if (unit.State == UnitComponent.UnitState.DEAD)
             {
                 changePicture(SourceRect.X, unitType + GameConfig.ACTION_DEAD * GameConfig.UNIT_HEIGHT);
+                if (Unit.Type.Equals("worker") && playDyingSound == false)
+                {
+                    AudioManager.Worker_Dying.Play();
+                    playDyingSound = true;
+                }
             }
 
             changePictureByOrientation();
