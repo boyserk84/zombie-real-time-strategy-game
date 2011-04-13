@@ -184,7 +184,8 @@ namespace ZRTS
                 }
                 foreach (UnitComponent unit in unitList)
                 {
-                    unit.GetActionQueue().Work();
+					if(unit.State != ZRTSModel.UnitComponent.UnitState.DEAD)
+						unit.GetActionQueue().Work();
                 }
 
 				List<ModelComponent> buildings = player.BuildingList.GetChildren();
@@ -197,12 +198,20 @@ namespace ZRTS
 
 			List<Trigger> triggers = getGameModel().GetScenario().triggers;
 
+			List<Trigger> removeList = new List<Trigger>();
 			foreach (Trigger t in triggers)
 			{
 				if (t.Eval())
 				{
 					t.PerformActions();
+					removeList.Add(t);
 				}
+			}
+
+			foreach (Trigger t in removeList)
+			{
+
+				triggers.Remove(t);
 			}
             base.Update(gameTime);
         }
