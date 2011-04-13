@@ -69,3 +69,27 @@ C:\Users\maestro\Desktop\marc.celani\ZRTS\ZRTS\obj\x86\Debug\ZRTS.pdb
 \\ad.uiuc.edu\engr\ews\mcelani2\Desktop\mybranch\ZRTS\ZRTS\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 \\ad.uiuc.edu\engr\ews\mcelani2\Desktop\mybranch\ZRTS\ZRTS\obj\x86\Debug\ZRTS.exe
 \\ad.uiuc.edu\engr\ews\mcelani2\Desktop\mybranch\ZRTS\ZRTS\obj\x86\Debug\ZRTS.pdb
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\green_tile.xnb
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\soldier_sample.xnb
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\green_tile20x20.xnb
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\commandos.xnb
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\test_spritesheet.xnb
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\util_misc20x20.xnb
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\gamePlayUI\menuUI.xnb
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\gamePlayUI\icons.xnb
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\gameBuildings\sample_build.xnb
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\color.xnb
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\ZRTS_SpriteSheet_All.xnb
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\SpriteFont1.xnb
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\Menu Font.xnb
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\ZRTS.exe
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\ZRTS.pdb
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\nunit.framework.dll
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\ZRTSLogic.dll
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\ZRTSModel.dll
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\ZRTSLogic.pdb
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\ZRTSModel.pdb
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\obj\x86\Debug\ZRTS.exe
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\obj\x86\Debug\ZRTS.pdb

@@ -125,7 +125,8 @@ namespace ZRTS.XnaCompositeView
                 } // unit
 				else if (e.SelectedEntities[0] is Building)
 				{
-					commandBar.activateProduceUnitButtons();
+                    Building y = (Building)e.SelectedEntities[0];
+                    commandBar.activateProduceUnitButtons(y.Type);
 				}
             }
             else

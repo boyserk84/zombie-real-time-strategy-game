@@ -25,7 +25,9 @@ namespace ZRTS.XnaCompositeView
 
         private SameSizeChildrenFlowLayout buildPanel;
 
-		private SameSizeChildrenFlowLayout produceUnitPanel;
+		private SameSizeChildrenFlowLayout barracksPanel;
+        private SameSizeChildrenFlowLayout housePanel;
+        
 		private ZRTSCompositeViewUIFactory factory = ZRTSCompositeViewUIFactory.Instance;
 		long lastClick = 0;
 		const int MSECONDS_PER_CLICK = 100;
@@ -56,11 +58,16 @@ namespace ZRTS.XnaCompositeView
             mainPanel.DrawBox = new Rectangle(10, 10, 255, 255);
             AddChild(mainPanel);
 
-			// Produce Units Panel
-			produceUnitPanel = new SameSizeChildrenFlowLayout(game);
-			produceUnitPanel.DrawBox = new Rectangle(10, 10, 255, 255);
-			produceUnitPanel.Visible = false;
-			AddChild(produceUnitPanel);
+			// Produce Units Panel for each building
+			barracksPanel = new SameSizeChildrenFlowLayout(game);
+			barracksPanel.DrawBox = new Rectangle(10, 10, 255, 255);
+			barracksPanel.Visible = false;
+			AddChild(barracksPanel);
+
+            housePanel = new SameSizeChildrenFlowLayout(game);
+            housePanel.DrawBox = new Rectangle(10, 10, 255, 255);
+            housePanel.Visible = false;
+            AddChild(housePanel);
 
 
 
@@ -126,7 +133,7 @@ namespace ZRTS.XnaCompositeView
                     unitButton = factory.BuildPictureBox("unitBuild", "soldier");
                     unitButton.OnClick += handleUnitProduceButtonClick;
                     unitButton.DrawBox = new Rectangle(0, 0, 85, 85);
-                    produceUnitPanel.AddChild(unitButton);
+                    barracksPanel.AddChild(unitButton);
                     uiToBuildingType.Add(unitButton, key);
                     continue;
                 }
@@ -135,7 +142,7 @@ namespace ZRTS.XnaCompositeView
                     unitButton = factory.BuildPictureBox("unitBuild", "worker");
                     unitButton.OnClick += handleUnitProduceButtonClick;
                     unitButton.DrawBox = new Rectangle(0, 0, 85, 85);
-                    produceUnitPanel.AddChild(unitButton);
+                    housePanel.AddChild(unitButton);
                     uiToBuildingType.Add(unitButton, key);
                     continue;
                 }
@@ -164,14 +171,19 @@ namespace ZRTS.XnaCompositeView
             mainPanel.Visible = true;
         }
 
-		public void activateProduceUnitButtons()
+		public void activateProduceUnitButtons(string type)
 		{
-			produceUnitPanel.Visible = true;
+            if (type.Equals("barracks"))
+                barracksPanel.Visible = true;
+            else if (type.Equals("house"))
+                housePanel.Visible = true;
 		}
 
 		public void deactivateProduceUnitButtons()
 		{
-			produceUnitPanel.Visible = false;
+           
+            barracksPanel.Visible = false;
+            housePanel.Visible = false;
 		}
 
 
