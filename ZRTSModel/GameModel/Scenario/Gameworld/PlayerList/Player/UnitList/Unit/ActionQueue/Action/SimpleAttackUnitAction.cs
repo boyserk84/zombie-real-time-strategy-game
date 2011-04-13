@@ -16,7 +16,7 @@ namespace ZRTSModel
         private UnitComponent unit;
         private UnitComponent target;
 
-        private int ticksSinceLastAttk = 1;
+        private int ticksSinceLastAttk = 0;
         public SimpleAttackUnitAction(UnitComponent unit, UnitComponent target)
         {
             this.unit = unit;
