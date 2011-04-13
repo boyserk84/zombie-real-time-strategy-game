@@ -198,6 +198,9 @@ namespace ZRTS
             mouseInputEngine = new MouseInputEngine(this, view);
             Components.Add(mouseInputEngine);
 
+            // Load Audio
+            AudioManager.Initialize(Content);
+
         }
 
         protected override void Draw(GameTime gameTime)
