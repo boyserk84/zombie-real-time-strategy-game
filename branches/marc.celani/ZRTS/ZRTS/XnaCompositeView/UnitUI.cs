@@ -49,11 +49,22 @@ namespace ZRTS.XnaCompositeView
 			pixel = new Texture2D(game.GraphicsDevice, 1, 1, true, SurfaceFormat.Color);
 			pixel.SetData(new[] { Color.White });
 
-            unitType = GameConfig.SOLDIER_START_Y;
+            
 
             if (unit.IsZombie)
             {
                 unitType = GameConfig.ZOMBIE_START_Y;
+            }
+            else
+            {
+                if (unit.Type.Equals("soldier"))
+                {
+                    unitType = GameConfig.SOLDIER_START_Y;
+                }
+                else
+                {
+                    unitType = GameConfig.WORKER_START_Y;
+                }
             }
 
         }
