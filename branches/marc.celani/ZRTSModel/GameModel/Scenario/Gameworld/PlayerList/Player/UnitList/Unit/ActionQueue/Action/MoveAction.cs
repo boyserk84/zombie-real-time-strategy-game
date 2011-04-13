@@ -31,7 +31,7 @@ namespace ZRTSModel
         private int ticksWaiting = 0; // Ticks spent waiting for another unit to move. 
 
         private byte TICKS_PER_MOVE = 5;       // How many ticks per step in the move action
-        private byte WAIT_TICKS = 15;               // How many ticks to wait for another unit to move.
+        private byte WAIT_TICKS = 5;               // How many ticks to wait for another unit to move.
         private byte ticksSinceLastMove = 1;
 
 

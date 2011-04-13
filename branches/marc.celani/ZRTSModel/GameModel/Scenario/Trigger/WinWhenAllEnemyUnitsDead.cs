@@ -16,6 +16,7 @@ namespace ZRTSModel.Trigger
 			condition = new ConditionAllPlayerUnitsDead(this,enemy);
 			this.scenario = scenario;
 
+			// Change this.
 			action = new PlayerLoseAction(this, scenario);
 		}
 
