@@ -11,6 +11,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ZRTS.XnaCompositeView
 {
+    /// <summary>
+    /// SelectionView: Represent a main panel where stat is displayed.
+    /// </summary>
     public class SelectionView : XnaUIComponent
     {
         private SelectionState selectionState;
@@ -19,6 +22,11 @@ namespace ZRTS.XnaCompositeView
         public CommandView commandBar;              // Coordinate with commandBar
 
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="game"></param>
+        /// <param name="selectionState"></param>
         public SelectionView(Game game, SelectionState selectionState)
             : base(game)
         {
@@ -38,7 +46,11 @@ namespace ZRTS.XnaCompositeView
 
 
 
-
+        /// <summary>
+        /// Event handler when selection has changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void onSelectionChanged(Object sender, SelectionStateChangedArgs e)
         {
             
@@ -74,7 +86,7 @@ namespace ZRTS.XnaCompositeView
             // Remove current big picture box
             for (int i = 0; i < GetChildren().Count; i++)
             {
-                if (GetChildren()[i] is PictureBox)
+                if (GetChildren()[i] is PictureBox && GetChildren()[i] != mainBgPanel)
                 {
                     GetChildren()[i].Dispose();
                     RemoveChild(GetChildren()[i]);

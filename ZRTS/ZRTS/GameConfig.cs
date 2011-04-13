@@ -29,12 +29,17 @@ namespace ZRTS
         public static int SOLDIER_START_Y = 108 ;
         public static int WORKER_START_Y = 108 + 36 * 3;
 
+        // Building Picture
         public static int BUILDING_START_Y = 1037;
+        public static int HOSPITAL_START_Y = 253;
+        public static int HOUSE_START_Y = 1469;
 
+        // Panel Picture
         public static int BUILDPANEL_START_X = 865;
         public static int MAINPANEL_START_X = 706;
         public static int MAINPANEL_START_Y = 808;
 
+        // Big Avator
         public static int BIG_AVATAR_START_Y = 808;
         public static int SELECT_AVATAR_START_Y = 960;
         public static int WORKER_START_X = 77;

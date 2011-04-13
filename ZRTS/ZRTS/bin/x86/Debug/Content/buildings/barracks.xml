@@ -1,5 +1,5 @@
 <Building>
-	<type>house</type>
+	<type>barracks</type>
 	<width>5</width>
 	<height>5</height>
 	<maxHealth>200</maxHealth>
