@@ -12,6 +12,6 @@
 	<metalCost>10</metalCost>
 	<canAttack>true</canAttack>
 	<canHarvest>true</canHarvest>
-	<canBuild>false</canBuild>
+	<canBuild>true</canBuild>
 	<isZombie>false</isZombie>
 </Unit>
