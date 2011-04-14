@@ -119,12 +119,13 @@ namespace ZRTS.XnaCompositeView
                         bigImage.DrawBox = new Rectangle(25, 25, 150, 150);
                         AddChild(bigImage);
 
-                        bool containsNonBuilders= false;
+                        bool containsNonBuilders= true;
                         for (int i = 0; i < e.SelectedEntities.Count; i++)
                         {
-                            if (((UnitComponent)e.SelectedEntities[0]).CanBuild)
+                            if (!((UnitComponent)e.SelectedEntities[0]).CanBuild)
                             {
-                                containsNonBuilders = true;
+                                containsNonBuilders = false;
+                                break;
                             }   
                         }
                         commandBar.activateButtons(containsNonBuilders);  // show commandView if selected

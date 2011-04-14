@@ -206,10 +206,7 @@ namespace ZRTS.XnaCompositeView
         /// </summary>
         public void activateButtons(bool nonbuilders)
         {
-            //############delete this to make groups with soldiers unable to build
-            nonbuilders = false;
-            //############
-            if (nonbuilders)
+            if (!nonbuilders)
                 mainPanel.Visible = true;
             else
                 workerPanel.Visible = true;
