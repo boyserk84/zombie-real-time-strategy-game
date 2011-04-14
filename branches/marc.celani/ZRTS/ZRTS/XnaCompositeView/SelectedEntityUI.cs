@@ -13,7 +13,7 @@ namespace ZRTS.XnaCompositeView
 {
 
     /// <summary>
-    /// 
+    /// Selected Game Entity by the user
     /// </summary>
     public class SelectedEntityUI : XnaUIComponent
     {

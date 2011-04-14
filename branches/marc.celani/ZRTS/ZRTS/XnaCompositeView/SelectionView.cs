@@ -115,9 +115,9 @@ namespace ZRTS.XnaCompositeView
 
                         e.SelectedEntities[0].Accept(visitor);
                         PictureBox bigImage = visitor.PictureBox;
+
                         bigImage.DrawBox = new Rectangle(25, 25, 150, 150);
                         AddChild(bigImage);
-                       
 
                         commandBar.activateButtons();  // show commandView if selected
 

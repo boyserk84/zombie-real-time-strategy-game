@@ -17,12 +17,12 @@ namespace ZRTS.XnaCompositeView.SelectionViewVisitors
 
         public override void Visit(UnitComponent unit)
         {
-            this.pictureBox = ZRTSCompositeViewUIFactory.Instance.BuildPictureBox(unit.Type, "bigAvatar");
+            this.pictureBox = ZRTSCompositeViewUIFactory.Instance.BuildPictureBox("bigAvatar", unit.Type);
         }
 
         public override void Visit(Building building)
         {
-            this.pictureBox = ZRTSCompositeViewUIFactory.Instance.BuildPictureBox(building.Type, "bigAvatar");
+            this.pictureBox = ZRTSCompositeViewUIFactory.Instance.BuildPictureBox("bigAvatar", building.Type);
         }
     }
 }
