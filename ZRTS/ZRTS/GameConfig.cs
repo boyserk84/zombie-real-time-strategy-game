@@ -66,6 +66,7 @@ namespace ZRTS
         public static int BUTTON_MOVE = 0;
         public static int BUTTON_ATTACK = 12;
         public static int BUTTON_BUILD = 6;
+        public static int BUTTON_HARVEST = 15;
 
         public static int BUTTON_START_Y_SECOND = 648+80 ;
         public static int BUTTON_START_Y = 648;
@@ -96,10 +97,11 @@ namespace ZRTS
         public static int BUILDING_DAMAGE = 1;
 
         public static int BUILDING_HOUSE = 1037;
-        
 
-        
-        
+
+
+
+
 
 
 

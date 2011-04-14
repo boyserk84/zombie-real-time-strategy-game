@@ -221,6 +221,15 @@ namespace ZRTS
             changeMapViewLeftClickStrategyToBuild(buildingType);
         }
 
+        internal void OnSelectedUnitsToHarvest()
+        {
+            MapView mapView = ((XnaUITestGame)Game).View.GetChildren()[0] as MapView;
+            //###########################################################################
+            // TODO: get the mouse Click Location and pass to TellSelectedUnitToHarvest
+            //#########################################################################3
+            //TellSelectedUnitsToHarvest(#### Mouse Click Location #####);
+        }
+
         /// <summary>
         /// Insert building's action queue to build something
         /// </summary>
@@ -339,6 +348,10 @@ namespace ZRTS
             }
         }
 
+        /// <summary>
+        /// Tell selected units to attack building
+        /// </summary>
+        /// <param name="building"></param>
         internal void TellSelectedUnitsToAttack(Building building)
         {
             // TODO: Implement
@@ -359,5 +372,39 @@ namespace ZRTS
 
 			return false;
 		}
+
+        /// <summary>
+        /// Tell selected units to harvest (TODO)
+        /// </summary>
+        public void TellSelectedUnitsToHarvest(PointF destination)
+        {
+            List<ModelComponent> selectedEntities = getGameModel().GetSelectionState().SelectedEntities;
+            foreach (ModelComponent entity in selectedEntities)
+            {
+                if (entityBelongsToPlayer(entity))
+                {
+                    if (!(entity is UnitComponent))
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        UnitComponent u = entity as UnitComponent;
+                        if (!u.CanHarvest)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            // DO SOMETHING TO HARVEST!!!!!
+                            System.Console.Out.WriteLine("NOT IMPLEMENT YET: harvest at " + destination.X + " : " + destination.Y);
+                            //u.GetActionQueue().GetChildren().Clear();
+                            //u.GetActionQueue().AddChild(new AttackAction
+                        }
+                    }
+                }// if
+            }
+            //throw new NotImplementedException();
+        }
     }
 }

@@ -113,6 +113,10 @@ namespace ZRTS.XnaCompositeView
                 {
                     return new PictureBox(game, new Rectangle(GameConfig.BUTTON_STOP * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
                 }
+                else if (subtype.Equals("harvest"))
+                {
+                    return new PictureBox(game, new Rectangle(GameConfig.BUTTON_HARVEST * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y_SECOND, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
+                }
             }
 
             // Building Icon

@@ -138,6 +138,21 @@ namespace ZRTS
             }
         }
 
+        /// <summary>
+        /// Trigger function in the event of selected unit is told to harvest
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tellSelectedUnitsToHarvestAt(object sender, XnaMouseEventArgs e)
+        {
+            if (e.Bubbled && !e.Handled && e.ButtonPressed == MouseButton.Right)
+            {
+                PointF gamePoint = new PointF((float)(e.ClickLocation.X + ScrollX) / (float)cellDimension, (float)(e.ClickLocation.Y + ScrollY) / (float)cellDimension);
+                ((XnaUITestGame)Game).Controller.TellSelectedUnitsToHarvest(gamePoint);
+                e.Handled = true;
+            }
+        }
+
         protected override void onDraw(XnaDrawArgs e)
         {
             // Determine all of the cells in view
