@@ -30,5 +30,6 @@ namespace ZRTS.XnaCompositeView
         public static SoundEffect Soldier_Attack;
         public static SoundEffect Worker_Dying;
         public static SoundEffect Zombie_Dying;
+        
     }
 }
