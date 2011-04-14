@@ -119,7 +119,15 @@ namespace ZRTS.XnaCompositeView
                         bigImage.DrawBox = new Rectangle(25, 25, 150, 150);
                         AddChild(bigImage);
 
-                        commandBar.activateButtons();  // show commandView if selected
+                        bool containsNonBuilders= false;
+                        for (int i = 0; i < e.SelectedEntities.Count; i++)
+                        {
+                            if (((UnitComponent)e.SelectedEntities[0]).CanBuild)
+                            {
+                                containsNonBuilders = true;
+                            }   
+                        }
+                        commandBar.activateButtons(containsNonBuilders);  // show commandView if selected
 
                     } // only non zombie
                 } // unit
