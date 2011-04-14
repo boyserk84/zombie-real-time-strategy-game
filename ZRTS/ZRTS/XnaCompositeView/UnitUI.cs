@@ -53,7 +53,6 @@ namespace ZRTS.XnaCompositeView
 			pixel.SetData(new[] { Color.White });
 
             
-
             if (unit.IsZombie)
             {
                 unitType = GameConfig.ZOMBIE_START_Y;
@@ -145,6 +144,11 @@ namespace ZRTS.XnaCompositeView
                     AudioManager.Zombie_Dying.Play();
                     playDyingSound = true;
                 }
+            }
+            else if (unit.State == UnitComponent.UnitState.HARVESTING)
+            {
+                // Need differnt type of harvesting 
+                changePicture(SourceRect.X, unitType + GameConfig.ACTION_HARVEST * GameConfig.UNIT_HEIGHT);
             }
 
             changePictureByOrientation();

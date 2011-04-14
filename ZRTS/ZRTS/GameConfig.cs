@@ -48,6 +48,7 @@ namespace ZRTS
         public static int ACTION_ATTACK= 0;
         public static int ACTION_MOVE= 1;
         public static int ACTION_DEAD = 2;
+        public static int ACTION_HARVEST = 3;
         public static int DIR_N = 0;
         public static int DIR_S = 4;
         public static int DIR_W = 12;
@@ -60,6 +61,7 @@ namespace ZRTS
 
         public static int TILE_DIM = 36;        // Tile Dimension
 
+        // Generic button reference
         public static int BUTTON_STOP = 6;
         public static int BUTTON_MOVE = 0;
         public static int BUTTON_ATTACK = 12;
@@ -86,6 +88,7 @@ namespace ZRTS
         public static int TILE_GREEN_BORDER_BOTTOMRIGHT = 9;
         public static int TILE_GREEN_BORDER_RIGHT = 10;
 
+        // Building frame
         public static int BUILDING_DIM = 216;
         public static int BUILDING_CONSTRUCTION = 216 * 3;
         public static int BUILDING_HALF_FINISH = 2;

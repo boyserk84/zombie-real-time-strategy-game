@@ -61,7 +61,11 @@ namespace ZRTS.XnaCompositeView
             return seui;
         }
 
-
+        /// <summary>
+        /// Create User Interface (icon) for each selected entity (Building
+        /// </summary>
+        /// <param name="building"></param>
+        /// <returns></returns>
         public SelectedEntityUI BuildSelectedEntityUI(Building building)
         {
             SelectedEntityUI seui = new SelectedEntityUI(game, building);
@@ -80,6 +84,13 @@ namespace ZRTS.XnaCompositeView
             return seui;
         }
 
+
+        /// <summary>
+        /// create a picture representation for each type
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="subtype"></param>
+        /// <returns></returns>
         public PictureBox BuildPictureBox(string type, string subtype)
         {
             PictureBox pictureBox = null;
@@ -109,13 +120,15 @@ namespace ZRTS.XnaCompositeView
             {
                 if (subtype.Equals("house"))
                 {
-                    //todo add contents;
-                    return new PictureBox(game, new Rectangle(0, 0, 1, 1));
+                    return new PictureBox(game, new Rectangle(1141 + GameConfig.BUTTON_DIM, 1038 + GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
                 }
-                else if (subtype.Equals("barrack"))
+                else if (subtype.Equals("barracks"))
                 {
-                    //Todo add contetns
-                    return new PictureBox(game, new Rectangle(0, 0, 1, 1));
+                    return new PictureBox(game, new Rectangle(1141, 1038 + GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
+                }
+                else if (subtype.Equals("hospital"))
+                {
+                    return new PictureBox(game, new Rectangle(1141 + GameConfig.BUTTON_DIM*2, 1038 + GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
                 }
             }
 
@@ -133,16 +146,15 @@ namespace ZRTS.XnaCompositeView
             }
 
             // Selection Avator
-            if (type.Equals("selectionAvator"))
+            if (type.Equals("selectionAvatar"))
             {
                 if (subtype.Equals("soldier"))
                 {
-                    System.Console.Out.WriteLine("Selected Soldider multipley");
                     return new PictureBox(game, new Rectangle(0, GameConfig.SELECT_AVATAR_START_Y, GameConfig.BUTTON_UNIT_DIM, GameConfig.BUTTON_UNIT_DIM));
                 }
                 else if (subtype.Equals("worker"))
                 {
-                    return new PictureBox(game, new Rectangle(0, GameConfig.SELECT_AVATAR_START_Y, GameConfig.BUTTON_UNIT_DIM, GameConfig.BUTTON_UNIT_DIM));
+                    return new PictureBox(game, new Rectangle(77, GameConfig.SELECT_AVATAR_START_Y, GameConfig.BUTTON_UNIT_DIM, GameConfig.BUTTON_UNIT_DIM));
                 }
             }
 
@@ -152,12 +164,11 @@ namespace ZRTS.XnaCompositeView
             {
                 if (subtype.Equals("soldier"))
                 {
-                    System.Console.Out.WriteLine("Selected Soldier BIGGGGGGGGGGGGGGG");
-                    return new PictureBox(game, new Rectangle(0, GameConfig.BIG_AVATAR_START_Y, 150, 152));
+                    return new PictureBox(game, new Rectangle(0, GameConfig.BIG_AVATAR_START_Y, 140, 152));
                 }
                 else if (subtype.Equals("worker"))
                 {
-
+                    return new PictureBox(game, new Rectangle(140, GameConfig.BIG_AVATAR_START_Y, 140, 152));
                 }
             }
 
