@@ -10,12 +10,17 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ZRTS.XnaCompositeView
 {
+
+    /// <summary>
+    /// CommandView:
+    /// This class will act as a command menu manager for each game unit/building.
+    /// </summary>
     public class CommandView : XnaUIComponent
     {
         private SameSizeChildrenFlowLayout mainPanel;
         private SameSizeChildrenFlowLayout workerPanel;
         private PictureBox backgroundPanel;
-        private PictureBox mainBgPanel;
+        //private PictureBox mainBgPanel;
         private PictureBox stopButton;
         private PictureBox moveButton;
         private PictureBox attackButton;
@@ -23,6 +28,7 @@ namespace ZRTS.XnaCompositeView
         private PictureBox mainMoveButton;
         private PictureBox mainAttackButton;
         private PictureBox buildButton;
+        private PictureBox harvestButton;
         private Hashtable uiToBuildingType = new Hashtable();
 		private Texture2D pixel;
 		private Color color;
@@ -62,17 +68,19 @@ namespace ZRTS.XnaCompositeView
             mainPanel.DrawBox = new Rectangle(10, 10, 255, 255);
             AddChild(mainPanel);
 
+            // WorkerPanel
             workerPanel = new SameSizeChildrenFlowLayout(game);
             workerPanel.DrawBox = new Rectangle(10, 10, 255, 255);
             AddChild(workerPanel);
 
 
-			// Produce Units Panel for each building
+			// Barrack building commandPanel
 			barracksPanel = new SameSizeChildrenFlowLayout(game);
 			barracksPanel.DrawBox = new Rectangle(10, 10, 255, 255);
 			barracksPanel.Visible = false;
 			AddChild(barracksPanel);
 
+            // HouseBuilding commandPanel
             housePanel = new SameSizeChildrenFlowLayout(game);
             housePanel.DrawBox = new Rectangle(10, 10, 255, 255);
             housePanel.Visible = false;
@@ -135,6 +143,16 @@ namespace ZRTS.XnaCompositeView
             attackButton.OnMouseUp += handleAttackButtonUp;
             workerPanel.AddChild(attackButton);
 
+            
+            harvestButton = factory.BuildPictureBox("button", "harvest");
+            harvestButton.DrawBox = new Rectangle(GameConfig.BUTTON_ATTACK * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
+            harvestButton.OnClick += handleHarvestButtonClick;
+            harvestButton.OnMouseEnter += handleharvestButtonOver;
+            harvestButton.OnMouseLeave += handleharvestButtonAway;
+            harvestButton.OnMouseDown += handleharvestButtonDown;
+            harvestButton.OnMouseUp += handleharvestButtonUp;
+            workerPanel.AddChild(harvestButton);
+            
             mainAttackButton = factory.BuildPictureBox("button", "attack");
             mainAttackButton.DrawBox = new Rectangle(GameConfig.BUTTON_ATTACK * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
             mainAttackButton.OnClick += handleAttackButtonClick;
@@ -171,8 +189,6 @@ namespace ZRTS.XnaCompositeView
                     unitButton.OnClick += handleUnitProduceButtonClick;
                     unitButton.DrawBox = new Rectangle(0, 0, 85, 85);
                     barracksPanel.AddChild(unitButton);
-                    uiToBuildingType.Add(unitButton, key);
-                    continue;
                 }
                 else if (key.Equals("house"))
                 {
@@ -180,9 +196,9 @@ namespace ZRTS.XnaCompositeView
                     unitButton.OnClick += handleUnitProduceButtonClick;
                     unitButton.DrawBox = new Rectangle(0, 0, 85, 85);
                     housePanel.AddChild(unitButton);
-                    uiToBuildingType.Add(unitButton, key);
-                    continue;
                 }
+
+                uiToBuildingType.Add(unitButton, key);
 			}
 
 
@@ -258,7 +274,7 @@ namespace ZRTS.XnaCompositeView
         /// <param name="e"></param>
         private void handleStopButtonClick(object sender, XnaMouseEventArgs e)
         {
-            System.Console.Out.WriteLine("STOP BUTTON IS CLICKED!");
+            //System.Console.Out.WriteLine("STOP BUTTON IS CLICKED!");
             if (e.Bubbled && !e.Handled)
             {
                 e.Handled = true;
@@ -273,12 +289,10 @@ namespace ZRTS.XnaCompositeView
         /// <param name="e"></param>
         private void handleAttackButtonClick(object sender, XnaMouseEventArgs e)
         {
-            // HACK // SAME EFFECT
             if (e.Bubbled && !e.Handled)
             {
-                System.Console.Out.WriteLine("Attack button is clicked!");
+                //System.Console.Out.WriteLine("Attack button is clicked!");
                 e.Handled = true;
-                //((XnaUITestGame)Game).Controller.TellSelectedUnitsToAttack((ZRTSModel.UnitComponent) sender);
             }
 
         }
@@ -290,13 +304,10 @@ namespace ZRTS.XnaCompositeView
         /// <param name="e"></param>
         private void handleMoveButtonClick(object sender, XnaMouseEventArgs e)
         {
-            //HACK // SAME EFFECT
             if (e.Bubbled && !e.Handled)
             {
-                System.Console.Out.WriteLine("Move button is clicked!");
+                //System.Console.Out.WriteLine("Move button is clicked!");
                 e.Handled = true;
-                //moveButton.DrawBox = new Rectangle((GameConfig.BUTTON_MOVE + GameConfig.BUTTON_MOUSE_PRESS) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
-                // First change the command and cursor
             }
         }
 
@@ -361,6 +372,39 @@ namespace ZRTS.XnaCompositeView
         {
             buildButton.setPicturebox(new Rectangle((GameConfig.BUTTON_BUILD + GameConfig.BUTTON_MOUSE_OVER) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y_SECOND, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
         }
+
+        // Harvest Button
+        private void handleHarvestButtonClick(object sender, XnaMouseEventArgs e)
+        {
+            if (e.Bubbled && !e.Handled)
+            {
+                System.Console.Out.WriteLine("Harvest button is clicked!");
+                e.Handled = true;
+                // TODO: Change this to reflect the mouseclick location where the unit needs to move and harvest
+                ((XnaUITestGame)Game).Controller.OnSelectedUnitsToHarvest();
+            }
+        }
+
+        private void handleharvestButtonOver(object sender, EventArgs e)
+        {
+            harvestButton.setPicturebox(new Rectangle((GameConfig.BUTTON_HARVEST + GameConfig.BUTTON_MOUSE_OVER) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y_SECOND, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
+        }
+
+        private void handleharvestButtonAway(object sender, EventArgs e)
+        {
+            harvestButton.setPicturebox(new Rectangle(GameConfig.BUTTON_HARVEST * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y_SECOND, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
+        }
+
+        private void handleharvestButtonDown(object sender, EventArgs e)
+        {
+            harvestButton.setPicturebox(new Rectangle((GameConfig.BUTTON_HARVEST + GameConfig.BUTTON_MOUSE_PRESS) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y_SECOND, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
+        }
+
+        private void handleharvestButtonUp(object sender, EventArgs e)
+        {
+            harvestButton.setPicturebox(new Rectangle((GameConfig.BUTTON_HARVEST + GameConfig.BUTTON_MOUSE_OVER) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y_SECOND, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
+        }
+
 
         // Attack Button
         private void handleAttackButtonOver(object sender, EventArgs e)

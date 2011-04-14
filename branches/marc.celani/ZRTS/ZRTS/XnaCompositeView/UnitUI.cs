@@ -93,7 +93,7 @@ namespace ZRTS.XnaCompositeView
         private void onAttack(Object sender, UnitAttackedEnemyArgs e)
         {
             if(Unit.Type.Equals("soldier"))
-                AudioManager.Soldier_Attack.Play();
+                AudioManager.playSound("attack", "soldier"); //Soldier_Attack.Play();
         }
 
         /// <summary>
@@ -136,12 +136,12 @@ namespace ZRTS.XnaCompositeView
                 changePicture(SourceRect.X, unitType + GameConfig.ACTION_DEAD * GameConfig.UNIT_HEIGHT);
                 if (Unit.Type.Equals("worker") && playDyingSound == false)
                 {
-                    AudioManager.Worker_Dying.Play();
+                    AudioManager.playSound("dead", "worker"); // Worker_Dying.Play();
                     playDyingSound = true;
                 }
                 else if (Unit.Type.Equals("zombie") && playDyingSound == false)
                 {
-                    AudioManager.Zombie_Dying.Play();
+                    AudioManager.playSound("dead", "zombie"); // Zombie_Dying.Play();
                     playDyingSound = true;
                 }
             }
