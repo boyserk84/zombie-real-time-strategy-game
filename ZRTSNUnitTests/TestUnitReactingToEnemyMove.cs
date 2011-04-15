@@ -8,6 +8,10 @@ using ZRTSModel.Factories;
 using NUnit.Framework;
 namespace ZRTSNUnitTests
 {
+	/// <summary>
+	/// This class contains tests for testing if UnitComponents correctly react to an Enemy UnitComponent being 
+	/// placed into a CellComponent within a UnitComponent's visibility range.
+	/// </summary>
 	[TestFixture]
 	class TestUnitReactingToEnemyMove
 	{
@@ -19,7 +23,6 @@ namespace ZRTSNUnitTests
 
 		private void setupModel()
 		{
-			
 			model = new GameModel();
 			ScenarioComponent scenario = new ScenarioComponent(20, 20); // 20 x 20 Gameworld.
 
@@ -62,13 +65,13 @@ namespace ZRTSNUnitTests
 			UnitList list = ((PlayerComponent)model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[0]).GetUnitList();
 			UnitList list2 = ((PlayerComponent)model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[1]).GetUnitList();
 
-
+			// Create a unit for Player 1
 			UnitComponent unit1 = new UnitComponent();
 			list.AddChild(unit1);
 			unit1.PointLocation = new PointF(0.5f, 0.5f);
 			unit1.AttackStance = UnitComponent.UnitAttackStance.Aggressive;
 
-
+			// Create a unit for Player 2
 			UnitComponent unit2 = new UnitComponent();
 			list2.AddChild(unit2);
 			unit2.PointLocation = new PointF(1.5f, 1.5f);
@@ -101,13 +104,14 @@ namespace ZRTSNUnitTests
 			UnitList list = ((PlayerComponent)model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[0]).GetUnitList();
 			UnitList list2 = ((PlayerComponent)model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[1]).GetUnitList();
 
-
+			// Create a Unit for Player 1
 			UnitComponent unit1 = new UnitComponent();
 			list.AddChild(unit1);
 			unit1.PointLocation = new PointF(0.5f, 0.5f);
 			unit1.AttackStance = UnitComponent.UnitAttackStance.Aggressive;
 			unit1.VisibilityRange = 4.0f;
 
+			// Create a Unit for Player 2
 			UnitComponent unit2 = new UnitComponent();
 			list2.AddChild(unit2);
 			unit2.PointLocation = new PointF(9.5f, 9.5f); // outisde unit1's visibility range (4.0f).
@@ -140,13 +144,14 @@ namespace ZRTSNUnitTests
 			UnitList list = ((PlayerComponent)model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[0]).GetUnitList();
 			UnitList list2 = ((PlayerComponent)model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[1]).GetUnitList();
 
-
+			// Create a Unit for Player 1
 			UnitComponent unit1 = new UnitComponent();
 			list.AddChild(unit1);
 			unit1.PointLocation = new PointF(0.5f, 0.5f);
 			unit1.AttackStance = UnitComponent.UnitAttackStance.Aggressive;
 			unit1.VisibilityRange = 4.0f;
 
+			// Create a Unit for Player 2
 			UnitComponent unit2 = new UnitComponent();
 			list2.AddChild(unit2);
 			unit2.PointLocation = new PointF(9.5f, 9.5f); // outisde unit1's visibility range (4.0f).
@@ -170,6 +175,7 @@ namespace ZRTSNUnitTests
 			//Have unit2 move until the move action is completed.
 			while (!move.Work()) { }
 
+			// Test that unit1 has been given an AttackAction with unit2 as the target.
 			output = false;
 			if (unit1.GetActionQueue().GetChildren().Count > 0)
 			{
