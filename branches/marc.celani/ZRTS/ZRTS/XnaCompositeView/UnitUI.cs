@@ -92,8 +92,12 @@ namespace ZRTS.XnaCompositeView
         /// <param name="e"></param>
         private void onAttack(Object sender, UnitAttackedEnemyArgs e)
         {
-            if(Unit.Type.Equals("soldier"))
-                AudioManager.playSound("attack", "soldier"); //Soldier_Attack.Play();
+            if (Unit.Type.Equals("soldier"))
+                AudioManager.playSound("attack", "soldier");
+            else if (Unit.Type.Equals("worker"))
+                AudioManager.playSound("attack", "worker");
+            else if (Unit.Type.Equals("zombie"))
+                AudioManager.playSound("attack", "zombie");
         }
 
         /// <summary>

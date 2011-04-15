@@ -26,13 +26,19 @@ namespace ZRTS.XnaCompositeView
         {
             Soldier_Attack = Content.Load<SoundEffect>("audio/Soldier_Attack");
             Worker_Dying = Content.Load<SoundEffect>("audio/Worker_Dying");
+            Worker_Attack = Content.Load<SoundEffect>("audio/Worker_Attack");
             Zombie_Dying = Content.Load<SoundEffect>("audio/Zombie_Dying");
+            Zombie_Attack = Content.Load<SoundEffect>("audio/Zombie_Attack");
         }
+
+        // Songs
 
         // Sound Effects
         public static SoundEffect Soldier_Attack;
         public static SoundEffect Worker_Dying;
+        public static SoundEffect Worker_Attack;
         public static SoundEffect Zombie_Dying;
+        public static SoundEffect Zombie_Attack;
 
         /// <summary>
         /// Playing sound effect based on action and unit types
@@ -45,7 +51,7 @@ namespace ZRTS.XnaCompositeView
             {
                 if (subtype.Equals("zombie"))
                 {
-                    Zombie_Dying.Play(0.10f, 0, 0);
+                    Zombie_Dying.Play(0.30f, 0, 0);
                 }
                 else if (subtype.Equals("worker"))
                 {
@@ -60,15 +66,15 @@ namespace ZRTS.XnaCompositeView
             {
                 if (subtype.Equals("zombie"))
                 {
-
+                    Zombie_Attack.Play(0.30f, 0, 0);
                 }
                 else if (subtype.Equals("worker"))
                 {
-
+                    Worker_Attack.Play(0.30f, 0, 0);
                 }
                 else if (subtype.Equals("soldier"))
                 {
-                    Soldier_Attack.Play(0.10f, 0, 0);
+                    Soldier_Attack.Play(0.30f, 0, 0);
                 }
             }
         }
