@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ZRTS;
 using ZRTSModel;
 using ZRTSModel.GameModel;
 using ZRTSModel.Factories;
@@ -20,6 +21,7 @@ namespace ZRTSNUnitTests
     class TestPlacingBuildingOntheMap
     {
         private GameModel model;
+        private ZRTSController controller;
 
         /// <summary>
         /// Initialize necessary components
@@ -53,12 +55,14 @@ namespace ZRTSNUnitTests
             // Set target enemy
             player1.EnemyList.Add(player2);
             player2.EnemyList.Add(player1);
+            
         }
 
         [Test]
         public void TestPlacingBuildingOnMap()
         {
             //TODO:
+            
         }
 
         [Test]
@@ -71,7 +75,21 @@ namespace ZRTSNUnitTests
         [Test]
         public void TestCannotPlaceBuildingOutsideMap()
         {
-            //TODO:
+            Building building = new Building();
+            building.Type = "hospital";
+            building.Width = 5;
+            building.Height = 5;
+            building.PointLocation = new PointF(51, 51);
+            model.GetScenario().GetGameWorld().GetMap().AddChild(building);
+            Assert.AreEqual(0, model.GetScenario().GetChildren().Count);
+
+            Building building2 = new Building();
+            building.Type = "barracks";
+            building.Width = 3;
+            building.Height = 3;
+            building.PointLocation = new PointF(20, 20);
+            model.GetScenario().GetGameWorld().GetMap().AddChild(building2);
+            Assert.AreEqual(1, model.GetScenario().GetChildren().Count);
         }
 
 
