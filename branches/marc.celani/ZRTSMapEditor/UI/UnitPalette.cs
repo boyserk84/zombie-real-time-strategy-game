@@ -99,5 +99,11 @@ namespace ZRTSMapEditor
             controller.SelectUnitType(((PictureBox)sender).Name);
         }
 
+
+        internal void setPreviewImage(string type)
+        {
+            BitmapManager manager = BitmapManager.Instance;
+            previewBox.Image = manager.getBitmap(type);
+        }
     }
 }

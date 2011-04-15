@@ -173,7 +173,7 @@ namespace ZRTSMapEditor
         {
             model.GetSelectionState().SelectionType = typeof(ZRTSModel.Tile);
             model.GetSelectionState().SelectedTileType = type;
-            setPreviewImage(type);
+            view.setTilePreview(type);
         }
 
         /// <summary>
@@ -221,7 +221,7 @@ namespace ZRTSMapEditor
         {
             model.GetSelectionState().SelectedUnitType = unitType;
             model.GetSelectionState().SelectionType = typeof(UnitComponent);
-            //setPreviewImage(unitType);
+            view.setEntityPreview(unitType);
         }
 
         /// <summary>
@@ -232,7 +232,7 @@ namespace ZRTSMapEditor
         {
             model.GetSelectionState().SelectedBuildingType = buildingType;
             model.GetSelectionState().SelectionType = typeof(Building);
-           // setPreviewImage(buildingType);
+            view.setEntityPreview(buildingType);
         }
 
         internal void OnClickMapCell(CellComponent cellComponent, float xPercent, float yPercent)
@@ -291,10 +291,5 @@ namespace ZRTSMapEditor
             }
         }
 
-        public void setPreviewImage(string type)
-        {
-
-            view.setPreviewImage(type);
-        }
     }
 }

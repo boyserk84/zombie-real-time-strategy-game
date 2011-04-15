@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ZRTSModel;
 using ZRTSModel.GameModel;
 using ZRTS.InputEngines;
+using System.IO;
 using ZRTSModel.Trigger;
 
 namespace ZRTS
@@ -69,22 +70,13 @@ namespace ZRTS
             // Create or load the model.
             model = new GameModel();
             ZRTSCompositeViewUIFactory.Initialize(this);
-            ScenarioComponent scenario = new ScenarioComponent(50, 50);
 
-            // Add grass cells at each cell.
-            ZRTSModel.Map map = scenario.GetGameWorld().GetMap();
-            for (int i = 0; i < map.GetWidth(); i++)
-            {
-                for (int j = 0; j < map.GetHeight(); j++)
-                {
-                    CellComponent cell = new CellComponent();
-                    cell.AddChild(new Sand());
-                    cell.X = i;
-                    cell.Y = j;
-                    map.AddChild(cell);
-                }
-            }
+            FileStream mapFile = File.OpenRead("Content/savedMaps/tryit.map");
+            ScenarioXMLReader reader = new ScenarioXMLReader(mapFile);
+            ScenarioComponent scenario = reader.GenerateScenarioFromXML();
+
             model.AddChild(scenario);
+            /*
             model.GetScenario().GetGameWorld().GetPlayerList().AddChild(new PlayerComponent());
 			model.GetScenario().GetGameWorld().GetPlayerList().AddChild(new PlayerComponent());
             UnitList list = ((PlayerComponent)model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[0]).GetUnitList();
@@ -144,6 +136,19 @@ namespace ZRTS
 			player1.EnemyList.Add(player2);
 			player2.EnemyList.Add(player1);
 
+            */
+
+            foreach (PlayerComponent p in scenario.GetGameWorld().GetPlayerList().GetChildren())
+            {
+                foreach (PlayerComponent po in scenario.GetGameWorld().GetPlayerList().GetChildren())
+                {
+                    if (p != po)
+                    {
+                        p.EnemyList.Add(po);
+                    }
+                }
+            }
+
 			Console.WriteLine(ZRTSModel.Factories.BuildingFactory.Instance.getBuildingTypes()[0]);
 
             // Create the controller
@@ -153,11 +158,15 @@ namespace ZRTS
             // Set the mouse visible
             this.IsMouseVisible = true;
 
+            /*
+
 			// Add triggers
 			LoseWhenAllPlayersUnitsAreDead lose = new LoseWhenAllPlayersUnitsAreDead(player1, scenario);
 			scenario.triggers.Add(lose);
 			WinWhenAllEnemyUnitsDead win = new WinWhenAllEnemyUnitsDead(player2, scenario);
 			scenario.triggers.Add(win);
+
+            */
 
             base.Initialize();
         }

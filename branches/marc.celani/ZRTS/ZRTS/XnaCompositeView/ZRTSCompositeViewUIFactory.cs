@@ -214,6 +214,7 @@ namespace ZRTS.XnaCompositeView
              
             else if (unit.Type.Equals("zombie"))
             {
+                unit.IsZombie = true;
                 unitUI = new UnitUI(game, unit, new Rectangle(0, GameConfig.ZOMBIE_START_Y, 36, 36));
                 unitUI.DrawBox = new Rectangle(0, 0, GameConfig.UNIT_WIDTH, GameConfig.UNIT_HEIGHT);
                 //unitUI.DrawBox = new Rectangle(20, 0, 32, 54);
