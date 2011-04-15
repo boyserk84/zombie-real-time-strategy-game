@@ -18,6 +18,11 @@ namespace ZRTSModel
 		MoveAction moveAction = null;
 		SimpleAttackUnitAction attackAction = null;
 		UnitComponent target; // target Entity of the AttackAction
+
+		public UnitComponent Target
+		{
+			get { return this.target; }
+		}
 		Gameworld gw;
 		UnitComponent unit; // Unit performing the AttackAction
 		public AttackAction(UnitComponent unit, ModelComponent target, Gameworld gw)
