@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,8 +12,15 @@ using ZRTSModel;
 using System.Runtime.CompilerServices;
 using ZRTSModel.EventHandlers;
 
+
 namespace ZRTSMapEditor
 {
+    /// <summary>
+    /// PlayersForm Class
+    /// An dialog that is part of the MapEditor UI
+    /// Used for addingm, removing and editing PlayerComponents to the game Scenario
+    /// 
+    /// </summary>
     public partial class PlayersForm : Form
     {
         private PlayerList playerList;
@@ -21,12 +30,20 @@ namespace ZRTSMapEditor
         {
         }
 
+        /// <summary>
+        /// Constructs the PlayersForm from a PlayerList
+        /// </summary>
+        /// <param name="list">contains a list of the players</param>
         public PlayersForm(PlayerList list)
         {
             InitializeComponent();
             playerList = list;
             source = new BindingSource();
 
+            // Because PlayerComponents do not encapsulate all of their data within fields, we must adapt them to
+            // do so that the UI can bind itself to the data source.
+            // The adapter merely places all of the relevant data in fields, and allows us to change the player list before
+            // commiting the changes to the actual player list.
             foreach (PlayerComponent player in list.GetChildren())
             {
                 PlayerDataGridAdapter adapter = new PlayerDataGridAdapter(player, playerList);
@@ -46,12 +63,19 @@ namespace ZRTSMapEditor
             metal.DataPropertyName = "MetalMember";
         }
 
-        internal void addPlayerButton_Click(object sender, EventArgs e)
+        private void addPlayerButton_Click(object sender, EventArgs e)
         {
             PlayerDataGridAdapter adapter = new PlayerDataGridAdapter(new PlayerComponent(), playerList);
+            // Default Values
             adapter.RaceMember = "Human";
             adapter.AddedMember = true;
+            adapter.GoldMember = 100;
+            adapter.WoodMember = 100;
+            adapter.MetalMember = 100;
             source.Add(adapter);
+            // Move Focus to added Player
+            source.MoveLast();
+            uiPlayerList.Focus();
         }
 
         private void submitButton_Click(object sender, EventArgs e)
@@ -66,15 +90,10 @@ namespace ZRTSMapEditor
             {
                 committer.Do();
                 Close();
-            }
-            else
-            {
-                // TODO: Add error handler.
-            }
-            
+            }            
         }
 
-        internal void cancelButton_Click(object sender, EventArgs e)
+        private void cancelButton_Click(object sender, EventArgs e)
         {
             Close();
         }
