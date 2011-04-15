@@ -53,10 +53,6 @@ namespace ZRTS.XnaCompositeView
             backgroundPanel.DrawBox = new Rectangle(0, 0, 275, 275);
             AddChild(backgroundPanel);
 
-
-            // TODO: Need to eliminate dark purple solid background
-
-
             // buildPanel
             buildPanel = new SameSizeChildrenFlowLayout(game);
             buildPanel.Visible = false;

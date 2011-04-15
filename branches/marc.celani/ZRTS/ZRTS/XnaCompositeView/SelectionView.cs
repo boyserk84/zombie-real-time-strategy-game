@@ -13,12 +13,14 @@ namespace ZRTS.XnaCompositeView
 {
     /// <summary>
     /// SelectionView: Represent a main panel where stat is displayed.
+    /// This class act as a user interface component, which will show stat of selected units by the player and activate appropriate command menu
+    /// based on a type of the selected units.
     /// </summary>
     public class SelectionView : XnaUIComponent
     {
-        private SelectionState selectionState;
+        private SelectionState selectionState;      // State of selected units by the user
 
-        private PictureBox mainBgPanel;         // background of the panel
+        private PictureBox mainBgPanel;             // background of the panel
         public CommandView commandBar;              // Coordinate with commandBar
 
 
@@ -37,6 +39,10 @@ namespace ZRTS.XnaCompositeView
             AddChild(mainBgPanel);
         }
         
+        /// <summary>
+        /// Draw stat on the screen
+        /// </summary>
+        /// <param name="e"></param>
         protected override void onDraw(XnaDrawArgs e)
         {
             // For test purposes only.
@@ -47,18 +53,13 @@ namespace ZRTS.XnaCompositeView
 
 
         /// <summary>
-        /// Event handler when selection has changed
+        /// Update and refresh holder every time multiple new units are selected
         /// </summary>
-        /// <param name="sender"></param>
+        /// <param name="holder"></param>
         /// <param name="e"></param>
-        private void onSelectionChanged(Object sender, SelectionStateChangedArgs e)
+        private void updateHolder(SameSizeChildrenFlowLayout holder, SelectionStateChangedArgs e)
         {
-            
             int count = e.SelectedEntities.Count;
-
-            SameSizeChildrenFlowLayout holder = getSelectedEntityUIHolder();
-
-            // Update the holder
             if (holder != null)
             {
                 holder.Clear();
@@ -77,12 +78,18 @@ namespace ZRTS.XnaCompositeView
                             {
                                 holder.AddChild(visitor.UI);
                             }
-                           
+
                         }
-                        
-                    }
-                }
-            }
+                    }//for
+                }//if
+            }//if
+        }
+
+        /// <summary>
+        /// Flushing Stat panel of selected unit(s)
+        /// </summary>
+        private void flushStatPanel()
+        {
             // Remove current big picture box
             for (int i = 0; i < GetChildren().Count; i++)
             {
@@ -93,56 +100,97 @@ namespace ZRTS.XnaCompositeView
                     i--;
                 }
             }
+        }
 
+        /// <summary>
+        /// Show player's selected units stat and activate command for the units
+        /// </summary>
+        /// <param name="holder"></param>
+        /// <param name="e"></param>
+        private void showUnitStatAndCommand(SameSizeChildrenFlowLayout holder, SelectionStateChangedArgs e, BuildLargePreviewPictureBoxVisitor visitor)
+        {
+            int count = e.SelectedEntities.Count;
+            // Only non-zombie stat being displayed
+            if (!((UnitComponent)e.SelectedEntities[0]).IsZombie)
+            {
+                // Individual unit
+                if (count == 1 && holder != null)
+                {
+                    // Use the holder to show unit stats.
+                    DisplaySelectedEntityStatsVisitor visitor2 = new DisplaySelectedEntityStatsVisitor();
+                    visitor2.Game = (XnaUITestGame)Game;
+                    visitor2.Layout = holder;
+                    e.SelectedEntities[0].Accept(visitor2);
+                }
+
+                e.SelectedEntities[0].Accept(visitor);
+                PictureBox bigImage = visitor.PictureBox;
+
+                bigImage.DrawBox = new Rectangle(25, 25, 150, 150);
+                AddChild(bigImage);
+
+                bool containsNonBuilders = true;
+                for (int i = 0; i < e.SelectedEntities.Count; i++)
+                {
+                    if (!((UnitComponent)e.SelectedEntities[0]).CanBuild)
+                    {
+                        containsNonBuilders = false;
+                        break;
+                    }
+                }
+                commandBar.activateButtons(containsNonBuilders);  // show commandView if selected
+
+            } // only non zombie
+        }
+
+
+        /// <summary>
+        /// Update Stat panel and activate command panel for selected units
+        /// </summary>
+        /// <param name="holder"></param>
+        /// <param name="e"></param>
+        private void updateStatAndCommandPanels(SameSizeChildrenFlowLayout holder, SelectionStateChangedArgs e)
+        {
+            int count = e.SelectedEntities.Count;
             if (count > 0)
             {
                 BuildLargePreviewPictureBoxVisitor visitor = new BuildLargePreviewPictureBoxVisitor();
 
                 if (e.SelectedEntities[0] is UnitComponent)
                 {
-                    // Only non-zombie stat being displayed
-                    if (!((UnitComponent)e.SelectedEntities[0]).IsZombie)
-                    {
-                        // Individual unit
-                        if (count == 1 && holder != null)
-                        {
-                            // Use the holder to show unit stats.
-                            DisplaySelectedEntityStatsVisitor visitor2 = new DisplaySelectedEntityStatsVisitor();
-                            visitor2.Game = (XnaUITestGame)Game;
-                            visitor2.Layout = holder;
-                            e.SelectedEntities[0].Accept(visitor2);
-                        }
-
-                        e.SelectedEntities[0].Accept(visitor);
-                        PictureBox bigImage = visitor.PictureBox;
-
-                        bigImage.DrawBox = new Rectangle(25, 25, 150, 150);
-                        AddChild(bigImage);
-
-                        bool containsNonBuilders= true;
-                        for (int i = 0; i < e.SelectedEntities.Count; i++)
-                        {
-                            if (!((UnitComponent)e.SelectedEntities[0]).CanBuild)
-                            {
-                                containsNonBuilders = false;
-                                break;
-                            }   
-                        }
-                        commandBar.activateButtons(containsNonBuilders);  // show commandView if selected
-
-                    } // only non zombie
+                    showUnitStatAndCommand(holder, e, visitor);
                 } // unit
-				else if (e.SelectedEntities[0] is Building)
-				{
+                else if (e.SelectedEntities[0] is Building)
+                {
                     Building y = (Building)e.SelectedEntities[0];
                     commandBar.activateProduceUnitButtons(y.Type);
-				}
+                }
             }
             else
             {
-                    commandBar.disableButtons();
-					commandBar.deactivateProduceUnitButtons();
+                commandBar.disableButtons();
+                commandBar.deactivateProduceUnitButtons();
             }
+        }
+
+
+
+        /// <summary>
+        /// Event handler when selection of units has changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void onSelectionChanged(Object sender, SelectionStateChangedArgs e)
+        {
+            
+            int count = e.SelectedEntities.Count;
+            SameSizeChildrenFlowLayout holder = getSelectedEntityUIHolder();
+
+            updateHolder(holder, e);    // Update the holder
+            flushStatPanel();           // Clear all stat panels
+            updateStatAndCommandPanels(holder,e);  // Update panel and activate new command menu
+
+            
         }
 
         private SameSizeChildrenFlowLayout getSelectedEntityUIHolder()
