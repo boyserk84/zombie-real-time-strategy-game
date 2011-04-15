@@ -69,6 +69,7 @@ C:\Users\maestro\Desktop\marc.celani\ZRTS\ZRTS\obj\x86\Debug\ZRTS.pdb
 \\ad.uiuc.edu\engr\ews\mcelani2\Desktop\mybranch\ZRTS\ZRTS\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 \\ad.uiuc.edu\engr\ews\mcelani2\Desktop\mybranch\ZRTS\ZRTS\obj\x86\Debug\ZRTS.exe
 \\ad.uiuc.edu\engr\ews\mcelani2\Desktop\mybranch\ZRTS\ZRTS\obj\x86\Debug\ZRTS.pdb
+C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\ZRTS_SpriteSheet_All.xnb
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\green_tile.xnb
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\soldier_sample.xnb
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\green_tile20x20.xnb
@@ -96,3 +97,6 @@ C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\obj\x86\Debug\ZRTS.pdb
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Soldier_Attack.xnb
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Worker_Dying.xnb
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Zombie_Dying.xnb
+C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Soldier_Attack.xnb
+C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Worker_Dying.xnb
+C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Zombie_Dying.xnb

@@ -81,9 +81,14 @@ namespace ZRTSMapEditor
             controller.RedoLastUndoCommand();
         }
 
-        public void setPreviewImage(string type)
+        public void setTilePreview(string type)
         {
             tilePalette.setPreviewImage(type);
+        }
+
+        public void setEntityPreview(string type)
+        {
+            unitPalette.setPreviewImage(type);
         }
     }
 }

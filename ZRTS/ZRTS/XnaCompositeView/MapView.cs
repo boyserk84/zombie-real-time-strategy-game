@@ -69,6 +69,12 @@ namespace ZRTS
                     unit.HPChangedEventHandlers += killUnit;
                 }
                 BuildingList buildingList = player.BuildingList;
+                foreach (Building b in buildingList.GetChildren())
+                {
+                    BuildingUI buildingUI = factory.BuildBuildingUI(b);
+                    buildingUI.DrawBox = new Rectangle((int)b.PointLocation.X * cellDimension, (int)b.PointLocation.Y * cellDimension, buildingUI.DrawBox.Width, buildingUI.DrawBox.Height);
+                    AddChild(buildingUI);
+                }
                 buildingList.BuildingAddedEventHandlers += this.onBuildingAdded;
             }
             leftButtonStrategy = new DrawSelectionBoxStrategy(this);

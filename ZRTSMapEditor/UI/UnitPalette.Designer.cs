@@ -37,16 +37,16 @@ namespace ZRTSMapEditor
             // 
             // previewBox
             // 
-            this.previewBox.Location = new System.Drawing.Point(40, 3);
+            this.previewBox.Location = new System.Drawing.Point(3, 3);
             this.previewBox.Name = "previewBox";
-            this.previewBox.Size = new System.Drawing.Size(50, 50);
+            this.previewBox.Size = new System.Drawing.Size(124, 85);
             this.previewBox.TabIndex = 0;
             this.previewBox.TabStop = false;
             // 
             // uiPlayerList
             // 
             this.uiPlayerList.FormattingEnabled = true;
-            this.uiPlayerList.Location = new System.Drawing.Point(3, 60);
+            this.uiPlayerList.Location = new System.Drawing.Point(3, 94);
             this.uiPlayerList.Name = "uiPlayerList";
             this.uiPlayerList.Size = new System.Drawing.Size(124, 21);
             this.uiPlayerList.TabIndex = 2;
@@ -55,9 +55,9 @@ namespace ZRTSMapEditor
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.AutoScroll = true;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 87);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 121);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(124, 172);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(124, 161);
             this.flowLayoutPanel1.TabIndex = 3;
             // 
             // UnitPalette
@@ -68,7 +68,7 @@ namespace ZRTSMapEditor
             this.Controls.Add(this.uiPlayerList);
             this.Controls.Add(this.previewBox);
             this.Name = "UnitPalette";
-            this.Size = new System.Drawing.Size(130, 262);
+            this.Size = new System.Drawing.Size(130, 285);
             ((System.ComponentModel.ISupportInitialize)(this.previewBox)).EndInit();
             this.ResumeLayout(false);
 

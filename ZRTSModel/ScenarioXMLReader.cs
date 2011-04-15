@@ -110,7 +110,23 @@ namespace ZRTSModel
                                     float unitY = float.Parse(reader.GetAttribute("Y"));
                                     unit.PointLocation = new PointF(unitX, unitY);
                                     unit.Type = reader.GetAttribute("Type");
-
+                                    unit.MaxHealth = short.Parse(reader.GetAttribute("MaxHealth"));
+                                    unit.CurrentHealth = short.Parse(reader.GetAttribute("CurrentHealth"));
+                                    unit.CanHarvest = bool.Parse(reader.GetAttribute("CanHarvest"));
+                                    unit.CanAttack = bool.Parse(reader.GetAttribute("CanAttack"));
+                                    unit.Attack = short.Parse(reader.GetAttribute("Attack"));
+                                    unit.AttackRange = float.Parse(reader.GetAttribute("AttackRange"));
+                                    unit.AttackTicks = byte.Parse(reader.GetAttribute("AttackTicks"));
+                                    unit.CanBuild = bool.Parse(reader.GetAttribute("CanBuild"));
+                                    unit.BuildSpeed = byte.Parse(reader.GetAttribute("BuildSpeed"));
+                                    unit.Speed = float.Parse(reader.GetAttribute("Speed"));
+                                    /*
+                                     * Type="zombie" CanAttack="True" 
+                                     * Attack="20" AttackRange="4" AttackTicks="10" 
+                                     * BuildSpeed="30" CanBuild="True" CanHarvest="False" 
+                                     * CurrentHealth="100" MaxHealth="100" X="12" Y="13" 
+                                     * Speed="0.1"
+                                     */
                                     if (!reader.IsEmptyElement)
                                         currentComponent = unit;
                                     break;
