@@ -15,6 +15,10 @@ namespace ZRTSModel
         public event PlayerListChangedHandler PlayerAddedEvent;
         public event PlayerListChangedHandler PlayerRemovedEvent;
 
+        /// <summary>
+        /// Adds a PlayerComponent to the list
+        /// </summary>
+        /// <param name="child"></param>
         public override void AddChild(ModelComponent child)
         {
             if (child is PlayerComponent)
@@ -29,6 +33,10 @@ namespace ZRTSModel
             }
         }
 
+        /// <summary>
+        /// Removes a PlayerComponent from the list
+        /// </summary>
+        /// <param name="child"></param>
         public override void RemoveChild(ModelComponent child)
         {
             base.RemoveChild(child);
@@ -40,6 +48,10 @@ namespace ZRTSModel
             }
         }
 
+        /// <summary>
+        /// Implements Visitor pattern
+        /// </summary>
+        /// <param name="visitor"></param>
         public override void Accept(ModelComponentVisitor visitor)
         {
             visitor.Visit(this);
@@ -53,6 +65,11 @@ namespace ZRTSModel
             }
         }
 
+        /// <summary>
+        /// Retrieve a player by its name
+        /// </summary>
+        /// <param name="p">Player's name</param>
+        /// <returns>Requested PlayerComponent</returns>
         public PlayerComponent GetPlayerByName(string p)
         {
             PlayerComponent player = null;

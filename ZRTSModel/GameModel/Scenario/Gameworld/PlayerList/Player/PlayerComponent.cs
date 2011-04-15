@@ -12,7 +12,6 @@ namespace ZRTSModel
     [Serializable()]
     public class PlayerComponent : ModelComponent
     {
-        // TODO: Replace race with a Race class component.
         private string name;
         private string race;
 
