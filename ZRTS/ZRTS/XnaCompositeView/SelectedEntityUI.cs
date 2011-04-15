@@ -14,12 +14,19 @@ namespace ZRTS.XnaCompositeView
 
     /// <summary>
     /// Selected Game Entity by the user
+    /// This class will keep track of unit(s) and building(s) being selected by the user on the screen.
     /// </summary>
     public class SelectedEntityUI : XnaUIComponent
     {
         private UnitComponent unit;
         private Building building;
 
+
+        /// <summary>
+        /// Constructor for selected units
+        /// </summary>
+        /// <param name="game"></param>
+        /// <param name="unit"></param>
         public SelectedEntityUI(Game game, UnitComponent unit)
             : base(game)
         {
@@ -29,6 +36,11 @@ namespace ZRTS.XnaCompositeView
             this.OnClick += selectUnit;
         }
 
+        /// <summary>
+        /// Constructor for selected building
+        /// </summary>
+        /// <param name="game"></param>
+        /// <param name="building"></param>
         public SelectedEntityUI(Game game, Building building)
             : base(game)
         {
@@ -37,6 +49,11 @@ namespace ZRTS.XnaCompositeView
             this.OnClick += selectBuilding;
         }
 
+        /// <summary>
+        /// Trigger when the health information of the unit has changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         public void UpdateHPBar(Object sender, UnitHPChangedEventArgs args)
         {
             HPBar hpBar = getHPBar();
@@ -57,6 +74,10 @@ namespace ZRTS.XnaCompositeView
             return hpBar;
         }
 
+        /// <summary>
+        /// Remove HP bar information and unregister event handler
+        /// </summary>
+        /// <param name="disposing"></param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
