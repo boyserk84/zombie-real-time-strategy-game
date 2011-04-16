@@ -67,10 +67,11 @@ namespace ZRTSNUnitTests
             building2.Height = 3;
             building2.PointLocation = new PointF(20, 20);
 
-            // Problem: AddChild of GetMap() not acutally adding building but cell?
-            model.GetScenario().GetGameWorld().GetContainer().AddChild(building2);
-            Assert.AreEqual(1, model.GetScenario().GetChildren().Count, "Not passing");
-            
+            // Simulate mouse click at tile 20,20 on the map
+            model.GetScenario().GetGameWorld().GetMap().GetCellAt(20,20).AddEntity(building2);
+            Assert.AreEqual(true, model.GetScenario().GetGameWorld().GetMap().GetCellAt(20, 20).ContainsEntity(), "Not passing");
+            Assert.AreEqual(1, model.GetScenario().GetGameWorld().GetMap().GetCellAt(20, 20).EntitiesContainedWithin.Count, "Should be 1");
+            Assert.AreEqual(building2, model.GetScenario().GetGameWorld().GetMap().GetCellAt(20, 20).EntitiesContainedWithin[0], "Should be the same object");
         }
 
         [Test]
@@ -89,9 +90,20 @@ namespace ZRTSNUnitTests
             building.Width = 5;
             building.Height = 5;
             building.PointLocation = new PointF(51, 51);
+
+            bool catchException = false;
+            try 
+            {
+                // Simulate mouse click at somewhere outside the map
+                model.GetScenario().GetGameWorld().GetMap().GetCellAt(51, 51);
+            } catch (Exception e)
+            {
+                catchException = true;
+                Assert.IsTrue(catchException);
+            }
             
-            model.GetScenario().GetGameWorld().AddChild(building);
-            Assert.AreEqual(0, model.GetScenario().GetChildren().Count,"Should not allow to build!");
+            // Need to check the number of entities in the map or scenario?????
+            //Assert.AreEqual(0, model.GetScenario().GetGameWorld().GetMap().GetChildren()[0].,"Should not allow to build!");
 
            
         }
