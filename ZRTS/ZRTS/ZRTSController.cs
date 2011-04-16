@@ -289,6 +289,14 @@ namespace ZRTS
             mapView.LeftButtonStrategy = new BuildBuildingMapViewLeftClickStrategy(mapView, buildingType);
         }
 
+        /// <summary>
+        /// Checking if a particular region of map (cells) are empty
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <returns></returns>
         internal bool CellsAreEmpty(int x, int y, int width, int height)
         {
             Map map = getGameModel().GetScenario().GetGameWorld().GetMap();
@@ -307,6 +315,11 @@ namespace ZRTS
             return areEmpty;
         }
 
+        /// <summary>
+        /// Tell selected units to build a building at the specified location
+        /// </summary>
+        /// <param name="buildingType">Building Type</param>
+        /// <param name="upperLeftCellCoords">Game coordinate</param>
         internal void TellSelectedUnitsToBuildAt(string buildingType, Point upperLeftCellCoords)
         {
             List<ModelComponent> selectedEntities = getGameModel().GetSelectionState().SelectedEntities;

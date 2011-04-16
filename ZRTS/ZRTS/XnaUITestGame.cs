@@ -45,6 +45,7 @@ namespace ZRTS
         public ZRTSController Controller
         {
             get { return controller; }
+            set { controller = value; }
         }
 
         public Texture2D SpriteSheet
@@ -56,6 +57,7 @@ namespace ZRTS
         public GameModel Model
         {
             get { return model; }
+            set { model = value; }
         }
 
         public XnaUITestGame()
