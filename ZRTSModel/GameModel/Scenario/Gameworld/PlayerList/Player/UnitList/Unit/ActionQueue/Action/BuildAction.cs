@@ -60,6 +60,12 @@ namespace ZRTSModel
                             // TODO: Ensure that the spaces are cleared.  Perhaps wait/give up, as with move?
                             PlayerComponent player = Parent.Parent.Parent.Parent as PlayerComponent;
                             player.BuildingList.AddChild(building);
+
+                            if (!map.addBuildingToMap(building))
+                            {
+                                return false;
+                            }
+                            /** DEPRECATED!!!
                             for (int i = (int)building.PointLocation.X; i < building.PointLocation.X + building.Width; i++)
                             {
                                 for (int j = (int)building.PointLocation.Y; j < building.PointLocation.Y + building.Height; j++)
@@ -68,6 +74,7 @@ namespace ZRTSModel
                                     map.GetCellAt(i,j).AddEntity(building);
                                 }
                             }
+                            **/
                         }
 
 

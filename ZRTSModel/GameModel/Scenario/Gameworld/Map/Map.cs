@@ -77,6 +77,62 @@ namespace ZRTSModel
             return cells[x, y];
         }
 
+        /// <summary>
+        /// Check if the building can be added to the map
+        /// </summary>
+        /// <param name="component"></param>
+        /// <returns></returns>
+        public bool canAddBuildingToMap(ModelComponent component)
+        {
+            if (component is Building)
+            {
+                Building tempBuild = (Building)component;
+                if (GetCellAt((int)tempBuild.PointLocation.X, (int)tempBuild.PointLocation.Y).ContainsEntity())
+                {
+                    return false;
+                }
+                else
+                {
+                    // check surrounding cells
+                    for (int i = (int) tempBuild.PointLocation.X; i < (int) tempBuild.PointLocation.X + tempBuild.Width; ++i)
+                    {
+                        for (int j = (int)tempBuild.PointLocation.Y; j < (int) tempBuild.PointLocation.Y + tempBuild.Height; ++j)
+                        {
+                            if (GetCellAt(i, j).ContainsEntity())
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Add building to the map
+        /// </summary>
+        /// <param name="component"></param>
+        /// <returns>True if successfully added to the map</returns>
+        public bool addBuildingToMap(ModelComponent component)
+        {
+            if (canAddBuildingToMap(component))
+            {
+                Building tempBuild = (Building)component;
+                for (int i = (int)tempBuild.PointLocation.X; i < (int)tempBuild.PointLocation.X + tempBuild.Width; ++i)
+                {
+                    for (int j = (int)tempBuild.PointLocation.Y; j < (int)tempBuild.PointLocation.Y + tempBuild.Height; ++j)
+                    {
+                        tempBuild.CellsContainedWithin.Add(GetCellAt(i, j));
+                        GetCellAt(i, j).AddEntity(tempBuild);
+                    }
+                }
+                return true;
+            }
+            else return false;
+        }
+
         public int GetWidth()
         {
             return width;

@@ -21,6 +21,7 @@ namespace ZRTSNUnitTests
     class TestPlacingBuildingOntheMap
     {
         private GameModel model;
+        private PlayerComponent player1;
 
         /// <summary>
         /// Initialize necessary components
@@ -46,7 +47,7 @@ namespace ZRTSNUnitTests
             model.AddChild(scenario);
 
             //Create two players and set them to be enemies.
-            PlayerComponent player1 = new PlayerComponent();
+            player1 = new PlayerComponent();
             PlayerComponent player2 = new PlayerComponent();
             model.GetScenario().GetGameWorld().GetPlayerList().AddChild(player1);
             model.GetScenario().GetGameWorld().GetPlayerList().AddChild(player2);
@@ -65,13 +66,46 @@ namespace ZRTSNUnitTests
             building2.Type = "barracks";
             building2.Width = 3;
             building2.Height = 3;
+            building2.MaxHealth = 100;
+            building2.CurrentHealth = 1;
+            building2.Completed = false;
             building2.PointLocation = new PointF(20, 20);
 
-            // Simulate mouse click at tile 20,20 on the map
-            model.GetScenario().GetGameWorld().GetMap().GetCellAt(20,20).AddEntity(building2);
-            Assert.AreEqual(true, model.GetScenario().GetGameWorld().GetMap().GetCellAt(20, 20).ContainsEntity(), "Not passing");
-            Assert.AreEqual(1, model.GetScenario().GetGameWorld().GetMap().GetCellAt(20, 20).EntitiesContainedWithin.Count, "Should be 1");
-            Assert.AreEqual(building2, model.GetScenario().GetGameWorld().GetMap().GetCellAt(20, 20).EntitiesContainedWithin[0], "Should be the same object");
+            // (1) Simulate mouse click at tile 20,20 on the map
+            model.GetScenario().GetGameWorld().GetMap().addBuildingToMap(building2);
+            
+
+
+
+
+            // I just realized that the event handler and vistor pattern definitely overkills everything about automated testing.
+            // Model must contain some game logics (in general of game programming).
+            // But this model/structure is completely taking everything about game programming away. sigh!!!
+            // UNLESS YOU FIND TO USE VISITOR PATTERN INSIDE THIS TEST UNIT. 
+            // THIS EVENT HANDLER PATTERN SUCKS AND IT IS THE WORST THING THAT
+            // EVER HAPPENED FOR GAME PROGRAMMING. I"m about to shoot someone now.
+
+
+            // **************************************************************************************
+            // *** ** If you can figure how to use BuildAction to add building to the map, 
+            // that would reflect how the building is actually placed on the map. 
+            // Otherwise, what I did at (1) and (2) are just for the test cases (hack) only
+            BuildAction action = new BuildAction(building2, model.GetScenario().GetGameWorld().GetMap());
+            //Assert.IsFalse(action.Work());
+
+
+            // (2) All codes after this line
+
+            Assert.AreEqual(true, model.GetScenario().GetGameWorld().GetMap().GetCellAt(20, 20).ContainsEntity(), "Should be able to add building at the empty map");
+            
+            // Check all cells with the area of building being placed
+            for (int i = 20; i < 20 + building2.Width; ++i)
+            {
+                for (int j = 20; j < 20 + building2.Height; ++j)
+                {
+                    Assert.AreEqual(building2, model.GetScenario().GetGameWorld().GetMap().GetCellAt(i, j).EntitiesContainedWithin[0], "Should be the same object at " + i +"," + j);
+                }
+            }
         }
 
         [Test]
@@ -95,7 +129,7 @@ namespace ZRTSNUnitTests
             try 
             {
                 // Simulate mouse click at somewhere outside the map
-                model.GetScenario().GetGameWorld().GetMap().GetCellAt(51, 51);
+                model.GetScenario().GetGameWorld().GetMap().addBuildingToMap(building);
             } catch (Exception e)
             {
                 catchException = true;

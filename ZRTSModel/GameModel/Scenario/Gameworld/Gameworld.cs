@@ -34,6 +34,8 @@ namespace ZRTSModel
             return null;
         }
 
+
+
         public PlayerList GetPlayerList()
         {
             foreach (ModelComponent component in GetChildren())
