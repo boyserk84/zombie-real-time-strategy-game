@@ -38,6 +38,12 @@ namespace ZRTSModel
             this.map = map;
         }
 
+        public void AddBuildingToMap()
+        {
+
+        }
+
+
         /// <summary>
         /// This function will perform a building cycle if the number of ticks since the last cycle is equal to TICKS_PER_CYCLE.
         /// </summary>
@@ -57,24 +63,20 @@ namespace ZRTSModel
                         // Add the building to the model if we have not done so yet.
                         if (building.Parent == null)
                         {
+                            
                             // TODO: Ensure that the spaces are cleared.  Perhaps wait/give up, as with move?
                             PlayerComponent player = Parent.Parent.Parent.Parent as PlayerComponent;
+                            System.Console.Out.WriteLine(Parent.ToString());
+                            System.Console.Out.WriteLine(Parent.Parent.ToString());
+                            System.Console.Out.WriteLine(Parent.Parent.Parent.ToString());
+                            System.Console.Out.WriteLine(Parent.Parent.Parent.Parent.ToString());
+
                             player.BuildingList.AddChild(building);
 
                             if (!map.addBuildingToMap(building))
                             {
                                 return false;
                             }
-                            /** DEPRECATED!!!
-                            for (int i = (int)building.PointLocation.X; i < building.PointLocation.X + building.Width; i++)
-                            {
-                                for (int j = (int)building.PointLocation.Y; j < building.PointLocation.Y + building.Height; j++)
-                                {
-                                    building.CellsContainedWithin.Add(map.GetCellAt(i, j));
-                                    map.GetCellAt(i,j).AddEntity(building);
-                                }
-                            }
-                            **/
                         }
 
 

@@ -114,6 +114,7 @@ namespace ZRTSModel
                 if (entity is UnitComponent || entity is MapResource || entity is Building)
                 {
                     entitiesContainedWithin.Add(entity);
+
                     if (entity is UnitComponent)
                     {
                         UnitArgs args = new UnitArgs();
