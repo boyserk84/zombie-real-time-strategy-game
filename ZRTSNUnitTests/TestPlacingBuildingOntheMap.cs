@@ -21,7 +21,6 @@ namespace ZRTSNUnitTests
     class TestPlacingBuildingOntheMap
     {
         private GameModel model;
-        private ZRTSController controller;
 
         /// <summary>
         /// Initialize necessary components
@@ -55,13 +54,22 @@ namespace ZRTSNUnitTests
             // Set target enemy
             player1.EnemyList.Add(player2);
             player2.EnemyList.Add(player1);
-            
+
         }
 
         [Test]
         public void TestPlacingBuildingOnMap()
         {
-            //TODO:
+            initialize();
+            Building building2 = new Building();
+            building2.Type = "barracks";
+            building2.Width = 3;
+            building2.Height = 3;
+            building2.PointLocation = new PointF(20, 20);
+
+            // Problem: AddChild of GetMap() not acutally adding building but cell?
+            model.GetScenario().GetGameWorld().GetContainer().AddChild(building2);
+            Assert.AreEqual(1, model.GetScenario().GetChildren().Count, "Not passing");
             
         }
 
@@ -75,21 +83,17 @@ namespace ZRTSNUnitTests
         [Test]
         public void TestCannotPlaceBuildingOutsideMap()
         {
+            initialize();
             Building building = new Building();
             building.Type = "hospital";
             building.Width = 5;
             building.Height = 5;
             building.PointLocation = new PointF(51, 51);
-            model.GetScenario().GetGameWorld().GetMap().AddChild(building);
-            Assert.AreEqual(0, model.GetScenario().GetChildren().Count);
+            
+            model.GetScenario().GetGameWorld().AddChild(building);
+            Assert.AreEqual(0, model.GetScenario().GetChildren().Count,"Should not allow to build!");
 
-            Building building2 = new Building();
-            building.Type = "barracks";
-            building.Width = 3;
-            building.Height = 3;
-            building.PointLocation = new PointF(20, 20);
-            model.GetScenario().GetGameWorld().GetMap().AddChild(building2);
-            Assert.AreEqual(1, model.GetScenario().GetChildren().Count);
+           
         }
 
 
