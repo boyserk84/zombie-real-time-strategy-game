@@ -7,7 +7,10 @@ using ZRTSModel.EventHandlers;
 namespace ZRTSModel
 {
     /// <summary>
-    /// A discrete unit of space on a map.  Can contain a map resource.  Each cell contains a tile to display itself.
+    /// Cell object:
+    /// 
+    /// A discrete unit of space on a map.  Can contain a map resource.  Each cell contains a tile to display itself and
+    /// what occupies the cell.
     /// </summary>
     [Serializable()]
     public class CellComponent : ModelComponent
@@ -107,6 +110,10 @@ namespace ZRTSModel
             visitor.Visit(this);
         }
 
+        /// <summary>
+        /// Add game entity to this cell
+        /// </summary>
+        /// <param name="entity"></param>
         public void AddEntity(ModelComponent entity)
         {
             if (entitiesContainedWithin.Count == 0)

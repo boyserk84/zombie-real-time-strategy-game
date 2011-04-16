@@ -41,6 +41,10 @@ namespace ZRTSModel
             return list;
         }
 
+        /// <summary>
+        /// Add cell to the map (aka tile)
+        /// </summary>
+        /// <param name="child"></param>
         public override void AddChild(ModelComponent child)
         {
             // Ensure that only cells are children to the map
@@ -72,6 +76,12 @@ namespace ZRTSModel
             }
         }
 
+        /// <summary>
+        /// Fetch information about cell at the specific location
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         public CellComponent GetCellAt(int x, int y)
         {
             return cells[x, y];
@@ -109,6 +119,7 @@ namespace ZRTSModel
 
             return true;
         }
+
 
         /// <summary>
         /// Add building to the map
