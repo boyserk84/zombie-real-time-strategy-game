@@ -12,11 +12,11 @@ namespace ZRTS
     /// <summary>
     /// Testing placing building on the map and tell the selected units to build a building on the map
     /// 
+    /// This testsuite is actually testing the followings:
+    /// - Check if the player's unit is selected on the map (simulate)
+    /// - Check if the player's unit is given a correct action to build the building (simulate)
+    /// - Check if the building can be placed on the map under various conditions
     /// 
-/// Testcase1: Building on the empty map
-/// Testcase2: Cannot build if there is not enough space or obtacle in between
-/// Testcase3: Cannot overlapping build
-/// Testcase4: Cannot build outside the map
     /// </summary>
     [TestFixture]
     class TestPlacingBuildingOntheMap
@@ -201,9 +201,7 @@ namespace ZRTS
             {
                 catchException = true;
                 Assert.IsTrue(catchException);
-            }
-            
-           
+            } 
         }
 
 
