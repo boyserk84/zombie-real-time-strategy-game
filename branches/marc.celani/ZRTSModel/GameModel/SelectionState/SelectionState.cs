@@ -6,6 +6,11 @@ using ZRTSModel.EventHandlers;
 
 namespace ZRTSModel.GameModel
 {
+
+    /// <summary>
+    /// This class will keep track and notify what game units are being selected by the player.
+    /// Also, this class acts as event handler to notify the current selection state whether the new set of units being selected.
+    /// </summary>
     public class SelectionState : ModelComponent
     {
         public event SelectionStateChangedHandler SelectionStateChanged;

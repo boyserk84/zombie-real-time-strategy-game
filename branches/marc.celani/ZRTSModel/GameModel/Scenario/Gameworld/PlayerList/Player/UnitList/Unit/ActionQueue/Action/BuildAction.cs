@@ -65,18 +65,19 @@ namespace ZRTSModel
                         {
                             
                             // TODO: Ensure that the spaces are cleared.  Perhaps wait/give up, as with move?
+                            
                             PlayerComponent player = Parent.Parent.Parent.Parent as PlayerComponent;
                             System.Console.Out.WriteLine(Parent.ToString());
                             System.Console.Out.WriteLine(Parent.Parent.ToString());
                             System.Console.Out.WriteLine(Parent.Parent.Parent.ToString());
                             System.Console.Out.WriteLine(Parent.Parent.Parent.Parent.ToString());
 
-                            player.BuildingList.AddChild(building);
-
                             if (!map.addBuildingToMap(building))
                             {
                                 return false;
                             }
+
+                            player.BuildingList.AddChild(building);
                         }
 
 
