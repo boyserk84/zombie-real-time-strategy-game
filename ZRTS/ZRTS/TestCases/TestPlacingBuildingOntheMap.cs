@@ -290,7 +290,16 @@ namespace ZRTS
             building1.PointLocation = new PointF(20, 20);
 
             // (2) Place the building on the map
+
+            // #########################################################
+            // Use TellSelectedUnitsTobuildAt() to place the building (need to set unitList[0] location first)
+            // since we are not testing Map functionality, but testing place the building on the map.
+            // So we don't use addBUildToMap directly
             game.Model.GetScenario().GetGameWorld().GetMap().addBuildingToMap(building1);
+
+            // #########################################################3
+            // Check if the first building is actually placed on the map
+
 
             // (3) Try to build another building on an overlapping point
             Building building2 = new Building();
@@ -326,6 +335,9 @@ namespace ZRTS
             }
 
             Assert.IsTrue(catchException, "Invalid action will not be executed!");
+
+            //##################################################
+            // The total building must be 1 not 0 since you added the valid one before.
             Assert.AreEqual(0, currentPlayer1.BuildingList.GetChildren().Count, "Building should not be added!");
         }
 
