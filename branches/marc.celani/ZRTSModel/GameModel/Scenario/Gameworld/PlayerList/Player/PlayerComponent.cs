@@ -42,6 +42,16 @@ namespace ZRTSModel
 			enemyList = new List<PlayerComponent>();
         }
 
+        public void addBuilding(ModelComponent building)
+        {
+            buildingList.AddChild(building);
+        }
+
+        public void removeBuilding(ModelComponent building)
+        {
+            buildingList.RemoveChild(building);
+        }
+
         public int GetGold()
         {
             return GetResources().Gold;

@@ -92,7 +92,7 @@ namespace ZRTS
             //(1) Get Player#1
             currentPlayer1 = (PlayerComponent)((XnaUITestGame)game).Model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[0];
 
-            // check if fetch the corret player
+            // check if fetch the correct player
             Assert.AreEqual("Nate", currentPlayer1.GetName());
 
             // (2) Add the actual player's unit list
@@ -132,6 +132,9 @@ namespace ZRTS
 
             // (4) Simulate telling the player's unit to build the building at 20,20 (mouse click at tile 20,20 on the map)
             game.Controller.TellSelectedUnitsToBuildAt(building2.Type, new Microsoft.Xna.Framework.Point(20, 20));
+
+            // Check to see if you can add the building to the map
+            Assert.IsTrue(game.Model.GetScenario().GetGameWorld().GetMap().canAddBuildingToMap(building2));
 
             // Check if the appropriate action is given to the selected unit
             //Assert.AreEqual("<ZRTSModel.BuildAction>", ((UnitComponent)(game.Model.GetSelectionState().SelectedEntities[0])).GetActionQueue().GetChildren()[0]);
@@ -279,14 +282,82 @@ namespace ZRTS
         [Test]
         public void TestCannotOverlapPlacingBuilding()
         {
-            //TODO:
+            TestSelectCorrectUnit();
+
+            // (1) First, place a building at a particular location
+            Building building1 = new Building();
+            building1.Type = "barracks";
+            building1.PointLocation = new PointF(20, 20);
+
+            // (2) Place the building on the map
+            game.Model.GetScenario().GetGameWorld().GetMap().addBuildingToMap(building1);
+
+            // (3) Try to build another building on an overlapping point
+            Building building2 = new Building();
+            building2.Type = "hospital";
+            building2.PointLocation = new PointF(15, 15);
+
+            // (4) Set the worker unit by the build location
+            ((UnitComponent)unitList[0]).PointLocation = new PointF(14, 14);
+
+            bool catchException = false;
+            try
+            {
+                // Attempt to build over an existing building
+                game.Controller.TellSelectedUnitsToBuildAt(building2.Type, new Microsoft.Xna.Framework.Point(15, 15));
+            }
+            catch (Exception e)
+            {
+                catchException = true;
+
+            }
+            Assert.IsTrue(catchException, "Exception should be raised! Should not be able to build here!");
+
+            catchException = false;
+
+            try
+            {
+                // Double check if invalid action is action given to the unit
+                ((BuildAction)((UnitComponent)(game.Model.GetSelectionState().SelectedEntities[0])).GetActionQueue().GetChildren()[0]).Work();
+            }
+            catch (Exception e)
+            {
+                catchException = true;
+            }
+
+            Assert.IsTrue(catchException, "Invalid action will not be executed!");
+            Assert.AreEqual(0, currentPlayer1.BuildingList.GetChildren().Count, "Building should not be added!");
         }
 
 
         [Test]
         public void TestRemoveBuildingFromMap()
         {
-            //TODO:
+            // (1) First, place a building at a particular location
+            Building building1 = new Building();
+            building1.Type = "barracks";
+            building1.PointLocation = new PointF(20, 20);
+
+            // (2) Place the building on the map
+            game.Model.GetScenario().GetGameWorld().GetMap().addBuildingToMap(building1);
+
+            // Check to see if building was actually placed
+            Assert.AreEqual(1, currentPlayer1.BuildingList.GetChildren().Count, "Building should have been added!");
+
+            // (3) Simulate removing the building from the map
+            game.Model.GetScenario().GetGameWorld().GetMap().removeBuildingFromMap(building1);
+
+            // Check all cells with the area of building after being placed to see if it is actually removed from the map
+            for (int i = 20; i < 20 + building1.Width; ++i)
+            {
+                for (int j = 20; j < 20 + building1.Height; ++j)
+                {
+                    Assert.AreNotEqual(building1.Type, ((Building)game.Model.GetScenario().GetGameWorld().GetMap().GetCellAt(i, j).EntitiesContainedWithin[0]).Type, "Should be the same object at " + i + "," + j);
+                }
+            }
+
+            // Check to see if building was actually removed
+            //Assert.AreEqual(0, currentPlayer1.BuildingList.GetChildren().Count, "Building should have been removed!");
         }
 
     }

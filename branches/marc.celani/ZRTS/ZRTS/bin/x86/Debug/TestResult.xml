@@ -1,28 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!--This file represents the results of running a test suite-->
-<test-results name="C:\Users\Nate\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\ZRTS.exe" total="6" errors="1" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2011-04-16" time="11:07:14">
-  <environment nunit-version="2.5.9.10348" clr-version="2.0.50727.4959" os-version="Microsoft Windows NT 6.1.7600.0" platform="Win32NT" cwd="C:\Program Files\NUnit 2.5.9\bin\net-2.0" machine-name="NATE-PC" user="Nate" user-domain="Nate-PC" />
+<test-results name="C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\ZRTS.exe" total="6" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2011-04-17" time="03:00:01">
+  <environment nunit-version="2.5.9.10348" clr-version="2.0.50727.4959" os-version="Microsoft Windows NT 6.1.7600.0" platform="Win32NT" cwd="C:\Program Files (x86)\NUnit 2.5.9\bin\net-2.0" machine-name="NATHAN-PC" user="Nathan" user-domain="Nathan-PC" />
   <culture-info current-culture="en-US" current-uiculture="en-US" />
-  <test-suite type="Assembly" name="C:\Users\Nate\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\ZRTS.exe" executed="True" result="Failure" success="False" time="0.905" asserts="0">
+  <test-suite type="Assembly" name="C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\ZRTS.exe" executed="True" result="Success" success="True" time="0.786" asserts="0">
     <results>
-      <test-suite type="Namespace" name="ZRTS" executed="True" result="Failure" success="False" time="0.874" asserts="0">
+      <test-suite type="Namespace" name="ZRTS" executed="True" result="Success" success="True" time="0.777" asserts="0">
         <results>
-          <test-suite type="TestFixture" name="TestPlacingBuildingOntheMap" executed="True" result="Failure" success="False" time="0.874" asserts="0">
+          <test-suite type="TestFixture" name="TestPlacingBuildingOntheMap" executed="True" result="Success" success="True" time="0.774" asserts="0">
             <results>
-              <test-case name="ZRTS.TestPlacingBuildingOntheMap.TestCannotOverlapPlacingBuilding" executed="True" result="Success" success="True" time="0.016" asserts="0" />
-              <test-case name="ZRTS.TestPlacingBuildingOntheMap.TestCannotPlaceBuildingOnOccupiedSpace" executed="True" result="Success" success="True" time="0.000" asserts="0" />
-              <test-case name="ZRTS.TestPlacingBuildingOntheMap.TestCannotPlaceBuildingOutsideMap" executed="True" result="Error" success="False" time="0.686" asserts="4">
-                <failure>
-                  <message><![CDATA[System.IndexOutOfRangeException : Index was outside the bounds of the array.]]></message>
-                  <stack-trace><![CDATA[at ZRTSModel.Map.GetCellAt(Int32 x, Int32 y) in C:\Users\Nate\Desktop\marc.celani\ZRTSModel\GameModel\Scenario\Gameworld\Map\Map.cs:line 77
-at ZRTSModel.UnitComponent.set_PointLocation(PointF value) in C:\Users\Nate\Desktop\marc.celani\ZRTSModel\GameModel\Scenario\Gameworld\PlayerList\Player\UnitList\Unit\UnitComponent.cs:line 295
-at ZRTS.TestPlacingBuildingOntheMap.TestCannotPlaceBuildingOutsideMap() in C:\Users\Nate\Desktop\marc.celani\ZRTS\ZRTS\TestCases\TestPlacingBuildingOntheMap.cs:line 171
-]]></stack-trace>
-                </failure>
-              </test-case>
-              <test-case name="ZRTS.TestPlacingBuildingOntheMap.TestPlacingBuildingOnMap" executed="True" result="Success" success="True" time="0.062" asserts="7" />
-              <test-case name="ZRTS.TestPlacingBuildingOntheMap.TestRemoveBuildingFromMap" executed="True" result="Success" success="True" time="0.000" asserts="0" />
-              <test-case name="ZRTS.TestPlacingBuildingOntheMap.TestSelectCorrectUnit" executed="True" result="Success" success="True" time="0.016" asserts="4" />
+              <test-case name="ZRTS.TestPlacingBuildingOntheMap.TestCannotOverlapPlacingBuilding" executed="True" result="Success" success="True" time="0.634" asserts="7" />
+              <test-case name="ZRTS.TestPlacingBuildingOntheMap.TestCannotPlaceBuildingOnOccupiedSpace" executed="True" result="Success" success="True" time="0.023" asserts="10" />
+              <test-case name="ZRTS.TestPlacingBuildingOntheMap.TestCannotPlaceBuildingOutsideMap" executed="True" result="Success" success="True" time="0.008" asserts="7" />
+              <test-case name="ZRTS.TestPlacingBuildingOntheMap.TestPlacingBuildingOnMap" executed="True" result="Success" success="True" time="0.033" asserts="8" />
+              <test-case name="ZRTS.TestPlacingBuildingOntheMap.TestRemoveBuildingFromMap" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+              <test-case name="ZRTS.TestPlacingBuildingOntheMap.TestSelectCorrectUnit" executed="True" result="Success" success="True" time="0.014" asserts="4" />
             </results>
           </test-suite>
         </results>

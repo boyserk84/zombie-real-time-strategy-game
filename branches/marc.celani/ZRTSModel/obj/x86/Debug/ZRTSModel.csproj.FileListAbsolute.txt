@@ -64,3 +64,9 @@ C:\Users\Jason\Desktop\zrts marc\ZRTSModel\obj\x86\Debug\ResolveAssemblyReferenc
 C:\Users\Jason\Desktop\zrts marc\ZRTSModel\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\Jason\Desktop\zrts marc\ZRTSModel\obj\x86\Debug\ZRTSModel.dll
 C:\Users\Jason\Desktop\zrts marc\ZRTSModel\obj\x86\Debug\ZRTSModel.pdb
+C:\Users\Nathan\Desktop\marc.celani\ZRTSModel\bin\x86\Debug\ZRTSModel.dll
+C:\Users\Nathan\Desktop\marc.celani\ZRTSModel\bin\x86\Debug\ZRTSModel.pdb
+C:\Users\Nathan\Desktop\marc.celani\ZRTSModel\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Nathan\Desktop\marc.celani\ZRTSModel\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Nathan\Desktop\marc.celani\ZRTSModel\obj\x86\Debug\ZRTSModel.dll
+C:\Users\Nathan\Desktop\marc.celani\ZRTSModel\obj\x86\Debug\ZRTSModel.pdb
