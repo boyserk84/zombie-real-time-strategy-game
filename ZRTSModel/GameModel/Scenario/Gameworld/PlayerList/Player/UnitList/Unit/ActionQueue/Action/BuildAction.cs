@@ -77,7 +77,7 @@ namespace ZRTSModel
                                 return false;
                             }
 
-                            player.BuildingList.AddChild(building);
+                            player.addBuilding(building);
                         }
 
 

@@ -144,6 +144,26 @@ namespace ZRTSModel
             else return false;
         }
 
+        /// <summary>
+        /// Remove building from the map
+        /// </summary>
+        /// <param name="component"></param>
+        /// <returns>True if successfully added to the map</returns>
+        public bool removeBuildingFromMap(ModelComponent component)
+        {
+            Building tempBuild = (Building)component;
+            for (int i = (int)tempBuild.PointLocation.X; i < (int)tempBuild.PointLocation.X + tempBuild.Width; ++i)
+            {
+                for (int j = (int)tempBuild.PointLocation.Y; j < (int)tempBuild.PointLocation.Y + tempBuild.Height; ++j)
+                {
+                    tempBuild.CellsContainedWithin.Remove(GetCellAt(i, j));
+                    GetCellAt(i, j).RemoveEntity(tempBuild);
+                    // How to remove building from the player's buildingList?
+                }
+            }
+            return true;
+        }
+
         public int GetWidth()
         {
             return width;
