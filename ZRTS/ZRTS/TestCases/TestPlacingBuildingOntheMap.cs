@@ -160,30 +160,6 @@ namespace ZRTS
                     Assert.AreEqual(building2.Type, ((Building) game.Model.GetScenario().GetGameWorld().GetMap().GetCellAt(i, j).EntitiesContainedWithin[0]).Type, "Should be the same object at " + i + "," + j);
                 }
             }
-
-
-            // Event-based pattern by Marc is totally overkilling XNA framework and basic game programming. (No gameloop)
-            // I don't think Marc has done it correctly and properly for the game programming. 
-            // (If it was windows app, I would say "yes" but for game, NO!!!)
-            // There's a lot of coupling between components, which make it hard to test.
-
-            // Why?
-            // Some members of the class are not intialized due to the fact that it is based on trigger event and you
-            // must add and initialize exactly all the (unnecessary) components associated with the game 
-            // and check if they are all correctly added or initialized. Otherwise, shit will happen and you can't even independently test your components.
-
-            // For instance, if you need to check if your building is added to the map, you probably only need to care
-            // player's building list, map, and cell, right?
-            // Wrong!!!!
-            // You need go into the buildAction.cs (work())
-            // you must make sure that "parent.parent.parent.parent" of the player are actually intialized properly (WTF is that?).
-            // Each parent has different object type which has nothing to do with the logic that you're trying to test.
-            // Otherwise, you will encounter "Object null or no reference" when running test.
-
-            // Way to go, smartass Marc!
-
-
-
         }
 
         /// <summary>
@@ -290,7 +266,6 @@ namespace ZRTS
             building1.PointLocation = new PointF(20, 20);
 
             // (2) Place the building on the map
-            //game.Model.GetScenario().GetGameWorld().GetMap().addBuildingToMap(building1);
             game.Controller.TellSelectedUnitsToBuildAt(building1.Type, new Microsoft.Xna.Framework.Point(20, 20));
             ((BuildAction)((UnitComponent)(game.Model.GetSelectionState().SelectedEntities[0])).GetActionQueue().GetChildren()[0]).Work();
 
@@ -306,27 +281,30 @@ namespace ZRTS
 
             // (4) Try to build another building on an overlapping point
             Building building2 = new Building();
-            building2.Type = "hospital";
+            building2.Type = "house";
             building2.PointLocation = new PointF(15, 15);
 
             // (5) Set the worker unit by the build location
             ((UnitComponent)unitList[0]).PointLocation = new PointF(14, 14);
 
-            bool catchException = false;
-            try
-            {
-                // Attempt to build over an existing building
-                game.Controller.TellSelectedUnitsToBuildAt(building2.Type, new Microsoft.Xna.Framework.Point(15, 15));
-            }
-            catch (Exception e)
-            {
-                catchException = true;
+            // Select the worker to place another building
+            game.Controller.SelectEntities(unitList);
 
-            }
-            Assert.IsTrue(catchException, "Exception should be raised! Should not be able to build here!");
+            // (6) Place the 2nd building 
+            game.Controller.TellSelectedUnitsToBuildAt(building2.Type, new Microsoft.Xna.Framework.Point(15, 15));
+            ((BuildAction)((UnitComponent)(game.Model.GetSelectionState().SelectedEntities[0])).GetActionQueue().GetChildren()[0]).Work();
 
             // Check building count; should = 1
-            Assert.AreEqual(1, currentPlayer1.BuildingList.GetChildren().Count, "Building should not be added!");
+            Assert.AreEqual(1, currentPlayer1.BuildingList.GetChildren().Count, "The new Building should not be added!");
+
+            // (7) Check if the second building is actually placed on the map, it should not
+            for (int i = 15; i < 15 + building2.Width; ++i)
+            {
+                for (int j = 15; j < 15 + building2.Height; ++j)
+                {
+                    Assert.AreNotEqual(building2.Type, ((Building)game.Model.GetScenario().GetGameWorld().GetMap().GetCellAt(i, j).EntitiesContainedWithin[0]).Type, "Should be the same object at " + i + "," + j);
+                }
+            }
         }
 
 
