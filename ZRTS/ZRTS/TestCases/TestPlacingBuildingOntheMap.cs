@@ -290,23 +290,26 @@ namespace ZRTS
             building1.PointLocation = new PointF(20, 20);
 
             // (2) Place the building on the map
+            //game.Model.GetScenario().GetGameWorld().GetMap().addBuildingToMap(building1);
+            game.Controller.TellSelectedUnitsToBuildAt(building1.Type, new Microsoft.Xna.Framework.Point(20, 20));
+            ((BuildAction)((UnitComponent)(game.Model.GetSelectionState().SelectedEntities[0])).GetActionQueue().GetChildren()[0]).Work();
 
-            // #########################################################
-            // Use TellSelectedUnitsTobuildAt() to place the building (need to set unitList[0] location first)
-            // since we are not testing Map functionality, but testing place the building on the map.
-            // So we don't use addBUildToMap directly
-            game.Model.GetScenario().GetGameWorld().GetMap().addBuildingToMap(building1);
+            // (3) Check if the first building is actually placed on the map
+            for (int i = 20; i < 20 + building1.Width; ++i)
+            {
+                for (int j = 20; j < 20 + building1.Height; ++j)
+                {
+                    Assert.AreEqual(building1.Type, ((Building)game.Model.GetScenario().GetGameWorld().GetMap().GetCellAt(i, j).EntitiesContainedWithin[0]).Type, "Should be the same object at " + i + "," + j);
+                }
+            }
+            Assert.AreEqual(1, currentPlayer1.BuildingList.GetChildren().Count, "Building should have been added!");
 
-            // #########################################################3
-            // Check if the first building is actually placed on the map
-
-
-            // (3) Try to build another building on an overlapping point
+            // (4) Try to build another building on an overlapping point
             Building building2 = new Building();
             building2.Type = "hospital";
             building2.PointLocation = new PointF(15, 15);
 
-            // (4) Set the worker unit by the build location
+            // (5) Set the worker unit by the build location
             ((UnitComponent)unitList[0]).PointLocation = new PointF(14, 14);
 
             bool catchException = false;
@@ -322,23 +325,8 @@ namespace ZRTS
             }
             Assert.IsTrue(catchException, "Exception should be raised! Should not be able to build here!");
 
-            catchException = false;
-
-            try
-            {
-                // Double check if invalid action is action given to the unit
-                ((BuildAction)((UnitComponent)(game.Model.GetSelectionState().SelectedEntities[0])).GetActionQueue().GetChildren()[0]).Work();
-            }
-            catch (Exception e)
-            {
-                catchException = true;
-            }
-
-            Assert.IsTrue(catchException, "Invalid action will not be executed!");
-
-            //##################################################
-            // The total building must be 1 not 0 since you added the valid one before.
-            Assert.AreEqual(0, currentPlayer1.BuildingList.GetChildren().Count, "Building should not be added!");
+            // Check building count; should = 1
+            Assert.AreEqual(1, currentPlayer1.BuildingList.GetChildren().Count, "Building should not be added!");
         }
 
 
