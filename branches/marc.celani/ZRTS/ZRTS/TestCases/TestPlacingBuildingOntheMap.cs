@@ -302,7 +302,7 @@ namespace ZRTS
             {
                 for (int j = 15; j < 15 + building2.Height; ++j)
                 {
-                    Assert.AreNotEqual(building2.Type, ((Building)game.Model.GetScenario().GetGameWorld().GetMap().GetCellAt(i, j).EntitiesContainedWithin[0]).Type, "Should be the same object at " + i + "," + j);
+                    Assert.AreNotEqual(building2.Type, ((Building)game.Model.GetScenario().GetGameWorld().GetMap().GetCellAt(i, j).EntitiesContainedWithin[0]).Type, "Should not be the same object at " + i + "," + j);
                 }
             }
         }
