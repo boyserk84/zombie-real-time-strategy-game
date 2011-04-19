@@ -31,6 +31,7 @@ namespace ZRTS.XnaCompositeView
             try
             {
                 Soldier_Attack = Content.Load<SoundEffect>("audio/Soldier_Attack");
+                Soldier_Dying = Content.Load<SoundEffect>("audio/Soldier_Dying");
                 Worker_Dying = Content.Load<SoundEffect>("audio/Worker_Dying");
                 Worker_Attack = Content.Load<SoundEffect>("audio/Worker_Attack");
                 Zombie_Dying = Content.Load<SoundEffect>("audio/Zombie_Dying");
@@ -47,6 +48,7 @@ namespace ZRTS.XnaCompositeView
 
         // Sound Effects
         public static SoundEffect Soldier_Attack;
+        public static SoundEffect Soldier_Dying;
         public static SoundEffect Worker_Dying;
         public static SoundEffect Worker_Attack;
         public static SoundEffect Zombie_Dying;
@@ -73,7 +75,7 @@ namespace ZRTS.XnaCompositeView
                     }
                     else if (subtype.Equals("soldier"))
                     {
-
+                        Soldier_Dying.Play(0.10f, 0, 0);
                     }
                 }
                 else if (type.Equals("attack"))
