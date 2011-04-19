@@ -18,6 +18,8 @@ namespace ZRTS.XnaCompositeView
         {
         }
 
+        public int SpacingBetween = 0;
+
         protected override void onDraw(XnaDrawArgs e)
         {
 			Texture2D pixel = new Texture2D(e.SpriteBatch.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
@@ -35,15 +37,14 @@ namespace ZRTS.XnaCompositeView
                 XnaUIComponent firstComponent = GetChildren()[0];
                 int boxWidth = firstComponent.DrawBox.Width;
                 int boxHeight = firstComponent.DrawBox.Height;
-                int numberOfElementInRow = DrawBox.Width / (boxWidth);
+
+                int totalAllowableWidthAfterFirstElementInRow = DrawBox.Width - boxWidth;
+                int numberOfElementInRow = 1 + totalAllowableWidthAfterFirstElementInRow / (boxWidth + SpacingBetween);
                 int current = 0;
                 foreach (XnaUIComponent component in GetChildren())
                 {
-                    int x = (current % numberOfElementInRow) * boxWidth;
-                    int y = (current / numberOfElementInRow) * boxHeight;
-
-                    y = y + 7* (current/3);
-                    x = x + 7 * (current%3);
+                    int x = (current % numberOfElementInRow) * (boxWidth + SpacingBetween);
+                    int y = (current / numberOfElementInRow) * (boxHeight + SpacingBetween);
 
                     component.DrawBox = new Rectangle(x, y, boxWidth, boxHeight);
 
