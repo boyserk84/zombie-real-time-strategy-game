@@ -116,7 +116,7 @@ namespace ZRTS
             // Determine all of the cells in view
             ZRTSModel.Map map = ((XnaUITestGame)Game).Model.GetScenario().GetGameWorld().GetMap();
             Point upperLeftCell = new Point(ScrollX / CellDimension, ScrollY / CellDimension);
-            Point lowerRightCell = new Point(Math.Min((ScrollX + DrawBox.Width) / CellDimension, map.GetWidth() - 1), Math.Min((ScrollY + DrawBox.Height) / CellDimension, map.GetWidth() - 1));
+            Point lowerRightCell = new Point(Math.Min((ScrollX + DrawBox.Width) / CellDimension, map.GetWidth() - 1), Math.Min((ScrollY + DrawBox.Height) / CellDimension, map.GetHeight() - 1));
             Point offset = new Point(ScrollX % CellDimension, ScrollY % CellDimension);
             
             // Draw all of the tiles

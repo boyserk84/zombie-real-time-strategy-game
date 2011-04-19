@@ -57,16 +57,19 @@ namespace ZRTS.XnaCompositeView
             buildPanel = new SameSizeChildrenFlowLayout(game);
             buildPanel.Visible = false;
             buildPanel.DrawBox = new Rectangle(10, 10, 255, 255);
+            buildPanel.SpacingBetween = 7;
             AddChild(buildPanel);
 
             // mainPanel
             mainPanel = new SameSizeChildrenFlowLayout(game);
             mainPanel.DrawBox = new Rectangle(10, 10, 255, 255);
+            mainPanel.SpacingBetween = 7;
             AddChild(mainPanel);
 
             // WorkerPanel
             workerPanel = new SameSizeChildrenFlowLayout(game);
             workerPanel.DrawBox = new Rectangle(10, 10, 255, 255);
+            workerPanel.SpacingBetween = 7;
             AddChild(workerPanel);
 
 
@@ -74,11 +77,13 @@ namespace ZRTS.XnaCompositeView
 			barracksPanel = new SameSizeChildrenFlowLayout(game);
 			barracksPanel.DrawBox = new Rectangle(10, 10, 255, 255);
 			barracksPanel.Visible = false;
+            barracksPanel.SpacingBetween = 7;
 			AddChild(barracksPanel);
 
             // HouseBuilding commandPanel
             housePanel = new SameSizeChildrenFlowLayout(game);
             housePanel.DrawBox = new Rectangle(10, 10, 255, 255);
+            housePanel.SpacingBetween = 7;
             housePanel.Visible = false;
             AddChild(housePanel);
 
