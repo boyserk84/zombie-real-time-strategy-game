@@ -18,17 +18,29 @@ namespace ZRTS.XnaCompositeView
     /// </summary>
     public static class AudioManager
     {
+
+        public static bool audioReady = true;       // Flag for checking if audio hardware is supported by the machine
+
+
         /// <summary>
         /// Initializes all the audio content.
         /// </summary>
         /// <param name="Content">The ContentManager to use</param>
         public static void Initialize(ContentManager Content)
         {
-            Soldier_Attack = Content.Load<SoundEffect>("audio/Soldier_Attack");
-            Worker_Dying = Content.Load<SoundEffect>("audio/Worker_Dying");
-            Worker_Attack = Content.Load<SoundEffect>("audio/Worker_Attack");
-            Zombie_Dying = Content.Load<SoundEffect>("audio/Zombie_Dying");
-            Zombie_Attack = Content.Load<SoundEffect>("audio/Zombie_Attack");
+            try
+            {
+                Soldier_Attack = Content.Load<SoundEffect>("audio/Soldier_Attack");
+                Worker_Dying = Content.Load<SoundEffect>("audio/Worker_Dying");
+                Worker_Attack = Content.Load<SoundEffect>("audio/Worker_Attack");
+                Zombie_Dying = Content.Load<SoundEffect>("audio/Zombie_Dying");
+                Zombie_Attack = Content.Load<SoundEffect>("audio/Zombie_Attack");
+            }
+            catch (Exception e)
+            {
+
+                audioReady = false;
+            }
         }
 
         // Songs
@@ -47,34 +59,37 @@ namespace ZRTS.XnaCompositeView
         /// <param name="subtype">Unit type</param>
         public static void playSound(string type, string subtype)
         {
-            if (type.Equals("dead"))
+            if (audioReady)
             {
-                if (subtype.Equals("zombie"))
+                if (type.Equals("dead"))
                 {
-                    Zombie_Dying.Play(0.30f, 0, 0);
-                }
-                else if (subtype.Equals("worker"))
-                {
-                    Worker_Dying.Play(0.10f, 0, 0);
-                }
-                else if (subtype.Equals("soldier"))
-                {
+                    if (subtype.Equals("zombie"))
+                    {
+                        Zombie_Dying.Play(0.30f, 0, 0);
+                    }
+                    else if (subtype.Equals("worker"))
+                    {
+                        Worker_Dying.Play(0.10f, 0, 0);
+                    }
+                    else if (subtype.Equals("soldier"))
+                    {
 
+                    }
                 }
-            }
-            else if (type.Equals("attack"))
-            {
-                if (subtype.Equals("zombie"))
+                else if (type.Equals("attack"))
                 {
-                    Zombie_Attack.Play(0.30f, 0, 0);
-                }
-                else if (subtype.Equals("worker"))
-                {
-                    Worker_Attack.Play(0.30f, 0, 0);
-                }
-                else if (subtype.Equals("soldier"))
-                {
-                    Soldier_Attack.Play(0.30f, 0, 0);
+                    if (subtype.Equals("zombie"))
+                    {
+                        Zombie_Attack.Play(0.30f, 0, 0);
+                    }
+                    else if (subtype.Equals("worker"))
+                    {
+                        Worker_Attack.Play(0.30f, 0, 0);
+                    }
+                    else if (subtype.Equals("soldier"))
+                    {
+                        Soldier_Attack.Play(0.30f, 0, 0);
+                    }
                 }
             }
         }

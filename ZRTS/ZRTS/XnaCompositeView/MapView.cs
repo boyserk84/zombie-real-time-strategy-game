@@ -80,54 +80,6 @@ namespace ZRTS
             leftButtonStrategy = new DrawSelectionBoxStrategy(this);
             OnClick += moveSelectedUnits;
         }
-        /*
-        /// <summary>
-        /// Convert screen location of mouse click to gane location
-        /// </summary>
-        /// <param name="mouseX">X-mouse click</param>
-        /// <param name="mouseY">y-mouse click</param>
-        /// <returns>Return (X,Y) game location </returns>
-        public Vector2 convertViewPointToGamePoint(Point viewPoint)
-        {
-            Vector2 gamePoint = new Vector2();
-            gamePoint.X = (float)viewPoint.X / (float)CELL_DIMENSION;
-            gamePoint.Y = (float)viewPoint.Y / (float)CELL_DIMENSION;
-            return gamePoint;
-        }
-        /// <summary>
-        /// Draw all game entities
-        /// </summary>
-        private void DrawEntities()
-        {
-            foreach (ZRTSModel.Entities.Unit u in AllUnits())
-            {
-                //if (isUnitBeingSelected(u))
-                //{
-                // Draw a highlight unit
-                //  this.spriteUtil.drawAtIndex(0,0, new Vector2(translateXScreen(u.x), translateYScreen(u.y)));
-                //}
-                //this.spriteUnits.drawByAction(0, new Vector2(u.x, u.y));
-                this.spriteUnits.drawAtIndex(0, 0, new Vector2(translateXScreen(u.x), translateYScreen(u.y)));
-
-            }
-        }
-
-        
-        /// <summary>
-        /// Draw buildings
-        /// </summary>
-        public void DrawBuildings()
-        {
-            //System.Console.Out.WriteLine("Building in the world " + this.WorldMap.getBuildings().Count);
-            if (this.WorldMap.getBuildings().Count > 0)
-            {
-                foreach (ZRTSModel.Entities.Building u in this.WorldMap.getBuildings())
-                {
-                    //System.Console.Out.WriteLine("Draw" + translateXScreen(u.x) + ":" + translateYScreen(u.y));
-                    spriteBuildings.drawAtCurrentIndex(new Vector2(translateXScreenBuild(u.orginCell.Xcoord), translateYScreenBuild(u.orginCell.Ycoord)));
-                }
-            }
-        }*/
 
         /// <summary>
         /// Trigger function in the event of selected unit is moving
@@ -269,9 +221,10 @@ namespace ZRTS
             component.Dispose();
             RemoveChild(component);
             componentToUI.Remove(e.Unit);
+             * */
             e.Unit.MovedEventHandlers -= updateLocationOfUnit;
             e.Unit.HPChangedEventHandlers -= killUnit;
-             * **/
+          
         }
 
         /// <summary>
