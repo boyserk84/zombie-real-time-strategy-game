@@ -73,7 +73,7 @@ namespace ZRTS
             model = new GameModel();
             ZRTSCompositeViewUIFactory.Initialize(this);
 
-            FileStream mapFile = File.OpenRead("Content/savedMaps/tryit.map");
+            FileStream mapFile = File.OpenRead("Content/savedMaps/scenario1.map"); //tryit.map
             ScenarioXMLReader reader = new ScenarioXMLReader(mapFile);
             ScenarioComponent scenario = reader.GenerateScenarioFromXML();
 
@@ -99,15 +99,18 @@ namespace ZRTS
             // Set the mouse visible
             this.IsMouseVisible = true;
 
-            /*
-
-			// Add triggers
-			LoseWhenAllPlayersUnitsAreDead lose = new LoseWhenAllPlayersUnitsAreDead(player1, scenario);
-			scenario.triggers.Add(lose);
-			WinWhenAllEnemyUnitsDead win = new WinWhenAllEnemyUnitsDead(player2, scenario);
-			scenario.triggers.Add(win);
-
-            */
+			// Add triggers            
+                foreach (PlayerComponent p in scenario.GetGameWorld().GetPlayerList().GetChildren())
+                {
+                    if(p.GetRace().Equals("Human")){
+                        LoseWhenAllPlayersUnitsAreDead lose = new LoseWhenAllPlayersUnitsAreDead(p, scenario);
+			            scenario.triggers.Add(lose);
+                    }
+                    else if(p.GetRace().Equals("Zombie")){
+                        WinWhenAllEnemyUnitsDead win = new WinWhenAllEnemyUnitsDead(p, scenario);
+			            scenario.triggers.Add(win);
+                    }
+                }
 
             base.Initialize();
         }
