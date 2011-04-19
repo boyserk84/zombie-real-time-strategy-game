@@ -78,67 +78,6 @@ namespace ZRTS
             ScenarioComponent scenario = reader.GenerateScenarioFromXML();
 
             model.AddChild(scenario);
-            /*
-            model.GetScenario().GetGameWorld().GetPlayerList().AddChild(new PlayerComponent());
-			model.GetScenario().GetGameWorld().GetPlayerList().AddChild(new PlayerComponent());
-            UnitList list = ((PlayerComponent)model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[0]).GetUnitList();
-			UnitList list2 = ((PlayerComponent)model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[1]).GetUnitList();
-            
-            UnitComponent soldier1 = new UnitComponent();
-            soldier1.Type = "worker";
-            soldier1.IsZombie = false;
-            soldier1.AttackRange = 6.0f;
-            soldier1.CanAttack = true;
-            soldier1.CurrentHealth = 100;
-            soldier1.CanBuild = true;
-            list.AddChild(soldier1);
-            soldier1.PointLocation = new PointF((float)1.5, (float)1.5);
-			soldier1.Speed = 0.25f;
-
-            UnitComponent soldier2 = new UnitComponent();
-            soldier2.Type = "zombie";
-            soldier2.IsZombie = true;
-            soldier2.CurrentHealth = 100;
-            soldier2.CanBuild = true;
-			soldier2.CanAttack = true;
-			soldier2.AttackStance = UnitComponent.UnitAttackStance.Aggressive;
-            list2.AddChild(soldier2);
-            soldier2.PointLocation = new PointF((float)10.5, (float)6.1);
-
-			UnitComponent soldier3 = new UnitComponent();
-			soldier3.Type = "zombie";
-			soldier3.IsZombie = true;
-			soldier3.CurrentHealth = 100;
-			soldier3.CanBuild = true;
-			soldier3.CanAttack = true;
-			soldier3.AttackStance = UnitComponent.UnitAttackStance.Aggressive;
-			list2.AddChild(soldier3);
-			soldier3.PointLocation = new PointF((float)12.5, (float)4.0);
-
-
-                UnitComponent[] zombiesList = new UnitComponent[5];
-                for (int i = 0; i < zombiesList.GetLength(0); ++i)
-                {
-                    zombiesList[i] = new UnitComponent();
-                    zombiesList[i].Type = "zombie";
-                    zombiesList[i].IsZombie = true;
-                    zombiesList[i].CurrentHealth = 100;
-                    zombiesList[i].CanBuild = true;
-                    zombiesList[i].CanAttack = true;
-                    zombiesList[i].AttackRange = 2.5f;
-                    zombiesList[i].AttackStance = UnitComponent.UnitAttackStance.Aggressive;
-                    list2.AddChild(zombiesList[i]);
-                    zombiesList[i].PointLocation = new PointF((float) 10f + i*1.5f, (float) 10f + i * 1.0f);
-                }
-            
-
-			PlayerComponent player1 = (PlayerComponent)model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[0];
-			PlayerComponent player2 = (PlayerComponent)model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[1];
-
-			player1.EnemyList.Add(player2);
-			player2.EnemyList.Add(player1);
-
-            */
 
             foreach (PlayerComponent p in scenario.GetGameWorld().GetPlayerList().GetChildren())
             {
@@ -180,7 +119,7 @@ namespace ZRTS
             view = new XnaUIFrame(this);
             view.DrawBox = new Rectangle(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
             MapView mainView = new MapView(this);
-            mainView.DrawBox = new Rectangle(0, 0, 1280, 520);
+            mainView.DrawBox = new Rectangle(0, 0, 1280, 720);
 
             SelectionState selectionState = model.GetSelectionState();
             SelectionView selectionView = new SelectionView(this, selectionState);
@@ -201,7 +140,7 @@ namespace ZRTS
             view.AddChild(mainView);
             view.AddChild(selectionView);
             view.AddChild(commandView);
-            view.AddChild(minimapView);
+            //view.AddChild(minimapView);
             
             Components.Add(view);
             GraphicsDevice.Viewport = new Microsoft.Xna.Framework.Graphics.Viewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
