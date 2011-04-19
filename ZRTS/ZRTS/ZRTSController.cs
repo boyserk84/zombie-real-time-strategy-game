@@ -46,7 +46,9 @@ namespace ZRTS
 
 			bool hasUnits = false;
 			bool hasPlayerEntities = false;
-			PlayerComponent player = (PlayerComponent)((XnaUITestGame)game).Model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[0];
+
+            PlayerComponent player = (PlayerComponent) getPlayerList().GetChildren()[0];
+			
 			foreach (ModelComponent entity in EntityList)
 			{
 				if (entity is UnitComponent)
@@ -102,6 +104,20 @@ namespace ZRTS
             return ((XnaUITestGame)Game).Model;
         }
 
+        private PlayerList getPlayerList()
+        {
+            return getGameModel().GetScenario().GetGameWorld().GetPlayerList();
+        }
+
+        private Map getMap()
+        {
+            return getGameModel().GetScenario().GetGameWorld().GetMap();
+        }
+
+        /// <summary>
+        /// Give selected units a move command
+        /// </summary>
+        /// <param name="point">Destination</param>
         public void MoveSelectedUnitsToPoint(PointF point)
         {
             List<ModelComponent> selectedEntities = ((XnaUITestGame)Game).Model.GetSelectionState().SelectedEntities;
@@ -124,7 +140,7 @@ namespace ZRTS
             {
                 foreach (UnitComponent unit in selectedEntities)
                 {
-                    MoveAction moveAction = new MoveAction(point.X, point.Y, getGameModel().GetScenario().GetGameWorld().GetMap(), unit);
+                    MoveAction moveAction = new MoveAction(point.X, point.Y,getMap() , unit);
                     ActionQueue aq = unit.GetActionQueue();
                     aq.GetChildren().Clear();
                     aq.AddChild(moveAction);
@@ -133,7 +149,10 @@ namespace ZRTS
         }
 
 
-
+        /// <summary>
+        /// Give selected units an attack command
+        /// </summary>
+        /// <param name="unit">target unit</param>
         public void TellSelectedUnitsToAttack(UnitComponent unit)
         {
             List<ModelComponent> selectedEntities = getGameModel().GetSelectionState().SelectedEntities;
@@ -170,9 +189,12 @@ namespace ZRTS
             }
         }
 
-        public override void Update(GameTime gameTime)
+        /// <summary>
+        /// Update all players' units
+        /// </summary>
+        /// <param name="players">List of all players</param>
+        private void UpdateAllPlayersUnits(PlayerList players)
         {
-            PlayerList players = getGameModel().GetScenario().GetGameWorld().GetPlayerList();
             foreach (PlayerComponent player in players.GetChildren())
             {
                 UnitList units = player.GetUnitList();
@@ -184,35 +206,56 @@ namespace ZRTS
                 }
                 foreach (UnitComponent unit in unitList)
                 {
-					if(unit.State != ZRTSModel.UnitComponent.UnitState.DEAD)
-						unit.GetActionQueue().Work();
+                    if (unit.State != ZRTSModel.UnitComponent.UnitState.DEAD)
+                        unit.GetActionQueue().Work();
                 }
 
-				List<ModelComponent> buildings = player.BuildingList.GetChildren();
+                List<ModelComponent> buildings = player.BuildingList.GetChildren();
 
-				foreach (Building b in buildings)
-				{
-					b.BuildingActionQueue.Work();
-				}
+                foreach (Building b in buildings)
+                {
+                    b.BuildingActionQueue.Work();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Update all trigger events in the game
+        /// </summary>
+        /// <param name="triggers">List of trigger events</param>
+        private void UpdateAllTriggers(List<Trigger> triggers)
+        {
+            List<Trigger> removeList = new List<Trigger>();
+            foreach (Trigger t in triggers)
+            {
+                if (t.Eval())
+                {
+                    t.PerformActions();
+                    removeList.Add(t);
+                }
             }
 
+            foreach (Trigger t in removeList)
+            {
+
+                triggers.Remove(t);
+            }
+        }
+
+
+
+        /// <summary>
+        /// Update units that belong to the player
+        /// </summary>
+        /// <param name="gameTime"></param>
+        public override void Update(GameTime gameTime)
+        {
+            PlayerList players = getPlayerList();
+            UpdateAllPlayersUnits(players);
+
 			List<Trigger> triggers = getGameModel().GetScenario().triggers;
-
-			List<Trigger> removeList = new List<Trigger>();
-			foreach (Trigger t in triggers)
-			{
-				if (t.Eval())
-				{
-					t.PerformActions();
-					removeList.Add(t);
-				}
-			}
-
-			foreach (Trigger t in removeList)
-			{
-
-				triggers.Remove(t);
-			}
+            UpdateAllTriggers(triggers);
+			
             base.Update(gameTime);
         }
 
@@ -316,6 +359,51 @@ namespace ZRTS
         }
 
         /// <summary>
+        /// Checking if all selected units have an ability to build
+        /// </summary>
+        /// <param name="selectedEntities">Selected units</param>
+        /// <returns>True if they are all capable of build. otherwise, false is returned!</returns>
+        private bool CanAllUnitsBuild(List<ModelComponent> selectedEntities)
+        {
+            foreach (ModelComponent entity in selectedEntities)
+            {
+                if (entityBelongsToPlayer(entity))
+                {
+                    if (!(entity is UnitComponent))
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        UnitComponent u = entity as UnitComponent;
+                        if (!u.CanBuild)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Checking if all selected entities belong to the player
+        /// </summary>
+        /// <param name="selectedEntities">selected entities</param>
+        /// <returns>True if they are all owned by the player. False otherwise.</returns>
+        private bool AllBelongsToPlayer(List<ModelComponent> selectedEntities)
+        {
+            foreach (ModelComponent entity in selectedEntities)
+            {
+                if (!entityBelongsToPlayer(entity))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
         /// Tell selected units to build a building at the specified location
         /// </summary>
         /// <param name="buildingType">Building Type</param>
@@ -323,30 +411,8 @@ namespace ZRTS
         internal void TellSelectedUnitsToBuildAt(string buildingType, Point upperLeftCellCoords)
         {
             List<ModelComponent> selectedEntities = getGameModel().GetSelectionState().SelectedEntities;
-            bool canBuild = true;
-			bool playerEntities = false;
-            foreach (ModelComponent entity in selectedEntities)
-            {
-				if (entityBelongsToPlayer(entity))
-				{
-					playerEntities = true;
-					if (!(entity is UnitComponent))
-					{
-						canBuild = false;
-						break;
-					}
-					else
-					{
-						UnitComponent u = entity as UnitComponent;
-						if (!u.CanBuild)
-						{
-							canBuild = false;
-							break;
-						}
-					}
-				}
-            }
-            if (canBuild && playerEntities)
+            
+            if (CanAllUnitsBuild(selectedEntities) && AllBelongsToPlayer(selectedEntities))
             {
                 // TODO: Check resources.
                 
@@ -370,6 +436,11 @@ namespace ZRTS
             // TODO: Implement
         }
 
+        /// <summary>
+        /// Checking if a specific entity is owned by a player
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns>True if that entity is owned by the player, false otherwise.</returns>
 		private bool entityBelongsToPlayer(ModelComponent entity)
 		{
 			PlayerComponent player = (PlayerComponent)((XnaUITestGame)game).Model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[0];
