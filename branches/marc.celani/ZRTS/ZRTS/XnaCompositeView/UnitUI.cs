@@ -140,12 +140,17 @@ namespace ZRTS.XnaCompositeView
                 changePicture(SourceRect.X, unitType + GameConfig.ACTION_DEAD * GameConfig.UNIT_HEIGHT);
                 if (Unit.Type.Equals("worker") && playDyingSound == false)
                 {
-                    AudioManager.playSound("dead", "worker"); // Worker_Dying.Play();
+                    AudioManager.playSound("dead", "worker");
                     playDyingSound = true;
                 }
                 else if (Unit.Type.Equals("zombie") && playDyingSound == false)
                 {
-                    AudioManager.playSound("dead", "zombie"); // Zombie_Dying.Play();
+                    AudioManager.playSound("dead", "zombie");
+                    playDyingSound = true;
+                }
+                else if (Unit.Type.Equals("soldier") && playDyingSound == false)
+                {
+                    AudioManager.playSound("dead", "soldier");
                     playDyingSound = true;
                 }
             }
