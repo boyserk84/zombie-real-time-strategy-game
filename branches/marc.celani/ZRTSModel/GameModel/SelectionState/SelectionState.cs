@@ -21,6 +21,11 @@ namespace ZRTSModel.GameModel
         {
             get { return selectedEntities; }
         }
+
+        /// <summary>
+        /// Selected entities
+        /// </summary>
+        /// <param name="component"></param>
         public void SelectEntity(ModelComponent component)
         {
             if (component is UnitComponent || component is Building)
@@ -36,6 +41,9 @@ namespace ZRTSModel.GameModel
             }
         }
 
+        /// <summary>
+        /// Refresh the selection state
+        /// </summary>
         public void ClearSelectionState()
         {
 			foreach (ModelComponent m in selectedEntities)

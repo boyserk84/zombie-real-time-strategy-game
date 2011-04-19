@@ -38,12 +38,6 @@ namespace ZRTSModel
             this.map = map;
         }
 
-        public void AddBuildingToMap()
-        {
-
-        }
-
-
         /// <summary>
         /// This function will perform a building cycle if the number of ticks since the last cycle is equal to TICKS_PER_CYCLE.
         /// </summary>
@@ -60,38 +54,25 @@ namespace ZRTSModel
                     {
 						UnitComponent unit = (UnitComponent)Parent.Parent;
 						unit.State = UnitComponent.UnitState.BUILDING;
+
+                        UnitComponent worker = (UnitComponent)Parent.Parent;
                         // Add the building to the model if we have not done so yet.
                         if (building.Parent == null)
                         {
                             
                             // TODO: Ensure that the spaces are cleared.  Perhaps wait/give up, as with move?
-                            
                             PlayerComponent player = Parent.Parent.Parent.Parent as PlayerComponent;
-                            System.Console.Out.WriteLine(Parent.ToString());
-                            System.Console.Out.WriteLine(Parent.Parent.ToString());
-                            System.Console.Out.WriteLine(Parent.Parent.Parent.ToString());
-                            System.Console.Out.WriteLine(Parent.Parent.Parent.Parent.ToString());
-
-                            if (!map.addBuildingToMap(building))
+                            
+                            if (!map.addBuildingToMap(building))    // add building to the map
                             {
                                 return false;
                             }
 
-                            player.addBuilding(building);
+                            player.addBuilding(building);       // add building to player's building list
                         }
 
-
-                        if (building.MaxHealth - building.CurrentHealth <= ((UnitComponent)Parent.Parent).BuildSpeed)
-                        {
-                            // Finish the building.
-                            building.CurrentHealth = building.MaxHealth;
-                            building.Completed = true;
-                        }
-                        else
-                        {
-                            // Continue building the building.
-                            building.CurrentHealth += ((UnitComponent)Parent.Parent).BuildSpeed;
-                        }
+                        updateBuildingProgress(building, worker);
+                        
                     }
                     else
                     {
@@ -104,6 +85,27 @@ namespace ZRTSModel
             }
             curTicks++;
             return building.Completed;
+        }
+
+
+        /// <summary>
+        /// Update building's construction progress
+        /// </summary>
+        /// <param name="building">building underconstruction</param>
+        /// <param name="worker">Assigned worker for place the building</param>
+        private void updateBuildingProgress(Building building, UnitComponent worker)
+        {
+            if (building.MaxHealth - building.CurrentHealth <= worker.BuildSpeed)
+            {
+                // Finish the building.
+                building.CurrentHealth = building.MaxHealth;
+                building.Completed = true;
+            }
+            else
+            {
+                // Continue building the building.
+                building.CurrentHealth += ((UnitComponent)Parent.Parent).BuildSpeed;
+            }
         }
 
 
@@ -136,6 +138,12 @@ namespace ZRTSModel
             return dis;
         }
 
+
+        /// <summary>
+        /// find the closest cell from the specified destination
+        /// </summary>
+        /// <param name="point">Destination</param>
+        /// <returns>Closest cell</returns>
         private CellComponent findClosestCell(PointF point)
         {
             double distanceSquared = Math.Pow(map.GetWidth(), 2.0) + Math.Pow(map.GetHeight(), 2.0);

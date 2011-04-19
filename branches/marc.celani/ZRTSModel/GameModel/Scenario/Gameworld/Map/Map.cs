@@ -20,6 +20,11 @@ namespace ZRTSModel
         {
         }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="width">Width of the map</param>
+        /// <param name="height">Height of the map</param>
         public Map(int width, int height)
         {
             this.width = width;
@@ -65,6 +70,10 @@ namespace ZRTSModel
             }
         }
 
+        /// <summary>
+        /// Remove cell from the map
+        /// </summary>
+        /// <param name="child"></param>
         public override void RemoveChild(ModelComponent child)
         {
             if (GetChildren().Contains(child))
@@ -90,8 +99,8 @@ namespace ZRTSModel
         /// <summary>
         /// Check if the building can be added to the map
         /// </summary>
-        /// <param name="component"></param>
-        /// <returns></returns>
+        /// <param name="component">Component</param>
+        /// <returns>True if building can be added or the component is not the building, otherwise, false is returned!</returns>
         public bool canAddBuildingToMap(ModelComponent component)
         {
             if (component is Building)
@@ -103,16 +112,28 @@ namespace ZRTSModel
                 }
                 else
                 {
-                    // check surrounding cells
-                    for (int i = (int) tempBuild.PointLocation.X; i < (int) tempBuild.PointLocation.X + tempBuild.Width; ++i)
+                    return isEnoughSpace(tempBuild);
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Checking if there is enough space to place a building
+        /// </summary>
+        /// <param name="tempBuild">target building</param>
+        /// <returns>True if there is enough space. False otherwise.</returns>
+        private bool isEnoughSpace(Building tempBuild)
+        {
+            // check surrounding cells
+            for (int i = (int)tempBuild.PointLocation.X; i < (int)tempBuild.PointLocation.X + tempBuild.Width; ++i)
+            {
+                for (int j = (int)tempBuild.PointLocation.Y; j < (int)tempBuild.PointLocation.Y + tempBuild.Height; ++j)
+                {
+                    if (GetCellAt(i, j).ContainsEntity())
                     {
-                        for (int j = (int)tempBuild.PointLocation.Y; j < (int) tempBuild.PointLocation.Y + tempBuild.Height; ++j)
-                        {
-                            if (GetCellAt(i, j).ContainsEntity())
-                            {
-                                return false;
-                            }
-                        }
+                        return false;
                     }
                 }
             }
@@ -148,7 +169,7 @@ namespace ZRTSModel
         /// Remove building from the map
         /// </summary>
         /// <param name="component"></param>
-        /// <returns>True if successfully added to the map</returns>
+        /// <returns>True if successfully removed from the map</returns>
         public bool removeBuildingFromMap(ModelComponent component)
         {
             Building tempBuild = (Building)component;
@@ -158,7 +179,6 @@ namespace ZRTSModel
                 {
                     tempBuild.CellsContainedWithin.Remove(GetCellAt(i, j));
                     GetCellAt(i, j).RemoveEntity(tempBuild);
-                    // How to remove building from the player's buildingList?
                 }
             }
             return true;
