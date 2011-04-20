@@ -153,6 +153,7 @@ namespace ZRTS
 
             // Load Audio
             AudioManager.Initialize(Content);
+            AudioManager.play("background", "normal");
 
         }
 
