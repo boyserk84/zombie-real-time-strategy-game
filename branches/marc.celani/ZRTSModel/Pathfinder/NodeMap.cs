@@ -19,7 +19,10 @@ namespace Pathfinder
 
         public int height;
         public int width;
-        private Node[,] nodes;
+		private Node[,] nodes;
+
+		private const int IMMEDIATE_DISTANCE = 10;
+		private const int DIAGONAL_DISTANCE = 14;
 
 
         /*
@@ -91,21 +94,85 @@ namespace Pathfinder
         /// <returns>A rough integer distance between the two; 10 per vertical/horizontal move, 14 per diagonal move</returns>
         public int pathDistance(Node one, Node two)
         {
-            /*
-             * Theory
-             *		This function is used to calculate the path-based distance between two Nodes;
-             *		i.e., the shortest possible path you can take from point A to point B
-             *		when you can only move at 45-degree and 90-degree angles.
-             *		The diagonal distance is multiplied by 14 instead of the square root of 2 (~1.41) to avoid using floating-point numbers;
-             *		the straight distance is multiplied by 10 to compensate.
-             */
-
             int x = Math.Abs(one.X - two.X);
             int y = Math.Abs(one.Y - two.Y);
             int diagonal = Math.Min(x, y);
             int straight = Math.Max(x, y) - diagonal;
-            return (10 * straight) + (14 * diagonal);
+            return (IMMEDIATE_DISTANCE * straight) + (DIAGONAL_DISTANCE * diagonal);
         }
 
-    }
+		/// <summary>
+		/// Puts all valid Nodes adjacent to the given Node in a List and returns it
+		/// </summary>
+		/// <param name="map">The Map</param>
+		/// <param name="currentNode">The current (center) Node</param>
+		/// <returns>A List of all traversable adjacent Nodes</returns>
+		public List<Node> getAdjacentNodes(Node currentNode)
+		{
+			int x = currentNode.X;
+			int y = currentNode.Y;
+			List<Node> immediate = new List<Node>();
+			List<Node> diagonal = new List<Node>();
+			List<Node> adjacent = new List<Node>(8);
+
+			// grab all adjacent Nodes (or null values) and store them here
+			Node[,] temp = getNodes(x - 1, y - 1, 3, 3);
+
+			// iterate over all adjacent Nodes; add the ones that are open and in bounds to the appropriate List<Node>
+			for (int j = 0; j < 3; j++)
+			{
+				for (int i = 0; i < 3; i++)
+				{
+					if (temp[i, j] != null && !temp[i, j].isClosed)
+					{
+						// if the Node is horizontally or vertically adjacent,
+						// add the Node to the list of immediately adjacent Nodes
+						if (Math.Abs(2 - i - j) == 1)
+							immediate.Add(temp[i, j]);
+
+						// otherwise, if the Node is valid, add it to the list of diagonally adjacent Nodes
+						else if (temp[i, j].isValid)
+							diagonal.Add(temp[i, j]);
+					}
+				}
+			}
+
+			// iterate over all immediately adjacent Nodes.  If they are valid, enqueue them;
+			// otherwise, remove the neighboring diagonally adjacent Nodes from the diagonal List
+			for (int i = 0; i < immediate.Count(); i++)
+			{
+				if (!immediate[i].isValid)
+				{
+					Node one, two = null;
+					if (immediate[i].X == x)   // the Node is vertically adjacent
+					{
+						one = getNode(x + 1, immediate[i].Y);
+						two = getNode(x - 1, immediate[i].Y);
+					}
+					else                            // the Node is horizontally adjacent
+					{
+						one = getNode(immediate[i].X, y - 1);
+						two = getNode(immediate[i].X, y + 1);
+					}
+					if (one != null)
+						diagonal.Remove(one);
+					if (two != null)
+						diagonal.Remove(two);
+				}
+				else
+				{
+					adjacent.Add(immediate[i]);
+				}
+			}
+
+			// enqueue all remaining diagonally adjacent Nodes
+			for (int i = 0; i < diagonal.Count(); i++)
+				adjacent.Add(diagonal[i]);
+
+			// return the finished PQueue
+			return adjacent;
+		}
+
+
+	}
 }

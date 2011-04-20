@@ -13,7 +13,6 @@ namespace Pathfinder
     /// </summary>
 	class Basic
 	{
-        public static int iterations;
 
 		/*
 		 * public functions
@@ -28,71 +27,63 @@ namespace Pathfinder
         /// <returns>The path as a list of waypoints</returns>
 		public static List<Node> findPath(NodeMap map, Node startNode, Node endNode)
 		{
-			/*
-			 * Terminology
-			 *		Gscore			cumulative calculated distance from the start Node to the given Node
-			 *		Hscore			estimated distance from the given Node to the end Node.
-			 *							Overestimating this can result in the calculation of an incorrect (inefficient) path,
-			 *							but the more it is underestimated, the longer correct path calculation will take
-			 *		Fscore			Gscore + Hscore; estimated total distance from start to end on a path through the given Node.
-			 *							Priority queues (PQueues) are ordered by ascending Fscore, so shortest estimated paths are examined first
-			 *		open list		A PQueue of Nodes to be examined.  Initially contains the start Node
-			 *		closed list		A List<Node> of Nodes that have been examined
-			 *		adjacent list	A PQueue of Nodes adjacent to the current Node
-			 */
-
-			// initialize the lists
+			// initialize data
 			PQueue open = new PQueue();
 			open.enqueue(startNode);
-			List<Node> closed = new List<Node>();
-			PQueue adjacentNodes = new PQueue();
-            iterations = 0;
+			List<Node> adjacentNodes = new List<Node>();
+
 			// good ol' A*
-			while (open.Count > 0)											    // iterate until we have examined every appropriate Node
+			while (open.Count > 0)
 			{
-                //open.print("Open", true);
-				Node currentNode = open.dequeue();								    // look at the Node with the lowest Fscore and remove it from the open list
-				if (currentNode == endNode)										    // if this is our destination Node, we're done!
-					return reconstruct(endNode);									    // so return the path
-				closed.Add(currentNode);										    // otherwise, close this Node so we don't travel to it again
-				adjacentNodes = getAdjacentNodes(map, open, closed, currentNode);	// now find every valid Node adjacent to the current Node
-                //adjacentNodes.print("Adjacent", false);
-				while (adjacentNodes.Count != 0)                                  // iterate over all of them, from lowest to highest Fscore
+				// find the open Node with the lowest Fscore and remove it from the open PQueue
+				Node current = open.dequeue();
+
+				// if this is our destination Node, we're done; otherwise, close it so we don't travel to it again
+				if (current == endNode)
+					return reconstruct(endNode);
+				current.close();
+
+				// find every valid Node adjacent to the current Node
+				adjacentNodes = map.getAdjacentNodes(current);
+				
+				// iterate over all of them
+				for (int i = 0; i < adjacentNodes.Count; i++)
 				{
-					Node adjacentNode = adjacentNodes.dequeue();									    // grab the current adjacent Node
-					int tempGScore = currentNode.Gscore + map.pathDistance(currentNode, adjacentNode);	// calculate a temporary Gscore as if we were traveling to this Node from the current Node
-					if (!open.contains(adjacentNode) || tempGScore < adjacentNode.Gscore)			    // if this Node has not been added to the open list, or if tempGscore is less than the Node's current Gscore
+					// grab an adjacent Node and calculate a new GScore and HScore for it
+					Node adjacent = adjacentNodes[i];
+					int tempGScore = current.Gscore + map.pathDistance(current, adjacent);
+					int tempHScore = map.pathDistance(adjacent, endNode);
+
+					// if we have not opened this Cell, give it new stats and open it
+					if (!adjacent.isOpen)
 					{
-						int h = map.pathDistance(adjacentNode, endNode);									// estimate the Node's Hscore
-                        adjacentNode.prev = currentNode;											    // set the Node's prev pointer to the current Node
-						adjacentNode.Hscore = h;														    // set the Node's Hscore
-						adjacentNode.Gscore = tempGScore;												    // set the Node's Gscore
-						adjacentNode.Fscore = tempGScore + h;											    // set the Node's Fscore
+						setAdjacentStats(adjacent, current, tempGScore, tempHScore);
+						open.enqueue(adjacent);
 					}
-					if (!open.contains(adjacentNode))												    // if the adjacent Node we just examined is not yet on the open list, add it
-						open.enqueue(adjacentNode);
+
+					// otherwise, if we have opened it but the new path to it is shorter than the old one, give it new stats and reset its position in the open PQueue
+					else if (tempGScore < adjacent.Gscore)
+					{
+						setAdjacentStats(adjacent, current, tempGScore, tempHScore);
+						//open.resetPosition(adjacent);
+					}
 				}
-                iterations++;
 			}
 			
 			// no valid path exists, so find the nearest path
-			closed.RemoveAt(0);										// remove the start Node from the closed List
-			if (closed.Count > 0)									// if there are still Nodes on the closed list
+			List<Node> closed = createClosed(map);
+			Node nearestNode = closed[0];
+
+			// find the closed Node with the lowest Hscore (distance from the intended end); return a path to that Node
+			if (closed.Count > 0)
 			{
-				Node nearestNode = closed[0];							// find the closed Node with the lowest Hscore;
-				for (int i = 1; i < closed.Count; i++)					// this should be the Node closest to the desired destination,
-				{														// so return a path ending with that Node.
+				for (int i = 1; i < closed.Count; i++)
+				{
 					if (closed[i].Hscore < nearestNode.Hscore)
 						nearestNode = closed[i];
 				}
-				return reconstruct(nearestNode);
 			}
-			else
-			{
-				List<Node> path = new List<Node>();					// otherwise, our only path was the start Node (i.e. we are completely trapped);
-				path.Add(endNode);									// so return a path with just that Node.
-				return path;
-			}
+			return reconstruct(nearestNode);
 		}
 
 
@@ -100,79 +91,49 @@ namespace Pathfinder
 		 * helper functions
 		 */
 
-        /// <summary>
-        /// Puts all valid Nodes adjacent to the given Node in a PQueue and returns it
-        /// </summary>
-        /// <param name="map">The Map</param>
-        /// <param name="closed">The closed list</param>
-        /// <param name="currentNode">The current (center) Node</param>
-        /// <returns>A PQueue of all traversable adjacent Nodes</returns>
-		private static PQueue getAdjacentNodes(NodeMap map, PQueue open, List<Node> closed, Node currentNode)
+		#region pathfinder helper functions
+
+		/// <summary>
+		/// Sets a Cell's "adjacent stats."  Called whenever an adjacent Cell is added to the Open structure or otherwise updated.
+		/// </summary>
+		/// <param name="adjacent">The adjacent Cell to set/reset</param>
+		/// <param name="current">The current Cell we are adjacent to</param>
+		/// <param name="gScore">The adjacent Cell's calculated gScore</param>
+		/// <param name="hScore">The adjacent Cell's calculated hScore</param>
+		private static void setAdjacentStats(Node adjacent, Node current, int gScore, int hScore)
 		{
-			int x = currentNode.X;
-			int y = currentNode.Y;
-            List<Node> immediate = new List<Node>();
-            List<Node> diagonal = new List<Node>();
-			PQueue adjacentNodes = new PQueue();
-
-            // grab all adjacent Nodes (or null values) and store them here
-            Node[,] temp = map.getNodes(x - 1, y - 1, 3, 3);
-            
-            // iterate over all adjacent Nodes; add the ones that are open and in bounds to the appropriate List<Node>
-            for (int j = 0; j < 3; j++)
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    if (temp[i, j] != null && !closed.Contains(temp[i, j]))
-                    {
-                        // if the Node is horizontally or vertically adjacent,
-                        // add the Node to the list of immediately adjacent Nodes
-                        if (Math.Abs(2 - i - j) == 1)
-                            immediate.Add(temp[i, j]);
-
-                        // otherwise, if the Node is valid, add it to the list of diagonally adjacent Nodes
-                        else if (temp[i, j].isValid)
-                            diagonal.Add(temp[i, j]);
-                    }
-                }
-            }
-
-            // iterate over all immediately adjacent Nodes.  If they are valid, enqueue them;
-            // otherwise, remove the neighboring diagonally adjacent Nodes from the diagonal List
-            for (int i = 0; i < immediate.Count(); i++)
-            {
-                if (!immediate[i].isValid)
-                {
-                    Node one, two = null;
-                    if (immediate[i].X == x)   // the Node is vertically adjacent
-                    {
-                        one = map.getNode(x + 1, immediate[i].Y);
-                        two = map.getNode(x - 1, immediate[i].Y);
-                    }
-                    else                            // the Node is horizontally adjacent
-                    {
-                        one = map.getNode(immediate[i].X, y - 1);
-                        two = map.getNode(immediate[i].X, y + 1);
-                    }
-                    if (one != null)
-                        diagonal.Remove(one);
-                    if (two != null)
-                        diagonal.Remove(two);
-                }
-                else {
-                    adjacentNodes.enqueue(immediate[i]);
-                }
-            }
-
-            // enqueue all remaining diagonally adjacent Nodes
-            for (int i = 0; i < diagonal.Count(); i++)
-                adjacentNodes.enqueue(diagonal[i]);
-
-            // return the finished PQueue
-			return adjacentNodes;
+			adjacent.prev = current;					// set the Cell's prev pointer to the current Cell
+			adjacent.Hscore = hScore;					// set the Cell's Hscore
+			adjacent.Gscore = gScore;					// set the Cell's Gscore
+			adjacent.Fscore = gScore + hScore;			// set the Cell's Fscore
 		}
-		
-        /// <summary>
+
+		/// <summary>
+		/// Iterates over the full Map and returns a closed List of Nodes
+		/// </summary>
+		/// <param name="map">The NodeMap to search</param>
+		/// <returns>A List of all closed Nodes</returns>
+		private static List<Node> createClosed(NodeMap map)
+		{
+			List<Node> closed = new List<Node>();
+			for (int j = 0; j < map.height; j++)
+			{
+				for (int i = 0; i < map.width; i++)
+				{
+					Node temp = map.getNode(i, j);
+					if (temp.isClosed)
+						closed.Add(temp);
+				}
+			}
+			return closed;
+		}
+
+		#endregion
+
+
+		#region path reconstruction
+
+		/// <summary>
         /// A wrapper function for path reconstruction
         /// </summary>
         /// <param name="endNode">The destination Node</param>
@@ -204,7 +165,7 @@ namespace Pathfinder
 				int prevY = path[i].Y - path[i - 1].Y;
 				int curX = endNode.X - path[i].X;
 				int curY = endNode.Y - path[i].Y;
-				if (theta(prevX, prevY) == theta(curX, curY))
+				if (polarAngle(prevX, prevY) == polarAngle(curX, curY))
 					path.RemoveAt(i);
 			}
 
@@ -219,7 +180,7 @@ namespace Pathfinder
         /// <param name="x">The X-coordinate</param>
         /// <param name="y">The Y-coordinate</param>
         /// <returns>The angle between the origin and the given (x, y)</returns>
-        private static double theta(int x, int y)
+        private static double polarAngle(int x, int y)
         {
             if (x > 0)
                 return Math.Atan(y / x);
@@ -233,8 +194,9 @@ namespace Pathfinder
                 return Math.PI - (Math.PI / 2);
             else
                 return 0;
-        }
+		}
 
+		#endregion
 
 
 	}

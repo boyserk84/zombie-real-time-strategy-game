@@ -36,10 +36,6 @@ namespace Pathfinder
                     break;
             }
 
-            // if this is a completely invalid NodeMap (yeah, right, I know), return null
-            if (ring.Count == 0)
-                return null;
-
             // find the valid Node nearest the intended end
             Node newEnd = ring.peek(0);
 
@@ -62,9 +58,9 @@ namespace Pathfinder
                 }
             }
             
-            // clean the FScores of all enqueued Nodes so they can be properly used by the pathfinder
-            for (int i = 0; i < ring.Count; i++)
-                ring.peek(i).Fscore = 0;
+            // clean all enqueued Nodes so they can be properly used by the pathfinder
+			for (int i = 0; i < ring.Count; i++)
+				ring.peek(i).clean();
 
             return newEnd;
         }
