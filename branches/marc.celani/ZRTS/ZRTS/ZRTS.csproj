@@ -155,10 +155,6 @@
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ZRTSLogic\ZRTSLogic.csproj">
-      <Project>{CCEE566E-2E19-4E84-9FBE-145D95C8AA59}</Project>
-      <Name>ZRTSLogic</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\ZRTSModel\ZRTSModel.csproj">
       <Project>{2045DCE8-71C3-43E3-871D-D98407D30E58}</Project>
       <Name>ZRTSModel</Name>
