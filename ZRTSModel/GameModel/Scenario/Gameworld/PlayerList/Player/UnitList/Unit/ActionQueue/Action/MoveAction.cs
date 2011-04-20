@@ -11,8 +11,7 @@ using ZRTSModel.GameModel;
 namespace ZRTSModel
 {
     /// <summary>
-    /// This class will represent a "move" action that a unit can make. It will be used to make the unit 
-    /// move in the Gameworld.
+    /// This class will represent a "move" action that a unit can make. It will be used to make the unit move in the Gameworld.
     /// </summary>
     public class MoveAction : EntityAction
     {
@@ -24,10 +23,7 @@ namespace ZRTSModel
         private bool waiting = true;
 		private UnitComponent unit;
 
-        public bool Waiting
-        {
-            get { return waiting; }
-        }
+		public bool Waiting { get { return waiting; } }
         private int ticksWaiting = 0; // Ticks spent waiting for another unit to move. 
 
         private byte TICKS_PER_MOVE = 5;       // How many ticks per step in the move action
@@ -57,19 +53,20 @@ namespace ZRTSModel
         private bool takeStepMiddle(UnitComponent unit)
         {
             bool completed = false;
-            // Check if we are at the center of the target cell.
+
+            // Check if we are at the center of the target Cell
             if (unit.PointLocation.X == path[0].X + CENTER && unit.PointLocation.Y == path[0].Y + CENTER)
             {
+				// Remove the next Cell in the path.  If that was the last Cell, we're done
                 path.RemoveAt(0);
-                // Are we at the last cell?
                 if (path.Count == 0)
-                {
                     completed = true;
-                }
+
             }
+
+			// If we aren't at the center of the next Cell, and that Cell is vacant, move towards it
             else if (isNextCellVacant(unit))
             {
-                // Next cell is vacant, stop waiting if we were waiting.
                 if (waiting)
                 {
                     waiting = false;
@@ -77,17 +74,16 @@ namespace ZRTSModel
                 }
                 moveMiddle(unit);
             }
+
+			// Otherwise, the next Cell in our path is not vacant; wait for a while or compute a new path
             else
             {
-                // Next cell is not vacant.
                 waiting = true;
                 ticksWaiting++;
 
                 // We've been waiting long enough, compute a new path.
                 if (ticksWaiting % WAIT_TICKS == 0)
-                {
                     path = FindPath.between(map, map.GetCellAt((int)unit.PointLocation.X, (int)unit.PointLocation.Y), map.GetCellAt((int)targetX, (int)targetY));
-                }
             }
 
             return completed;
@@ -98,8 +94,7 @@ namespace ZRTSModel
         /// </summary>
         private void moveMiddle(UnitComponent unit)
         {
-			float speed = (unit.Speed /* * (float)unit.speedBuff*/);
-
+			float speed = (unit.Speed);
 
 			if (path[0].Y + CENTER > unit.PointLocation.Y)
 			{
@@ -144,7 +139,6 @@ namespace ZRTSModel
             if (Math.Sqrt(Math.Pow(path[0].Y + CENTER - unit.PointLocation.Y, 2) + Math.Pow(path[0].X + CENTER - unit.PointLocation.X, 2)) <= speed)
             {
                 PointF directionVector = new PointF(path[0].X + CENTER - unit.PointLocation.X, path[0].Y + CENTER - unit.PointLocation.Y);
-                //unit.Orientation = (int)Math.Atan2(directionVector.Y, directionVector.X);
                 // We are within |unit.speed| of the targetCell's center, set unit's position to center.
                 unit.PointLocation = new PointF(path[0].X + CENTER, path[0].Y + CENTER);
 
@@ -156,70 +150,54 @@ namespace ZRTSModel
                 directionVector.X = directionVector.X / magnitude * unit.Speed;
                 directionVector.Y = directionVector.Y / magnitude * unit.Speed;
                 unit.PointLocation = new PointF(unit.PointLocation.X + directionVector.X, unit.PointLocation.Y + directionVector.Y);
-                //unit.Orientation = (int)Math.Atan2(directionVector.Y, directionVector.X);
             }
-
-			
-
         }
 
         /// <summary>
-        /// This function will check if the next cell that the unit is currently moving onto (NOTE: This is not the "tagretCell.")
-        /// is empty or not.
+		/// This function will check if the NEXT Cell that the unit is currently moving onto is empty or not.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="unit">The Unit whose location we check</param>
+        /// <returns>True if the next Cell in its path is vacant, false otherwise</returns>
         private bool isNextCellVacant(UnitComponent unit)
         {
             int curX = (int)unit.PointLocation.X;
             int curY = (int)unit.PointLocation.Y;
-
-            int nextX, nextY;
+			int nextX = curX;
+			int nextY = curY;
 
             if (path[0].Y < curY)
-            {
                 nextY = curY - 1;
-            }
             else if (path[0].Y > curY)
-            {
                 nextY = curY + 1;
-            }
-            else
-            {
-                nextY = curY;
-            }
 
             if (path[0].X < curX)
-            {
                 nextX = curX - 1;
-            }
             else if (path[0].X > curX)
-            {
                 nextX = curX + 1;
-            }
-            else
-            {
-                nextX = curX;
-            }
 
             // I'm not sure if this will ever be true, but if the next cell's coords come out to be the same as the unit's
             // current cell coords, evaluate to true;
-            if (nextX == curX && nextY == curY)
-            {
-                return true;
-            }
-            // Check to make sure that the next cells coords exist within the map's boundaries.
-            else if (nextX < 0 || nextX >= map.GetWidth() || nextY < 0 || nextY >= map.GetHeight())
-            {
-                return false;
-            }
+			if (nextX == curX && nextY == curY)
+				return true;
+
+			// Check to make sure that the next cells coords exist within the map's boundaries.
+			else if (map.GetCellAt(nextX, nextY) == null)
+				return false;
 
             return map.GetCellAt(nextX, nextY).EntitiesContainedWithin.Count == 0;
         }
 
+
+		/// <summary>
+		/// The Work function.  Creates a path if necessary, then moves along it.
+		/// </summary>
+		/// <returns>True once we have reached the destination, false otherwise.</returns>
         public override bool Work()
         {
+			// This unit is now moving
 			unit.State = UnitComponent.UnitState.MOVING;
 
+			// If we have no path, create one
             if (path == null)
             {
                 float startX = unit.PointLocation.X;
@@ -227,7 +205,8 @@ namespace ZRTSModel
                 path = FindPath.between(map, map.GetCellAt((int)startX, (int)startY), map.GetCellAt((int)targetX, (int)targetY));
 				path.RemoveAt(0);
 			}
-            // Zero length path, done moving.
+
+            // Zero length path, done moving
             bool completed = true;
             if (path.Count != 0)
             {
