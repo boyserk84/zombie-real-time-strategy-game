@@ -286,12 +286,12 @@ namespace ZRTS
                 ProduceUnit produceAction= null;
                 if (b.Type.Equals("house"))
                 {
-                    Console.WriteLine("Worker produced!!!");
+                    //Console.WriteLine("Worker produced!!!");
                     produceAction = new ZRTSModel.ProduceUnit(b, "worker");
                 }
                 else
                 {
-                    Console.WriteLine("Solider produced!!!");
+                    //Console.WriteLine("Solider produced!!!");
                     produceAction = new ZRTSModel.ProduceUnit(b, "soldier");
                 }
 				 

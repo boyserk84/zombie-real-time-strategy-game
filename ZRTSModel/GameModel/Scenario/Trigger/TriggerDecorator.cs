@@ -30,7 +30,7 @@ namespace ZRTSModel.Trigger
 
         public virtual bool Eval()
         {
-			Console.WriteLine("Condition Checked");
+			////Console.WriteLine("Condition Checked");
 			return false;
         }
 

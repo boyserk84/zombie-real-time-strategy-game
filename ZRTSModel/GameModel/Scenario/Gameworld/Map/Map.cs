@@ -96,7 +96,7 @@ namespace ZRTSModel
             return cells[x, y];
         }
 
-        /// <summary>
+        /// <summary>ize
         /// Check if the building can be added to the map
         /// </summary>
         /// <param name="component">Component</param>

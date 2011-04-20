@@ -160,7 +160,7 @@ namespace ZRTSModel
 
 		private void handleUnitInCellAttackingEnemy(Object obj, UnitAttackedEnemyArgs e)
 		{
-			Console.WriteLine("Unit in cell attacked enemy");
+			//Console.WriteLine("Unit in cell attacked enemy");
 		}
     }
 }
