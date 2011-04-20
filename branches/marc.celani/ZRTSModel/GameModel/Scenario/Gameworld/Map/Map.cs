@@ -96,10 +96,11 @@ namespace ZRTSModel
             return cells[x, y];
         }
 
-        /// <summary>ize
-        /// Check if the building can be added to the map
+        /// <summary>
+        /// Check if the building can be added to the map.  A building can only be added to the Map if there is enough space to
+        /// place the building and there are no Entities on those spaces.
         /// </summary>
-        /// <param name="component">Component</param>
+        /// <param name="component">The building to add</param>
         /// <returns>True if building can be added or the component is not the building, otherwise, false is returned!</returns>
         public bool canAddBuildingToMap(ModelComponent component)
         {
@@ -120,7 +121,7 @@ namespace ZRTSModel
         }
 
         /// <summary>
-        /// Checking if there is enough space to place a building
+        /// Checking if there is enough space to place a building.
         /// </summary>
         /// <param name="tempBuild">target building</param>
         /// <returns>True if there is enough space. False otherwise.</returns>
@@ -143,9 +144,9 @@ namespace ZRTSModel
 
 
         /// <summary>
-        /// Add building to the map
+        /// Add building to the Map.
         /// </summary>
-        /// <param name="component"></param>
+        /// <param name="component">The building to add</param>
         /// <returns>True if successfully added to the map</returns>
         public bool addBuildingToMap(ModelComponent component)
         {
@@ -166,9 +167,9 @@ namespace ZRTSModel
         }
 
         /// <summary>
-        /// Remove building from the map
+        /// Remove building from the Map.
         /// </summary>
-        /// <param name="component"></param>
+        /// <param name="component">The building to remove</param>
         /// <returns>True if successfully removed from the map</returns>
         public bool removeBuildingFromMap(ModelComponent component)
         {

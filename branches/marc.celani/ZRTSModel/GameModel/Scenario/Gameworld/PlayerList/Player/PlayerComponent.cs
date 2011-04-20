@@ -53,12 +53,19 @@ namespace ZRTSModel
 
 			enemyList = new List<PlayerComponent>();
         }
-
+        /// <summary>
+        /// Adds a building to this Player
+        /// </summary>
+        /// <param name="building">The building to add</param>
         public void addBuilding(ModelComponent building)
         {
             buildingList.AddChild(building);
         }
 
+        /// <summary>
+        /// Removes a building from this Player
+        /// </summary>
+        /// <param name="building">The building to remove</param>
         public void removeBuilding(ModelComponent building)
         {
             buildingList.RemoveChild(building);
@@ -100,7 +107,10 @@ namespace ZRTSModel
             }
         }
 
-
+        /// <summary>
+        /// Gets the Player Resources
+        /// </summary>
+        /// <returns>The PlayerResources</returns>
         public PlayerResources GetResources()
         {
             foreach (ModelComponent component in GetChildren())
@@ -118,6 +128,10 @@ namespace ZRTSModel
             visitor.Visit(this);
         }
 
+        /// <summary>
+        /// Gets the list of all the Units.
+        /// </summary>
+        /// <returns>The UnitList</returns>
         public UnitList GetUnitList()
         {
             UnitList list = null;
