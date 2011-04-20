@@ -83,7 +83,7 @@ namespace ZRTSMapEditor
                 uiPlayerList.Items.Clear();
                 foreach (PlayerComponent player in ((PlayerList)sender).GetChildren())
                 {
-                    uiPlayerList.Items.Add(player.GetName());
+                    uiPlayerList.Items.Add(player.Name);
                 }
                 uiPlayerList.Text = "";
             }

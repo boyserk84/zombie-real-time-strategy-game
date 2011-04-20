@@ -122,11 +122,11 @@ namespace ZRTSModel
         public void Visit(PlayerComponent player)
         {
             output.WriteStartElement("Player");
-            output.WriteAttributeString("Name", player.GetName());
-            output.WriteAttributeString("Race", player.GetRace());
-            output.WriteAttributeString("Gold", player.GetGold().ToString());
-            output.WriteAttributeString("Metal", player.GetMetal().ToString());
-            output.WriteAttributeString("Wood", player.GetWood().ToString());
+            output.WriteAttributeString("Name", player.Name);
+            output.WriteAttributeString("Race", player.Race);
+            output.WriteAttributeString("Gold", player.Gold.ToString());
+            output.WriteAttributeString("Metal", player.Metal.ToString());
+            output.WriteAttributeString("Wood", player.Wood.ToString());
             VisitChildren(player);
             output.WriteEndElement();
         }

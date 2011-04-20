@@ -102,11 +102,11 @@ namespace ZRTS
 			// Add triggers            
                 foreach (PlayerComponent p in scenario.GetGameWorld().GetPlayerList().GetChildren())
                 {
-                    if(p.GetRace().Equals("Human")){
+                    if(p.Race.Equals("Human")){
                         LoseWhenAllPlayersUnitsAreDead lose = new LoseWhenAllPlayersUnitsAreDead(p, scenario);
 			            scenario.triggers.Add(lose);
                     }
-                    else if(p.GetRace().Equals("Zombie")){
+                    else if(p.Race.Equals("Zombie")){
                         WinWhenAllEnemyUnitsDead win = new WinWhenAllEnemyUnitsDead(p, scenario);
 			            scenario.triggers.Add(win);
                     }
