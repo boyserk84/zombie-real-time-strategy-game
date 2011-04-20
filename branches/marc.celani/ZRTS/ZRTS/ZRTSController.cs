@@ -279,7 +279,6 @@ namespace ZRTS
 		public void TellSelectedBuildingToBuild()
 		{
 			List<ModelComponent> selectedEntities = getGameModel().GetSelectionState().SelectedEntities;
-
 			if (selectedEntities.Count > 0 && selectedEntities[0] is Building)
 			{
 				Building b = (Building)selectedEntities[0];

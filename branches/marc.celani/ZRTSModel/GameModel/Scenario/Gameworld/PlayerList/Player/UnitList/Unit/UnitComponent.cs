@@ -350,37 +350,72 @@ namespace ZRTSModel
 			}
 		}
 
-		private void listenToCellsWithinVisibilityRange()
+		private int getStartX()
 		{
 			int startX = (int)pointLocation.X - (int)visibilityRange;
-			int endX = (int)pointLocation.X + (int)visibilityRange;
-			int startY = (int)pointLocation.Y - (int)visibilityRange;
-			int endY = (int)pointLocation.Y + (int)visibilityRange;
 
+			if (startX <= 0)
+			{
+				startX = 0;
+			}
+			return startX;
+		}
+
+		private int getEndX()
+		{
+			int endX = (int)pointLocation.X + (int)visibilityRange;
 			ModelComponent gameWorldComponent = location;
 			while (!(gameWorldComponent is Gameworld))
 				gameWorldComponent = gameWorldComponent.Parent;
 			Map map = ((Gameworld)(gameWorldComponent)).GetMap();
 
-
-
-			// Check that startX, startY, endX and endY are all within the maps boundaries.
-			if (startX < 0)
+			if (endX >= map.GetWidth())
 			{
-				startX = 0;
+				endX = map.GetWidth() - 1;
 			}
-			if (startY < 0)
+
+			return endX;
+		}
+
+
+		private int getStartY()
+		{
+			int startY = (int)pointLocation.Y - (int)visibilityRange;
+
+			if (startY <= 0)
 			{
 				startY = 0;
 			}
-			if (endX >= map.GetWidth())
-			{
-				endX = map.GetWidth() -1;
-			}
+			return startY;
+		}
+
+		private int getEndY()
+		{
+			int endY = (int)pointLocation.Y + (int)visibilityRange;
+			ModelComponent gameWorldComponent = location;
+			while (!(gameWorldComponent is Gameworld))
+				gameWorldComponent = gameWorldComponent.Parent;
+			Map map = ((Gameworld)(gameWorldComponent)).GetMap();
+
 			if (endY >= map.GetHeight())
 			{
-				endY = map.GetHeight() -1;
+				endY = map.GetHeight() - 1;
 			}
+
+			return endY;
+		}
+
+		private void listenToCellsWithinVisibilityRange()
+		{
+			int startX = getStartX();
+			int endX = getEndX();
+			int startY = getStartY();
+			int endY = getEndY();
+
+			ModelComponent gameWorldComponent = location;
+			while (!(gameWorldComponent is Gameworld))
+				gameWorldComponent = gameWorldComponent.Parent;
+			Map map = ((Gameworld)(gameWorldComponent)).GetMap();
 
 			for (int i = startX; i <= endX; i++)
 			{
@@ -395,33 +430,15 @@ namespace ZRTSModel
 
 		private void stopListeningToCells(PointF oldPoint)
 		{
-			int startX = (int)oldPoint.X - (int)visibilityRange;
-			int endX = (int)oldPoint.X + (int)visibilityRange;
-			int startY = (int)oldPoint.Y + (int)visibilityRange;
-			int endY = (int)oldPoint.Y + (int)visibilityRange;
+			int startX = getStartX();
+			int endX = getEndX();
+			int startY = getStartX();
+			int endY = getEndY();
 
 			ModelComponent gameWorldComponent = location;
 			while (!(gameWorldComponent is Gameworld))
 				gameWorldComponent = gameWorldComponent.Parent;
 			Map map = ((Gameworld)(gameWorldComponent)).GetMap();
-
-			// Check that startX, startY, endX and endY are all within the maps boundaries.
-			if (startX < 0)
-			{
-				startX = 0;
-			}
-			if (startY < 0)
-			{
-				startY = 0;
-			}
-			if (endX >= map.GetWidth())
-			{
-				endX = map.GetWidth();
-			}
-			if (endY >= map.GetHeight())
-			{
-				endY = map.GetWidth();
-			}
 
 			for (int i = startX; i < endX; i++)
 			{

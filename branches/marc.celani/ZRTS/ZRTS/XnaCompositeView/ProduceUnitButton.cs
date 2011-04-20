@@ -6,6 +6,7 @@ using ZRTSModel;
 using ZRTSModel.Entities;
 using ZRTS;
 using Microsoft.Xna.Framework;
+using ZRTS.InputEngines;
 
 namespace ZRTS.XnaCompositeView
 {
@@ -26,6 +27,8 @@ namespace ZRTS.XnaCompositeView
 
 			//unitCountTextBox = new TextBox(game);
 			//AddChild(unitCountTextBox);
+
+			this.OnClick += new ClickEventHandler(handleClick);
 		}
 
 		private string unitType = "";
@@ -39,5 +42,11 @@ namespace ZRTS.XnaCompositeView
 				unitTypeTextBox.Text = this.unitType;
 			}
 		}
+
+		public void handleClick(object sender, XnaMouseEventArgs agrs)
+		{
+			((XnaUITestGame)Game).Controller.TellSelectedBuildingToBuild();
+		}
+		
 	}
 }
