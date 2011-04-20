@@ -100,36 +100,3 @@ C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Zombie_Dy
 C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Soldier_Attack.xnb
 C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Worker_Dying.xnb
 C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Zombie_Dying.xnb
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\green_tile.xnb
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\soldier_sample.xnb
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\green_tile20x20.xnb
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\commandos.xnb
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\test_spritesheet.xnb
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\util_misc20x20.xnb
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\gamePlayUI\menuUI.xnb
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\gamePlayUI\icons.xnb
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\gameBuildings\sample_build.xnb
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\color.xnb
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\ZRTS_SpriteSheet_All.xnb
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\SpriteFont1.xnb
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\Menu Font.xnb
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Soldier_Attack.xnb
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Worker_Dying.xnb
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Zombie_Dying.xnb
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Worker_Attack.xnb
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Zombie_Attack.xnb
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Soldier_Dying.xnb
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\audio\BackgroundMusic.xnb
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\audio\BackgroundMusic.wma
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\ZRTS.exe
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\ZRTS.pdb
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\nunit.framework.dll
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\ZRTSLogic.dll
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\ZRTSModel.dll
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\ZRTSLogic.pdb
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\ZRTSModel.pdb
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\nunit.framework.xml
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\obj\x86\Debug\ZRTS.exe
-C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\obj\x86\Debug\ZRTS.pdb
