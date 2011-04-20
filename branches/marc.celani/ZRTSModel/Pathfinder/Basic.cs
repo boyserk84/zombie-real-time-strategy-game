@@ -47,7 +47,6 @@ namespace Pathfinder
 			List<Node> closed = new List<Node>();
 			PQueue adjacentNodes = new PQueue();
             iterations = 0;
-            Hashtable prev = new Hashtable();
 			// good ol' A*
 			while (open.Count > 0)											    // iterate until we have examined every appropriate Node
 			{
