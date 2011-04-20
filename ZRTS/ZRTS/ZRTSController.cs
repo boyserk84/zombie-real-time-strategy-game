@@ -27,7 +27,6 @@ namespace ZRTS
         /// <param name="?"></param>
         public void SelectEntities(List<ModelComponent> EntityList)
         {
-
             // Filter out zombie unit from player's selected list
             for (int i = 0; i < EntityList.Count; ++i )
             {
@@ -39,7 +38,6 @@ namespace ZRTS
                     }
                 }
             }
-
 
             SelectionState selectionState = getGameModel().GetSelectionState();
             selectionState.ClearSelectionState();
@@ -99,16 +97,28 @@ namespace ZRTS
             }
         }
 
+        /// <summary>
+        /// Gets the GameModel.
+        /// </summary>
+        /// <returns>The GameModel</returns>
         private GameModel getGameModel()
         {
             return ((XnaUITestGame)Game).Model;
         }
 
+        /// <summary>
+        /// Gets the Player List.
+        /// </summary>
+        /// <returns>The Player List</returns>
         private PlayerList getPlayerList()
         {
             return getGameModel().GetScenario().GetGameWorld().GetPlayerList();
         }
 
+        /// <summary>
+        /// Gets the Map.
+        /// </summary>
+        /// <returns>The Map</returns>
         private Map getMap()
         {
             return getGameModel().GetScenario().GetGameWorld().GetMap();

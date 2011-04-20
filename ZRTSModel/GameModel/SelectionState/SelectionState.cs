@@ -23,9 +23,9 @@ namespace ZRTSModel.GameModel
         }
 
         /// <summary>
-        /// Selected entities
+        /// Select an entity to allow for the giving of commands.
         /// </summary>
-        /// <param name="component"></param>
+        /// <param name="component">The Entity to select</param>
         public void SelectEntity(ModelComponent component)
         {
             if (component is UnitComponent || component is Building)
@@ -42,7 +42,7 @@ namespace ZRTSModel.GameModel
         }
 
         /// <summary>
-        /// Refresh the selection state
+        /// Refreshes the selection state.
         /// </summary>
         public void ClearSelectionState()
         {

@@ -30,8 +30,6 @@ namespace ZRTSModel
             set { y = value; }
         }
 
-
-
         public event TileChangedHandler TileChangedEvent;
         public event EntityInCellChangedHandler UnitAddedEvent;
         public event EntityInCellChangedHandler UnitRemovedEvent;
@@ -44,6 +42,10 @@ namespace ZRTSModel
             get { return entitiesContainedWithin; }
         }
 
+        /// <summary>
+        /// Adds a Component to this CellComponent.
+        /// </summary>
+        /// <param name="child">The Component to add</param>
         override public void AddChild(ModelComponent child)
         {
             // Ensure that we only have one tile or resource
@@ -93,6 +95,10 @@ namespace ZRTSModel
             }
         }
 
+        /// <summary>
+        /// Gets the Tile located on this Cell.
+        /// </summary>
+        /// <returns>The Tile</returns>
         public Tile GetTile()
         {
             foreach (ModelComponent tile in GetChildren())
@@ -113,7 +119,7 @@ namespace ZRTSModel
         /// <summary>
         /// Add game entity to this cell
         /// </summary>
-        /// <param name="entity"></param>
+        /// <param name="entity">The Entity to add</param>
         public void AddEntity(ModelComponent entity)
         {
             if (entitiesContainedWithin.Count == 0)
@@ -140,11 +146,19 @@ namespace ZRTSModel
             }
         }
 
+        /// <summary>
+        /// Checks to see if this Cell contains any Entities
+        /// </summary>
+        /// <returns>True if contains any Entities, false otherwise</returns>
         public bool ContainsEntity()
         {
             return !(entitiesContainedWithin.Count == 0);
         }
 
+        /// <summary>
+        /// Removes an Entity from this Cell.
+        /// </summary>
+        /// <param name="entity">The Entity to remove</param>
         public void RemoveEntity(ModelComponent entity)
         {
             entitiesContainedWithin.Remove(entity);
@@ -158,6 +172,11 @@ namespace ZRTSModel
             }
         }
 
+        /// <summary>
+        /// Event handler for when a Unit in a Cell is attacking an enemy.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="e"></param>
 		private void handleUnitInCellAttackingEnemy(Object obj, UnitAttackedEnemyArgs e)
 		{
 			//Console.WriteLine("Unit in cell attacked enemy");

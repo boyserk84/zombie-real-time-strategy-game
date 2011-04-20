@@ -39,12 +39,12 @@ namespace ZRTS.XnaCompositeView
             }
             catch (Exception e)
             {
-
                 audioReady = false;
             }
         }
 
         // Songs
+        public static Song BackgroundMusic;
 
         // Sound Effects
         public static SoundEffect Soldier_Attack;
@@ -67,15 +67,15 @@ namespace ZRTS.XnaCompositeView
                 {
                     if (subtype.Equals("zombie"))
                     {
-                        Zombie_Dying.Play(0.30f, 0, 0);
+                        Zombie_Dying.Play(0.40f, 0, 0);
                     }
                     else if (subtype.Equals("worker"))
                     {
-                        Worker_Dying.Play(0.10f, 0, 0);
+                        Worker_Dying.Play(0.20f, 0, 0);
                     }
                     else if (subtype.Equals("soldier"))
                     {
-                        Soldier_Dying.Play(0.10f, 0, 0);
+                        Soldier_Dying.Play(0.20f, 0, 0);
                     }
                 }
                 else if (type.Equals("attack"))
