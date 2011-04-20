@@ -73,7 +73,7 @@ namespace ZRTS
             model = new GameModel();
             ZRTSCompositeViewUIFactory.Initialize(this);
 
-            FileStream mapFile = File.OpenRead("Content/savedMaps/scenario1.map"); //tryit.map
+            FileStream mapFile = File.OpenRead("Content/savedMaps/scenario1a.map"); //tryit.map
             ScenarioXMLReader reader = new ScenarioXMLReader(mapFile);
             ScenarioComponent scenario = reader.GenerateScenarioFromXML();
 
