@@ -34,7 +34,6 @@ namespace Pathfinder
         {
             this.height = m.GetHeight();
             this.width = m.GetWidth();
-            // Console.WriteLine("  Node Map Dimensions: ({0}, {1})", this.width, this.height);
             this.nodes = new Node[width, height];
             for (int j = 0; j < height; j++)
             {

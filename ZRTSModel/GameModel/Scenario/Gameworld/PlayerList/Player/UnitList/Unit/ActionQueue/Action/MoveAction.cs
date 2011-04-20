@@ -33,6 +33,7 @@ namespace ZRTSModel
         private byte TICKS_PER_MOVE = 5;       // How many ticks per step in the move action
         private byte WAIT_TICKS = 5;               // How many ticks to wait for another unit to move.
         private byte ticksSinceLastMove = 1;
+        private float CENTER = 0.5f;            // Used to center the unit in its respective tile.
 
 
         /// <summary>
@@ -57,7 +58,7 @@ namespace ZRTSModel
         {
             bool completed = false;
             // Check if we are at the center of the target cell.
-            if (unit.PointLocation.X == path[0].X + 0.5f && unit.PointLocation.Y == path[0].Y + 0.5f)
+            if (unit.PointLocation.X == path[0].X + CENTER && unit.PointLocation.Y == path[0].Y + CENTER)
             {
                 path.RemoveAt(0);
                 // Are we at the last cell?
@@ -100,13 +101,13 @@ namespace ZRTSModel
 			float speed = (unit.Speed /* * (float)unit.speedBuff*/);
 
 
-			if (path[0].Y + 0.5f > unit.PointLocation.Y)
+			if (path[0].Y + CENTER > unit.PointLocation.Y)
 			{
-				if (path[0].X + 0.5f> unit.PointLocation.X)
+				if (path[0].X + CENTER> unit.PointLocation.X)
 				{
 					unit.UnitOrient = UnitComponent.Orient.SE;
 				}
-				else if (path[0].X + 0.5f < unit.PointLocation.X)
+				else if (path[0].X + CENTER < unit.PointLocation.X)
 				{
 					unit.UnitOrient = UnitComponent.Orient.SW;
 				}
@@ -115,13 +116,13 @@ namespace ZRTSModel
 					unit.UnitOrient = UnitComponent.Orient.S;
 				}
 			}
-			else if (path[0].Y + 0.5f < unit.PointLocation.Y)
+			else if (path[0].Y + CENTER < unit.PointLocation.Y)
 			{
-				if (path[0].X + 0.5f> unit.PointLocation.X)
+				if (path[0].X + CENTER> unit.PointLocation.X)
 				{
 					unit.UnitOrient = UnitComponent.Orient.NE;
 				}
-				else if (path[0].X + 0.5f< unit.PointLocation.X)
+				else if (path[0].X + CENTER< unit.PointLocation.X)
 				{
 					unit.UnitOrient = UnitComponent.Orient.NW;
 				}
@@ -130,27 +131,27 @@ namespace ZRTSModel
 					unit.UnitOrient = UnitComponent.Orient.N;
 				}
 			}
-			else if (path[0].X + 0.5f< unit.PointLocation.X)
+			else if (path[0].X + CENTER< unit.PointLocation.X)
 			{
 				unit.UnitOrient = UnitComponent.Orient.W;
 			}
-			else if (path[0].X + 0.5f> unit.PointLocation.X)
+			else if (path[0].X + CENTER> unit.PointLocation.X)
 			{
 				unit.UnitOrient = UnitComponent.Orient.E;
 			}
 
             // If we are within the range of the destination point, simply move there
-            if (Math.Sqrt(Math.Pow(path[0].Y + 0.5f - unit.PointLocation.Y, 2) + Math.Pow(path[0].X + 0.5f - unit.PointLocation.X, 2)) <= speed)
+            if (Math.Sqrt(Math.Pow(path[0].Y + CENTER - unit.PointLocation.Y, 2) + Math.Pow(path[0].X + CENTER - unit.PointLocation.X, 2)) <= speed)
             {
-                PointF directionVector = new PointF(path[0].X + 0.5f - unit.PointLocation.X, path[0].Y + 0.5f - unit.PointLocation.Y);
+                PointF directionVector = new PointF(path[0].X + CENTER - unit.PointLocation.X, path[0].Y + CENTER - unit.PointLocation.Y);
                 //unit.Orientation = (int)Math.Atan2(directionVector.Y, directionVector.X);
                 // We are within |unit.speed| of the targetCell's center, set unit's position to center.
-                unit.PointLocation = new PointF(path[0].X + 0.5f, path[0].Y + 0.5f);
+                unit.PointLocation = new PointF(path[0].X + CENTER, path[0].Y + CENTER);
 
             }
             else
             {
-                PointF directionVector = new PointF(path[0].X + 0.5f - unit.PointLocation.X, path[0].Y + 0.5f - unit.PointLocation.Y);
+                PointF directionVector = new PointF(path[0].X + CENTER - unit.PointLocation.X, path[0].Y + CENTER - unit.PointLocation.Y);
                 float magnitude = (float)Math.Sqrt(Math.Pow((double)directionVector.X, 2.0) + Math.Pow((double)directionVector.Y, 2.0));
                 directionVector.X = directionVector.X / magnitude * unit.Speed;
                 directionVector.Y = directionVector.Y / magnitude * unit.Speed;
@@ -217,11 +218,7 @@ namespace ZRTSModel
 
         public override bool Work()
         {
-            //UnitComponent unit = (UnitComponent)Parent.Parent;
-			if (unit.State != UnitComponent.UnitState.MOVING)
-			{
-				unit.State = UnitComponent.UnitState.MOVING;
-			}
+			unit.State = UnitComponent.UnitState.MOVING;
 
             if (path == null)
             {
