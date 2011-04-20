@@ -44,7 +44,7 @@ namespace ZRTS.XnaCompositeView
                 audioReady = false;
             }
 
-            MediaPlayer.Volume = 0.9f;
+            MediaPlayer.Volume = 0.50f;
         }
 
         // Songs
@@ -83,26 +83,26 @@ namespace ZRTS.XnaCompositeView
             {
                 if (subtype.Equals("zombie"))
                 {
-                    Zombie_Dying.Play(0.40f, 0, 0);
+                    Zombie_Dying.Play(0.60f, 0, 0);
                 }
                 else if (subtype.Equals("worker"))
                 {
-                    Worker_Dying.Play(0.20f, 0, 0);
+                    Worker_Dying.Play(0.30f, 0, 0);
                 }
                 else if (subtype.Equals("soldier"))
                 {
-                    Soldier_Dying.Play(0.20f, 0, 0);
+                    Soldier_Dying.Play(0.30f, 0, 0);
                 }
              }
              else if (type.Equals("attack"))
              {
                 if (subtype.Equals("zombie"))
                 {
-                    Zombie_Attack.Play(0.30f, 0, 0);
+                    Zombie_Attack.Play(0.40f, 0, 0);
                 }
                 else if (subtype.Equals("worker"))
                 {
-                    Worker_Attack.Play(0.30f, 0, 0);
+                    Worker_Attack.Play(0.40f, 0, 0);
                 }
                 else if (subtype.Equals("soldier"))
                 {
