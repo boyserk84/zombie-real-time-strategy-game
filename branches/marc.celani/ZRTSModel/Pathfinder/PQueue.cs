@@ -120,6 +120,7 @@ namespace Pathfinder
         /// <param name="includeF">Toggle for printing the Fscore of each Node after its coordinates</param>
         public void print(string name, bool includeF)
         {
+            /**
             Console.Write("  {0}: ", name);
             for (int i = 0; i < Count; i++)
             {
@@ -130,6 +131,7 @@ namespace Pathfinder
                     Console.Write(", ");
             }
             Console.WriteLine("");
+             * **/
         }
 
 

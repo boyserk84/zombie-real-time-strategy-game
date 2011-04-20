@@ -34,7 +34,7 @@ namespace ZRTS.XnaCompositeView
 
             if (building.Type.Equals("barracks"))
             {
-                System.Console.Out.WriteLine("Barrack is buildingUI");
+                //System.Console.Out.WriteLine("Barrack is buildingUI");
                 this.SourceRect = new Rectangle(GameConfig.BUILDING_CONSTRUCTION, GameConfig.BUILDING_START_Y, 216, 216);
             }
             else if (building.Type.Equals("hospital"))
@@ -43,7 +43,7 @@ namespace ZRTS.XnaCompositeView
             }
             else if (building.Type.Equals("house"))
             {
-                System.Console.Out.WriteLine("House is buildingUI");
+                //System.Console.Out.WriteLine("House is buildingUI");
                 this.SourceRect = new Rectangle(GameConfig.BUILDING_CONSTRUCTION, GameConfig.HOUSE_START_Y, 216, 216);
             }
         }
@@ -61,7 +61,7 @@ namespace ZRTS.XnaCompositeView
 		private void onSelectChanged(Object obj, bool selected)
 		{
 			this.selected = selected;
-			Console.WriteLine("Selected: " + selected);
+			//Console.WriteLine("Selected: " + selected);
 		}
 
 

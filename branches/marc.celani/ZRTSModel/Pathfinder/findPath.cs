@@ -104,12 +104,16 @@ namespace Pathfinder
             CellComponent end = path[path.Count - 1];
             // bool intended = (intendedEnd == path[path.Count - 1]);
 			// Console.WriteLine("-> {0} from ({1}, {2}) to ({3}, {4}) found", intended ? "Path" : "Nearest path", path[0].X, path[0].Y, intendedEnd.Xcoord, intendedEnd.Ycoord);
+            
+            /**
             Console.Write("    Path: ");
 			for (int i = 0; i < path.Count - 1; i++)
 				Console.Write(String.Format("({0}, {1}), ", path[i].X, path[i].Y));
 			Console.WriteLine(String.Format("({0}, {1})", end.X, end.Y));
             Console.WriteLine("    Waypoints: {0}", path.Count);
             Console.WriteLine("    Cell Distance: {0}", distance/10);
+             * 
+             * **/
             // Console.WriteLine("    Cells Examined: {0}", Basic.iterations);
             // Console.WriteLine("    Time to Find: {0}", span);
 		}

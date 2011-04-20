@@ -379,7 +379,7 @@ namespace ZRTS.XnaCompositeView
         {
             if (e.Bubbled && !e.Handled)
             {
-                System.Console.Out.WriteLine("Harvest button is clicked!");
+                //System.Console.Out.WriteLine("Harvest button is clicked!");
                 e.Handled = true;
                 // TODO: Change this to reflect the mouseclick location where the unit needs to move and harvest
                 ((XnaUITestGame)Game).Controller.OnSelectedUnitsToHarvest();
