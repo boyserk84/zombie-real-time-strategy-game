@@ -42,7 +42,7 @@ namespace Pathfinder
             {
                 for (int i = 0; i < width; i++)
                 {
-                    nodes[i, j] = new Node(i, j, m.GetCellAt(i, j).GetTile().Passable() && (m.GetCellAt(i, j).EntitiesContainedWithin.Count == 0));
+                    nodes[i, j] = new Node(i, j, m.GetCellAt(i, j).GetTile().Passable() && !(m.GetCellAt(i, j).ContainsActiveEntities));
                 }
             }
         }

@@ -113,7 +113,7 @@ namespace ZRTSModel
                 }
                 if (CurrentHealth <= 0)
                 {
-                    this.state = UnitState.DEAD;
+                    this.State = UnitState.DEAD;
                     ModelComponent parent = Parent;
                     Parent.RemoveChild(this);
                 }
@@ -342,6 +342,10 @@ namespace ZRTSModel
 				UnitStateChangedEventArgs args = new UnitStateChangedEventArgs(this, this.state, value);
 				this.state = value;
 
+				if (this.state == UnitState.DEAD)
+				{
+					location.RemoveEntity(this);
+				}
 				// Fire off a UnitStateChanged event.
 				if (UnitStateChangedHandlers != null)
 				{

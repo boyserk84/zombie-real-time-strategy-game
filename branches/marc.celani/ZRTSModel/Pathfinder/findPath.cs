@@ -64,7 +64,7 @@ namespace Pathfinder
             // grab and print path data
             float dist = (float)(nodePath[nodePath.Count - 1].Gscore);
             span = DateTime.Now - startTime;
-            printPath(path, dist);
+            //printPath(path, dist);
 
 			return path;
 		}

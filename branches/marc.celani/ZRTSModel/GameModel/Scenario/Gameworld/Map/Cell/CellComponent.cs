@@ -36,11 +36,14 @@ namespace ZRTSModel
 		public event UnitAttackedEnemyHandler UnitInCellAttackedEnemyEvent;
 
         private List<ModelComponent> entitiesContainedWithin = new List<ModelComponent>();
-
-        public List<ModelComponent> EntitiesContainedWithin
-        {
-            get { return entitiesContainedWithin; }
-        }
+		public List<ModelComponent> EntitiesContainedWithin { get { return entitiesContainedWithin; } }
+		public bool ContainsActiveEntities
+		{
+			get
+			{
+				return (entitiesContainedWithin.Count > 0);
+			}
+		}
 
         /// <summary>
         /// Adds a Component to this CellComponent.
