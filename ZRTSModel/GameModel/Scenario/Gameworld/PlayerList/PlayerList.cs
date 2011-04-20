@@ -75,7 +75,7 @@ namespace ZRTSModel
             PlayerComponent player = null;
             foreach (PlayerComponent pc in GetChildren())
             {
-                if (pc.GetName().Equals(p))
+                if (pc.Name.Equals(p))
                 {
                     player = pc;
                     break;

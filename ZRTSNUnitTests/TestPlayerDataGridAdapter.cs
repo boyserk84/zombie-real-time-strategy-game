@@ -17,11 +17,11 @@ namespace ZRTSNUnitTests
         private PlayerComponent buildValidPlayer()
         {
             PlayerComponent player = new PlayerComponent();
-            player.SetName("Player 2");
-            player.SetRace("Zombie");
-            player.SetGold(100);
-            player.SetMetal(100);
-            player.SetWood(100);
+            player.Name = "Player 2";
+            player.Race = "Zombie";
+            player.Gold = 100;
+            player.Metal = 100;
+            player.Wood = 100;
             return player;
         }
         [SetUp]
@@ -106,11 +106,11 @@ namespace ZRTSNUnitTests
             List<ModelComponent> list = playerList.GetChildren();
             PlayerComponent player = (PlayerComponent)list[0];
             
-            Assert.AreEqual(adapter.Player_Name, player.GetName(), "PlayerDataGridAdapter does not add a player properly - improper name.");
-            Assert.AreEqual(adapter.RaceMember, player.GetRace(), "PlayerDataGridAdapter does not add a player properly - improper race.");
-            Assert.AreEqual(adapter.GoldMember, player.GetGold(), "PlayerDataGridAdapter does not add a player properly - improper gold.");
-            Assert.AreEqual(adapter.WoodMember, player.GetWood(), "PlayerDataGridAdapter does not add a player properly - improper wood.");
-            Assert.AreEqual(adapter.MetalMember, player.GetMetal(), "PlayerDataGridAdapter does not add a player properly - improper metal.");
+            Assert.AreEqual(adapter.Player_Name, player.Name, "PlayerDataGridAdapter does not add a player properly - improper name.");
+            Assert.AreEqual(adapter.RaceMember, player.Race, "PlayerDataGridAdapter does not add a player properly - improper race.");
+            Assert.AreEqual(adapter.GoldMember, player.Gold, "PlayerDataGridAdapter does not add a player properly - improper gold.");
+            Assert.AreEqual(adapter.WoodMember, player.Wood, "PlayerDataGridAdapter does not add a player properly - improper wood.");
+            Assert.AreEqual(adapter.MetalMember, player.Metal, "PlayerDataGridAdapter does not add a player properly - improper metal.");
         }
 
         [Test]
@@ -147,11 +147,11 @@ namespace ZRTSNUnitTests
             adapter.WoodMember += 10;
 
             adapter.Do();
-            Assert.AreEqual(adapter.Player_Name, playerToUpdate.GetName(), "PlayerDataGridAdapter does not update name properly.");
-            Assert.AreEqual(adapter.RaceMember, playerToUpdate.GetRace(), "PlayerDataGridAdapter does not update race properly.");
-            Assert.AreEqual(adapter.GoldMember, playerToUpdate.GetGold(), "PlayerDataGridAdapter does not update gold properly.");
-            Assert.AreEqual(adapter.WoodMember, playerToUpdate.GetWood(), "PlayerDataGridAdapter does not update wood properly.");
-            Assert.AreEqual(adapter.MetalMember, playerToUpdate.GetMetal(), "PlayerDataGridAdapter does not update metal properly.");
+            Assert.AreEqual(adapter.Player_Name, playerToUpdate.Name, "PlayerDataGridAdapter does not update name properly.");
+            Assert.AreEqual(adapter.RaceMember, playerToUpdate.Race, "PlayerDataGridAdapter does not update race properly.");
+            Assert.AreEqual(adapter.GoldMember, playerToUpdate.Gold, "PlayerDataGridAdapter does not update gold properly.");
+            Assert.AreEqual(adapter.WoodMember, playerToUpdate.Wood, "PlayerDataGridAdapter does not update wood properly.");
+            Assert.AreEqual(adapter.MetalMember, playerToUpdate.Metal, "PlayerDataGridAdapter does not update metal properly.");
         }
 
         [Test]

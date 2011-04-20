@@ -68,11 +68,11 @@ namespace ZRTSModel
                                     break;
                                 case "Player":
                                     PlayerComponent player = new PlayerComponent();
-                                    player.SetName(reader.GetAttribute("Name"));
-                                    player.SetRace(reader.GetAttribute("Race"));
-                                    player.SetGold(Int32.Parse(reader.GetAttribute("Gold")));
-                                    player.SetMetal(Int32.Parse(reader.GetAttribute("Metal")));
-                                    player.SetWood(Int32.Parse(reader.GetAttribute("Wood")));
+                                    player.Name = reader.GetAttribute("Name");
+                                    player.Race = reader.GetAttribute("Race");
+                                    player.Gold = Int32.Parse(reader.GetAttribute("Gold"));
+                                    player.Metal = Int32.Parse(reader.GetAttribute("Metal"));
+                                    player.Wood = Int32.Parse(reader.GetAttribute("Wood"));
                                     currentComponent.AddChild(player);
                                     if (!reader.IsEmptyElement)
                                         currentComponent = player;

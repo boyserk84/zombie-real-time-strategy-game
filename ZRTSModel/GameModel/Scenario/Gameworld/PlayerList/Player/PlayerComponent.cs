@@ -13,7 +13,19 @@ namespace ZRTSModel
     public class PlayerComponent : ModelComponent
     {
         private string name;
+
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
         private string race;
+
+        public string Race
+        {
+            get { return race; }
+            set { race = value; }
+        }
 
 		private List<PlayerComponent> enemyList;
 		public List<PlayerComponent> EnemyList
@@ -52,55 +64,42 @@ namespace ZRTSModel
             buildingList.RemoveChild(building);
         }
 
-        public int GetGold()
+        public int Gold
         {
-            return GetResources().Gold;
+            get 
+            {
+                return GetResources().Gold;
+            }
+            set
+            {
+                GetResources().Gold = value;
+            }
         }
 
-        public int GetWood()
+        public int Wood
         {
-            return GetResources().Wood;
+            get
+            {
+                return GetResources().Wood;
+            }
+            set
+            {
+                GetResources().Wood = value;
+            }
         }
 
-        public int GetMetal()
+        public int Metal
         {
-            return GetResources().Metal;
+            get
+            {
+                return GetResources().Metal;
+            }
+            set
+            {
+                GetResources().Metal = value;
+            }
         }
 
-        public void SetGold(int amt)
-        {
-            GetResources().Gold = amt;
-        }
-
-        public void SetWood(int amt)
-        {
-            GetResources().Wood = amt;
-        }
-
-        public void SetMetal(int amt)
-        {
-            GetResources().Metal = amt;
-        }
-
-        public string GetName()
-        {
-            return name;
-        }
-
-        public void SetName(string name)
-        {
-            this.name = name;
-        }
-
-        public string GetRace()
-        {
-            return race;
-        }
-
-        public void SetRace(string race)
-        {
-            this.race = race;
-        }
 
         public PlayerResources GetResources()
         {

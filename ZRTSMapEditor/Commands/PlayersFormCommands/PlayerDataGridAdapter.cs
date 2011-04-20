@@ -8,7 +8,7 @@ using System.Data;
 namespace ZRTSMapEditor
 {
     /// <summary>
-    /// Adapts player to a MapEditorCommand, that command being to allow for changes to be made to the player before commiting them on Do().
+    /// Adapts PlayerComponent class to a MapEditorCommand, that command being to allow for changes to be made to the player before commiting them on Do().
     /// This class is used by the PlayersForm to make changes to and display a Player before commiting those changes to the model on Submit.
     /// It cannot be undone.
     /// Because this command tends to be run in succession with others (All commit at once), it is difficult to validate on CanBeDone whether or not
@@ -17,14 +17,21 @@ namespace ZRTSMapEditor
     /// </summary>
     public class PlayerDataGridAdapter : MapEditorCommand
     {
+        // Data that we represent within our view.  This data is edited within this class, and the changes are made to the model in a single Commit on Do().
         private string name;
         private string race;
         private int gold;
         private int wood;
         private int metal;
+        
+        // Booleans that mark whether or not this is a new player, or if we are removing this player from the player list.
         private bool added;
         private bool removed;
+
+        // The actual player that we are representing
         private PlayerComponent data;
+        
+        // The actual player list that we are editing.
         private PlayerList playerList;
 
         private PlayerDataGridAdapter()
@@ -35,11 +42,11 @@ namespace ZRTSMapEditor
             data = player;
             playerList = list;
 
-            name = player.GetName();
-            race = player.GetRace();
-            gold = player.GetGold();
-            wood = player.GetWood();
-            metal = player.GetMetal();
+            name = player.Name;
+            race = player.Race;
+            gold = player.Gold;
+            wood = player.Wood;
+            metal = player.Metal;
             added = false;
         }
 
@@ -136,11 +143,11 @@ namespace ZRTSMapEditor
             {
                 if (!removed)
                 {
-                    data.SetName(name);
-                    data.SetRace(race);
-                    data.SetGold(gold);
-                    data.SetWood(wood);
-                    data.SetMetal(metal);
+                    data.Name = name;
+                    data.Race = race;
+                    data.Gold = gold;
+                    data.Wood = wood;
+                    data.Metal = metal;
                     if (added)
                     {
                         playerList.AddChild(data);
@@ -168,37 +175,7 @@ namespace ZRTSMapEditor
         /// <returns></returns>
         public bool CanBeDone()
         {
-            bool canBeDone = (name != null);
-            if (canBeDone)
-            {
-                // Ensure that the player name contains non whitespace characters.
-                string withoutSpaces = name.Replace(" ","");
-                string withoutWhiteSpace = withoutSpaces.Replace("\t", "");
-                canBeDone = !withoutWhiteSpace.Equals("");
-                if (canBeDone)
-                {
-                    // Ensure that resources are non negative.
-                    canBeDone = (gold >= 0);
-                    if (canBeDone)
-                    {
-                        canBeDone = (wood >= 0);
-                        if (canBeDone)
-                        {
-                            canBeDone = (metal >= 0);
-                            if (canBeDone)
-                            {
-                                // Ensure that the race is valid.
-                                canBeDone = (race != null);
-                                if (canBeDone)
-                                {
-                                    canBeDone = ((race.Equals("Human")) || (race.Equals("Zombie")));
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            return canBeDone;
+            return ((name != null) && !name.Replace(" ","").Replace("\t", "").Equals("") && (gold >= 0) && (wood >= 0) && (metal >= 0) && (race != null) && ((race.Equals("Human")) || (race.Equals("Zombie"))));
         }
     }
 }

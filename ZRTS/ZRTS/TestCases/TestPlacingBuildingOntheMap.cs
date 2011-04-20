@@ -50,8 +50,8 @@ namespace ZRTS
             ScenarioComponent scenario = new ScenarioComponent(50, 50);
             player1 = new PlayerComponent();
             player2 = new PlayerComponent();
-            player1.SetName("Nate");
-            player2.SetName("Smith");
+            player1.Name = "Nate";
+            player2.Name = "Smith";
 
 
             // Add sand cells at each cell.
@@ -93,7 +93,7 @@ namespace ZRTS
             currentPlayer1 = (PlayerComponent)((XnaUITestGame)game).Model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[0];
 
             // check if fetch the correct player
-            Assert.AreEqual("Nate", currentPlayer1.GetName());
+            Assert.AreEqual("Nate", currentPlayer1.Name);
 
             // (2) Add the actual player's unit list
             currentPlayer1.GetUnitList().AddChild(unitList[0]);
@@ -175,7 +175,7 @@ namespace ZRTS
             currentPlayer2 = (PlayerComponent)((XnaUITestGame)game).Model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[1];
 
             // check if fetch the corret player
-            Assert.AreEqual("Smith", currentPlayer2.GetName());
+            Assert.AreEqual("Smith", currentPlayer2.Name);
 
             // (2) Add the actual player2's unit list
             List<ModelComponent> unitList2 = new List<ModelComponent>();
