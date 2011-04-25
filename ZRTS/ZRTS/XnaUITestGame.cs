@@ -10,6 +10,7 @@ using ZRTSModel.GameModel;
 using ZRTS.InputEngines;
 using System.IO;
 using ZRTSModel.Trigger;
+using Microsoft.Xna.Framework.Input;
 
 namespace ZRTS
 {
@@ -21,6 +22,15 @@ namespace ZRTS
         private Texture2D spriteSheet;
         private SpriteFont font;
         private MouseInputEngine mouseInputEngine;
+
+        private gameState state = gameState.Menu;
+        private List<Button> buttonList= new List<Button>();
+
+        private enum gameState
+        {
+            Menu,
+            Gameplay
+        };  //Menu or GamePlay
 
         public MouseInputEngine MouseInputEngine
         {
@@ -69,8 +79,12 @@ namespace ZRTS
 
         protected override void Initialize()
         {
-			string filename = "Content/savedMaps/scenario1a.map";
+            buttonlist.Add(new Button((int)(WINDOW_WIDTH*(3/5)), (int)(WINDOW_HEIGHT/10), (int)(WINDOW_WIDTH/10), (int)(WINDOW_HEIGHT*(1/5)), "Level 1");
+            buttonlist.Add(new Button((int)(WINDOW_WIDTH*(3/5)), (int)(WINDOW_HEIGHT*(4/10)), (int)(WINDOW_WIDTH/10), (int)(WINDOW_HEIGHT*(1/5)), "Level 2");
+            buttonlist.Add(new Button((int)(WINDOW_WIDTH*(3/5)), (int)(WINDOW_HEIGHT*(7/10)), (int)(WINDOW_WIDTH/10), (int)(WINDOW_HEIGHT*(1/5)), "Level 3");
+            buttonlist.Add(new Button((int)(WINDOW_WIDTH*(1/10)), (int)(WINDOW_HEIGHT*(7/10)), (int)(WINDOW_HEIGHT/10), (int)(WINDOW_HEIGHT*(1/5)), "Quit");
 
+            string filename = "Content/savedMaps/scenario1a.map";
 			LoadModelFromFile(filename);
 
             base.Initialize();
@@ -174,20 +188,82 @@ namespace ZRTS
 
 		protected override void Update(GameTime gameTime)
 		{
-			view.Update(gameTime);
 
+            if (state == gameState.Menu)
+            {
+                updateMenu();
+            }
+            else  //GamePlay
+            {
+                view.Update(gameTime);
+            }
 			base.Update(gameTime);
 		}
+
+        private void updateMenu()
+        {
+            MouseState current_mouse = Mouse.GetState();
+
+            if (current_mouse.LeftButton == ButtonState.Pressed)
+            {
+                for (int i = 0; i < buttonList.Count; i++)
+                {
+                    if(buttonList[i].contains(current_mouse.X,current_mouse.y))
+                    {
+                        if (buttonList[i].Name.Equals("Level 1"))
+                        {
+                            string filename = "Content/savedMaps/scenario1a.map";
+                            LoadModelFromFile(filename);
+                            SetupView();
+                            state = gameState.Gameplay;
+
+                        }
+                        if (buttonList[i].Name.Equals("Level 2"))
+                        {
+                            string filename = "Content/savedMaps/scenario1a.map";  //TO DO: Change these to the names of the different levels 
+                            LoadModelFromFile(filename);
+                            SetupView();
+                            state = gameState.Gameplay;
+                        }
+                        if (buttonList[i].Name.Equals("Level 3"))
+                        {
+                            string filename = "Content/savedMaps/scenario1a.map";   //TO DO: Change these to the names of the different levels
+                            LoadModelFromFile(filename);
+                            SetupView();
+                            state = gameState.Gameplay;
+                        }
+                        if (buttonList[i].Name.Equals("Quit"))
+                        {
+                            this.Exit();
+                        }
+
+                        i = buttonList.Count;//break;
+                    }
+                }
+            }
+               
+        }
 
         protected override void Draw(GameTime gameTime)
         {
             // Can I get the Icon in Cornflower Blue?
-
-
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-			view.Draw(gameTime);
+            if (state == gameState.Menu)
+            {
+                drawMenu();
+            }
+            else  //GamePlay
+            {
+                view.Draw(gameTime);
+            }
+            
             base.Draw(gameTime);
+        }
+
+        private void drawMenu()
+        {
+            
         }
     }
 }

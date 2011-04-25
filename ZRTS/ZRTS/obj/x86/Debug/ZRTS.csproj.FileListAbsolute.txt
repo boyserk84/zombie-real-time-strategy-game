@@ -86,9 +86,7 @@ C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\Menu Font.xnb
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\ZRTS.exe
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\ZRTS.pdb
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\nunit.framework.dll
-C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\ZRTSLogic.dll
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\ZRTSModel.dll
-C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\ZRTSLogic.pdb
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\ZRTSModel.pdb
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
@@ -100,3 +98,9 @@ C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Zombie_Dy
 C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Soldier_Attack.xnb
 C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Worker_Dying.xnb
 C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Zombie_Dying.xnb
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Worker_Attack.xnb
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Zombie_Attack.xnb
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Soldier_Dying.xnb
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\BackgroundMusic.xnb
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\BackgroundMusic.wma
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\nunit.framework.xml
