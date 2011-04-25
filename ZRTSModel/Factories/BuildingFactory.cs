@@ -9,6 +9,10 @@ using ZRTSModel.Entities;
 
 namespace ZRTSModel.Factories
 {
+	/// <summary>
+	/// This class will be used to create BuildingComponents based off of information stored in XML files 
+	/// (under 'Content/buildings/'. Using the Singleton pattern, it will ensure that these XML files are only read in once.
+	/// </summary>
     public class BuildingFactory
     {
 		private static BuildingFactory instance;

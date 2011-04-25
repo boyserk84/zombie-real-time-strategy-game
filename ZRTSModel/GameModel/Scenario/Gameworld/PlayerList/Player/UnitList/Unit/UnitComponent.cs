@@ -12,7 +12,321 @@ namespace ZRTSModel
     /// </summary>
     [Serializable()]
     public class UnitComponent : ModelComponent
-    {
+	{
+		#region Attributes and Fields
+		#region Stats
+		private string type;
+		/// <summary>
+		/// The string defining what type of Unit this is.
+		/// </summary>
+		public string Type
+		{
+			get { return type; }
+			set { type = value; }
+		}
+		private short maxHealth = 100;       // The maximum health of a unit.
+
+		/// <summary>
+		/// The maximum health of the Unit.
+		/// </summary>
+		public short MaxHealth
+		{
+			get { return maxHealth; }
+			set { maxHealth = value; }
+		}
+
+		private short currentHealth;
+
+		/// <summary>
+		/// How much health the Unit currently has.
+		/// </summary>
+		public short CurrentHealth
+		{
+			get { return currentHealth; }
+			set
+			{
+				short prevHealth = currentHealth;
+				currentHealth = value;
+				if (HPChangedEventHandlers != null)
+				{
+					UnitHPChangedEventArgs args = new UnitHPChangedEventArgs();
+					args.OldHP = (int)prevHealth;
+					args.NewHP = (int)currentHealth;
+					args.Unit = this;
+					HPChangedEventHandlers(this, args);
+				}
+				if (CurrentHealth <= 0)
+				{
+					this.State = UnitState.DEAD;
+					ModelComponent parent = Parent;
+					Parent.RemoveChild(this);
+				}
+			}
+		}
+
+		private float speed = 0.13f;          // How much a Unit should move during a move cycle.
+		/// <summary>
+		/// How far a Unit moves per Move cycle.
+		/// </summary>
+		public float Speed
+		{
+			get { return speed; }
+			set { speed = value; }
+		}
+		private float attackRange = 5.0f;    // How far a Unit can attack
+
+		/// <summary>
+		/// How far a Unit can attack.
+		/// </summary>
+		public float AttackRange
+		{
+			get { return attackRange; }
+			set { attackRange = value; }
+		}
+		private short attack = 10;           // How much damage a Unit does when it attacks.
+
+		/// <summary>
+		/// How much damage a Unit does when it attacks.
+		/// </summary>
+		public short Attack
+		{
+			get { return attack; }
+			set { attack = value; }
+		}
+		private byte attackTicks = 10;       // How many ticks occur per attack cycle.
+
+		/// <summary>
+		/// How many ticks occur per attack cycle.
+		/// </summary>
+		public byte AttackTicks
+		{
+			get { return attackTicks; }
+			set { attackTicks = value; }
+		}
+		private float visibilityRange = 6.0f;// How far can the unit see.
+
+		/// <summary>
+		/// How far can the unit see.
+		/// </summary>
+		public float VisibilityRange
+		{
+			get { return visibilityRange; }
+			set { visibilityRange = value; }
+		}
+		private byte buildSpeed = 30;        // How much health a building gets per build cycle the Unit completes when building or repairing a building.
+
+		/// <summary>
+		/// How much health a building gets per build cyycle a Unit completes.
+		/// </summary>
+		public byte BuildSpeed
+		{
+			get { return buildSpeed; }
+			set { buildSpeed = value; }
+		}
+
+		#endregion
+
+		#region Unit Abilities
+		private bool canAttack = false;      // Can this Unit attack?
+
+		/// <summary>
+		/// Can this Unit attack?
+		/// </summary>
+		public bool CanAttack
+		{
+			get { return canAttack; }
+			set { canAttack = value; }
+		}
+		private bool canHarvest = false;     // Can this Unit harvest resources?
+
+		/// <summary>
+		/// Can this Unit harvest resources?
+		/// </summary>
+		public bool CanHarvest
+		{
+			get { return canHarvest; }
+			set { canHarvest = value; }
+		}
+		private bool canBuild = false;       // Can this Unit build buildings?
+
+		/// <summary>
+		/// Can this Unit build Buildings?
+		/// </summary>
+		public bool CanBuild
+		{
+			get { return canBuild; }
+			set { canBuild = value; }
+		}
+		private bool isZombie = false;       // Is this Unit a zombie?
+
+		/// <summary>
+		/// Is this Unit a zombie?
+		/// </summary>
+		public bool IsZombie
+		{
+			get { return isZombie; }
+			set { isZombie = value; }
+		}
+		#endregion
+
+		#region Location Related Attributes
+		private CellComponent location;
+		/// <summary>
+		/// The CellComponent containing the UnitComponent.
+		/// </summary>
+		public CellComponent Location
+		{
+			get { return location; }
+		}
+
+		public enum Orient { N, S, E, W, NW, NE, SW, SE };
+
+		private Orient orient = Orient.S;
+		/// <summary>
+		/// Which direction the UnitComponent is facing in the GameWorld.
+		/// </summary>
+		public Orient UnitOrient
+		{
+			get { return this.orient; }
+			set
+			{
+
+				// Fire off an UnitOrientationChanged event.
+				if (UnitOrienationChangedHandlers != null && this.orient != value)
+				{
+					UnitOrienationChangedHandlers(this, null);
+				}
+				this.orient = value;
+			}
+		}
+
+
+		private PointF pointLocation;
+
+		/// <summary>
+		/// The UnitComponents exact location.
+		/// </summary>
+		public PointF PointLocation
+		{
+			get { return pointLocation; }
+			set
+			{
+				UnitMovedEventArgs args = new UnitMovedEventArgs();
+				args.Unit = this;
+				args.OldPoint = pointLocation;
+				args.NewPoint = value;
+
+				pointLocation = value;
+				if (location != null)
+				{
+					if (location.X != (int)pointLocation.X || location.Y != (int)pointLocation.Y)
+					{
+						// Stop listening to 
+						stopListeningToCells(args.OldPoint);
+
+						// Remove UnitComponent from old CellComponent.
+						location.RemoveEntity(this);
+						if (pointLocation != null)
+						{
+							// Add UnitComponent to new CellComponent.
+							Map map = (Map)location.Parent;
+							location = map.GetCellAt((int)pointLocation.X, (int)pointLocation.Y);
+							location.AddEntity(this);
+
+							// Have UnitComponent listen to cells within its visibility range.
+							listenToCellsWithinVisibilityRange();
+						}
+					}
+				}
+				else if (pointLocation != null && Parent != null)
+				{
+					// Add UnitComponent to new CellComponent
+					Map map = ((Gameworld)(Parent.Parent.Parent.Parent)).GetMap();
+					location = map.GetCellAt((int)pointLocation.X, (int)pointLocation.Y);
+					location.AddEntity(this);
+
+					// Have UnitComponent listen to cells withing its visibility range.
+					listenToCellsWithinVisibilityRange();
+				}
+				if (MovedEventHandlers != null)
+				{
+					MovedEventHandlers(this, args);
+				}
+
+			}
+		}
+
+		#endregion
+
+		#region State / Attackstance
+		/// <summary>
+		/// Determines how a UnitComponent reacts to enemies that it sees.
+		/// Passive - Ignore
+		/// Guard - Chase and attack enemy for a short distance, then return to original cell.
+		/// Aggressive - Chase and attack enemy until it is dead.
+		/// </summary>
+		public enum UnitAttackStance { Passive, Guard, Aggressive };
+
+		private UnitAttackStance attackStance = UnitAttackStance.Aggressive;
+
+		/// <summary>
+		/// The UnitComponent's current attack stance. Assigning to this fires off a UnitAttackStanceChanged event.
+		/// </summary>
+		public UnitAttackStance AttackStance
+		{
+			get { return this.attackStance; }
+			set
+			{
+				UnitAttackStanceChangedArgs args = new UnitAttackStanceChangedArgs(this, value, this.attackStance);
+				this.attackStance = value;
+
+				if (UnitAttackStanceEventHandlers != null)
+				{
+					// Fire off an attack stance changed event.
+					UnitAttackStanceEventHandlers(this, args);
+				}
+			}
+		}
+
+		public enum UnitState { IDLE, ATTACKING, MOVING, HARVESTING, BUILDING, DEAD };
+
+		private UnitState state = UnitState.IDLE;
+
+		/// <summary>
+		/// The UnitComponent's current state (ie. what action the UnitComponent is currently doing)
+		/// </summary>
+		public UnitState State
+		{
+			get { return this.state; }
+			set
+			{
+				UnitStateChangedEventArgs args = new UnitStateChangedEventArgs(this, this.state, value);
+				this.state = value;
+
+				if (this.state == UnitState.DEAD)
+				{
+					location.RemoveEntity(this);
+				}
+				// Fire off a UnitStateChanged event.
+				if (UnitStateChangedHandlers != null)
+				{
+					UnitStateChangedHandlers(this, args);
+				}
+			}
+		}
+
+		#endregion
+
+		private ActionQueue actionQueue;
+
+		public ActionQueue GetActionQueue()
+		{
+			return actionQueue;
+		}
+
+		#endregion
+
+		#region Event Handlers
 		/// <summary>
 		/// Handlers listening to when the HP of this Unit changes.
 		/// </summary>
@@ -40,9 +354,10 @@ namespace ZRTSModel
 
 		public event UnitOrientationChangedHandler UnitOrienationChangedHandlers;
 
-        private ActionQueue actionQueue;
+		#endregion
 
-        public UnitComponent()
+		#region Constructors
+		public UnitComponent()
         {
             actionQueue = new ActionQueue();
             AddChild(actionQueue);
@@ -69,291 +384,9 @@ namespace ZRTSModel
 			this.attackRange = stats.attackRange;
 			this.attackTicks = stats.attackTicks;
 		}
+		#endregion
 
-        private string type;
-
-		/// <summary>
-		/// The string defining what type of Unit this is.
-		/// </summary>
-        public string Type
-        {
-            get { return type; }
-            set { type = value; }
-        }
-        private short maxHealth = 100;       // The maximum health of a unit.
-
-		/// <summary>
-		/// The maximum health of the Unit.
-		/// </summary>
-        public short MaxHealth
-        {
-            get { return maxHealth; }
-            set { maxHealth = value; }
-        }
-
-        private short currentHealth;
-
-		/// <summary>
-		/// How much health the Unit currently has.
-		/// </summary>
-        public short CurrentHealth
-        {
-            get { return currentHealth; }
-            set 
-            { 
-                short prevHealth = currentHealth;
-                currentHealth = value;
-                if (HPChangedEventHandlers != null)
-                {
-                    UnitHPChangedEventArgs args = new UnitHPChangedEventArgs();
-                    args.OldHP = (int) prevHealth;
-                    args.NewHP = (int) currentHealth;
-                    args.Unit = this;
-                    HPChangedEventHandlers(this, args);
-                }
-                if (CurrentHealth <= 0)
-                {
-                    this.State = UnitState.DEAD;
-                    ModelComponent parent = Parent;
-                    Parent.RemoveChild(this);
-                }
-            }
-        }
-
-		private float speed = 0.13f;          // How much a Unit should move during a move cycle.
-		/// <summary>
-		/// How far a Unit moves per Move cycle.
-		/// </summary>
-        public float Speed
-        {
-            get { return speed; }
-            set { speed = value; }
-        }
-        private float attackRange = 5.0f;    // How far a Unit can attack
-
-		/// <summary>
-		/// How far a Unit can attack.
-		/// </summary>
-        public float AttackRange
-        {
-            get { return attackRange; }
-            set { attackRange = value; }
-        }
-        private short attack = 10;           // How much damage a Unit does when it attacks.
-
-		/// <summary>
-		/// How much damage a Unit does when it attacks.
-		/// </summary>
-        public short Attack
-        {
-            get { return attack; }
-            set { attack = value; }
-        }
-        private byte attackTicks = 10;       // How many ticks occur per attack cycle.
-
-		/// <summary>
-		/// How many ticks occur per attack cycle.
-		/// </summary>
-        public byte AttackTicks
-        {
-            get { return attackTicks; }
-            set { attackTicks = value; }
-        }
-        private float visibilityRange = 6.0f;// How far can the unit see.
-
-		/// <summary>
-		/// How far can the unit see.
-		/// </summary>
-        public float VisibilityRange
-        {
-            get { return visibilityRange; }
-            set { visibilityRange = value; }
-        }
-        private byte buildSpeed = 30;        // How much health a building gets per build cycle the Unit completes when building or repairing a building.
-
-		/// <summary>
-		/// How much health a building gets per build cyycle a Unit completes.
-		/// </summary>
-        public byte BuildSpeed
-        {
-            get { return buildSpeed; }
-            set { buildSpeed = value; }
-        }
-
-        /** UNIT ABILITIES **/
-        private bool canAttack = false;      // Can this Unit attack?
-
-		/// <summary>
-		/// Can this Unit attack?
-		/// </summary>
-        public bool CanAttack
-        {
-            get { return canAttack; }
-            set { canAttack = value; }
-        }
-        private bool canHarvest = false;     // Can this Unit harvest resources?
-
-		/// <summary>
-		/// Can this Unit harvest resources?
-		/// </summary>
-        public bool CanHarvest
-        {
-            get { return canHarvest; }
-            set { canHarvest = value; }
-        }
-        private bool canBuild = false;       // Can this Unit build buildings?
-
-		/// <summary>
-		/// Can this Unit build Buildings?
-		/// </summary>
-        public bool CanBuild
-        {
-            get { return canBuild; }
-            set { canBuild = value; }
-        }
-        private bool isZombie = false;       // Is this Unit a zombie?
-
-		/// <summary>
-		/// Is this Unit a zombie?
-		/// </summary>
-        public bool IsZombie
-        {
-            get { return isZombie; }
-            set { isZombie = value; }
-        }
-
-        private CellComponent location;
-
-		/// <summary>
-		/// The CellComponent containing the UnitComponent.
-		/// </summary>
-        public CellComponent Location
-        {
-            get { return location; }
-        }
-
-		public enum Orient {N, S, E, W, NW, NE, SW, SE};
-
-		private Orient orient = Orient.S;
-		public Orient UnitOrient
-		{
-			get { return this.orient; }
-			set
-			{
-				
-				// Fire off an UnitOrientationChanged event.
-				if (UnitOrienationChangedHandlers != null && this.orient != value)
-				{
-					UnitOrienationChangedHandlers(this, null);
-				}
-				this.orient = value;
-			}
-		}
-
-
-        private PointF pointLocation;
-
-		/// <summary>
-		/// The UnitComponents exact location.
-		/// </summary>
-        public PointF PointLocation
-        {
-            get { return pointLocation; }
-            set 
-            {
-                UnitMovedEventArgs args = new UnitMovedEventArgs();
-                args.Unit = this;
-                args.OldPoint = pointLocation;
-                args.NewPoint = value;
-
-                pointLocation = value;
-                if (location != null)
-                {
-                    if (location.X != (int)pointLocation.X || location.Y != (int)pointLocation.Y)
-                    {
-						// Stop listening to 
-						stopListeningToCells(args.OldPoint);
-
-						// Remove UnitComponent from old CellComponent.
-						location.RemoveEntity(this);
-                        if (pointLocation != null)
-                        {
-							// Add UnitComponent to new CellComponent.
-                            Map map = (Map)location.Parent;
-                            location = map.GetCellAt((int)pointLocation.X, (int)pointLocation.Y);
-							location.AddEntity(this);
-
-							// Have UnitComponent listen to cells within its visibility range.
-							listenToCellsWithinVisibilityRange();
-                        }
-                    }
-                }
-                else if (pointLocation != null && Parent != null)
-                {
-					// Add UnitComponent to new CellComponent
-                    Map map = ((Gameworld)(Parent.Parent.Parent.Parent)).GetMap();
-                    location = map.GetCellAt((int)pointLocation.X, (int)pointLocation.Y);
-                    location.AddEntity(this);
-
-					// Have UnitComponent listen to cells withing its visibility range.
-					listenToCellsWithinVisibilityRange();
-                }
-                if (MovedEventHandlers != null)
-                {
-                    MovedEventHandlers(this, args);
-                }
-
-            }
-        }
-
-		/// <summary>
-		/// Determines how a UnitComponent reacts to enemies that it sees.
-		/// Passive - Ignore
-		/// Guard - Chase and attack enemy for a short distance, then return to original cell.
-		/// Aggressive - Chase and attack enemy until it is dead.
-		/// </summary>
-		public enum UnitAttackStance { Passive, Guard, Aggressive };
-
-		private UnitAttackStance attackStance = UnitAttackStance.Aggressive;
-
-		public UnitAttackStance AttackStance
-		{
-			get { return this.attackStance; }
-			set {
-				UnitAttackStanceChangedArgs args = new UnitAttackStanceChangedArgs(this, value, this.attackStance);
-				this.attackStance = value;
-
-				if (UnitAttackStanceEventHandlers != null)
-				{
-					// Fire off an attack stance changed event.
-					UnitAttackStanceEventHandlers(this, args);
-				}
-			}
-		}
-
-		public enum UnitState { IDLE, ATTACKING, MOVING, HARVESTING, BUILDING, DEAD };
-
-		private UnitState state = UnitState.IDLE;
-
-		public UnitState State
-		{
-			get { return this.state; }
-			set {
-				UnitStateChangedEventArgs args = new UnitStateChangedEventArgs(this, this.state, value);
-				this.state = value;
-
-				if (this.state == UnitState.DEAD)
-				{
-					location.RemoveEntity(this);
-				}
-				// Fire off a UnitStateChanged event.
-				if (UnitStateChangedHandlers != null)
-				{
-					UnitStateChangedHandlers(this, args);
-				}
-			}
-		}
-
+		#region Boundary Checking Functions
 		private int getStartX()
 		{
 			int startX = (int)pointLocation.X - (int)visibilityRange;
@@ -409,6 +442,9 @@ namespace ZRTSModel
 			return endY;
 		}
 
+		#endregion
+
+		#region Methods for Updating CellComponents being listened to.
 		private void listenToCellsWithinVisibilityRange()
 		{
 			int startX = getStartX();
@@ -453,12 +489,10 @@ namespace ZRTSModel
 				}
 			}
 		}
-		public ActionQueue GetActionQueue()
-        {
-            return actionQueue;
-        }
+		#endregion
 
-        public override void RemoveChild(ModelComponent child)
+		#region Composite Pattern Methods
+		public override void RemoveChild(ModelComponent child)
         {
             if (child != actionQueue)
                 base.RemoveChild(child);
@@ -468,7 +502,9 @@ namespace ZRTSModel
         {
             visitor.Visit(this);
         }
+		#endregion
 
+		#region Event Related Methods
 		/// <summary>
 		/// Creates and fires an UnitAttackedEnemyEvent
 		/// </summary>
@@ -528,5 +564,7 @@ namespace ZRTSModel
 
 			return myOwner.EnemyList.Contains(unitOwner);
 		}
-    }
+
+		#endregion
+	}
 }

@@ -295,17 +295,14 @@ namespace ZRTS
                 ProduceUnit produceAction= null;
                 if (b.Type.Equals("house"))
                 {
-                    //Console.WriteLine("Worker produced!!!");
                     produceAction = new ZRTSModel.ProduceUnit(b, "worker");
                 }
                 else
                 {
-                    //Console.WriteLine("Solider produced!!!");
                     produceAction = new ZRTSModel.ProduceUnit(b, "soldier");
                 }
 				 
 				b.BuildingActionQueue.AddChild(produceAction);
-				//Console.WriteLine("Gave building produce unit command.");
 			}
 		}
 
