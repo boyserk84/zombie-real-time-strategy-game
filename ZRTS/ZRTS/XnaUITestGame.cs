@@ -145,7 +145,7 @@ namespace ZRTS
             view.AddChild(commandView);
             //view.AddChild(minimapView);
             
-            Components.Add(view);
+            //Components.Add(view);
             GraphicsDevice.Viewport = new Microsoft.Xna.Framework.Graphics.Viewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
             mouseInputEngine = new MouseInputEngine(this, view);
@@ -157,12 +157,21 @@ namespace ZRTS
 
         }
 
+		protected override void Update(GameTime gameTime)
+		{
+			view.Update(gameTime);
+
+			base.Update(gameTime);
+		}
+
         protected override void Draw(GameTime gameTime)
         {
             // Can I get the Icon in Cornflower Blue?
 
 
             GraphicsDevice.Clear(Color.CornflowerBlue);
+
+			view.Draw(gameTime);
             base.Draw(gameTime);
         }
     }

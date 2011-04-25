@@ -145,11 +145,21 @@ namespace ZRTSModel.Factories
             return input;
         }
 
+		/// <summary>
+		/// Returns a List of strings where each string represents a type of Building.
+		/// </summary>
+		/// <returns></returns>
         public List<string> getBuildingTypes()
         {
             return this.buildingTypes;
         }
 
+		/// <summary>
+		/// Returns a dictionary that, when given a string that represents a type of Building, retrieves the BuildingStats
+		/// object 
+		/// </summary>
+		/// <param name="type"></param>
+		/// <returns></returns>
         public BuildingStats getStats(string type)
         {
             return statsDict[type];
