@@ -5,6 +5,9 @@ using System.Text;
 
 namespace ZRTSModel.Entities
 {
+	/// <summary>
+	/// Defines the stats for a paticular "type" of building entity. 
+	/// </summary>
     public class BuildingStats
     {
         public string buildingType;
@@ -25,6 +28,7 @@ namespace ZRTSModel.Entities
         // The types of units that this building can produce.
         public List<string> productionTypes = new List<string>();
 
+		// Resource Costs of the Building
 		public short waterCost = 100;
 		public short foodCost = 100;
 		public short lumberCost = 100;
