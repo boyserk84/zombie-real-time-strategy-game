@@ -69,82 +69,93 @@ namespace ZRTS
 
         protected override void Initialize()
         {
-            // Create or load the model.
-            model = new GameModel();
-            ZRTSCompositeViewUIFactory.Initialize(this);
+			string filename = "Content/savedMaps/scenario1a.map";
 
-            FileStream mapFile = File.OpenRead("Content/savedMaps/scenario1a.map"); //tryit.map
-            ScenarioXMLReader reader = new ScenarioXMLReader(mapFile);
-            ScenarioComponent scenario = reader.GenerateScenarioFromXML();
-
-            model.AddChild(scenario);
-
-            foreach (PlayerComponent p in scenario.GetGameWorld().GetPlayerList().GetChildren())
-            {
-                foreach (PlayerComponent po in scenario.GetGameWorld().GetPlayerList().GetChildren())
-                {
-                    if (p != po)
-                    {
-                        p.EnemyList.Add(po);
-                    }
-                }
-            }
-
-			Console.WriteLine(ZRTSModel.Factories.BuildingFactory.Instance.getBuildingTypes()[0]);
-
-            // Create the controller
-            controller = new ZRTSController(this);
-            Components.Add(controller);
-
-            // Set the mouse visible
-            this.IsMouseVisible = true;
-
-			// Add triggers            
-                foreach (PlayerComponent p in scenario.GetGameWorld().GetPlayerList().GetChildren())
-                {
-                    if(p.Race.Equals("Human")){
-                        LoseWhenAllPlayersUnitsAreDead lose = new LoseWhenAllPlayersUnitsAreDead(p, scenario);
-			            scenario.triggers.Add(lose);
-                    }
-                    else if(p.Race.Equals("Zombie")){
-                        WinWhenAllEnemyUnitsDead win = new WinWhenAllEnemyUnitsDead(p, scenario);
-			            scenario.triggers.Add(win);
-                    }
-                }
+			LoadModelFromFile(filename);
 
             base.Initialize();
         }
+
+		protected void LoadModelFromFile(string filename)
+		{
+			// Create or load the model.
+			model = new GameModel();
+			ZRTSCompositeViewUIFactory.Initialize(this);
+
+			FileStream mapFile = File.OpenRead(filename); //tryit.map
+			ScenarioXMLReader reader = new ScenarioXMLReader(mapFile);
+			ScenarioComponent scenario = reader.GenerateScenarioFromXML();
+
+			model.AddChild(scenario);
+
+			foreach (PlayerComponent p in scenario.GetGameWorld().GetPlayerList().GetChildren())
+			{
+				foreach (PlayerComponent po in scenario.GetGameWorld().GetPlayerList().GetChildren())
+				{
+					if (p != po)
+					{
+						p.EnemyList.Add(po);
+					}
+				}
+			}
+
+			Console.WriteLine(ZRTSModel.Factories.BuildingFactory.Instance.getBuildingTypes()[0]);
+
+			// Create the controller
+			controller = new ZRTSController(this);
+			Components.Add(controller);
+
+			// Set the mouse visible
+			this.IsMouseVisible = true;
+
+			// Add triggers            
+			foreach (PlayerComponent p in scenario.GetGameWorld().GetPlayerList().GetChildren())
+			{
+				if (p.Race.Equals("Human"))
+				{
+					LoseWhenAllPlayersUnitsAreDead lose = new LoseWhenAllPlayersUnitsAreDead(p, scenario);
+					scenario.triggers.Add(lose);
+				}
+				else if (p.Race.Equals("Zombie"))
+				{
+					WinWhenAllEnemyUnitsDead win = new WinWhenAllEnemyUnitsDead(p, scenario);
+					scenario.triggers.Add(win);
+				}
+			}
+		}
+
+		protected void SetupView()
+		{
+			view = new XnaUIFrame(this);
+			view.DrawBox = new Rectangle(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+			MapView mainView = new MapView(this);
+			mainView.DrawBox = new Rectangle(0, 0, 1280, 720);
+
+			SelectionState selectionState = model.GetSelectionState();
+			SelectionView selectionView = new SelectionView(this, selectionState);
+			selectionView.DrawBox = new Rectangle(275, 520, 730, 200);
+			SameSizeChildrenFlowLayout selectedEntityUIHolder = new SameSizeChildrenFlowLayout(this);
+			selectedEntityUIHolder.DrawBox = new Rectangle(215, 25, 450, 150);
+			selectionView.AddChild(selectedEntityUIHolder);
+
+			CommandView commandView = new CommandView(this);
+			commandView.DrawBox = new Rectangle(1005, 445, 275, 275);
+			SameSizeChildrenFlowLayout commandViewButtonBox = new SameSizeChildrenFlowLayout(this);
+			selectionView.commandBar = commandView; // Register commandView to selection View
+
+			view.AddChild(mainView);
+			view.AddChild(selectionView);
+			view.AddChild(commandView);
+		}
+
         protected override void LoadContent()
         {
             Content.RootDirectory = "Content";
             spriteSheet = Content.Load<Texture2D>("sprites/ZRTS_SpriteSheet_All"); //ZRTS_SpriteSheet_All
             font = Content.Load<SpriteFont>("Menu Font");
-            view = new XnaUIFrame(this);
-            view.DrawBox = new Rectangle(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-            MapView mainView = new MapView(this);
-            mainView.DrawBox = new Rectangle(0, 0, 1280, 720);
 
-            SelectionState selectionState = model.GetSelectionState();
-            SelectionView selectionView = new SelectionView(this, selectionState);
-            selectionView.DrawBox = new Rectangle(275, 520, 730, 200);
-            SameSizeChildrenFlowLayout selectedEntityUIHolder = new SameSizeChildrenFlowLayout(this);
-            selectedEntityUIHolder.DrawBox = new Rectangle(215, 25, 450, 150);
-            selectionView.AddChild(selectedEntityUIHolder);
+			SetupView();
 
-            CommandView commandView = new CommandView(this);
-            commandView.DrawBox = new Rectangle(1005, 445, 275, 275);
-            SameSizeChildrenFlowLayout commandViewButtonBox = new SameSizeChildrenFlowLayout(this);
-            selectionView.commandBar = commandView; // Register commandView to selection View
-
-
-            TestUIComponent minimapView = new TestUIComponent(this, new Color(100, 60, 88));
-            minimapView.DrawBox = new Rectangle(0, 445, 275, 275);
-
-            view.AddChild(mainView);
-            view.AddChild(selectionView);
-            view.AddChild(commandView);
-            //view.AddChild(minimapView);
-            
             //Components.Add(view);
             GraphicsDevice.Viewport = new Microsoft.Xna.Framework.Graphics.Viewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
@@ -154,7 +165,6 @@ namespace ZRTS
             // Load Audio
             AudioManager.Initialize(Content);
             AudioManager.play("background", "normal");
-
         }
 
 		protected override void Update(GameTime gameTime)
