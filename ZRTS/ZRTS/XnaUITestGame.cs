@@ -101,7 +101,12 @@ namespace ZRTS
 
 			Console.WriteLine(ZRTSModel.Factories.BuildingFactory.Instance.getBuildingTypes()[0]);
 
-			// Create the controller
+			// Create the controller, Remove the old one if it exists.
+			if (this.controller != null)
+			{
+				Components.Remove(this.controller);
+			}
+
 			controller = new ZRTSController(this);
 			Components.Add(controller);
 
