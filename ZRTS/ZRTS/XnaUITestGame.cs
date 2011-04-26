@@ -11,6 +11,7 @@ using ZRTS.InputEngines;
 using System.IO;
 using ZRTSModel.Trigger;
 using Microsoft.Xna.Framework.Input;
+//using ZRTS.Button;
 
 namespace ZRTS
 {
@@ -23,7 +24,7 @@ namespace ZRTS
         private SpriteFont font;
         private MouseInputEngine mouseInputEngine;
 
-        private gameState state = gameState.Menu;
+        private gameState state = gameState.Gameplay;
         private List<Button> buttonList= new List<Button>();
 
         private enum gameState
@@ -79,10 +80,10 @@ namespace ZRTS
 
         protected override void Initialize()
         {
-            buttonlist.Add(new Button((int)(WINDOW_WIDTH*(3/5)), (int)(WINDOW_HEIGHT/10), (int)(WINDOW_WIDTH/10), (int)(WINDOW_HEIGHT*(1/5)), "Level 1");
-            buttonlist.Add(new Button((int)(WINDOW_WIDTH*(3/5)), (int)(WINDOW_HEIGHT*(4/10)), (int)(WINDOW_WIDTH/10), (int)(WINDOW_HEIGHT*(1/5)), "Level 2");
-            buttonlist.Add(new Button((int)(WINDOW_WIDTH*(3/5)), (int)(WINDOW_HEIGHT*(7/10)), (int)(WINDOW_WIDTH/10), (int)(WINDOW_HEIGHT*(1/5)), "Level 3");
-            buttonlist.Add(new Button((int)(WINDOW_WIDTH*(1/10)), (int)(WINDOW_HEIGHT*(7/10)), (int)(WINDOW_HEIGHT/10), (int)(WINDOW_HEIGHT*(1/5)), "Quit");
+            buttonList.Add(new Button((int)(WINDOW_WIDTH*.6), (int)(WINDOW_HEIGHT*.1), (int)(WINDOW_WIDTH*.1), (int)(WINDOW_HEIGHT*(.2)), "Level 1"));
+            buttonList.Add(new Button((int)(WINDOW_WIDTH*.6), (int)(WINDOW_HEIGHT*.4), (int)(WINDOW_WIDTH*.1), (int)(WINDOW_HEIGHT*(.2)), "Level 2"));
+            buttonList.Add(new Button((int)(WINDOW_WIDTH*.6), (int)(WINDOW_HEIGHT*.7), (int)(WINDOW_WIDTH*.1), (int)(WINDOW_HEIGHT*(.2)), "Level 3"));
+            buttonList.Add(new Button((int)(WINDOW_WIDTH*.1), (int)(WINDOW_HEIGHT*.7), (int)(WINDOW_HEIGHT*.1), (int)(WINDOW_HEIGHT*(.2)), "Quit"));
 
             string filename = "Content/savedMaps/scenario1a.map";
 			LoadModelFromFile(filename);
@@ -173,6 +174,8 @@ namespace ZRTS
             spriteSheet = Content.Load<Texture2D>("sprites/ZRTS_SpriteSheet_All"); //ZRTS_SpriteSheet_All
             font = Content.Load<SpriteFont>("Menu Font");
 
+
+
 			SetupView();
 
             //Components.Add(view);
@@ -208,7 +211,7 @@ namespace ZRTS
             {
                 for (int i = 0; i < buttonList.Count; i++)
                 {
-                    if(buttonList[i].contains(current_mouse.X,current_mouse.y))
+                    if(buttonList[i].contains(current_mouse.X,current_mouse.Y))
                     {
                         if (buttonList[i].Name.Equals("Level 1"))
                         {
@@ -263,6 +266,17 @@ namespace ZRTS
 
         private void drawMenu()
         {
+            SpriteBatch spritbatch = new SpriteBatch(GraphicsDevice);
+            spritbatch.Begin();
+
+            //spritbatch.Draw(spriteSheet, new Rectangle(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT), new Rectangle(0, GameConfig.TILE_START_Y, GameConfig.TILE_WIDTH, GameConfig.TILE_HEIGHT), Color.White);
+
+            foreach (Button b in buttonList)
+            {
+                Rectangle destination = new Rectangle((int)b.PointLocation.X, (int)b.PointLocation.Y, (int)b.Width, (int)b.Height);
+                Rectangle source = new Rectangle(0, GameConfig.TILE_START_Y, GameConfig.TILE_WIDTH, GameConfig.TILE_HEIGHT);
+                spritbatch.Draw(spriteSheet, destination, source, Color.Black);
+            }
             
         }
     }

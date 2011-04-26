@@ -35,6 +35,17 @@ namespace ZRTS
             get { return name; }
             set { name = value; }
         }
+        public float Width
+        {
+            get { return width; }
+            set { width = value; }
+        }
+        public float Height
+        {
+            get { return height; }
+            set { height = value; }
+        }
+
 
         /// <summary>
         /// Checks to see the point (x, y) is contained within the dimensions of the button.

@@ -114,6 +114,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Button.cs" />
     <Compile Include="GameConfig.cs" />
     <Compile Include="InputEngines\KeyboardInputEngine.cs" />
     <Compile Include="InputEngines\MouseInputEngine.cs" />
