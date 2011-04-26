@@ -11,8 +11,6 @@ namespace ZRTS.XnaCompositeView
     {
         private SpriteBatch spriteBatch;
 
-        
-
         public XnaUIFrame(Game game) : base(game)
         {
             spriteBatch = new SpriteBatch(game.GraphicsDevice);
@@ -22,9 +20,10 @@ namespace ZRTS.XnaCompositeView
         public void onVictory(object sender, ZRTSModel.EventHandlers.GameVictoryStateChangeEventArgs e)
         {
             // Show image
-            PictureBox image = new PictureBox(Game, new Rectangle(865, 1320,470, 92));
-            AddChild(image);
-            image.DrawBox = new Rectangle((1280/2) - 300, 720/2, 470, 92); // location on the screen
+            //PictureBox image = new PictureBox(Game, new Rectangle(865, 1320,470, 92));
+            //AddChild(image);
+            //image.DrawBox = new Rectangle((1280/2) - 300, 720/2, 470, 92); // location on the screen
+            ((XnaUITestGame)Game).state = XnaUITestGame.gameState.Win;
         }
 
 
