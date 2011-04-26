@@ -38,6 +38,8 @@ namespace ZRTS
         public static int BUILDPANEL_START_X = 865;
         public static int MAINPANEL_START_X = 706;
         public static int MAINPANEL_START_Y = 808;
+        public static int MAINPANEL_WIDTH = 730;
+        public static int MAINPANEL_HEIGHT = 200;
 
         // Big Avator
         public static int BIG_AVATAR_START_Y = 808;
