@@ -25,13 +25,15 @@ namespace ZRTS
         private MouseInputEngine mouseInputEngine;
 
         SpriteBatch spriteBatch;
-        private gameState state = gameState.Menu;
+        public gameState state = gameState.Menu;
         private List<Button> buttonList= new List<Button>();
 
-        private enum gameState
+        public enum gameState
         {
             Menu,
-            Gameplay
+            Gameplay,
+            Win,
+            Lose
         };  //Menu or GamePlay
 
         public MouseInputEngine MouseInputEngine
@@ -72,6 +74,9 @@ namespace ZRTS
             set { model = value; }
         }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public XnaUITestGame()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -79,19 +84,46 @@ namespace ZRTS
             graphics.PreferredBackBufferWidth = WINDOW_WIDTH;
         }
 
+        /// <summary>
+        /// Initialization
+        /// </summary>
         protected override void Initialize()
         {
-            buttonList.Add(new Button((int)(WINDOW_WIDTH*.55), (int)(WINDOW_HEIGHT*.1), (int)(WINDOW_WIDTH*.4), (int)(WINDOW_HEIGHT*(.2)), "Level 1"));
-            buttonList.Add(new Button((int)(WINDOW_WIDTH*.55), (int)(WINDOW_HEIGHT*.4), (int)(WINDOW_WIDTH*.4), (int)(WINDOW_HEIGHT*(.2)), "Level 2"));
-            buttonList.Add(new Button((int)(WINDOW_WIDTH*.55), (int)(WINDOW_HEIGHT*.7), (int)(WINDOW_WIDTH*.4), (int)(WINDOW_HEIGHT*(.2)), "Level 3"));
-            buttonList.Add(new Button((int)(WINDOW_WIDTH*.05), (int)(WINDOW_HEIGHT*.7), (int)(WINDOW_WIDTH*.4), (int)(WINDOW_HEIGHT*(.2)), "Quit"));
-
-            string filename = "Content/savedMaps/scenario1a.map";
-			LoadModelFromFile(filename);
+            initializeButtons();
 
             base.Initialize();
         }
 
+
+        /// <summary>
+        /// Load back-end game contents
+        /// </summary>
+        protected override void LoadContent()
+        {
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+            Content.RootDirectory = "Content";
+            spriteSheet = Content.Load<Texture2D>("sprites/ZRTS_SpriteSheet_All"); //ZRTS_SpriteSheet_All
+            font = Content.Load<SpriteFont>("Menu Font");
+        }
+
+
+
+        /// <summary>
+        /// Initalize buttons for title menu
+        /// </summary>
+        private void initializeButtons()
+        {
+            buttonList.Add(new Button((int)(WINDOW_WIDTH * .55), (int)(WINDOW_HEIGHT * .1), (int)(WINDOW_WIDTH * .4), (int)(WINDOW_HEIGHT * (.2)), "Level 1"));
+            buttonList.Add(new Button((int)(WINDOW_WIDTH * .55), (int)(WINDOW_HEIGHT * .4), (int)(WINDOW_WIDTH * .4), (int)(WINDOW_HEIGHT * (.2)), "Level 2"));
+            buttonList.Add(new Button((int)(WINDOW_WIDTH * .55), (int)(WINDOW_HEIGHT * .7), (int)(WINDOW_WIDTH * .4), (int)(WINDOW_HEIGHT * (.2)), "Level 3"));
+            buttonList.Add(new Button((int)(WINDOW_WIDTH * .05), (int)(WINDOW_HEIGHT * .7), (int)(WINDOW_WIDTH * .4), (int)(WINDOW_HEIGHT * (.2)), "Quit"));
+        }
+
+
+        /// <summary>
+        /// Load information from the map file
+        /// </summary>
+        /// <param name="filename"></param>
 		protected void LoadModelFromFile(string filename)
 		{
 			// Create or load the model.
@@ -145,7 +177,10 @@ namespace ZRTS
 			}
 		}
 
-		protected void SetupView()
+        /// <summary>
+        /// Setup View for the gameplay
+        /// </summary>
+		private void SetupView()
 		{
 			view = new XnaUIFrame(this);
 			view.DrawBox = new Rectangle(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -169,45 +204,66 @@ namespace ZRTS
 			view.AddChild(commandView);
 		}
 
-        protected override void LoadContent()
+        /// <summary>
+        /// Setup game view and all associated engine
+        /// </summary>
+        private void SetupGame()
         {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-            Content.RootDirectory = "Content";
-            spriteSheet = Content.Load<Texture2D>("sprites/ZRTS_SpriteSheet_All"); //ZRTS_SpriteSheet_All
-            font = Content.Load<SpriteFont>("Menu Font");
-
-
-
-			SetupView();
-
-            //Components.Add(view);
+            SetupView();
+            Components.Add(view);
             GraphicsDevice.Viewport = new Microsoft.Xna.Framework.Graphics.Viewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-
             mouseInputEngine = new MouseInputEngine(this, view);
             Components.Add(mouseInputEngine);
-
             // Load Audio
             AudioManager.Initialize(Content);
-            AudioManager.play("background", "normal");
+            //AudioManager.play("background", "normal");
         }
 
+        /// <summary>
+        /// Reset all game related contents
+        /// </summary>
+        private void ResetGame()
+        {
+            Components.Remove(view);
+            mouseInputEngine.Dispose();
+            view.Dispose();
+        }
+
+
+        /// <summary>
+        /// Update game component
+        /// </summary>
+        /// <param name="gameTime">Gametime </param>
 		protected override void Update(GameTime gameTime)
 		{
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape) && (state == gameState.Gameplay || state == gameState.Win))
+            {
+                ResetGame();
+                state = gameState.Menu;
+            }
+            else if (state == gameState.Win)
+            {
+                ResetGame();
+            }
 
             if (state == gameState.Menu)
             {
                 updateMenu();
             }
-            else  //GamePlay
-            {
-                view.Update(gameTime);
-            }
+
 			base.Update(gameTime);
 		}
 
+        /// <summary>
+        /// Listen for user interaction to the title menu
+        /// </summary>
         private void updateMenu()
         {
+
+            string filename = "";
             MouseState current_mouse = Mouse.GetState();
+            IsMouseVisible = true;
 
             if (current_mouse.LeftButton == ButtonState.Pressed)
             {
@@ -217,24 +273,24 @@ namespace ZRTS
                     {
                         if (buttonList[i].Name.Equals("Level 1"))
                         {
-                            string filename = "Content/savedMaps/scenario1a.map";
-                            //LoadModelFromFile(filename);
-                            //SetupView();
+                            filename = "Content/savedMaps/scenario1a.map";
+                            LoadModelFromFile(filename);
+                            SetupGame();
                             state = gameState.Gameplay;
 
                         }
                         if (buttonList[i].Name.Equals("Level 2"))
                         {
-                            string filename = "Content/savedMaps/scenario1a.map";  //TO DO: Change these to the names of the different levels 
-                            //LoadModelFromFile(filename);
-                            //SetupView();
+                            filename = "Content/savedMaps/tryit.map";  //TO DO: Change these to the names of the different levels 
+                            LoadModelFromFile(filename);
+                            SetupGame();
                             state = gameState.Gameplay;
                         }
                         if (buttonList[i].Name.Equals("Level 3"))
                         {
-                            string filename = "Content/savedMaps/scenario1a.map";   //TO DO: Change these to the names of the different levels
-                            //LoadModelFromFile(filename);
-                            //SetupView();
+                            filename = "Content/savedMaps/scenario1a.map";   //TO DO: Change these to the names of the different levels
+                            LoadModelFromFile(filename);
+                            SetupGame();
                             state = gameState.Gameplay;
                         }
                         if (buttonList[i].Name.Equals("Quit"))
@@ -249,6 +305,10 @@ namespace ZRTS
                
         }
 
+        /// <summary>
+        /// Draw game contents
+        /// </summary>
+        /// <param name="gameTime"></param>
         protected override void Draw(GameTime gameTime)
         {
             // Can I get the Icon in Cornflower Blue?
@@ -258,14 +318,21 @@ namespace ZRTS
             {
                 drawMenu();
             }
-            else  //GamePlay
+            else if (state == gameState.Win)
             {
-                view.Draw(gameTime);
+                spriteBatch.Begin();
+                // Replace this with WINNING SCREEN
+                spriteBatch.DrawString(font, "WIN DAMIN IT press ESC ", new Vector2(200,200), Color.Black, 0, new Vector2(0), 5f, SpriteEffects.None, 0.5f);
+                spriteBatch.End();
             }
+
             
             base.Draw(gameTime);
         }
 
+        /// <summary>
+        /// Show title menu to user
+        /// </summary>
         private void drawMenu()
         {
             
