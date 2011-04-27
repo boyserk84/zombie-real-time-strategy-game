@@ -62,6 +62,7 @@ namespace ZRTS.InputEngines
                         mouseUpEventArgs.Bubbled = false;
                         mouseUpEventArgs.ButtonPressed = MouseButton.Left;
                         mouseUpEventArgs.SingleTarget = (leftMouseDownTarget == leftMouseUpTarget);
+						mouseUpEventArgs.time = System.Environment.TickCount;
                         frame.MouseUp(mouseUpEventArgs);
 
                         XnaMouseEventArgs e = new XnaMouseEventArgs();
@@ -111,6 +112,7 @@ namespace ZRTS.InputEngines
                         mouseUpEventArgs.Bubbled = false;
                         mouseUpEventArgs.ButtonPressed = MouseButton.Left;
                         mouseUpEventArgs.SingleTarget = (rightMouseDownTarget == rightMouseUpTarget);
+						mouseUpEventArgs.time = System.Environment.TickCount;
                         frame.MouseUp(mouseUpEventArgs);
 
                         XnaMouseEventArgs e = new XnaMouseEventArgs();
