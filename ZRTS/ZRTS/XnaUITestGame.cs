@@ -236,13 +236,17 @@ namespace ZRTS
 		protected override void Update(GameTime gameTime)
 		{
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape) && (state == gameState.Gameplay || state == gameState.Win))
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape) && (state == gameState.Gameplay || state == gameState.Win || state == gameState.Lose))
             {
                 ResetGame();
                 state = gameState.Menu;
                 AudioManager.play("music", "title");
             }
             else if (state == gameState.Win)
+            {
+                ResetGame();
+            }
+            else if (state == gameState.Lose)
             {
                 ResetGame();
             }
@@ -302,7 +306,7 @@ namespace ZRTS
                     }
                 }
             }
-               
+              
         }
 
         /// <summary>
@@ -323,6 +327,13 @@ namespace ZRTS
                 spriteBatch.Begin();
                 // Replace this with WINNING SCREEN
                 spriteBatch.DrawString(font, "WIN DAMIN IT press ESC ", new Vector2(200,200), Color.Black, 0, new Vector2(0), 5f, SpriteEffects.None, 0.5f);
+                spriteBatch.End();
+            }
+            else if (state == gameState.Lose)
+            {
+                spriteBatch.Begin();
+                // Replace this with L SCREEN
+                spriteBatch.DrawString(font, "LOSE DAMIN IT press ESC ", new Vector2(200, 200), Color.Black, 0, new Vector2(0), 5f, SpriteEffects.None, 0.5f);
                 spriteBatch.End();
             }
 
