@@ -28,10 +28,12 @@ namespace ZRTS.XnaCompositeView
             if (e.victoryState == ZRTSModel.GameModel.GameModel.GameVictoryState.PlayerWin)
             {
                 ((XnaUITestGame)Game).state = XnaUITestGame.gameState.Win;
+                AudioManager.play("music", "victory");
             }
             else if (e.victoryState == ZRTSModel.GameModel.GameModel.GameVictoryState.PlayerLost)
             {
                 ((XnaUITestGame)Game).state = XnaUITestGame.gameState.Lose;
+                AudioManager.play("music", "victory");
             }
         }
 

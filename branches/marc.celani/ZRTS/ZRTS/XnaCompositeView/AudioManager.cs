@@ -30,8 +30,12 @@ namespace ZRTS.XnaCompositeView
         {
             try
             {
-                BackgroundMusic = Content.Load<Song>("audio/BackgroundMusic");
+                // Songs
+                GameplayMusic = Content.Load<Song>("audio/GameplayMusic");
+                TitleMusic = Content.Load<Song>("audio/TitleMusic");
+                VictoryMusic = Content.Load<Song>("audio/VictoryMusic");
 
+                // Sound Effects
                 Soldier_Attack = Content.Load<SoundEffect>("audio/Soldier_Attack");
                 Soldier_Dying = Content.Load<SoundEffect>("audio/Soldier_Dying");
                 Worker_Dying = Content.Load<SoundEffect>("audio/Worker_Dying");
@@ -48,7 +52,9 @@ namespace ZRTS.XnaCompositeView
         }
 
         // Songs
-        public static Song BackgroundMusic;
+        public static Song GameplayMusic;
+        public static Song TitleMusic;
+        public static Song VictoryMusic;
 
         // Sound Effects
         public static SoundEffect Soldier_Attack;
@@ -72,11 +78,19 @@ namespace ZRTS.XnaCompositeView
             }
 
             // Play a sound based on parameters
-            if(type.Equals("background"))
+            if(type.Equals("music"))
             {
-                if (subtype.Equals("normal"))
+                if (subtype.Equals("gameplay"))
                 {
-                    MediaPlayer.Play(BackgroundMusic);
+                    MediaPlayer.Play(GameplayMusic);
+                }
+                else if (subtype.Equals("title"))
+                {
+                    MediaPlayer.Play(TitleMusic);
+                }
+                else if (subtype.Equals("victory"))
+                {
+                    MediaPlayer.Play(VictoryMusic);
                 }
             }
             else if (type.Equals("dead"))

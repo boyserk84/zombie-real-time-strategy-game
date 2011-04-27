@@ -175,8 +175,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="audio\BackgroundMusic.mp3">
-      <Name>BackgroundMusic</Name>
+    <Compile Include="audio\GameplayMusic.mp3">
+      <Name>GameplayMusic</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="audio\TitleMusic.mp3">
+      <Name>TitleMusic</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="audio\VictoryMusic.mp3">
+      <Name>VictoryMusic</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SongProcessor</Processor>
     </Compile>
