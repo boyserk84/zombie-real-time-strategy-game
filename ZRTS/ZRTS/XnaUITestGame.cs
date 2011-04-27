@@ -216,7 +216,7 @@ namespace ZRTS
             Components.Add(mouseInputEngine);
             // Load Audio
             AudioManager.Initialize(Content);
-            //AudioManager.play("background", "normal");
+            AudioManager.play("music", "gameplay");
         }
 
         /// <summary>
@@ -241,6 +241,7 @@ namespace ZRTS
             {
                 ResetGame();
                 state = gameState.Menu;
+                AudioManager.play("music", "title");
             }
             else if (state == gameState.Win)
             {
