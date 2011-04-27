@@ -15,20 +15,16 @@ namespace ZRTSModel.Trigger
 		{
 			condition = new ConditionAllPlayerUnitsDead(this,enemy);
 			this.scenario = scenario;
-
-			// Change this.
 			action = new PlayerWinAction(this, scenario);
 		}
 
 		public override bool Eval()
 		{
-			//Console.WriteLine("Lose Eval");
 			return CheckMyCondition();
 		}
 
 		public override bool CheckMyCondition()
 		{
-			//Console.WriteLine("CheckMyCondition: " + condition.CheckMyCondition());
 			return condition.CheckMyCondition();
 		}
 
