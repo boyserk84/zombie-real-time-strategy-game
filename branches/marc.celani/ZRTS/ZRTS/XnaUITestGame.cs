@@ -82,6 +82,7 @@ namespace ZRTS
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferHeight = WINDOW_HEIGHT;
             graphics.PreferredBackBufferWidth = WINDOW_WIDTH;
+            //graphics.IsFullScreen = true;
         }
 
         /// <summary>
