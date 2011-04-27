@@ -431,7 +431,7 @@ namespace ZRTS.XnaCompositeView
 
         private void handleUnitProduceButtonClick(object sender, XnaMouseEventArgs e)
         {
-            if (e.time - lastClick > MSECONDS_PER_CLICK)
+            if (Math.Abs(e.time) - lastClick > MSECONDS_PER_CLICK)
             {
                 ((XnaUITestGame)Game).Controller.TellSelectedBuildingToBuild();
                 e.Handled = true;
