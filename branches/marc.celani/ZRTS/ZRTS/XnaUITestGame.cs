@@ -34,7 +34,7 @@ namespace ZRTS
             Gameplay,
             Win,
             Lose
-        };  //Menu or GamePlay
+        };  
 
         public MouseInputEngine MouseInputEngine
         {
@@ -281,14 +281,14 @@ namespace ZRTS
                         }
                         if (buttonList[i].Name.Equals("Level 2"))
                         {
-                            filename = "Content/savedMaps/tryit.map";  //TO DO: Change these to the names of the different levels 
+                            filename = "Content/savedMaps/hardScenerio.map";   
                             LoadModelFromFile(filename);
                             SetupGame();
                             state = gameState.Gameplay;
                         }
                         if (buttonList[i].Name.Equals("Level 3"))
                         {
-                            filename = "Content/savedMaps/scenario1a.map";   //TO DO: Change these to the names of the different levels
+                            filename = "Content/savedMaps/easyScenerio.map";   
                             LoadModelFromFile(filename);
                             SetupGame();
                             state = gameState.Gameplay;
