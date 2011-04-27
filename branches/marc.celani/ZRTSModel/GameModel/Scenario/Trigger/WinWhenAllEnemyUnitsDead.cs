@@ -8,7 +8,7 @@ namespace ZRTSModel.Trigger
 	public class WinWhenAllEnemyUnitsDead : TriggerDecorator
 	{
 		ConditionAllPlayerUnitsDead condition;
-		PlayerLoseAction action;
+		PlayerWinAction action;
 		ScenarioComponent scenario;
 
 		public WinWhenAllEnemyUnitsDead(PlayerComponent enemy, ScenarioComponent scenario)
@@ -17,7 +17,7 @@ namespace ZRTSModel.Trigger
 			this.scenario = scenario;
 
 			// Change this.
-			action = new PlayerLoseAction(this, scenario);
+			action = new PlayerWinAction(this, scenario);
 		}
 
 		public override bool Eval()
