@@ -15,16 +15,26 @@ namespace ZRTS.XnaCompositeView
         {
             spriteBatch = new SpriteBatch(game.GraphicsDevice);
             ((XnaUITestGame)game).Model.VictoryStateChangedHandler += onVictory;
+
         }
 
+        /// <summary>
+        /// Trigger event when victor state has changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void onVictory(object sender, ZRTSModel.EventHandlers.GameVictoryStateChangeEventArgs e)
         {
-            // Show image
-            //PictureBox image = new PictureBox(Game, new Rectangle(865, 1320,470, 92));
-            //AddChild(image);
-            //image.DrawBox = new Rectangle((1280/2) - 300, 720/2, 470, 92); // location on the screen
-            ((XnaUITestGame)Game).state = XnaUITestGame.gameState.Win;
+            if (e.victoryState == ZRTSModel.GameModel.GameModel.GameVictoryState.PlayerWin)
+            {
+                ((XnaUITestGame)Game).state = XnaUITestGame.gameState.Win;
+            }
+            else if (e.victoryState == ZRTSModel.GameModel.GameModel.GameVictoryState.PlayerLost)
+            {
+                ((XnaUITestGame)Game).state = XnaUITestGame.gameState.Lose;
+            }
         }
+
 
 
         protected override void onDraw(XnaDrawArgs e)
