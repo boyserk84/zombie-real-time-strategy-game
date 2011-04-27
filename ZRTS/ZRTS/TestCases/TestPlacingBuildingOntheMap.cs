@@ -136,16 +136,11 @@ namespace ZRTS
             // Check to see if you can add the building to the map
             Assert.IsTrue(game.Model.GetScenario().GetGameWorld().GetMap().canAddBuildingToMap(building2));
 
-            // Check if the appropriate action is given to the selected unit
-            //Assert.AreEqual("<ZRTSModel.BuildAction>", ((UnitComponent)(game.Model.GetSelectionState().SelectedEntities[0])).GetActionQueue().GetChildren()[0]);
-
             // Check if unit is at where it can build the building
             Assert.AreEqual(true, building2.PointLocation.X - 1 < ((UnitComponent)unitList[0]).PointLocation.X && ((UnitComponent)unitList[0]).PointLocation.X < building2.PointLocation.X + building2.Width + 2, "Unit is not in a range of create a building");
 
             // (5) Simulate unit is building the building on the map
             ((BuildAction)((UnitComponent)(game.Model.GetSelectionState().SelectedEntities[0])).GetActionQueue().GetChildren()[0]).Work();
-            //((BuildAction)((UnitComponent)(game.Model.GetSelectionState().SelectedEntities[0])).GetActionQueue().GetChildren()[0]).Work();
-
 
             // Check if building gets added on the map
             Assert.AreEqual(1, currentPlayer1.BuildingList.GetChildren().Count, "Building should be added!");
@@ -308,6 +303,9 @@ namespace ZRTS
         }
 
 
+        /// <summary>
+        /// Testing remove building from the map
+        /// </summary>
         [Test]
         public void TestRemoveBuildingFromMap()
         {
@@ -333,9 +331,6 @@ namespace ZRTS
                     Assert.AreNotEqual(building1.Type, ((Building)game.Model.GetScenario().GetGameWorld().GetMap().GetCellAt(i, j).EntitiesContainedWithin[0]).Type, "Should be the same object at " + i + "," + j);
                 }
             }
-
-            // Check to see if building was actually removed
-            //Assert.AreEqual(0, currentPlayer1.BuildingList.GetChildren().Count, "Building should have been removed!");
         }
 
     }
