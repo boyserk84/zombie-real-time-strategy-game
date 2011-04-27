@@ -166,13 +166,13 @@ namespace ZRTS
 			{
 				if (p.Race.Equals("Human"))
 				{
-					LoseWhenAllPlayersUnitsAreDead lose = new LoseWhenAllPlayersUnitsAreDead(p, scenario);
-					scenario.triggers.Add(lose);
+					WinWhenAllEnemyUnitsDead win = new WinWhenAllEnemyUnitsDead(p, scenario);
+					scenario.triggers.Add(win);
 				}
 				else if (p.Race.Equals("Zombie"))
 				{
-					WinWhenAllEnemyUnitsDead win = new WinWhenAllEnemyUnitsDead(p, scenario);
-					scenario.triggers.Add(win);
+					LoseWhenAllPlayersUnitsAreDead lose = new LoseWhenAllPlayersUnitsAreDead(p, scenario);
+					scenario.triggers.Add(lose);
 				}
 			}
 		}

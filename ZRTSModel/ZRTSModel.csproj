@@ -137,6 +137,7 @@
     <Compile Include="GameModel\Scenario\Trigger\ConditionAllPlayerUnitsDead.cs" />
     <Compile Include="GameModel\Scenario\Trigger\LoseWhenAllPlayersUnitsAreDead.cs" />
     <Compile Include="GameModel\Scenario\Trigger\PlayerLoseAction.cs" />
+    <Compile Include="GameModel\Scenario\Trigger\PlayerWinAction.cs" />
     <Compile Include="GameModel\Scenario\Trigger\WinWhenAllEnemyUnitsDead.cs" />
     <Compile Include="GameModel\SelectionState\SelectionState.cs" />
     <Compile Include="ModelComponentFactoryFactory.cs" />
