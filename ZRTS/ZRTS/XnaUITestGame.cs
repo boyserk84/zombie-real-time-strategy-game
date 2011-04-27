@@ -135,7 +135,10 @@ namespace ZRTS
 			ScenarioComponent scenario = reader.GenerateScenarioFromXML();
 
 			model.AddChild(scenario);
-
+			model.PlayerInContext = (PlayerComponent)model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[0];
+			//model.PlayerInContext.EnemyList.Add((PlayerComponent)model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[1]);
+			
+			
 			foreach (PlayerComponent p in scenario.GetGameWorld().GetPlayerList().GetChildren())
 			{
 				foreach (PlayerComponent po in scenario.GetGameWorld().GetPlayerList().GetChildren())
@@ -161,20 +164,16 @@ namespace ZRTS
 			// Set the mouse visible
 			this.IsMouseVisible = true;
 
-			// Add triggers            
-			foreach (PlayerComponent p in scenario.GetGameWorld().GetPlayerList().GetChildren())
+			PlayerComponent player = model.PlayerInContext;
+
+			foreach(PlayerComponent enemy in player.EnemyList)
 			{
-				if (p.Race.Equals("Human"))
-				{
-					WinWhenAllEnemyUnitsDead win = new WinWhenAllEnemyUnitsDead(p, scenario);
-					scenario.triggers.Add(win);
-				}
-				else if (p.Race.Equals("Zombie"))
-				{
-					LoseWhenAllPlayersUnitsAreDead lose = new LoseWhenAllPlayersUnitsAreDead(p, scenario);
-					scenario.triggers.Add(lose);
-				}
+				WinWhenAllEnemyUnitsDead win = new WinWhenAllEnemyUnitsDead(enemy, scenario);
+				scenario.triggers.Add(win);
 			}
+			LoseWhenAllPlayersUnitsAreDead lose = new LoseWhenAllPlayersUnitsAreDead(player, scenario);
+			scenario.triggers.Add(lose);
+
 		}
 
         /// <summary>
