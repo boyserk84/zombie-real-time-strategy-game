@@ -67,7 +67,7 @@ namespace ZRTSModel.GameModel
 			get { return this.victoryState; }
 			set
 			{
-				Console.WriteLine("Victory State Changed");
+				Console.WriteLine("Victory State Changed: " + value);
 				this.victoryState = value;
 				if (VictoryStateChangedHandler != null)
 				{
