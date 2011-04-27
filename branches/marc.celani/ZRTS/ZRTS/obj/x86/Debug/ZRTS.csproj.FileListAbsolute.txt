@@ -101,8 +101,6 @@ C:\Users\Joe\Documents\Visual Studio 2010\Projects\marc\ZRTS\ZRTS\bin\x86\Debug\
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Worker_Attack.xnb
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Zombie_Attack.xnb
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Soldier_Dying.xnb
-C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\BackgroundMusic.xnb
-C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\BackgroundMusic.wma
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\nunit.framework.xml
 C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\green_tile.xnb
 C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\soldier_sample.xnb
@@ -139,3 +137,9 @@ C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\audio\TitleM
 C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\audio\VictoryMusic.xnb
 C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\audio\TitleMusic.wma
 C:\Users\Nathan\Desktop\marc.celani\ZRTS\ZRTS\bin\x86\Debug\Content\audio\VictoryMusic.wma
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\GameplayMusic.xnb
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\TitleMusic.xnb
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\VictoryMusic.xnb
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\GameplayMusic.wma
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\TitleMusic.wma
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\VictoryMusic.wma
