@@ -82,7 +82,7 @@ namespace ZRTS
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferHeight = WINDOW_HEIGHT;
             graphics.PreferredBackBufferWidth = WINDOW_WIDTH;
-            graphics.IsFullScreen = true;
+            //graphics.IsFullScreen = true;
         }
 
         /// <summary>
@@ -296,7 +296,7 @@ namespace ZRTS
                         }
                         if (buttonList[i].Name.Equals("Level 3"))
                         {
-                            filename = "Content/savedMaps/mazy.map";   
+                            filename = "Content/savedMaps/finishedMaze.map";   
                             LoadModelFromFile(filename);
                             SetupGame();
                             state = gameState.Gameplay;
