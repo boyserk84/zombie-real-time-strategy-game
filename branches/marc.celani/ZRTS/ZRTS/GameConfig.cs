@@ -80,6 +80,7 @@ namespace ZRTS
         public static int BUTTON_UNIT_DIM = 77;
 
 
+        public static int TILE_TREE = 10;
         public static int TILE_GRASS = 0;
         public static int TILE_SAND = 1;
         public static int TILE_GREEN_BORDER_LEFT = 3;
@@ -99,6 +100,7 @@ namespace ZRTS
         public static int BUILDING_DAMAGE = 1;
 
         public static int BUILDING_HOUSE = 1037;
+
 
 
 
