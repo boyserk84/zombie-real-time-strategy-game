@@ -27,7 +27,7 @@ namespace ZRTS.XnaCompositeView.MapViewVisitors
 
         public override void Visit(Mountain mountain)
         {
-            spriteBatch.Draw(texture, drawRectangle, new Rectangle(25, GameConfig.TILE_START_Y, GameConfig.TILE_DIM, GameConfig.TILE_DIM), Color.White);
+            spriteBatch.Draw(texture, drawRectangle, new Rectangle(GameConfig.TILE_TREE* GameConfig.TILE_DIM, GameConfig.TILE_START_Y, GameConfig.TILE_DIM, GameConfig.TILE_DIM), Color.White);
         }
 
         public override void Visit(Sand sand)

@@ -20,7 +20,7 @@ namespace ZRTS
         GraphicsDeviceManager graphics;
         private static int WINDOW_HEIGHT = 720;
         private static int WINDOW_WIDTH = 1280;
-        private Texture2D spriteSheet;
+        private Texture2D spriteSheet, backgroundTitle, winTitle, loseTitle;
         private SpriteFont font;
         private MouseInputEngine mouseInputEngine;
 
@@ -82,7 +82,7 @@ namespace ZRTS
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferHeight = WINDOW_HEIGHT;
             graphics.PreferredBackBufferWidth = WINDOW_WIDTH;
-            //graphics.IsFullScreen = true;
+            graphics.IsFullScreen = true;
         }
 
         /// <summary>
@@ -104,6 +104,8 @@ namespace ZRTS
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Content.RootDirectory = "Content";
             spriteSheet = Content.Load<Texture2D>("sprites/ZRTS_SpriteSheet_All"); //ZRTS_SpriteSheet_All
+            backgroundTitle = Content.Load<Texture2D>("sprites/zombie_wallpaper01");
+
             font = Content.Load<SpriteFont>("Menu Font");
         }
 
@@ -351,6 +353,7 @@ namespace ZRTS
             
             spriteBatch.Begin();
 
+            spriteBatch.Draw(backgroundTitle, Vector2.Zero, Color.White);
             //TO DO: Draw Menu Background
             //spriteBatch.Draw(spriteSheet, new Rectangle(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT), new Rectangle(0, GameConfig.TILE_START_Y, GameConfig.TILE_WIDTH, GameConfig.TILE_HEIGHT), Color.White);
 
