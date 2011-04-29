@@ -287,14 +287,14 @@ namespace ZRTS
                         }
                         if (buttonList[i].Name.Equals("Level 2"))
                         {
-                            filename = "Content/savedMaps/hardScenerio.map";   
+                            filename = "Content/savedMaps/wave.map";   
                             LoadModelFromFile(filename);
                             SetupGame();
                             state = gameState.Gameplay;
                         }
                         if (buttonList[i].Name.Equals("Level 3"))
                         {
-                            filename = "Content/savedMaps/easyScenerio.map";   
+                            filename = "Content/savedMaps/mazy.map";   
                             LoadModelFromFile(filename);
                             SetupGame();
                             state = gameState.Gameplay;
