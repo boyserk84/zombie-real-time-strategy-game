@@ -9,6 +9,10 @@ Content\gamePlayUI\icons.xnb
 Content\gameBuildings\sample_build.xnb
 Content\sprites\color.xnb
 Content\sprites\ZRTS_SpriteSheet_All.xnb
+Content\sprites\zombie_wallpaper01.xnb
+Content\sprites\ZRTS_Lose.xnb
+Content\sprites\ZRTS_Title.xnb
+Content\sprites\ZRTS_Win.xnb
 Content\SpriteFont1.xnb
 Content\Menu Font.xnb
 Content\audio\Soldier_Attack.xnb
@@ -20,10 +24,6 @@ Content\audio\Soldier_Dying.xnb
 Content\audio\GameplayMusic.xnb
 Content\audio\TitleMusic.xnb
 Content\audio\VictoryMusic.xnb
-Content\sprites\zombie_wallpaper01.xnb
-Content\sprites\ZRTS_Title.xnb
-Content\sprites\ZRTS_Lose.xnb
-Content\sprites\ZRTS_Win.xnb
 Content\audio\GameplayMusic.wma
 Content\audio\TitleMusic.wma
 Content\audio\VictoryMusic.wma

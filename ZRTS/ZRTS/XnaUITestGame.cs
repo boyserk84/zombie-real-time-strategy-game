@@ -105,6 +105,8 @@ namespace ZRTS
             Content.RootDirectory = "Content";
             spriteSheet = Content.Load<Texture2D>("sprites/ZRTS_SpriteSheet_All"); //ZRTS_SpriteSheet_All
             backgroundTitle = Content.Load<Texture2D>("sprites/ZRTS_Title");
+            winTitle = Content.Load<Texture2D>("sprites/ZRTS_Win");
+            loseTitle = Content.Load<Texture2D>("sprites/ZRTS_Lose");
 
             font = Content.Load<SpriteFont>("Menu Font");
         }
@@ -330,14 +332,14 @@ namespace ZRTS
             {
                 spriteBatch.Begin();
                 // Replace this with WINNING SCREEN
-                spriteBatch.DrawString(font, "WIN DAMIN IT press ESC ", new Vector2(200,200), Color.Black, 0, new Vector2(0), 5f, SpriteEffects.None, 0.5f);
+                spriteBatch.Draw(winTitle, Vector2.Zero, Color.White);
                 spriteBatch.End();
             }
             else if (state == gameState.Lose)
             {
                 spriteBatch.Begin();
                 // Replace this with L SCREEN
-                spriteBatch.DrawString(font, "LOSE DAMIN IT press ESC ", new Vector2(200, 200), Color.Black, 0, new Vector2(0), 5f, SpriteEffects.None, 0.5f);
+                spriteBatch.Draw(loseTitle, Vector2.Zero, Color.White);
                 spriteBatch.End();
             }
 
