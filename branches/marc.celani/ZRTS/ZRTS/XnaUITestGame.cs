@@ -104,7 +104,7 @@ namespace ZRTS
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Content.RootDirectory = "Content";
             spriteSheet = Content.Load<Texture2D>("sprites/ZRTS_SpriteSheet_All"); //ZRTS_SpriteSheet_All
-            backgroundTitle = Content.Load<Texture2D>("sprites/zombie_wallpaper01");
+            backgroundTitle = Content.Load<Texture2D>("sprites/ZRTS_Title");
 
             font = Content.Load<SpriteFont>("Menu Font");
         }
