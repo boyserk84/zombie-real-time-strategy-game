@@ -281,7 +281,7 @@ namespace ZRTS
                         if (buttonList[i].Name.Equals("Level 1"))
                         {
                             //filename = "Content/savedMaps/scenario1a.map";
-                            filename = "Content/savedMaps/rescue.map";
+                            filename = "Content/savedMaps/wave.map";
                             LoadModelFromFile(filename); 
                             SetupGame();
                             state = gameState.Gameplay;
@@ -289,7 +289,7 @@ namespace ZRTS
                         }
                         if (buttonList[i].Name.Equals("Level 2"))
                         {
-                            filename = "Content/savedMaps/wave.map";   
+                            filename = "Content/savedMaps/mazeWithGuns.map";   
                             LoadModelFromFile(filename);
                             SetupGame();
                             state = gameState.Gameplay;
