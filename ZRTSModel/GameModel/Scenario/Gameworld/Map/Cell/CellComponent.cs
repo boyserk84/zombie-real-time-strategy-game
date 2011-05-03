@@ -33,7 +33,7 @@ namespace ZRTSModel
         public event TileChangedHandler TileChangedEvent;
         public event EntityInCellChangedHandler UnitAddedEvent;
         public event EntityInCellChangedHandler UnitRemovedEvent;
-		public event UnitAttackedEnemyHandler UnitInCellAttackedEnemyEvent;
+		//public event UnitAttackedEnemyHandler UnitInCellAttackedEnemyEvent;
 
         private List<ModelComponent> entitiesContainedWithin = new List<ModelComponent>();
 		public List<ModelComponent> EntitiesContainedWithin { get { return entitiesContainedWithin; } }

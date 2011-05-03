@@ -10,7 +10,6 @@ namespace ZRTSModel
     public class ScenarioXMLWriter : ModelComponentVisitor
     {
         private XmlWriter output;
-        private int numTabs;
 
         private ScenarioXMLWriter()
         { }

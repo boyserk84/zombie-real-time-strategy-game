@@ -12,10 +12,10 @@ namespace ZRTS.XnaCompositeView
 {
 	public class ProduceUnitButton : PictureBox
 	{
-		Building building;
-		UnitStats unitStats;
+		//Building building;
+		//UnitStats unitStats;
 		TextBox unitTypeTextBox;
-		TextBox unitCountTextBox;
+		//TextBox unitCountTextBox;
 		SameSizeChildrenFlowLayout layout;
 
 		public ProduceUnitButton(Game game, Rectangle sourceRect, string text) : base(game, sourceRect)

@@ -19,7 +19,7 @@ namespace ZRTSModel
         public float targetY;
         private List<CellComponent> path = null;
         private Map map;
-        private int cellIndex;
+        
         private bool waiting = true;
 		private UnitComponent unit;
 
