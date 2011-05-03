@@ -7,9 +7,7 @@ using Microsoft.Xna.Framework;
 using ZRTSModel.GameModel;
 using ZRTS.XnaCompositeView;
 using ZRTSModel.Factories;
-using ZRTSModel;
 using ZRTSModel.Trigger;
-
 
 namespace ZRTS
 {

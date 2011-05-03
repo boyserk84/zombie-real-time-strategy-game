@@ -29,9 +29,9 @@ namespace ZRTS
     public class MapView : XnaUIComponent
     {
         // Drag box UI reference (null means we are not dragging)
-        private TestUIComponent dragBox = null;
+        //private TestUIComponent dragBox = null;
         // First point in the dragging, used when the mouse moves to move the dragBox.
-        private Point startSelectionBoxPoint;
+        //private Point startSelectionBoxPoint;
         private Hashtable componentToUI = new Hashtable();
         private MapViewLeftButtonStrategy leftButtonStrategy;
 

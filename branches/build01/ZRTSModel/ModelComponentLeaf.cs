@@ -11,14 +11,6 @@ namespace ZRTSModel
     [Serializable()]
     public abstract class ModelComponentLeaf : ModelComponent
     {
-        public virtual void AddChild(ModelComponent child)
-        {
-            // No op
-        }
 
-        public virtual void RemoveChild(ModelComponent child)
-        {
-            // No op
-        }
     }
 }

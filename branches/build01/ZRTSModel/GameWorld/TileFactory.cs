@@ -70,10 +70,10 @@ namespace ZRTSModel.GameWorld
                     string indexStr = reader.GetAttribute("index");         // read index attribute
 
                     // Convert passableStr into a bool.
-                    bool passable = true;
+                    //bool passable = true;
                     if (passableStr.ToUpper().Equals("FALSE"))
                     {
-                        passable = false;
+                        //passable = false;
                     }
 
                     // Convert indexStr into a string.
