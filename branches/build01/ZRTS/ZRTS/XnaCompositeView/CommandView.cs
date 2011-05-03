@@ -150,7 +150,6 @@ namespace ZRTS.XnaCompositeView
             
             harvestButton = factory.BuildPictureBox("button", "harvest");
             harvestButton.DrawBox = new Rectangle(GameConfig.BUTTON_ATTACK * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
-            harvestButton.OnClick += handleHarvestButtonClick;
             harvestButton.OnMouseEnter += handleharvestButtonOver;
             harvestButton.OnMouseLeave += handleharvestButtonAway;
             harvestButton.OnMouseDown += handleharvestButtonDown;
@@ -389,17 +388,6 @@ namespace ZRTS.XnaCompositeView
             buildButton.setPicturebox(new Rectangle((GameConfig.BUTTON_BUILD + GameConfig.BUTTON_MOUSE_OVER) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y_SECOND, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
         }
 
-        // Harvest Button
-        private void handleHarvestButtonClick(object sender, XnaMouseEventArgs e)
-        {
-            if (e.Bubbled && !e.Handled)
-            {
-                //System.Console.Out.WriteLine("Harvest button is clicked!");
-                e.Handled = true;
-                // TODO: Change this to reflect the mouseclick location where the unit needs to move and harvest
-                ((XnaUITestGame)Game).Controller.OnSelectedUnitsToHarvest();
-            }
-        }
 
         private void handleharvestButtonOver(object sender, EventArgs e)
         {
