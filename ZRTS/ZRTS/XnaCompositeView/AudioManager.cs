@@ -20,6 +20,8 @@ namespace ZRTS.XnaCompositeView
     {
 
         public static bool audioReady = true;       // Flag for checking if audio hardware is supported by the machine
+        private static int track = 0;
+        private static int numGameplaySongs = 3;
 
 
         /// <summary>
@@ -32,6 +34,8 @@ namespace ZRTS.XnaCompositeView
             {
                 // Songs
                 GameplayMusic = Content.Load<Song>("audio/GameplayMusic");
+                GameplayMusic2 = Content.Load<Song>("audio/GameplayMusic2");
+                GameplayMusic3 = Content.Load<Song>("audio/GameplayMusic3");
                 TitleMusic = Content.Load<Song>("audio/TitleMusic");
                 VictoryMusic = Content.Load<Song>("audio/VictoryMusic");
 
@@ -49,10 +53,14 @@ namespace ZRTS.XnaCompositeView
             }
 
             MediaPlayer.Volume = 0.50f;
+            MediaPlayer.IsRepeating = true;
+            play("music", "title");
         }
 
         // Songs
         public static Song GameplayMusic;
+        public static Song GameplayMusic2;
+        public static Song GameplayMusic3;
         public static Song TitleMusic;
         public static Song VictoryMusic;
 
@@ -82,7 +90,7 @@ namespace ZRTS.XnaCompositeView
             {
                 if (subtype.Equals("gameplay"))
                 {
-                    MediaPlayer.Play(GameplayMusic);
+                    playGameplayMusic();
                 }
                 else if (subtype.Equals("title"))
                 {
@@ -123,6 +131,29 @@ namespace ZRTS.XnaCompositeView
                     Soldier_Attack.Play(0.30f, 0, 0);
                 }
              }
+        }
+
+        /// <summary>
+        /// Toggles the gameplay music that is played.  Every time a gameplay song is requested, a different
+        /// gameplay song will play.
+        /// </summary>
+        private static void playGameplayMusic()
+        {
+            if (track == 0)
+            {
+                MediaPlayer.Play(GameplayMusic);
+                track = (track + 1) % numGameplaySongs;
+            }
+            else if (track == 1)
+            {
+                MediaPlayer.Play(GameplayMusic2);
+                track = (track + 1) % numGameplaySongs;
+            }
+            else if (track == 2)
+            {
+                MediaPlayer.Play(GameplayMusic3);
+                track = (track + 1) % numGameplaySongs;
+            }
         }
         
     }

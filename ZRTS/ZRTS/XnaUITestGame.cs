@@ -90,6 +90,7 @@ namespace ZRTS
         /// </summary>
         protected override void Initialize()
         {
+            // Initialize Buttons
             initializeButtons();
 
             base.Initialize();
@@ -101,6 +102,7 @@ namespace ZRTS
         /// </summary>
         protected override void LoadContent()
         {
+            // Load sprites
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Content.RootDirectory = "Content";
             spriteSheet = Content.Load<Texture2D>("sprites/ZRTS_SpriteSheet_All"); //ZRTS_SpriteSheet_All
@@ -109,6 +111,9 @@ namespace ZRTS
             loseTitle = Content.Load<Texture2D>("sprites/ZRTS_Lose");
 
             font = Content.Load<SpriteFont>("Menu Font");
+
+            // Load Audio
+            AudioManager.Initialize(Content);
         }
 
 
@@ -218,8 +223,8 @@ namespace ZRTS
             GraphicsDevice.Viewport = new Microsoft.Xna.Framework.Graphics.Viewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
             mouseInputEngine = new MouseInputEngine(this, view);
             Components.Add(mouseInputEngine);
-            // Load Audio
-            AudioManager.Initialize(Content);
+
+            // Play gameplay music
             AudioManager.play("music", "gameplay");
         }
 
@@ -298,7 +303,7 @@ namespace ZRTS
                         }
                         if (buttonList[i].Name.Equals("Level 3"))
                         {
-                            filename = "Content/savedMaps/finishedMaze.map";   
+                            filename = "Content/savedMaps/mazeFullOfTrees.map";   
                             LoadModelFromFile(filename);
                             SetupGame();
                             state = gameState.Gameplay;
