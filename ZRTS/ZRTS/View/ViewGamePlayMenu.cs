@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ZRTS;
+using ZRTSModel;
 
 namespace ZRTS
 {
@@ -12,7 +13,7 @@ namespace ZRTS
         private SpriteSheet gamePlaySprite;
         private SpriteSheet gamePlayIconSprite;
 
-        protected ZRTSModel.Scenario.Scenario scenario;
+        protected ScenarioComponent scenario;
 
         private int width, height;                  // Width and Height of the screen
         private Microsoft.Xna.Framework.Vector2 location;
@@ -21,6 +22,7 @@ namespace ZRTS
         int buttonHeight;
 
 
+        /*
         /// <summary>
         /// Constructor
         /// </summary>
@@ -36,7 +38,6 @@ namespace ZRTS
             location.Y = height - gamePlaySprite.frameDimY;
             
         }
-
         /// <summary>  //this probably isn't in the right place, it is used in control
         /// returns 0-3 if the mouse is on one of the buttons
         /// -1 if not
@@ -60,7 +61,7 @@ namespace ZRTS
                     return 3;
             }
             return -1;
-        }
+        }*/
 
 		public bool containsPoint(int x, int y)
 		{
@@ -120,7 +121,7 @@ namespace ZRTS
         /// Loading game scenario object for process
         /// </summary>
         /// <param name="scene"></param>
-        public void LoadScenario(ZRTSModel.Scenario.Scenario scene)
+        public void LoadScenario(ScenarioComponent scene)
         {
             // Need not to load this scenario into View
             // Basically just return a command corresponding to the clicked icon

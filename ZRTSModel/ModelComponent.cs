@@ -2,21 +2,45 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using ZRTSModel.EventHandlers;
 namespace ZRTSModel
 {
+    /// <summary>
+    /// An abstact representation of a piece of model, following the composite pattern.  Exposes a common interface for each piece of model.
+    /// Each piece of model is observable, and can be visited.  When children are added, the component notifies its observers.
+    /// 
+    /// Whenever a component notifies its observers, it tells its parent to notify its observers as well.
+    /// </summary>
     [Serializable()]
     public abstract class ModelComponent
     {
         // Composite Pattern members
         private ModelComponent container = null;
+		public ModelComponentSelectedHandler SelectHandler;
 
+        public ModelComponent Parent
+        {
+            get { return container; }
+        }
+		private bool selected;
+
+		public bool Selected
+		{
+			get { return selected; }
+			set { 
+				selected = value;
+				if (selected)
+				{
+					this.OnSelect();
+				}
+				else
+				{
+					this.OnDeselect();
+				}
+			}
+		}
         
         private List<ModelComponent> children = new List<ModelComponent>();
-
-        // Observer Pattern members
-        [NonSerialized()]
-        private List<ModelComponentObserver> observers = new List<ModelComponentObserver>();
         
         // Composite Pattern Interface
         public ModelComponent GetContainer()
@@ -26,21 +50,12 @@ namespace ZRTSModel
 
         public void SetContainer(ModelComponent composite)
         {
-            ModelComponent tempContainer = container;
             if (container != null)
             {
                 container.GetChildren().Remove(this);
             }
             container = composite;
             
-            // Notify the new tree.
-            NotifyAll();
-
-            if (tempContainer != null)
-            {
-                // Notify the old tree.
-                tempContainer.NotifyAll();
-            }
         }
 
         public virtual List<ModelComponent> GetChildren()
@@ -50,55 +65,52 @@ namespace ZRTSModel
 
         public virtual void AddChild(ModelComponent child)
         {
-            children.Add(child);
-
-            // Handles the NotifyAll()
-            child.SetContainer(this);
+            if (child != null)
+            {
+                child.SetContainer(this);
+                children.Add(child);
+            }
         }
 
         public virtual void RemoveChild(ModelComponent child)
         {
-            children.Remove(child);
             child.SetContainer(null);
         }
-        
 
-        // Observer Pattern Interfaces
-        public void RegisterObserver(ModelComponentObserver observer)
-        {
-            observers.Add(observer);
-        }
+        // Visitor Pattern Interfaces
+        public abstract void Accept(ModelComponentVisitor visitor);
 
-        public void UnregisterObserver(ModelComponentObserver observer)
-        {
-            observers.Remove(observer);
-        }
 
-        public void NotifyAll()
+
+        public void AddChildAt(ModelComponent child, int p)
         {
-            if (observers != null)
+            if (child != null)
             {
-                foreach (ModelComponentObserver o in observers)
+                AddChild(child);
+                // Some classes may override add child to only accept certain children.  Ensure that it got added before placing it in the correct location.
+                if (GetChildren().Contains(child))
                 {
-                    o.notify(this);
-                }
-                if (container != null)
-                {
-                    container.NotifyAll();
+                    GetChildren().Remove(child);
+                    GetChildren().Insert(0, child);
                 }
             }
         }
 
-        // Visitor Pattern Interfaces
-        public virtual void Accept(ModelComponentVisitor visitor)
-        {
-            visitor.Visit(this);
-        }
+		public void OnSelect()
+		{
+			if (SelectHandler != null)
+			{
+				SelectHandler(this, true);
+			}
+		}
 
-        public void UnregisterAll()
-        {
-            observers = new List<ModelComponentObserver>();
-        }
+		public void OnDeselect()
+		{
 
+			if (SelectHandler != null)
+			{
+				SelectHandler(this, false);
+			}
+		}
     }
 }

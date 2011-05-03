@@ -5,8 +5,11 @@ using System.Text;
 
 namespace ZRTSModel
 {
+    /// <summary>
+    /// A model component without children.
+    /// </summary>
     [Serializable()]
-    public class ModelComponentLeaf : ModelComponent
+    public abstract class ModelComponentLeaf : ModelComponent
     {
         public virtual void AddChild(ModelComponent child)
         {
