@@ -28,10 +28,6 @@ namespace ZRTS
     /// </summary>
     public class MapView : XnaUIComponent
     {
-        // Drag box UI reference (null means we are not dragging)
-        //private TestUIComponent dragBox = null;
-        // First point in the dragging, used when the mouse moves to move the dragBox.
-        //private Point startSelectionBoxPoint;
         private Hashtable componentToUI = new Hashtable();
         private MapViewLeftButtonStrategy leftButtonStrategy;
 
@@ -49,6 +45,10 @@ namespace ZRTS
         }
         private static int SCROLL_SPEED = 10;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="game">game object</param>
         public MapView(Game game)
             : base(game)
         {
@@ -132,6 +132,10 @@ namespace ZRTS
             }
         }
 
+        /// <summary>
+        /// Update game and listen for I/O
+        /// </summary>
+        /// <param name="gameTime">time in the game</param>
         public override void Update(GameTime gameTime)
         {
             handleScrolling();
@@ -216,12 +220,6 @@ namespace ZRTS
         /// <param name="e"></param>
         private void onUnitRemoved(object sender, UnitRemovedEventArgs e)
         {
-            /**
-            UnitUI component = (UnitUI)componentToUI[e.Unit];
-            component.Dispose();
-            RemoveChild(component);
-            componentToUI.Remove(e.Unit);
-             * */
             e.Unit.MovedEventHandlers -= updateLocationOfUnit;
             e.Unit.HPChangedEventHandlers -= killUnit;
           
@@ -261,21 +259,11 @@ namespace ZRTS
             
             if (e.NewHP <= 0)
             {
-                // Do not remove the unit until the animation is done for at least 3 seconds
-                //System.Console.Out.WriteLine("Kill Unit");
-                /**
-                UnitUI ui = (UnitUI)componentToUI[e.Unit];
-                
-                ui.Dispose();
-                
-                RemoveChild(ui);
-                **/
                 e.Unit.MovedEventHandlers -= updateLocationOfUnit;
                 e.Unit.HPChangedEventHandlers -= killUnit;
                 
             }
-            
-           
+
         }
     }
 }

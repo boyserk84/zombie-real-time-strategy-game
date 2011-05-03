@@ -6,6 +6,11 @@ using Microsoft.Xna.Framework;
 
 namespace ZRTS.XnaCompositeView
 {
+    /// <summary>
+    /// HPBar
+    /// 
+    /// This class represents the health bar user-interface component.
+    /// </summary>
     public class HPBar : XnaUIComponent
     {
         private int maxHP;
@@ -22,6 +27,10 @@ namespace ZRTS.XnaCompositeView
             set { currentHP = value; }
         }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="game">Game object</param>
         public HPBar(Game game)
             : base(game)
         {

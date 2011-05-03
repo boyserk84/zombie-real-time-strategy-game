@@ -19,7 +19,6 @@ namespace ZRTS.XnaCompositeView
     public class SelectionView : XnaUIComponent
     {
         private SelectionState selectionState;      // State of selected units by the user
-
         private PictureBox mainBgPanel;             // background of the panel
         public CommandView commandBar;              // Coordinate with commandBar
 

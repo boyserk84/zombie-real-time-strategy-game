@@ -15,6 +15,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace ZRTS
 {
+    /// <summary>
+    /// Main game
+    /// </summary>
     public class XnaUITestGame : Game
     {
         GraphicsDeviceManager graphics;
@@ -103,11 +106,10 @@ namespace ZRTS
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Content.RootDirectory = "Content";
-            spriteSheet = Content.Load<Texture2D>("sprites/ZRTS_SpriteSheet_All"); //ZRTS_SpriteSheet_All
+            spriteSheet = Content.Load<Texture2D>("sprites/ZRTS_SpriteSheet_All");
             backgroundTitle = Content.Load<Texture2D>("sprites/ZRTS_Title");
             winTitle = Content.Load<Texture2D>("sprites/ZRTS_Win");
             loseTitle = Content.Load<Texture2D>("sprites/ZRTS_Lose");
-
             font = Content.Load<SpriteFont>("Menu Font");
         }
 
@@ -135,14 +137,12 @@ namespace ZRTS
 			model = new GameModel();
 			ZRTSCompositeViewUIFactory.Initialize(this);
 
-			FileStream mapFile = File.OpenRead(filename); //tryit.map
+			FileStream mapFile = File.OpenRead(filename);
 			ScenarioXMLReader reader = new ScenarioXMLReader(mapFile);
 			ScenarioComponent scenario = reader.GenerateScenarioFromXML();
 
 			model.AddChild(scenario);
 			model.PlayerInContext = (PlayerComponent)model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[0];
-			//model.PlayerInContext.EnemyList.Add((PlayerComponent)model.GetScenario().GetGameWorld().GetPlayerList().GetChildren()[1]);
-			
 			
 			foreach (PlayerComponent p in scenario.GetGameWorld().GetPlayerList().GetChildren())
 			{
@@ -282,7 +282,6 @@ namespace ZRTS
                     {
                         if (buttonList[i].Name.Equals("Level 1"))
                         {
-                            //filename = "Content/savedMaps/scenario1a.map";
                             filename = "Content/savedMaps/wave.map";
                             LoadModelFromFile(filename); 
                             SetupGame();
@@ -331,14 +330,12 @@ namespace ZRTS
             else if (state == gameState.Win)
             {
                 spriteBatch.Begin();
-                // Replace this with WINNING SCREEN
                 spriteBatch.Draw(winTitle, Vector2.Zero, Color.White);
                 spriteBatch.End();
             }
             else if (state == gameState.Lose)
             {
                 spriteBatch.Begin();
-                // Replace this with L SCREEN
                 spriteBatch.Draw(loseTitle, Vector2.Zero, Color.White);
                 spriteBatch.End();
             }
@@ -356,14 +353,8 @@ namespace ZRTS
             spriteBatch.Begin();
 
             spriteBatch.Draw(backgroundTitle, Vector2.Zero, Color.White);
-            //TO DO: Draw Menu Background
-            //spriteBatch.Draw(spriteSheet, new Rectangle(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT), new Rectangle(0, GameConfig.TILE_START_Y, GameConfig.TILE_WIDTH, GameConfig.TILE_HEIGHT), Color.White);
-
-            //////I consider this a placeholder it should be removed when we have a menu background
             Vector2 pos = new Vector2((int)(WINDOW_WIDTH * .05), (int)(WINDOW_HEIGHT * .1));
             spriteBatch.DrawString(font, "ZRTS", pos, Color.Black, 0, new Vector2(0), 5f, SpriteEffects.None, 0.5f);
-            //////
-
             foreach (Button b in buttonList)
             {
                 Rectangle destination = new Rectangle((int)b.PointLocation.X, (int)b.PointLocation.Y, (int)b.Width, (int)b.Height);

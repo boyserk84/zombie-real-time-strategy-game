@@ -7,6 +7,10 @@ using ZRTS.InputEngines;
 
 namespace ZRTS.XnaCompositeView
 {
+    /// <summary>
+    /// BuildBuildingMapViewleftClickStrategy
+    /// 
+    /// </summary>
     public class BuildBuildingMapViewLeftClickStrategy : MapViewLeftButtonStrategy
     {
         private MapView mapView;
@@ -14,6 +18,11 @@ namespace ZRTS.XnaCompositeView
         private bool added = false;
         private string buildingType;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="mapView">View of the map</param>
+        /// <param name="buildingType">Building Type</param>
         public BuildBuildingMapViewLeftClickStrategy(MapView mapView, string buildingType)
         {
             this.mapView = mapView;
@@ -59,6 +68,9 @@ namespace ZRTS.XnaCompositeView
             }
         }
 
+        /// <summary>
+        /// Remove building when cancel button is clicked
+        /// </summary>
         public void CancelProgress()
         {
             if (added)
