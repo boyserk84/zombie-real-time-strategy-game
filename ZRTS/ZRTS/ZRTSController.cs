@@ -281,6 +281,24 @@ namespace ZRTS
             //TellSelectedUnitsToHarvest(#### Mouse Click Location #####);
         }
 
+        internal bool CellsArePassable(int x, int y, int width, int height)
+        {
+            Map map = getGameModel().GetScenario().GetGameWorld().GetMap();
+            bool arePassable = (x + width < map.GetWidth()) && (y + height < map.GetHeight());
+            if (arePassable)
+            {
+
+                for (int i = x; (i < x + width) && arePassable; i++)
+                {
+                    for (int j = y; (j < y + height) && arePassable; j++)
+                    {
+                        arePassable = map.GetCellAt(i, j).GetTile().Passable();
+                    }
+                }
+            }
+            return arePassable;
+        }
+
         /// <summary>
         /// Insert building's action queue to build something
         /// </summary>
