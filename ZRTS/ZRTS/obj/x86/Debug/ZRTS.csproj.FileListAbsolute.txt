@@ -120,6 +120,9 @@ C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\gameBuildings\s
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\color.xnb
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\ZRTS_SpriteSheet_All.xnb
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\zombie_wallpaper01.xnb
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\ZRTS_Lose.xnb
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\ZRTS_Title.xnb
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\ZRTS_Win.xnb
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\SpriteFont1.xnb
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\Menu Font.xnb
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Soldier_Attack.xnb
@@ -134,6 +137,8 @@ C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\VictoryMu
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\GameplayMusic.wma
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\TitleMusic.wma
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\Content\audio\VictoryMusic.wma
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\ZRTS.exe.manifest
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\ZRTS.application
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\ZRTS.exe
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\ZRTS.pdb
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\nunit.framework.dll
@@ -142,5 +147,7 @@ C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\ZRTSModel.pdb
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\bin\x86\Debug\nunit.framework.xml
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\obj\x86\Debug\ZRTS.exe.manifest
+C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\obj\x86\Debug\ZRTS.application
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\obj\x86\Debug\ZRTS.exe
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\obj\x86\Debug\ZRTS.pdb

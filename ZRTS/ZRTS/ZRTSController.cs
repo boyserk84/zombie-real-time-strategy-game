@@ -364,6 +364,25 @@ namespace ZRTS
             return areEmpty;
         }
 
+        internal bool CellsArePassable(int x, int y, int width, int height)
+        {
+            Map map = getGameModel().GetScenario().GetGameWorld().GetMap();
+            bool arePassable = (x + width < map.GetWidth()) && (y + height < map.GetHeight());
+            if (arePassable)
+            {
+
+                for (int i = x; (i < x + width) && arePassable; i++)
+                {
+                    for (int j = y; (j < y + height) && arePassable; j++)
+                    {
+                        arePassable = map.GetCellAt(i, j).GetTile().Passable();
+                    }
+                }
+            }
+            return arePassable;
+        }
+
+
         /// <summary>
         /// Checking if all selected units have an ability to build
         /// </summary>
@@ -418,7 +437,7 @@ namespace ZRTS
         {
             List<ModelComponent> selectedEntities = getGameModel().GetSelectionState().SelectedEntities;
             
-            if (CanAllUnitsBuild(selectedEntities) && AllBelongsToPlayer(selectedEntities))
+            if (CanAllUnitsBuild(selectedEntities) && AllBelongsToPlayer(selectedEntities) && CellsAreEmpty(upperLeftCellCoords.X, upperLeftCellCoords.Y, 6, 6))
             {
                 // TODO: Check resources.
                 
@@ -432,6 +451,8 @@ namespace ZRTS
                 }
             }
         }
+
+        
 
         /// <summary>
         /// Tell selected units to attack building
