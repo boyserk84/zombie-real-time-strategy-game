@@ -7,6 +7,13 @@ using Microsoft.Xna.Framework;
 
 namespace ZRTS.XnaCompositeView
 {
+    /// <summary>
+    /// ZRTSCmpositeViewUiFactory
+    /// 
+    /// This class will handle what image representation of each game model should be.
+    /// 
+    /// Using factory pattern 
+    /// </summary>
     public class ZRTSCompositeViewUIFactory
     {
         private static ZRTSCompositeViewUIFactory instance;
@@ -23,6 +30,10 @@ namespace ZRTS.XnaCompositeView
             this.game = game;
         }
 
+        /// <summary>
+        /// Initialize game
+        /// </summary>
+        /// <param name="game">game</param>
         public static void Initialize(Game game)
         {
             if (instance == null)
@@ -90,7 +101,7 @@ namespace ZRTS.XnaCompositeView
         /// </summary>
         /// <param name="type"></param>
         /// <param name="subtype"></param>
-        /// <returns></returns>
+        /// <returns>PictureBox corresponding to type and subtype</returns>
         public PictureBox BuildPictureBox(string type, string subtype)
         {
             PictureBox pictureBox = null;
@@ -183,17 +194,17 @@ namespace ZRTS.XnaCompositeView
             return pictureBox;
         }
 
+        /// <summary>
+        /// Button for produce unit
+        /// </summary>
+        /// <param name="unitType">Type of unit</param>
+        /// <returns>UI representing Unit Button corresponding to the type given</returns>
 		public ProduceUnitButton BuildProduceUnitButton(string unitType)
 		{
-			Rectangle sourceRect;
-			//if (unitType.Equals("soldier"))
-            //{
-                sourceRect = new Rectangle(0, GameConfig.SELECT_AVATAR_START_Y, 76, 76);
-            //}
+			Rectangle sourceRect = new Rectangle(0, GameConfig.SELECT_AVATAR_START_Y, 76, 76);
 
 			ProduceUnitButton button = new ProduceUnitButton(game, sourceRect, unitType);
 			button.UnitType = unitType;
-
 			return button;
 		}
 
@@ -201,7 +212,7 @@ namespace ZRTS.XnaCompositeView
         /// Construct a unit UI (image representation)
         /// </summary>
         /// <param name="unit"></param>
-        /// <returns></returns>
+        /// <returns>Unit image</returns>
         public UnitUI BuildUnitUI(UnitComponent unit)
         {
             UnitUI unitUI = null;

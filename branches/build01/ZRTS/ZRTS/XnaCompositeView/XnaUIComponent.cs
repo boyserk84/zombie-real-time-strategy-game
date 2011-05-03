@@ -9,6 +9,12 @@ using ZRTS.InputEngines;
 
 namespace ZRTS.XnaCompositeView
 {
+
+    /// <summary>
+    /// XNAUiComponent
+    /// 
+    /// This class handle user interface components and event on the screen.
+    /// </summary>
     public abstract class XnaUIComponent : DrawableGameComponent
     {
         public event DrawBoxChanged SizeChanged;
@@ -17,8 +23,6 @@ namespace ZRTS.XnaCompositeView
         public event ClickEventHandler OnMouseUp;
         public event EventHandler OnMouseEnter;
         public event EventHandler OnMouseLeave;
-
-        //public event MouseOverEventHandler OnOver;
 
         // UI members and fields
         private Rectangle drawBox = new Rectangle(0, 0, 0, 0);
@@ -164,13 +168,8 @@ namespace ZRTS.XnaCompositeView
             return sb;
         }
 
-        /// <summary>
-        /// Lays out the view
-        /// </summary>
-        public virtual void DoLayout()
-        {
-            // Do nothing.
-        }
+        public virtual void DoLayout() { }
+
 
         // Composite pattern methods
 
@@ -208,7 +207,7 @@ namespace ZRTS.XnaCompositeView
             {
                 child.SetParent(this);
                 components.Add(child);
-                DoLayout();
+                //DoLayout();
             }
         }
 
@@ -222,7 +221,7 @@ namespace ZRTS.XnaCompositeView
             {
                 // This will remove the child from the component list.
                 child.SetParent(null);
-                DoLayout();
+                //DoLayout();
             }
         }
 

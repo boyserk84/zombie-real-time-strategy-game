@@ -118,8 +118,6 @@ namespace ZRTS.XnaCompositeView
         private void changePictureByFrame(int col, int row)
         {
             this.SourceRect = new Rectangle(col * this.SourceRect.Width, row * this.SourceRect.Height, this.SourceRect.Width, this.SourceRect.Height);
-            //this.SourceRect.X = col * this.SourceRect.Width ;
-            //this.SourceRect.Y = row * this.SourceRect.Height;
         }
 
         /// <summary>
@@ -282,17 +280,32 @@ namespace ZRTS.XnaCompositeView
             
         }
 
+        /// <summary>
+        /// Event handler and trigger event when the unit being selected
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="selected"></param>
 		public void onSelectChanged(Object obj, bool selected)
 		{
 			this.selected = selected;
 		}
 
+        /// <summary>
+        /// Event handler and trigger event  when the unit's state has changed
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="args"></param>
 		public void onUnitStateChanged(Object obj, UnitStateChangedEventArgs args)
 		{
 			currentFrame = 0;
 			updateAnimation();
 		}
 
+        /// <summary>
+        /// Event handler and trigger event  when the unit's direction has changed
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="args"></param>
 		public void onUnitOrientationChange(Object obj, UnitOrientationChangedEventArgs args)
 		{
 			currentFrame = 0;

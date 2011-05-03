@@ -22,6 +22,12 @@ namespace ZRTS.XnaCompositeView
             get { return building; }
         }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="game">game object</param>
+        /// <param name="building">Building model</param>
+        /// <param name="sourceRect">Location on the spritesheet</param>
         public BuildingUI(Game game, Building building, Rectangle sourceRect)
             : base(game, sourceRect)
         {
@@ -34,7 +40,6 @@ namespace ZRTS.XnaCompositeView
 
             if (building.Type.Equals("barracks"))
             {
-                //System.Console.Out.WriteLine("Barrack is buildingUI");
                 this.SourceRect = new Rectangle(GameConfig.BUILDING_CONSTRUCTION, GameConfig.BUILDING_START_Y, 216, 216);
             }
             else if (building.Type.Equals("hospital"))
@@ -43,7 +48,6 @@ namespace ZRTS.XnaCompositeView
             }
             else if (building.Type.Equals("house"))
             {
-                //System.Console.Out.WriteLine("House is buildingUI");
                 this.SourceRect = new Rectangle(GameConfig.BUILDING_CONSTRUCTION, GameConfig.HOUSE_START_Y, 216, 216);
             }
         }
@@ -61,7 +65,6 @@ namespace ZRTS.XnaCompositeView
 		private void onSelectChanged(Object obj, bool selected)
 		{
 			this.selected = selected;
-			//Console.WriteLine("Selected: " + selected);
 		}
 
 
@@ -71,7 +74,6 @@ namespace ZRTS.XnaCompositeView
         /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
-            // TODO: distinguish between being damage and constructed by using state from building
             if (building.CurrentHealth == building.MaxHealth)
             {
                 this.SourceRect = new Rectangle(GameConfig.BUILDING_FINISH* GameConfig.BUILDING_DIM, SourceRect.Y , 216, 216);

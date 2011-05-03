@@ -5,6 +5,11 @@ using System.Text;
 
 namespace ZRTS.XnaCompositeView
 {
+    /// <summary>
+    /// XnaDrawArgs
+    /// 
+    /// This class will hold data about spriteBatch, Location and current game time.
+    /// </summary>
     public class XnaDrawArgs
     {
         public Microsoft.Xna.Framework.Graphics.SpriteBatch SpriteBatch;

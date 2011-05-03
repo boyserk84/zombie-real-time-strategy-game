@@ -7,10 +7,19 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ZRTS.XnaCompositeView
 {
+    /// <summary>
+    /// XNAUIFrame
+    /// 
+    /// This class represents the main user interface of the game.
+    /// </summary>
     public class XnaUIFrame : XnaUIComponent
     {
         private SpriteBatch spriteBatch;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="game">game object</param>
         public XnaUIFrame(Game game) : base(game)
         {
             spriteBatch = new SpriteBatch(game.GraphicsDevice);
@@ -37,17 +46,13 @@ namespace ZRTS.XnaCompositeView
             }
         }
 
-
-
-        protected override void onDraw(XnaDrawArgs e)
-        {
-            // Do nothing
-            
-        }
-
         public override SpriteBatch GetSpriteBatch(XnaUIComponent requester)
         {
             return spriteBatch;
+        }
+
+        protected override void onDraw(XnaDrawArgs e)
+        {
         }
 
     }

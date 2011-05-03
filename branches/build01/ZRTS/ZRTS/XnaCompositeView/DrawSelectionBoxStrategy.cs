@@ -7,6 +7,11 @@ using ZRTSModel;
 
 namespace ZRTS.XnaCompositeView
 {
+    /// <summary>
+    /// DrawSelectionBoxStrategy
+    /// 
+    /// This class represents the selection box being drawn on the screen when dragging-mouse to highlight all selected units.
+    /// </summary>
     public class DrawSelectionBoxStrategy : MapViewLeftButtonStrategy
     {
         private Point mouseDownLocation;
@@ -14,11 +19,21 @@ namespace ZRTS.XnaCompositeView
         private TestUIComponent dragBox = null;
         private MapView mapView;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="mapView">View of the map</param>
         public DrawSelectionBoxStrategy(MapView mapView)
         {
             this.mapView = mapView;
         }
 
+        /// <summary>
+        /// Handle mouse I/O by the user
+        /// </summary>
+        /// <param name="leftButtonPressed">Value when left mouse button pressed</param>
+        /// <param name="rightButtonPressed">Value when right mouse button pressed</param>
+        /// <param name="mouseLocation">Current mouse location</param>
         public void HandleMouseInput(bool leftButtonPressed, bool rightButtonPressed, Point mouseLocation)
         {
             if (started)
@@ -94,6 +109,9 @@ namespace ZRTS.XnaCompositeView
             return (point.X >= rectangle.X && point.X <= rectangle.X + rectangle.Width && point.Y >= rectangle.Y && point.Y <= rectangle.Y + rectangle.Height);
         }
 
+        /// <summary>
+        /// Remove selectionbox view when cancel progress is notified
+        /// </summary>
         public void CancelProgress()
         {
             if (started)

@@ -11,6 +11,11 @@ namespace ZRTS.InputEngines
         Right
     }
 
+    /// <summary>
+    /// XNAMouseEventArgs
+    /// 
+    /// Handle mouse I/O
+    /// </summary>
     public class XnaMouseEventArgs : EventArgs
     {
         public XnaCompositeView.XnaUIComponent Target;

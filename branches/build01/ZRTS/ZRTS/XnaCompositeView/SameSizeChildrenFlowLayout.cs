@@ -13,6 +13,10 @@ namespace ZRTS.XnaCompositeView
     /// </summary>
     public class SameSizeChildrenFlowLayout : XnaUIComponent
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="game">game object</param>
         public SameSizeChildrenFlowLayout(Game game)
             : base(game)
         {
@@ -20,20 +24,24 @@ namespace ZRTS.XnaCompositeView
 
         public int SpacingBetween = 0;
 
+        /// <summary>
+        /// upon drawing on the screen
+        /// </summary>
+        /// <param name="e"></param>
         protected override void onDraw(XnaDrawArgs e)
         {
 			Texture2D pixel = new Texture2D(e.SpriteBatch.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
 			pixel.SetData(new[] { Color.White });
-            //e.SpriteBatch.Draw(pixel, e.Location, new Rectangle(0, 0, 1, 1), Color.Blue);
         }
 
+        /// <summary>
+        /// Set layout of the UI component
+        /// </summary>
         public override void DoLayout()
         {
             int count = GetChildren().Count;
             if (count > 0)
             {
-                // TODO: how to set space between icons
-                //System.Console.Out.WriteLine(count);
                 XnaUIComponent firstComponent = GetChildren()[0];
                 int boxWidth = firstComponent.DrawBox.Width;
                 int boxHeight = firstComponent.DrawBox.Height;

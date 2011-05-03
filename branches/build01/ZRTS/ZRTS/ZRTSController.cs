@@ -11,9 +11,20 @@ using ZRTSModel.Trigger;
 
 namespace ZRTS
 {
+
+    /// <summary>
+    /// ZRTSController
+    /// 
+    /// This class controls the main logic and components of the game.
+    /// </summary>
     public class ZRTSController : GameComponent
     {
 		Game game;
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="game">game object</param>
         public ZRTSController(Game game)
             : base(game)
         {
@@ -272,14 +283,6 @@ namespace ZRTS
             changeMapViewLeftClickStrategyToBuild(buildingType);
         }
 
-        internal void OnSelectedUnitsToHarvest()
-        {
-            MapView mapView = ((XnaUITestGame)Game).View.GetChildren()[0] as MapView;
-            //###########################################################################
-            // TODO: get the mouse Click Location and pass to TellSelectedUnitToHarvest
-            //#########################################################################3
-            //TellSelectedUnitsToHarvest(#### Mouse Click Location #####);
-        }
 
         /// <summary>
         /// Insert building's action queue to build something
@@ -431,14 +434,6 @@ namespace ZRTS
             }
         }
 
-        /// <summary>
-        /// Tell selected units to attack building
-        /// </summary>
-        /// <param name="building"></param>
-        internal void TellSelectedUnitsToAttack(Building building)
-        {
-            // TODO: Implement
-        }
 
         /// <summary>
         /// Checking if a specific entity is owned by a player
@@ -486,13 +481,10 @@ namespace ZRTS
                         {
                             // DO SOMETHING TO HARVEST!!!!!
                             System.Console.Out.WriteLine("NOT IMPLEMENT YET: harvest at " + destination.X + " : " + destination.Y);
-                            //u.GetActionQueue().GetChildren().Clear();
-                            //u.GetActionQueue().AddChild(new AttackAction
                         }
                     }
                 }// if
             }
-            //throw new NotImplementedException();
         }
     }
 }

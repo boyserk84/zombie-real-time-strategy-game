@@ -20,7 +20,6 @@ namespace ZRTS.XnaCompositeView
         private SameSizeChildrenFlowLayout mainPanel;
         private SameSizeChildrenFlowLayout workerPanel;
         private PictureBox backgroundPanel;
-        //private PictureBox mainBgPanel;
         private PictureBox stopButton;
         private PictureBox moveButton;
         private PictureBox attackButton;
@@ -42,6 +41,10 @@ namespace ZRTS.XnaCompositeView
 		long lastClick = 0;
 		const int MSECONDS_PER_CLICK = 100;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="game">game object</param>
         public CommandView(Game game)
             : base(game)
         {
@@ -229,6 +232,10 @@ namespace ZRTS.XnaCompositeView
                 workerPanel.Visible = true;
         }
 
+        /// <summary>
+        /// Activate produce button 
+        /// </summary>
+        /// <param name="type"></param>
 		public void activateProduceUnitButtons(string type)
 		{
             if (type.Equals("barracks"))
@@ -237,6 +244,9 @@ namespace ZRTS.XnaCompositeView
                 housePanel.Visible = true;
 		}
 
+        /// <summary>
+        /// Hide the produce button
+        /// </summary>
 		public void deactivateProduceUnitButtons()
 		{
            
@@ -245,6 +255,11 @@ namespace ZRTS.XnaCompositeView
 		}
 
 
+        /// <summary>
+        /// Event/Trigger function when buildingbutton is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void handleBuildingButtonClick(Object sender, XnaMouseEventArgs e)
         {
             if (e.Bubbled && !e.Handled)
@@ -429,6 +444,11 @@ namespace ZRTS.XnaCompositeView
             mainAttackButton.setPicturebox(new Rectangle((GameConfig.BUTTON_ATTACK + GameConfig.BUTTON_MOUSE_OVER) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
         }
 
+        /// <summary>
+        /// Event/Trigger funciton when unit produce button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void handleUnitProduceButtonClick(object sender, XnaMouseEventArgs e)
         {
             if (Math.Abs(e.time) - lastClick > MSECONDS_PER_CLICK)
@@ -441,8 +461,8 @@ namespace ZRTS.XnaCompositeView
 
         protected override void onDraw(XnaDrawArgs e)
         {
-
-            //e.SpriteBatch.Draw(pixel, e.Location, new Rectangle(0, 0, 1, 1), color);
+            //throw new NotImplementedException();
         }
+
     }
 }
