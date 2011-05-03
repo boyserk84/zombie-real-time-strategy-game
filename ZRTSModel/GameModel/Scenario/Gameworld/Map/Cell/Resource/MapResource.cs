@@ -5,6 +5,9 @@ using System.Text;
 
 namespace ZRTSModel
 {
+    /// <summary>
+    /// An abstract class representing a particular resource which may be placed in a cell.
+    /// </summary>
     [Serializable()]
     public abstract class MapResource : ModelComponentLeaf
     {
@@ -29,19 +32,6 @@ namespace ZRTSModel
         public void setAmountRemaining(int amount)
         {
             amountRemaining = amount;
-            NotifyAll();
-        }
-
-        override public void Accept(ModelComponentVisitor visitor)
-        {
-            if (visitor is MapResourceVisitor)
-            {
-                ((MapResourceVisitor)visitor).Visit(this);
-            }
-            else
-            {
-                base.Accept(visitor);
-            }
         }
     }
 }

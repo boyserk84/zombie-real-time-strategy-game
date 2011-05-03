@@ -48,7 +48,7 @@ namespace ZRTSModel.Factories
         /// <param name="unit">The Unit being given the UnitStats</param>
         /// <param name="type">denotes what type of UnitStats to use.</param>
         /// <returns></returns>
-        public Unit createUnit(Unit unit, string type)
+        /*public Unit createUnit(Unit unit, string type)
         {
             unit.stats = stats[type];
             unit.health = unit.stats.maxHealth;
@@ -66,7 +66,7 @@ namespace ZRTSModel.Factories
             Unit u = new Unit(owner, stats[type]);
             u.health = u.stats.maxHealth;
             return u;
-        }
+        }*/
 
         /// <summary>
         /// 
@@ -108,6 +108,7 @@ namespace ZRTSModel.Factories
                     UnitStats uStat = new UnitStats();
                     uStat.type = s;
                     stats.Add(s, uStat);
+                    //Console.WriteLine(s);
                 }
                 catch
                 {
@@ -115,6 +116,7 @@ namespace ZRTSModel.Factories
                 }
             }
 
+            
             reader.Close();
         }
 
@@ -139,7 +141,7 @@ namespace ZRTSModel.Factories
             reader.ReadToFollowing("attack");
             stats.attack = (short)reader.ReadElementContentAsInt();
 
-            // attackTicks
+            /*// attackTicks
             reader.ReadToFollowing("attackTicks");
             stats.attackTicks = (byte)reader.ReadElementContentAsInt();
 
@@ -166,7 +168,7 @@ namespace ZRTSModel.Factories
             //metalCost
             reader.ReadToFollowing("metalCost");
             stats.metalCost = (byte)reader.ReadElementContentAsInt();
-
+			*/
             //canAttack
             reader.ReadToFollowing("canAttack");
             stats.canAttack = reader.ReadElementContentAsBoolean();
@@ -180,8 +182,8 @@ namespace ZRTSModel.Factories
             stats.canBuild = reader.ReadElementContentAsBoolean();
 
             //isZombie
-            reader.ReadToFollowing("isZombie");
-            stats.isZombie = reader.ReadElementContentAsBoolean();
+            //reader.ReadToFollowing("isZombie");
+            //stats.isZombie = reader.ReadElementContentAsBoolean();
 
         }
 
@@ -281,6 +283,26 @@ namespace ZRTSModel.Factories
                 listWriter.WriteEndElement();
             }
 
+        }
+
+        public UnitComponent Create(string type)
+        {
+            UnitStats unitStats = getStats(type);
+            UnitComponent unit = new UnitComponent();
+            unit.Attack = unitStats.attack;
+            unit.AttackRange = unitStats.attackRange;
+            unit.AttackTicks = unitStats.attackTicks;
+            unit.BuildSpeed = unitStats.buildSpeed;
+            unit.CanAttack = unitStats.canAttack;
+            unit.CanBuild = unitStats.canBuild;
+            unit.CanHarvest = unitStats.canHarvest;
+            unit.CurrentHealth = unitStats.maxHealth;
+            unit.IsZombie = unitStats.isZombie;
+            unit.MaxHealth = unitStats.maxHealth;
+            unit.Speed = unitStats.speed;
+            unit.Type = type;
+            unit.VisibilityRange = unitStats.visibilityRange;
+            return unit;
         }
     }
 }

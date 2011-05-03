@@ -46,46 +46,100 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BetterScenarioView.cs">
+    <Compile Include="ChangeScenarioContextVisitor.cs" />
+    <Compile Include="Commands\MapEditorViewCommands\AddUnitCommand.cs" />
+    <Compile Include="Commands\MapEditorViewCommands\ChangeCellTileCommand.cs" />
+    <Compile Include="Commands\MapEditorViewCommands\AddBuildingCommand.cs" />
+    <Compile Include="MapEditorModel\BitmapManager.cs" />
+    <Compile Include="MapEditorModel\MapEditorModelComponent.cs" />
+    <Compile Include="MapEditorModel\MapEditorModelVisitor.cs" />
+    <Compile Include="MapEditorModel\CommandStack\CommandStack.cs" />
+    <Compile Include="MapEditorModel\NoOpMapEditorModelVisitor.cs" />
+    <Compile Include="MapEditorModel\SelectionState\SelectionState.cs" />
+    <Compile Include="UI\BuildingPalette.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="BetterScenarioView.Designer.cs">
-      <DependentUpon>BetterScenarioView.cs</DependentUpon>
+    <Compile Include="UI\BuildingPalette.Designer.cs">
+      <DependentUpon>BuildingPalette.cs</DependentUpon>
     </Compile>
-    <Compile Include="MapEditorModelListener.cs" />
-    <Compile Include="MapEditorController.cs" />
-    <Compile Include="MapEditorModelOld.cs" />
-    <Compile Include="MapEditorModelVisitor.cs" />
-    <Compile Include="MapEditorModel\CreateObserverListVisitor.cs" />
-    <Compile Include="MapEditorModel\ImprovedMapEditorModel.cs" />
-    <Compile Include="MapEditorView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MapEditorView.Designer.cs">
-      <DependentUpon>MapEditorView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ScenarioView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ScenarioView.Designer.cs">
-      <DependentUpon>ScenarioView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tile.cs">
+    <Compile Include="UI\BuildingUI.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="TilePalette.cs">
+    <Compile Include="UI\MapPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\MapPanel.Designer.cs">
+      <DependentUpon>MapPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Commands\MapEditorCommand.cs" />
+    <Compile Include="MapEditorController.cs" />
+    <Compile Include="MapEditorModel\MapEditorFullModel.cs" />
+    <Compile Include="UI\CreateNewScenarioDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\CreateNewScenarioDialog.Designer.cs">
+      <DependentUpon>CreateNewScenarioDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MapEditorView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MapEditorView.Designer.cs">
+      <DependentUpon>MapEditorView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Commands\PlayersFormCommands\PlayerDataGridAdapter.cs" />
+    <Compile Include="Commands\PlayersFormCommands\PlayerDataGridAdapterCommitter.cs" />
+    <Compile Include="UI\MapViewComposite.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="TilePalette.Designer.cs">
+    <Compile Include="UI\MapViewComposite.Designer.cs">
+      <DependentUpon>MapViewComposite.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\PlayersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\PlayersForm.Designer.cs">
+      <DependentUpon>PlayersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\TileUI.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\TilePalette.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\TilePalette.Designer.cs">
       <DependentUpon>TilePalette.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UnitPalette.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\UnitPalette.Designer.cs">
+      <DependentUpon>UnitPalette.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UnitUI.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ZRTSMapEditor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="BetterScenarioView.resx">
-      <DependentUpon>BetterScenarioView.cs</DependentUpon>
+    <EmbeddedResource Include="UI\BuildingPalette.resx">
+      <DependentUpon>BuildingPalette.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MapEditorView.resx">
+    <EmbeddedResource Include="UI\BuildingUI.resx">
+      <DependentUpon>BuildingUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MapPanel.resx">
+      <DependentUpon>MapPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\CreateNewScenarioDialog.resx">
+      <DependentUpon>CreateNewScenarioDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MapEditorView.resx">
       <DependentUpon>MapEditorView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MapViewComposite.resx">
+      <DependentUpon>MapViewComposite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\PlayersForm.resx">
+      <DependentUpon>PlayersForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -96,11 +150,17 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="ScenarioView.resx">
-      <DependentUpon>ScenarioView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TilePalette.resx">
+    <EmbeddedResource Include="UI\TilePalette.resx">
       <DependentUpon>TilePalette.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\TileUI.resx">
+      <DependentUpon>TileUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\UnitPalette.resx">
+      <DependentUpon>UnitPalette.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\UnitUI.resx">
+      <DependentUpon>UnitUI.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -119,9 +179,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="MapEditorModel\CommandStack\" />
     <Folder Include="MapEditorModel\SaveInfo\" />
-    <Folder Include="MapEditorModel\SelectionState\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

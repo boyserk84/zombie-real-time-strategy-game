@@ -70,10 +70,10 @@ namespace ZRTSModel.GameWorld
                     string indexStr = reader.GetAttribute("index");         // read index attribute
 
                     // Convert passableStr into a bool.
-                    bool passable = true;
+                    //bool passable = true;
                     if (passableStr.ToUpper().Equals("FALSE"))
                     {
-                        passable = false;
+                        //passable = false;
                     }
 
                     // Convert indexStr into a string.
@@ -82,9 +82,9 @@ namespace ZRTSModel.GameWorld
 
                     // Create a new Tile and add it to the list.
                     tileTypes.Add(type);
-                    Tile tile = new Tile(type, passable, index);
-                    tiles.Add(tile);
-                    tileDict.Add(type, tile);
+                    // Tile tile = new Tile(type, passable, index);
+                    // tiles.Add(tile);
+                    // tileDict.Add(type, tile);
                     Bitmap bm = new Bitmap(TILES_DIRECTORY + type + ".png");
                     bitmaps.Add(type, bm);
             }
@@ -181,15 +181,15 @@ namespace ZRTSModel.GameWorld
         {
             if (tile.GetType() == typeof(Mountain))
             {
-                return new Bitmap(TILES_DIRECTORY + "mountain.png");
+                return bitmaps["mountain"];
             }
             else if (tile.GetType() == typeof(Grass))
             {
-                return new Bitmap(TILES_DIRECTORY + "grass.png");
+                return bitmaps["grass"];
             }
             else if (tile.GetType() == typeof(Sand))
             {
-                return new Bitmap(TILES_DIRECTORY + "lightgrass.png");
+                return bitmaps["lightgrass"];
             }
             return null;
         }

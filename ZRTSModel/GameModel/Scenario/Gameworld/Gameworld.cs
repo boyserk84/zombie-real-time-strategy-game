@@ -5,24 +5,21 @@ using System.Text;
 
 namespace ZRTSModel
 {
+    /// <summary>
+    /// Represents the physical game state, not logic (triggers).  Contains a map and a player list.
+    /// </summary>
     [Serializable()]
     public class Gameworld : ModelComponent
     {
+        public Gameworld()
+        {
+
+        }
 
         public Gameworld(int x, int y)
         {
             AddChild(new Map(x, y));
-        }
-        public override void Accept(ModelComponentVisitor visitor)
-        {
-            if (visitor is GameworldVisitor)
-            {
-                ((GameworldVisitor)visitor).Visit(this);
-            }
-            else
-            {
-                base.Accept(visitor);
-            }
+            AddChild(new PlayerList());
         }
 
         public Map GetMap()
@@ -35,6 +32,25 @@ namespace ZRTSModel
                 }
             }
             return null;
+        }
+
+
+
+        public PlayerList GetPlayerList()
+        {
+            foreach (ModelComponent component in GetChildren())
+            {
+                if (component is PlayerList)
+                {
+                    return (PlayerList)component;
+                }
+            }
+            return null;
+        }
+
+        public override void Accept(ModelComponentVisitor visitor)
+        {
+            visitor.Visit(this);
         }
     }
 }

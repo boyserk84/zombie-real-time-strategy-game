@@ -5,6 +5,9 @@ using System.Text;
 
 namespace ZRTSModel.Entities
 {
+	/// <summary>
+	/// Defines the stats for a paticular type of unit entity.
+	/// </summary>
     public class UnitStats
     {
         public string type = "";            // The type of the Unit.

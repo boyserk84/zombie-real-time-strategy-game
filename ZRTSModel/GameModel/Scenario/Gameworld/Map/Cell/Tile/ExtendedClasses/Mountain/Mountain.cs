@@ -6,24 +6,16 @@ using System.Text;
 namespace ZRTSModel
 {
     [Serializable()]
-    class Mountain : Tile
+    public class Mountain : Tile
     {
-        override public void Accept(ModelComponentVisitor visitor)
-        {
-            if (visitor is MountainVisitor)
-            {
-                MountainVisitor mountainVisitor = (MountainVisitor)visitor;
-                mountainVisitor.Visit(this);
-            }
-            else
-            {
-                base.Accept(visitor);
-            }
-        }
-
         override public bool Passable()
         {
             return false;
+        }
+
+        public override void Accept(ModelComponentVisitor visitor)
+        {
+            visitor.Visit(this);
         }
     }
 }

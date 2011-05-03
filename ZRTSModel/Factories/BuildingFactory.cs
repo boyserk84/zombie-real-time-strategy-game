@@ -6,10 +6,13 @@ using System.IO;
 using System.Xml;
 using ZRTSModel;
 using ZRTSModel.Entities;
-using ZRTSModel.Exception;
 
 namespace ZRTSModel.Factories
 {
+	/// <summary>
+	/// This class will be used to create BuildingComponents based off of information stored in XML files 
+	/// (under 'Content/buildings/'. Using the Singleton pattern, it will ensure that these XML files are only read in once.
+	/// </summary>
     public class BuildingFactory
     {
 		private static BuildingFactory instance;
@@ -131,25 +134,55 @@ namespace ZRTSModel.Factories
             }
             catch (System.IO.DirectoryNotFoundException e)
             {
-                throw new FactoryException(e.Message);
+                throw new Exception(e.Message);
             }
             catch (System.IO.FileNotFoundException e)
             {
-                throw new FactoryException(e.Message);
+                throw new Exception(e.Message);
             }
 
 
             return input;
         }
 
+		/// <summary>
+		/// Returns a List of strings where each string represents a type of Building.
+		/// </summary>
+		/// <returns></returns>
         public List<string> getBuildingTypes()
         {
             return this.buildingTypes;
         }
 
+		/// <summary>
+		/// Returns a dictionary that, when given a string that represents a type of Building, retrieves the BuildingStats
+		/// object 
+		/// </summary>
+		/// <param name="type"></param>
+		/// <returns></returns>
         public BuildingStats getStats(string type)
         {
             return statsDict[type];
+        }
+
+        public Building Build(string buildingType, bool completed)
+        {
+            BuildingStats stats = getStats(buildingType);
+            Building building = new Building();
+            building.Type = buildingType;
+            building.CanProduce = stats.canProduce;
+            building.MaxHealth = stats.maxHealth;
+            building.Completed = completed;
+            building.CurrentHealth = completed ? stats.maxHealth : 0;
+            building.DropOffResources = stats.dropOffResources;
+            building.FoodCost = stats.foodCost;
+            building.Height = stats.height;
+            building.LumberCost = stats.lumberCost;
+            building.MetalCost = stats.metalCost;
+            building.ProductionTypes = new List<string>(stats.productionTypes);
+            building.WaterCost = stats.waterCost;
+            building.Width = stats.width;
+            return building;
         }
     }
 }

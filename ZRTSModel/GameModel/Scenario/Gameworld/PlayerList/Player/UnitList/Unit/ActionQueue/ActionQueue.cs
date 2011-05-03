@@ -5,19 +5,33 @@ using System.Text;
 
 namespace ZRTSModel
 {
+    /// <summary>
+    /// A queue of actions to be taken over time.
+    /// </summary>
     [Serializable()]
     public class ActionQueue : ModelComponent
     {
+        public void Work()
+        {
+            if (GetChildren().Count != 0)
+            {
+                EntityAction action = GetChildren()[0] as EntityAction;
+				if (action.Work())
+				{
+					RemoveChild(action);
+					((UnitComponent)Parent).State = UnitComponent.UnitState.IDLE;
+				}
+            }
+            
+        }
+        public override void AddChild(ModelComponent child)
+        {
+            if (child is EntityAction)
+                base.AddChild(child);
+        }
         public override void Accept(ModelComponentVisitor visitor)
         {
-            if (visitor is ActionQueueVisitor)
-            {
-                ((ActionQueueVisitor)visitor).Visit(this);
-            }
-            else
-            {
-                base.Accept(visitor);
-            }
+            visitor.Visit(this);
         }
     }
 }

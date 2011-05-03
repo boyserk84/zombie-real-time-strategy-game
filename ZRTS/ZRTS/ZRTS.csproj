@@ -18,6 +18,7 @@
     <XnaOutputType>Game</XnaOutputType>
     <ApplicationIcon>Game.ico</ApplicationIcon>
     <Thumbnail>GameThumbnail.png</Thumbnail>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -30,7 +31,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -93,7 +93,8 @@
     <Reference Include="mscorlib">
       <Private>False</Private>
     </Reference>
-    <Reference Include="nunit.framework">
+    <Reference Include="nunit.framework, Version=2.5.9.10348, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>UnitTest\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System">
@@ -113,28 +114,48 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Button.cs" />
     <Compile Include="GameConfig.cs" />
-    <Compile Include="InputHandler.cs" />
+    <Compile Include="InputEngines\KeyboardInputEngine.cs" />
+    <Compile Include="InputEngines\MouseInputEngine.cs" />
+    <Compile Include="InputEngines\XnaMouseEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="UnitTest\AddBuildingTest.cs" />
-    <Compile Include="UnitTest\SpriteSheetTest.cs" />
-    <Compile Include="UnitTest\ViewTest.cs" />
-    <Compile Include="Utilities\SpriteSheet.cs" />
-    <Compile Include="View\View.cs" />
-    <Compile Include="View\ViewGamePlayMenu.cs" />
-    <Compile Include="View\ViewSelect.cs" />
-    <Compile Include="ZRTSGame.cs" />
+    <Compile Include="TestCases\TestPlacingBuildingOntheMap.cs" />
+    <Compile Include="XnaCompositeView\AudioManager.cs" />
+    <Compile Include="XnaCompositeView\BuildBuildingMapViewLeftClickStrategy.cs" />
+    <Compile Include="XnaCompositeView\BuildingUI.cs" />
+    <Compile Include="XnaCompositeView\CommandView.cs" />
+    <Compile Include="XnaCompositeView\DrawSelectionBoxStrategy.cs" />
+    <Compile Include="XnaCompositeView\MapViewLeftButtonStrategy.cs" />
+    <Compile Include="XnaCompositeView\ProduceUnitButton.cs" />
+    <Compile Include="XnaCompositeView\SelectionViewVisitors\BuildLargePreviewPictureBoxVisitor.cs" />
+    <Compile Include="XnaCompositeView\MapView.cs" />
+    <Compile Include="XnaCompositeView\HPBar.cs" />
+    <Compile Include="XnaCompositeView\MapViewVisitors\DrawTileVisitor.cs" />
+    <Compile Include="XnaCompositeView\PictureBox.cs" />
+    <Compile Include="XnaCompositeView\SelectedEntityUI.cs" />
+    <Compile Include="XnaCompositeView\SameSizeChildrenFlowLayout.cs" />
+    <Compile Include="XnaCompositeView\SelectionView.cs" />
+    <Compile Include="XnaCompositeView\SelectionViewVisitors\BuildSelectedEntityUIVisitor.cs" />
+    <Compile Include="XnaCompositeView\SelectionViewVisitors\DisplaySelectedEntityStatsVisitor.cs" />
+    <Compile Include="XnaCompositeView\TestUIComponent.cs" />
+    <Compile Include="XnaCompositeView\TextBox.cs" />
+    <Compile Include="XnaCompositeView\UIEventHandlers\UIEventHandlers.cs" />
+    <Compile Include="XnaCompositeView\UIEventHandlers\UISizeChangedEventArgs.cs" />
+    <Compile Include="XnaCompositeView\UnitUI.cs" />
+    <Compile Include="XnaCompositeView\XnaDrawArgs.cs" />
+    <Compile Include="XnaCompositeView\XnaUIComponent.cs" />
+    <Compile Include="XnaCompositeView\XnaUIFrame.cs" />
+    <Compile Include="XnaCompositeView\ZRTSCompositeViewUIFactory.cs" />
+    <Compile Include="XnaUITestGame.cs" />
+    <Compile Include="ZRTSController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ZRTSLogic\ZRTSLogic.csproj">
-      <Project>{CCEE566E-2E19-4E84-9FBE-145D95C8AA59}</Project>
-      <Name>ZRTSLogic</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\ZRTSModel\ZRTSModel.csproj">
       <Project>{2045DCE8-71C3-43E3-871D-D98407D30E58}</Project>
       <Name>ZRTSModel</Name>
