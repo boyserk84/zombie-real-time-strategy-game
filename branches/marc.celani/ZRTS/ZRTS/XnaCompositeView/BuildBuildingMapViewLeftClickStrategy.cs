@@ -50,7 +50,7 @@ namespace ZRTS.XnaCompositeView
 
             // Check if the cells are taken.  If so, tint the drawing red, otherwise tint it green.
             // BUG: This only checks the upper left cell - we have to check all the cells.
-            if (((XnaUITestGame)mapView.Game).Controller.CellsAreEmpty(building.DrawBox.X / MapView.CellDimension, building.DrawBox.Y / MapView.CellDimension, building.DrawBox.Width / MapView.CellDimension, building.DrawBox.Height / MapView.CellDimension))
+            if (((XnaUITestGame)mapView.Game).Controller.CellsArePassable(building.DrawBox.X / MapView.CellDimension, building.DrawBox.Y / MapView.CellDimension, building.DrawBox.Width / MapView.CellDimension, building.DrawBox.Height / MapView.CellDimension) && ((XnaUITestGame)mapView.Game).Controller.CellsAreEmpty(building.DrawBox.X / MapView.CellDimension, building.DrawBox.Y / MapView.CellDimension, building.DrawBox.Width / MapView.CellDimension, building.DrawBox.Height / MapView.CellDimension))
             {
                 currentLocationIsOkay = true;
                 building.Tint = new Color(0, 125, 0, 0);

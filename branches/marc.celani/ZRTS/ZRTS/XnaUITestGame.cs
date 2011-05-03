@@ -298,7 +298,7 @@ namespace ZRTS
                         }
                         if (buttonList[i].Name.Equals("Level 3"))
                         {
-                            filename = "Content/savedMaps/finishedMaze.map";   
+                            filename = "Content/savedMaps/mazeFullOfTrees.map";   
                             LoadModelFromFile(filename);
                             SetupGame();
                             state = gameState.Gameplay;
