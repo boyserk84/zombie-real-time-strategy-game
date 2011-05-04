@@ -7,6 +7,9 @@ using ZRTS.InputEngines;
 
 namespace ZRTS.XnaCompositeView
 {
+    /// <summary>
+    /// This class handles the aspect of placing building on the map.
+    /// </summary>
     public class BuildBuildingMapViewLeftClickStrategy : MapViewLeftButtonStrategy
     {
         private MapView mapView;
@@ -14,6 +17,11 @@ namespace ZRTS.XnaCompositeView
         private bool added = false;
         private string buildingType;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="mapView">View object</param>
+        /// <param name="buildingType">Type of the building</param>
         public BuildBuildingMapViewLeftClickStrategy(MapView mapView, string buildingType)
         {
             this.mapView = mapView;
@@ -28,6 +36,12 @@ namespace ZRTS.XnaCompositeView
             building.OnClick += placeBuilding;
         }
 
+        /// <summary>
+        /// Trigger action based on the mouse input
+        /// </summary>
+        /// <param name="leftButtonPressed">Left-click state</param>
+        /// <param name="rightButtonPressed">Right-click state</param>
+        /// <param name="mouseLocation">Current mouse location</param>
         public void HandleMouseInput(bool leftButtonPressed, bool rightButtonPressed, Point mouseLocation)
         {
             // We are hovering over the map.  Update its location.
@@ -61,6 +75,9 @@ namespace ZRTS.XnaCompositeView
             }
         }
 
+        /// <summary>
+        /// cancel previous action
+        /// </summary>
         public void CancelProgress()
         {
             if (added)

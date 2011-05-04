@@ -9,6 +9,11 @@ using ZRTS.InputEngines;
 
 namespace ZRTS.XnaCompositeView
 {
+    /// <summary>
+    /// XnaUiComponent
+    /// 
+    /// This class handles interaction between I/O input (aka mouse) with the user interface screen in the game.
+    /// </summary>
     public abstract class XnaUIComponent : DrawableGameComponent
     {
         public event DrawBoxChanged SizeChanged;
@@ -18,7 +23,6 @@ namespace ZRTS.XnaCompositeView
         public event EventHandler OnMouseEnter;
         public event EventHandler OnMouseLeave;
 
-        //public event MouseOverEventHandler OnOver;
 
         // UI members and fields
         private Rectangle drawBox = new Rectangle(0, 0, 0, 0);
@@ -59,13 +63,18 @@ namespace ZRTS.XnaCompositeView
         }
         private List<XnaUIComponent> components = new List<XnaUIComponent>();
 
-
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="game">Game object</param>
         public XnaUIComponent(Game game)
             : base(game)
-        {
-        }
+        {}
 
-        // UI Methods
+        /// <summary>
+        /// Draw all components
+        /// </summary>
+        /// <param name="gameTime">Current time in the game</param>
         public override void Draw(GameTime gameTime)
         {
             if (Visible && drawBox.Width > 0 && drawBox.Height > 0)
@@ -135,6 +144,10 @@ namespace ZRTS.XnaCompositeView
             }
         }
 
+        /// <summary>
+        /// Update the game
+        /// </summary>
+        /// <param name="gameTime">current time in the game</param>
         public override void Update(GameTime gameTime)
         {
             foreach (XnaUIComponent component in components)
@@ -142,7 +155,6 @@ namespace ZRTS.XnaCompositeView
                 component.Update(gameTime);
             }
         }
-
 
 
         protected abstract void onDraw(XnaDrawArgs e);
@@ -165,12 +177,9 @@ namespace ZRTS.XnaCompositeView
         }
 
         /// <summary>
-        /// Lays out the view
+        /// Apply and enforce layout
         /// </summary>
-        public virtual void DoLayout()
-        {
-            // Do nothing.
-        }
+        public virtual void DoLayout() {}
 
         // Composite pattern methods
 

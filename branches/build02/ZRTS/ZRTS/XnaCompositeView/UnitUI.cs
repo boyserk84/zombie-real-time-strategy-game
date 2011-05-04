@@ -103,8 +103,8 @@ namespace ZRTS.XnaCompositeView
         /// <summary>
         /// Manually change picture by specified pixel
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="x">X location on the spritesheet</param>
+        /// <param name="y">y location on the spritesheet</param>
         private void changePicture(int x, int y)
         {
             this.SourceRect = new Rectangle(x, y, this.SourceRect.Width, this.SourceRect.Height);
@@ -118,8 +118,6 @@ namespace ZRTS.XnaCompositeView
         private void changePictureByFrame(int col, int row)
         {
             this.SourceRect = new Rectangle(col * this.SourceRect.Width, row * this.SourceRect.Height, this.SourceRect.Width, this.SourceRect.Height);
-            //this.SourceRect.X = col * this.SourceRect.Width ;
-            //this.SourceRect.Y = row * this.SourceRect.Height;
         }
 
         /// <summary>
@@ -266,11 +264,10 @@ namespace ZRTS.XnaCompositeView
         /// <summary>
         /// Update this unit's view
         /// </summary>
-        /// <param name="gameTime"></param>
+        /// <param name="gameTime">game time object</param>
         public override void Update(GameTime gameTime)
         {
             currentElapsedTime += gameTime.ElapsedGameTime.Milliseconds;
-            //System.Console.Out.WriteLine("TICK" + currentElapsedTime);
             
             // Update animation every 1/4 second
             if (currentElapsedTime > 100)
@@ -282,17 +279,32 @@ namespace ZRTS.XnaCompositeView
             
         }
 
+        /// <summary>
+        /// Trigger function when user selection has change
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="selected"></param>
 		public void onSelectChanged(Object obj, bool selected)
 		{
 			this.selected = selected;
 		}
 
+        /// <summary>
+        /// Update unit's image once the state has changed
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="args"></param>
 		public void onUnitStateChanged(Object obj, UnitStateChangedEventArgs args)
 		{
 			currentFrame = 0;
 			updateAnimation();
 		}
 
+        /// <summary>
+        /// Update unit's image once the unit has changed its direction
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="args"></param>
 		public void onUnitOrientationChange(Object obj, UnitOrientationChangedEventArgs args)
 		{
 			currentFrame = 0;

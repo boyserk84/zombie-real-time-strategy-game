@@ -6,6 +6,11 @@ using Microsoft.Xna.Framework;
 
 namespace ZRTS.XnaCompositeView
 {
+    /// <summary>
+    /// PictureBox
+    /// 
+    /// This class represents an image object used in the game.
+    /// </summary>
     public class PictureBox : XnaUIComponent
     {
         private Rectangle sourceRect;
@@ -26,6 +31,11 @@ namespace ZRTS.XnaCompositeView
             set { tint = value; }
         }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="game">game object</param>
+        /// <param name="sourceRect">Location</param>
         public PictureBox(Game game, Rectangle sourceRect)
             : base(game)
         {

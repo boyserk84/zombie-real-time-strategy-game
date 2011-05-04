@@ -17,6 +17,14 @@ namespace ZRTS
         private float height;
         private string name;    // The text the button displays
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="x">x</param>
+        /// <param name="y">y</param>
+        /// <param name="width">Width of button</param>
+        /// <param name="height">Height of button</param>
+        /// <param name="name">Text displayed on the button</param>
         public Button(float x, float y, float width, float height, string name)
         {
             location = new PointF(x, y);

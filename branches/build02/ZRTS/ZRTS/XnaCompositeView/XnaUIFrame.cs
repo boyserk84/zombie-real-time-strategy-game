@@ -7,10 +7,19 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ZRTS.XnaCompositeView
 {
+    /// <summary>
+    /// XnaUIFrame
+    /// 
+    /// This class will oversee the game object with the view as well as listen for victory condition.
+    /// </summary>
     public class XnaUIFrame : XnaUIComponent
     {
         private SpriteBatch spriteBatch;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="game">game object</param>
         public XnaUIFrame(Game game) : base(game)
         {
             spriteBatch = new SpriteBatch(game.GraphicsDevice);
@@ -37,18 +46,9 @@ namespace ZRTS.XnaCompositeView
             }
         }
 
+        protected override void onDraw(XnaDrawArgs e) { }
 
-
-        protected override void onDraw(XnaDrawArgs e)
-        {
-            // Do nothing
-            
-        }
-
-        public override SpriteBatch GetSpriteBatch(XnaUIComponent requester)
-        {
-            return spriteBatch;
-        }
+        public override SpriteBatch GetSpriteBatch(XnaUIComponent requester) { return spriteBatch; }
 
     }
 }

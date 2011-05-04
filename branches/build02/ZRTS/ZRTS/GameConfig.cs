@@ -6,7 +6,7 @@ using System.Text;
 namespace ZRTS
 {
     /// <summary>
-    /// Any constant or game configuration value should be defined here.
+    /// This is where any constant or game configuration value is defined.
     /// </summary>
     static class GameConfig
     {

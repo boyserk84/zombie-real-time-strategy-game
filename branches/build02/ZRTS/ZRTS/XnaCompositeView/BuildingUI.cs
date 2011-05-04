@@ -10,6 +10,7 @@ namespace ZRTS.XnaCompositeView
 {
     /// <summary>
     /// Building UI (View object for building model)
+    /// This class represent an image reprensetion of the building model object.
     /// </summary>
     public class BuildingUI : PictureBox
     {
@@ -22,6 +23,12 @@ namespace ZRTS.XnaCompositeView
             get { return building; }
         }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="game">game object</param>
+        /// <param name="building">Building</param>
+        /// <param name="sourceRect">Location</param>
         public BuildingUI(Game game, Building building, Rectangle sourceRect)
             : base(game, sourceRect)
         {
@@ -34,7 +41,6 @@ namespace ZRTS.XnaCompositeView
 
             if (building.Type.Equals("barracks"))
             {
-                //System.Console.Out.WriteLine("Barrack is buildingUI");
                 this.SourceRect = new Rectangle(GameConfig.BUILDING_CONSTRUCTION, GameConfig.BUILDING_START_Y, 216, 216);
             }
             else if (building.Type.Equals("hospital"))
@@ -43,7 +49,6 @@ namespace ZRTS.XnaCompositeView
             }
             else if (building.Type.Equals("house"))
             {
-                //System.Console.Out.WriteLine("House is buildingUI");
                 this.SourceRect = new Rectangle(GameConfig.BUILDING_CONSTRUCTION, GameConfig.HOUSE_START_Y, 216, 216);
             }
         }
@@ -61,17 +66,15 @@ namespace ZRTS.XnaCompositeView
 		private void onSelectChanged(Object obj, bool selected)
 		{
 			this.selected = selected;
-			//Console.WriteLine("Selected: " + selected);
 		}
 
 
         /// <summary>
-        /// Update animation
+        /// Update animation based on health of the building
         /// </summary>
-        /// <param name="gameTime"></param>
+        /// <param name="gameTime">current game time</param>
         public override void Update(GameTime gameTime)
         {
-            // TODO: distinguish between being damage and constructed by using state from building
             if (building.CurrentHealth == building.MaxHealth)
             {
                 this.SourceRect = new Rectangle(GameConfig.BUILDING_FINISH* GameConfig.BUILDING_DIM, SourceRect.Y , 216, 216);
@@ -85,7 +88,7 @@ namespace ZRTS.XnaCompositeView
         }
 
         /// <summary>
-        /// Draw stat of the selected building
+        /// Draw stat of the selected building 
         /// </summary>
         /// <param name="e"></param>
 		protected override void onDraw(XnaDrawArgs e)
