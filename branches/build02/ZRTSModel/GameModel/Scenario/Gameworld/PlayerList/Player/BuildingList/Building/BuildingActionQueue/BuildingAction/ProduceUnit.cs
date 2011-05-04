@@ -11,6 +11,9 @@ using ZRTSModel.GameModel;
 
 namespace ZRTSModel
 {
+	/// <summary>
+	/// This class represents an command for a Building to produce a UnitComponent.
+	/// </summary>
 	public class ProduceUnit : BuildingAction
 	{
 		Building building;

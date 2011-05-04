@@ -6,12 +6,25 @@ using ZRTSModel.EventHandlers;
 
 namespace ZRTSModel
 {
+	/// <summary>
+	/// This class represents a list of BuildingComponents.
+	/// </summary>
     [Serializable()]
     public class BuildingList : ModelComponent
     {
+		/// <summary>
+		/// This event is fired whenever a BuildingComponent is added to this object.
+		/// </summary>
         public event BuildingAddedOrRemovedHandler BuildingAddedEventHandlers;
+		/// <summary>
+		/// This event is dired whenever a BuildingComponent is removed from this object.
+		/// </summary>
         public event BuildingAddedOrRemovedHandler BuildingRemovedEventHandlers;
 
+		/// <summary>
+		/// Adds a BuildingComponent to this object. Fires off a BuildingAdded event.
+		/// </summary>
+		/// <param name="child">The BuildingComponent to be added.</param>
         public override void AddChild(ModelComponent child)
         {
             if (child is Building)
@@ -27,6 +40,10 @@ namespace ZRTSModel
             }
         }
 
+		/// <summary>
+		/// Removed a BuildingComponent from this object. Fires off a BuildingRemoved event.
+		/// </summary>
+		/// <param name="child">The BuildingComponent to be removed.</param>
         public override void RemoveChild(ModelComponent child)
         {
             if (child is Building)
