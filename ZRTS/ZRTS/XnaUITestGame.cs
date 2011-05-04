@@ -286,22 +286,22 @@ namespace ZRTS
                     {
                         if (buttonList[i].Name.Equals("Level 1"))
                         {
-                            filename = "Content/savedMaps/wave.map";
-                            LoadModelFromFile(filename); 
+                            filename = Content.RootDirectory + "/savedMaps/wave.map";
+                            LoadModelFromFile(filename);
                             SetupGame();
                             state = gameState.Gameplay;
 
                         }
                         if (buttonList[i].Name.Equals("Level 2"))
                         {
-                            filename = "Content/savedMaps/mazeWithGuns.map";   
+                            filename = Content.RootDirectory + "/savedMaps/mazeWithGuns.map";
                             LoadModelFromFile(filename);
                             SetupGame();
                             state = gameState.Gameplay;
                         }
                         if (buttonList[i].Name.Equals("Level 3"))
                         {
-                            filename = "Content/savedMaps/mazeFullOfTrees.map";
+                            filename = Content.RootDirectory + "/savedMaps/mazeFullOfTrees.map";
                             LoadModelFromFile(filename);
                             SetupGame();
                             state = gameState.Gameplay;
