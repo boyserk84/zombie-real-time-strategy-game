@@ -140,7 +140,7 @@ namespace ZRTS
 			model = new GameModel();
 			ZRTSCompositeViewUIFactory.Initialize(this);
 
-			FileStream mapFile = File.OpenRead(filename); //tryit.map
+			FileStream mapFile = File.OpenRead(filename);
 			ScenarioXMLReader reader = new ScenarioXMLReader(mapFile);
 			ScenarioComponent scenario = reader.GenerateScenarioFromXML();
 
@@ -301,7 +301,7 @@ namespace ZRTS
                         }
                         if (buttonList[i].Name.Equals("Level 3"))
                         {
-                            filename = "Content/savedMaps/mazeFullOfTrees.map";   
+                            filename = "Content/savedMaps/mazeFullOfTrees.map";
                             LoadModelFromFile(filename);
                             SetupGame();
                             state = gameState.Gameplay;
@@ -311,7 +311,7 @@ namespace ZRTS
                             this.Exit();
                         }
 
-                        i = buttonList.Count;//break;
+                        i = buttonList.Count;
                     }
                 }
             }
