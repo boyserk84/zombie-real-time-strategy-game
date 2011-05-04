@@ -7,6 +7,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ZRTS.XnaCompositeView
 {
+    /// <summary>
+    /// TextBox
+    /// 
+    /// This class represents a text field that will be displayed inside the game.
+    /// </summary>
     public class TextBox : XnaUIComponent
     {
         private string text = "";
@@ -24,10 +29,21 @@ namespace ZRTS.XnaCompositeView
             get { return text; }
             set { text = value; }
         }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="game">game object</param>
         public TextBox(Game game)
             : base(game)
         { }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="game">game object</param>
+        /// <param name="text">displayed message</param>
+        /// <param name="alignment">Type of alignment</param>
         public TextBox(Game game, string text, string alignment)
             : base(game)
         {
@@ -35,6 +51,13 @@ namespace ZRTS.XnaCompositeView
             this.alignment = alignment;
         }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="game">game object</param>
+        /// <param name="text">displayed message</param>
+        /// <param name="alignment">Type of alignment</param>
+        /// <param name="color">Color of the displayed message</param>
 		public TextBox(Game game, string text, string alignment, Color color)
 			: base(game)
 		{

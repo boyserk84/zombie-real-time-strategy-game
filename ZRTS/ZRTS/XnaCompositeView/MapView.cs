@@ -20,18 +20,13 @@ namespace ZRTS
     /// <summary>
     /// View class
     ///     This class will handle all view-aspects of the game. 
-    ///     This class will extract each game object and translate each object's game location into a screen location
-    ///     as well as interpret which frame (or animation) to be displayed (or played).
+    ///     This class will extract each game object and translate each object's game location into a screen location.
     /// 
     /// Original Author Nattapol Kemavaha
     /// Modifier/Author Marc Celani
     /// </summary>
     public class MapView : XnaUIComponent
     {
-        // Drag box UI reference (null means we are not dragging)
-        //private TestUIComponent dragBox = null;
-        // First point in the dragging, used when the mouse moves to move the dragBox.
-        //private Point startSelectionBoxPoint;
         private Hashtable componentToUI = new Hashtable();
         private MapViewLeftButtonStrategy leftButtonStrategy;
 
@@ -49,6 +44,10 @@ namespace ZRTS
         }
         private static int SCROLL_SPEED = 10;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="game">Game object</param>
         public MapView(Game game)
             : base(game)
         {
@@ -132,6 +131,10 @@ namespace ZRTS
             }
         }
 
+        /// <summary>
+        /// Update and listen for I/O from mouse
+        /// </summary>
+        /// <param name="gameTime">game time object</param>
         public override void Update(GameTime gameTime)
         {
             handleScrolling();

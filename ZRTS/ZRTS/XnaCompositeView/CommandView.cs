@@ -14,13 +14,13 @@ namespace ZRTS.XnaCompositeView
     /// <summary>
     /// CommandView:
     /// This class will act as a command menu manager for each game unit/building.
+    /// This class contains all necessary user interface components for user to interact with the unit and building.
     /// </summary>
     public class CommandView : XnaUIComponent
     {
         private SameSizeChildrenFlowLayout mainPanel;
         private SameSizeChildrenFlowLayout workerPanel;
         private PictureBox backgroundPanel;
-        //private PictureBox mainBgPanel;
         private PictureBox stopButton;
         private PictureBox moveButton;
         private PictureBox attackButton;
@@ -280,7 +280,6 @@ namespace ZRTS.XnaCompositeView
         /// <param name="e"></param>
         private void handleStopButtonClick(object sender, XnaMouseEventArgs e)
         {
-            //System.Console.Out.WriteLine("STOP BUTTON IS CLICKED!");
             if (e.Bubbled && !e.Handled)
             {
                 e.Handled = true;
@@ -297,7 +296,6 @@ namespace ZRTS.XnaCompositeView
         {
             if (e.Bubbled && !e.Handled)
             {
-                //System.Console.Out.WriteLine("Attack button is clicked!");
                 e.Handled = true;
             }
 
@@ -312,7 +310,6 @@ namespace ZRTS.XnaCompositeView
         {
             if (e.Bubbled && !e.Handled)
             {
-                //System.Console.Out.WriteLine("Move button is clicked!");
                 e.Handled = true;
             }
         }
@@ -384,7 +381,6 @@ namespace ZRTS.XnaCompositeView
         {
             if (e.Bubbled && !e.Handled)
             {
-                //System.Console.Out.WriteLine("Harvest button is clicked!");
                 e.Handled = true;
                 // TODO: Change this to reflect the mouseclick location where the unit needs to move and harvest
                 ((XnaUITestGame)Game).Controller.OnSelectedUnitsToHarvest();
@@ -447,7 +443,6 @@ namespace ZRTS.XnaCompositeView
         protected override void onDraw(XnaDrawArgs e)
         {
 
-            //e.SpriteBatch.Draw(pixel, e.Location, new Rectangle(0, 0, 1, 1), color);
         }
     }
 }

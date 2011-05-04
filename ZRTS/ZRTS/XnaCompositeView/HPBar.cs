@@ -6,6 +6,9 @@ using Microsoft.Xna.Framework;
 
 namespace ZRTS.XnaCompositeView
 {
+    /// <summary>
+    /// This class represents health state of the unit.
+    /// </summary>
     public class HPBar : XnaUIComponent
     {
         private int maxHP;
@@ -22,6 +25,10 @@ namespace ZRTS.XnaCompositeView
             set { currentHP = value; }
         }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="game">game object</param>
         public HPBar(Game game)
             : base(game)
         {

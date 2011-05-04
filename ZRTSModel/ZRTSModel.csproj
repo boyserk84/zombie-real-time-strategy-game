@@ -121,8 +121,6 @@
     </Compile>
     <Compile Include="GameModel\GameModel.cs" />
     <Compile Include="GameModel\PointF.cs" />
-    <Compile Include="GameModel\Scenario\Gameworld\CircleShape.cs" />
-    <Compile Include="GameModel\Scenario\Gameworld\Entity.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\BuildingList\Building\Building.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\BuildingList\Building\BuildingActionQueue\BuildingActionQueue.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\BuildingList\Building\BuildingActionQueue\BuildingAction\BuildingAction.cs" />
@@ -132,8 +130,6 @@
     <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\UnitList\Unit\ActionQueue\Action\EntityAction.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\UnitList\Unit\ActionQueue\Action\MoveAction.cs" />
     <Compile Include="GameModel\Scenario\Gameworld\PlayerList\Player\UnitList\Unit\ActionQueue\Action\SimpleAttackUnitAction.cs" />
-    <Compile Include="GameModel\Scenario\Gameworld\RectangleShape.cs" />
-    <Compile Include="GameModel\Scenario\Gameworld\Shape.cs" />
     <Compile Include="GameModel\Scenario\Trigger\ConditionAllPlayerUnitsDead.cs" />
     <Compile Include="GameModel\Scenario\Trigger\LoseWhenAllPlayersUnitsAreDead.cs" />
     <Compile Include="GameModel\Scenario\Trigger\PlayerLoseAction.cs" />

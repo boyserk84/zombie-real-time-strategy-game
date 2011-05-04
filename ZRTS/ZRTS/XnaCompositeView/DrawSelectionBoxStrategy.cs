@@ -7,6 +7,9 @@ using ZRTSModel;
 
 namespace ZRTS.XnaCompositeView
 {
+    /// <summary>
+    /// This class handles drag and drop for multiple units selections.
+    /// </summary>
     public class DrawSelectionBoxStrategy : MapViewLeftButtonStrategy
     {
         private Point mouseDownLocation;
@@ -14,11 +17,21 @@ namespace ZRTS.XnaCompositeView
         private TestUIComponent dragBox = null;
         private MapView mapView;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="mapView">Mapview object</param>
         public DrawSelectionBoxStrategy(MapView mapView)
         {
             this.mapView = mapView;
         }
 
+        /// <summary>
+        /// I/O mouse handler function
+        /// </summary>
+        /// <param name="leftButtonPressed">Current left-clicks state</param>
+        /// <param name="rightButtonPressed">Current right-click state</param>
+        /// <param name="mouseLocation">Location of the mouse</param>
         public void HandleMouseInput(bool leftButtonPressed, bool rightButtonPressed, Point mouseLocation)
         {
             if (started)
@@ -94,6 +107,9 @@ namespace ZRTS.XnaCompositeView
             return (point.X >= rectangle.X && point.X <= rectangle.X + rectangle.Width && point.Y >= rectangle.Y && point.Y <= rectangle.Y + rectangle.Height);
         }
 
+        /// <summary>
+        /// Remove children when cancel is notified.
+        /// </summary>
         public void CancelProgress()
         {
             if (started)

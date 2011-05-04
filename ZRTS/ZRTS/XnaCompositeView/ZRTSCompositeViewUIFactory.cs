@@ -52,8 +52,8 @@ namespace ZRTS.XnaCompositeView
         /// <summary>
         /// Select Entity UI (Icon represent the unit)
         /// </summary>
-        /// <param name="unit"></param>
-        /// <returns></returns>
+        /// <param name="unit">Unit object</param>
+        /// <returns>Unit selected by the user</returns>
         public SelectedEntityUI BuildSelectedEntityUI(UnitComponent unit)
         {
             SelectedEntityUI seui = new SelectedEntityUI(game, unit);
@@ -73,10 +73,10 @@ namespace ZRTS.XnaCompositeView
         }
 
         /// <summary>
-        /// Create User Interface (icon) for each selected entity (Building
+        /// Create User Interface (icon) for each selected entity (Building)
         /// </summary>
-        /// <param name="building"></param>
-        /// <returns></returns>
+        /// <param name="building">Building object</param>
+        /// <returns>Building selected by the user</returns>
         public SelectedEntityUI BuildSelectedEntityUI(Building building)
         {
             SelectedEntityUI seui = new SelectedEntityUI(game, building);
