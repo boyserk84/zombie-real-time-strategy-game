@@ -11,9 +11,12 @@ namespace ZRTSModel
     /// </summary>
     [Serializable()]
     public class PlayerComponent : ModelComponent
-    {
-        private string name;
-
+	{
+		#region Attributes and Fields
+		private string name;
+		/// <summary>
+		/// The name of this player.
+		/// </summary>
         public string Name
         {
             get { return name; }
@@ -21,6 +24,9 @@ namespace ZRTSModel
         }
         private string race;
 
+		/// <summary>
+		/// A string representing the character race of this player.
+		/// </summary>
         public string Race
         {
             get { return race; }
@@ -28,6 +34,10 @@ namespace ZRTSModel
         }
 
 		private List<PlayerComponent> enemyList;
+		/// <summary>
+		/// A List of PlayerComponents that represent which players are enemies of the player
+		/// represented by this PlayerComponent.
+		/// </summary>
 		public List<PlayerComponent> EnemyList
 		{
 			get { return enemyList; }
@@ -35,17 +45,34 @@ namespace ZRTSModel
 
         private BuildingList buildingList;
 
+		/// <summary>
+		/// The BuildList object composed of all BuildingComponents belonging to this player.
+		/// </summary>
         public BuildingList BuildingList
         {
             get { return buildingList; }
         }
 
+		private UnitList unitList;
+		/// <summary>
+		/// The UnitList object composed of all UnitComponents belonging to this player.
+		/// </summary>
+		public UnitList UnitList
+		{
+			get { return this.unitList; }
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Creates a new empty. PlayerComponent
+		/// </summary>
         public PlayerComponent()
         {
             PlayerResources resources = new PlayerResources();
             AddChild(resources);
 
-            UnitList unitList = new UnitList();
+            unitList = new UnitList();
             AddChild(unitList);
 
             buildingList = new BuildingList();
