@@ -76,9 +76,3 @@ C:\Users\Nathan\Desktop\build02\ZRTSModel\obj\x86\Debug\ResolveAssemblyReference
 C:\Users\Nathan\Desktop\build02\ZRTSModel\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\Nathan\Desktop\build02\ZRTSModel\obj\x86\Debug\ZRTSModel.dll
 C:\Users\Nathan\Desktop\build02\ZRTSModel\obj\x86\Debug\ZRTSModel.pdb
-\\ad.uiuc.edu\engr\ews\nkemav2\Desktop\CS428\build02\ZRTSModel\bin\x86\Debug\ZRTSModel.dll
-\\ad.uiuc.edu\engr\ews\nkemav2\Desktop\CS428\build02\ZRTSModel\bin\x86\Debug\ZRTSModel.pdb
-\\ad.uiuc.edu\engr\ews\nkemav2\Desktop\CS428\build02\ZRTSModel\obj\x86\Debug\ResolveAssemblyReference.cache
-\\ad.uiuc.edu\engr\ews\nkemav2\Desktop\CS428\build02\ZRTSModel\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
-\\ad.uiuc.edu\engr\ews\nkemav2\Desktop\CS428\build02\ZRTSModel\obj\x86\Debug\ZRTSModel.dll
-\\ad.uiuc.edu\engr\ews\nkemav2\Desktop\CS428\build02\ZRTSModel\obj\x86\Debug\ZRTSModel.pdb
