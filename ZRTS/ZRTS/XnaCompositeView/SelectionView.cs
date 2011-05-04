@@ -169,7 +169,7 @@ namespace ZRTS.XnaCompositeView
             else
             {
                 commandBar.disableButtons();
-                commandBar.deactivateProduceUnitButtons();
+                
             }
         }
 

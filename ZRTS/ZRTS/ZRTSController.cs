@@ -11,9 +11,19 @@ using ZRTSModel.Trigger;
 
 namespace ZRTS
 {
+    /// <summary>
+    /// ZRTSController
+    /// 
+    /// This class will oversee and control main game logic and game components.
+    /// </summary>
     public class ZRTSController : GameComponent
     {
 		Game game;
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="game">game object to be controlled</param>
         public ZRTSController(Game game)
             : base(game)
         {
@@ -275,10 +285,6 @@ namespace ZRTS
         internal void OnSelectedUnitsToHarvest()
         {
             MapView mapView = ((XnaUITestGame)Game).View.GetChildren()[0] as MapView;
-            //###########################################################################
-            // TODO: get the mouse Click Location and pass to TellSelectedUnitToHarvest
-            //#########################################################################3
-            //TellSelectedUnitsToHarvest(#### Mouse Click Location #####);
         }
 
         internal bool CellsArePassable(int x, int y, int width, int height)
@@ -502,15 +508,11 @@ namespace ZRTS
                         }
                         else
                         {
-                            // DO SOMETHING TO HARVEST!!!!!
                             System.Console.Out.WriteLine("NOT IMPLEMENT YET: harvest at " + destination.X + " : " + destination.Y);
-                            //u.GetActionQueue().GetChildren().Clear();
-                            //u.GetActionQueue().AddChild(new AttackAction
                         }
                     }
                 }// if
             }
-            //throw new NotImplementedException();
         }
     }
 }

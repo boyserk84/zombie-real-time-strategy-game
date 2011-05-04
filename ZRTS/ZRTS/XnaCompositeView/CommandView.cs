@@ -30,17 +30,17 @@ namespace ZRTS.XnaCompositeView
         private PictureBox buildButton;
         private PictureBox harvestButton;
         private Hashtable uiToBuildingType = new Hashtable();
-		private Texture2D pixel;
-		private Color color;
+        private Texture2D pixel;
+        private Color color;
 
         private SameSizeChildrenFlowLayout buildPanel;
 
-		private SameSizeChildrenFlowLayout barracksPanel;
+        private SameSizeChildrenFlowLayout barracksPanel;
         private SameSizeChildrenFlowLayout housePanel;
-        
-		private ZRTSCompositeViewUIFactory factory = ZRTSCompositeViewUIFactory.Instance;
-		long lastClick = 0;
-		const int MSECONDS_PER_CLICK = 100;
+
+        private ZRTSCompositeViewUIFactory factory = ZRTSCompositeViewUIFactory.Instance;
+        long lastClick = 0;
+        const int MSECONDS_PER_CLICK = 100;
 
         public CommandView(Game game)
             : base(game)
@@ -73,12 +73,12 @@ namespace ZRTS.XnaCompositeView
             AddChild(workerPanel);
 
 
-			// Barrack building commandPanel
-			barracksPanel = new SameSizeChildrenFlowLayout(game);
-			barracksPanel.DrawBox = new Rectangle(10, 10, 255, 255);
-			barracksPanel.Visible = false;
+            // Barrack building commandPanel
+            barracksPanel = new SameSizeChildrenFlowLayout(game);
+            barracksPanel.DrawBox = new Rectangle(10, 10, 255, 255);
+            barracksPanel.Visible = false;
             barracksPanel.SpacingBetween = 7;
-			AddChild(barracksPanel);
+            AddChild(barracksPanel);
 
             // HouseBuilding commandPanel
             housePanel = new SameSizeChildrenFlowLayout(game);
@@ -91,7 +91,7 @@ namespace ZRTS.XnaCompositeView
 
             ZRTSCompositeViewUIFactory factory = ZRTSCompositeViewUIFactory.Instance;
             moveButton = factory.BuildPictureBox("button", "move");
-            moveButton.DrawBox = new Rectangle(0, 0, GameConfig.BUTTON_DIM , GameConfig.BUTTON_DIM );
+            moveButton.DrawBox = new Rectangle(0, 0, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
             moveButton.OnClick += handleMoveButtonClick;
             moveButton.OnMouseEnter += handleMoveButtonOver;
             moveButton.OnMouseLeave += handleMoveButtonAway;
@@ -144,7 +144,6 @@ namespace ZRTS.XnaCompositeView
             attackButton.OnMouseUp += handleAttackButtonUp;
             workerPanel.AddChild(attackButton);
 
-            
             harvestButton = factory.BuildPictureBox("button", "harvest");
             harvestButton.DrawBox = new Rectangle(GameConfig.BUTTON_ATTACK * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
             harvestButton.OnClick += handleHarvestButtonClick;
@@ -153,7 +152,7 @@ namespace ZRTS.XnaCompositeView
             harvestButton.OnMouseDown += handleharvestButtonDown;
             harvestButton.OnMouseUp += handleharvestButtonUp;
             workerPanel.AddChild(harvestButton);
-            
+
             mainAttackButton = factory.BuildPictureBox("button", "attack");
             mainAttackButton.DrawBox = new Rectangle(GameConfig.BUTTON_ATTACK * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM);
             mainAttackButton.OnClick += handleAttackButtonClick;
@@ -179,10 +178,10 @@ namespace ZRTS.XnaCompositeView
             }
 
             // Get unit's information 
-			List<String> unitKeys = UnitFactory.Instance.getPrefixes();
+            List<String> unitKeys = UnitFactory.Instance.getPrefixes();
 
-			foreach (String key in buildingKeys)
-			{
+            foreach (String key in buildingKeys)
+            {
                 PictureBox unitButton = null;
                 if (key.Equals("barracks"))
                 {
@@ -200,13 +199,13 @@ namespace ZRTS.XnaCompositeView
                 }
 
                 uiToBuildingType.Add(unitButton, key);
-			}
+            }
 
 
-			pixel = new Texture2D(game.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
-			pixel.SetData(new[] { Color.White });
-			color = new Color(100, 60, 88);
-            
+            pixel = new Texture2D(game.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
+            pixel.SetData(new[] { Color.White });
+            color = new Color(100, 60, 88);
+
         }
 
         /// <summary>
@@ -216,6 +215,9 @@ namespace ZRTS.XnaCompositeView
         {
             mainPanel.Visible = false;
             workerPanel.Visible = false;
+            barracksPanel.Visible = false;
+            housePanel.Visible = false;
+            buildPanel.Visible = false;
         }
 
         /// <summary>
@@ -228,23 +230,22 @@ namespace ZRTS.XnaCompositeView
             else
                 workerPanel.Visible = true;
         }
-
-		public void activateProduceUnitButtons(string type)
-		{
+        /// <summary>
+        /// Show buttons for building
+        /// </summary>
+        /// <param name="type">string, type of building selected</param>
+        public void activateProduceUnitButtons(string type)
+        {
             if (type.Equals("barracks"))
                 barracksPanel.Visible = true;
             else if (type.Equals("house"))
                 housePanel.Visible = true;
-		}
-
-		public void deactivateProduceUnitButtons()
-		{
-           
-            barracksPanel.Visible = false;
-            housePanel.Visible = false;
-		}
-
-
+        }
+        /// <summary>
+        /// A building is selected to build, sets buttons back to workerpanel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void handleBuildingButtonClick(Object sender, XnaMouseEventArgs e)
         {
             if (e.Bubbled && !e.Handled)
@@ -256,7 +257,11 @@ namespace ZRTS.XnaCompositeView
                 e.Handled = true;
             }
         }
-
+        /// <summary>
+        /// Open the build panel when build button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void handleBuildButtonClick(Object sender, XnaMouseEventArgs e)
         {
             if (e.Bubbled && !e.Handled)
@@ -333,7 +338,7 @@ namespace ZRTS.XnaCompositeView
             moveButton.setPicturebox(new Rectangle((GameConfig.BUTTON_MOVE + GameConfig.BUTTON_MOUSE_OVER) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
             mainMoveButton.setPicturebox(new Rectangle((GameConfig.BUTTON_MOVE + GameConfig.BUTTON_MOUSE_OVER) * GameConfig.BUTTON_DIM, GameConfig.BUTTON_START_Y, GameConfig.BUTTON_DIM, GameConfig.BUTTON_DIM));
         }
-        
+
         // Stop Button
         private void handleStopButtonOver(object sender, EventArgs e)
         {

@@ -7,22 +7,32 @@ using Microsoft.Xna.Framework;
 
 namespace ZRTS.XnaCompositeView
 {
+
+    /// <summary>
+    /// ZRTSCompositeViewUIFactory
+    /// 
+    /// This class will act as a manager to handle different image representation of user interfaces (buttons, menu) as well as game model.
+    /// </summary>
     public class ZRTSCompositeViewUIFactory
     {
         private static ZRTSCompositeViewUIFactory instance;
         private Game game;
 
-        private ZRTSCompositeViewUIFactory()
-        {
-            
-        }
+        private ZRTSCompositeViewUIFactory(){}
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="game">game object</param>
         private ZRTSCompositeViewUIFactory(Game game)
         {
-            // TODO: Initialize based on the xml files.
             this.game = game;
         }
 
+        /// <summary>
+        /// Initialize game instance
+        /// </summary>
+        /// <param name="game"></param>
         public static void Initialize(Game game)
         {
             if (instance == null)
@@ -30,6 +40,7 @@ namespace ZRTS.XnaCompositeView
                 instance = new ZRTSCompositeViewUIFactory(game);
             }
         }
+
         public static ZRTSCompositeViewUIFactory Instance
         {
             get
@@ -88,13 +99,13 @@ namespace ZRTS.XnaCompositeView
         /// <summary>
         /// create a picture representation for each type
         /// </summary>
-        /// <param name="type"></param>
-        /// <param name="subtype"></param>
-        /// <returns></returns>
+        /// <param name="type">Type of object</param>
+        /// <param name="subtype">Subcategory type</param>
+        /// <returns>picture representing user interface</returns>
         public PictureBox BuildPictureBox(string type, string subtype)
         {
             PictureBox pictureBox = null;
-            // TODO: Add in logic to parse from XML that returns the appropriate rectangle from the type and subtype.
+
             if (type.Equals("button"))
             {
                 if (subtype.Equals("move"))
@@ -182,15 +193,16 @@ namespace ZRTS.XnaCompositeView
 
             return pictureBox;
         }
+        
 
+        /// <summary>
+        /// Create a produce unit button for user menu
+        /// </summary>
+        /// <param name="unitType">Type of unit being produced</param>
+        /// <returns>A button representing unit being produced</returns>
 		public ProduceUnitButton BuildProduceUnitButton(string unitType)
 		{
-			Rectangle sourceRect;
-			//if (unitType.Equals("soldier"))
-            //{
-                sourceRect = new Rectangle(0, GameConfig.SELECT_AVATAR_START_Y, 76, 76);
-            //}
-
+			Rectangle sourceRect = sourceRect = new Rectangle(0, GameConfig.SELECT_AVATAR_START_Y, 76, 76);
 			ProduceUnitButton button = new ProduceUnitButton(game, sourceRect, unitType);
 			button.UnitType = unitType;
 
@@ -201,14 +213,13 @@ namespace ZRTS.XnaCompositeView
         /// Construct a unit UI (image representation)
         /// </summary>
         /// <param name="unit"></param>
-        /// <returns></returns>
+        /// <returns>Image of unit</returns>
         public UnitUI BuildUnitUI(UnitComponent unit)
         {
             UnitUI unitUI = null;
             if (unit.Type.Equals("soldier"))
             {
                 unitUI = new UnitUI(game, unit, new Rectangle(0, GameConfig.SOLDIER_START_Y, 36, 36));
-                //unitUI = new UnitUI(game, unit, new Rectangle(2, 128, 16, 27));
                 unitUI.DrawBox = new Rectangle(0, 0, GameConfig.UNIT_WIDTH, GameConfig.UNIT_HEIGHT);
             }
              
@@ -217,7 +228,6 @@ namespace ZRTS.XnaCompositeView
                 unit.IsZombie = true;
                 unitUI = new UnitUI(game, unit, new Rectangle(0, GameConfig.ZOMBIE_START_Y, 36, 36));
                 unitUI.DrawBox = new Rectangle(0, 0, GameConfig.UNIT_WIDTH, GameConfig.UNIT_HEIGHT);
-                //unitUI.DrawBox = new Rectangle(20, 0, 32, 54);
             }
 
             else if (unit.Type.Equals("worker"))
@@ -228,6 +238,11 @@ namespace ZRTS.XnaCompositeView
             return unitUI;
         }
 
+        /// <summary>
+        /// Create an image representing the building
+        /// </summary>
+        /// <param name="building">Building</param>
+        /// <returns>An image of the building</returns>
         internal BuildingUI BuildBuildingUI(Building building)
         {
             BuildingUI buildingUI = null;
