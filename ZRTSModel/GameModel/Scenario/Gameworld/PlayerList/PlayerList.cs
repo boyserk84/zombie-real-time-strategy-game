@@ -12,11 +12,17 @@ namespace ZRTSModel
     [Serializable()]
     public class PlayerList : ModelComponent
     {
+		/// <summary>
+		/// Event that is fired whenever a PlayerComponent is added to this object.
+		/// </summary>
         public event PlayerListChangedHandler PlayerAddedEvent;
+		/// <summary>
+		/// Event that is fired whenever a PlayerComponent is removed from this object.
+		/// </summary>
         public event PlayerListChangedHandler PlayerRemovedEvent;
 
         /// <summary>
-        /// Adds a PlayerComponent to the list
+        /// Adds a PlayerComponent to the list. Fires an PlayerAddedEvent.
         /// </summary>
         /// <param name="child"></param>
         public override void AddChild(ModelComponent child)
@@ -34,7 +40,7 @@ namespace ZRTSModel
         }
 
         /// <summary>
-        /// Removes a PlayerComponent from the list
+        /// Removes a PlayerComponent from the list. Fires an PlayerRemovedEvent.
         /// </summary>
         /// <param name="child"></param>
         public override void RemoveChild(ModelComponent child)

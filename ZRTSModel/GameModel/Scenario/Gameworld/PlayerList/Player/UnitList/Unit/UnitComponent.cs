@@ -8,7 +8,7 @@ using ZRTSModel.GameModel;
 namespace ZRTSModel
 {
     /// <summary>
-    /// A particular unit.  Contains an action queue.
+    /// A particular unit entity. Represents an unit that players can control. Contains an ActionQueue.
     /// </summary>
     [Serializable()]
     public class UnitComponent : ModelComponent
@@ -204,7 +204,7 @@ namespace ZRTSModel
 		private PointF pointLocation;
 
 		/// <summary>
-		/// The UnitComponents exact location.
+		/// The UnitComponents exact location in gamespace.
 		/// </summary>
 		public PointF PointLocation
 		{
@@ -319,6 +319,10 @@ namespace ZRTSModel
 
 		private ActionQueue actionQueue;
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns>The ActionQueue object containing the EntityActions that this UnitComponent is performing.</returns>
 		public ActionQueue GetActionQueue()
 		{
 			return actionQueue;
@@ -447,11 +451,13 @@ namespace ZRTSModel
 		#region Methods for Updating CellComponents being listened to.
 		private void listenToCellsWithinVisibilityRange()
 		{
+			// Get the Correct Bounds.
 			int startX = getStartX();
 			int endX = getEndX();
 			int startY = getStartY();
 			int endY = getEndY();
 
+			// Get the Map object.
 			ModelComponent gameWorldComponent = location;
 			while (!(gameWorldComponent is Gameworld))
 				gameWorldComponent = gameWorldComponent.Parent;
@@ -470,11 +476,13 @@ namespace ZRTSModel
 
 		private void stopListeningToCells(PointF oldPoint)
 		{
+			// Get the Correct Bounds.
 			int startX = getStartX();
 			int endX = getEndX();
 			int startY = getStartX();
 			int endY = getEndY();
 
+			// Get the Map object for this game.
 			ModelComponent gameWorldComponent = location;
 			while (!(gameWorldComponent is Gameworld))
 				gameWorldComponent = gameWorldComponent.Parent;

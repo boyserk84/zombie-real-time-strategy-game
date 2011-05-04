@@ -11,6 +11,10 @@ namespace ZRTSModel
     [Serializable()]
     public class ActionQueue : ModelComponent
     {
+		/// <summary>
+		/// Performs whatever current action is on the queue. If the action is complete, it will remove the action and set the 
+		/// State of the UnitComponent containing this ActionQueue to IDLE.
+		/// </summary>
         public void Work()
         {
             if (GetChildren().Count != 0)

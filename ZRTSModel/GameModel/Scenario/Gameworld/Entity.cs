@@ -37,10 +37,11 @@ namespace ZRTSModel
         /// </summary>
         /// <param name="e"></param>
         /// <returns></returns>
-        public bool Overlaps(Entity e)
+        /*public bool Overlaps(Entity e)
         {
             PointF offset = new PointF(e.PointLocation.X - pointLocation.X, e.PointLocation.Y - pointLocation.Y);
             return shape.Overlaps(e.Shape, offset);
         }
+		 */
     }
 }
