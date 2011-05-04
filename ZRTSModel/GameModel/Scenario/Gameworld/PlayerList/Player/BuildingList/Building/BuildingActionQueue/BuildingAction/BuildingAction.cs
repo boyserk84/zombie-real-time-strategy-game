@@ -5,6 +5,9 @@ using System.Text;
 
 namespace ZRTSModel
 {
+	/// <summary>
+	/// This abstract class represents an action that a Building can perform.
+	/// </summary>
 	public abstract class BuildingAction : ModelComponent
 	{
 		public abstract bool Work();

@@ -5,8 +5,14 @@ using System.Text;
 
 namespace ZRTSModel
 {
+	/// <summary>
+	/// This class represents a collection of actions that a building is performing.
+	/// </summary>
 	public class BuildingActionQueue : ModelComponent
 	{
+		/// <summary>
+		/// Perform the current action (if any)
+		/// </summary>
 		public void Work()
 		{
 			if (GetChildren().Count != 0)
