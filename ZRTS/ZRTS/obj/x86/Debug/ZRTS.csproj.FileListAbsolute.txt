@@ -144,36 +144,3 @@ C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\obj\x86\Debug\ResolveAssemblyReferenc
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\obj\x86\Debug\ZRTS.exe
 C:\Users\Jason\Desktop\zrts marc\ZRTS\ZRTS\obj\x86\Debug\ZRTS.pdb
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\bin\x86\Debug\Content\test_spritesheet.xnb
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\util_misc20x20.xnb
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\ZRTS_SpriteSheet_All.xnb
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\ZRTS_Lose.xnb
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\ZRTS_Title.xnb
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\bin\x86\Debug\Content\sprites\ZRTS_Win.xnb
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\bin\x86\Debug\Content\SpriteFont1.xnb
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\bin\x86\Debug\Content\Menu Font.xnb
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Soldier_Attack.xnb
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Worker_Dying.xnb
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Zombie_Dying.xnb
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Worker_Attack.xnb
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Zombie_Attack.xnb
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\bin\x86\Debug\Content\audio\Soldier_Dying.xnb
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\bin\x86\Debug\Content\audio\VictoryMusic.xnb
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\bin\x86\Debug\Content\audio\GameplayMusic.xnb
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\bin\x86\Debug\Content\audio\GameplayMusic2.xnb
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\bin\x86\Debug\Content\audio\GameplayMusic3.xnb
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\bin\x86\Debug\Content\audio\TitleMusic.xnb
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\bin\x86\Debug\Content\audio\VictoryMusic.wma
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\bin\x86\Debug\Content\audio\GameplayMusic.wma
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\bin\x86\Debug\Content\audio\GameplayMusic2.wma
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\bin\x86\Debug\Content\audio\GameplayMusic3.wma
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\bin\x86\Debug\Content\audio\TitleMusic.wma
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\bin\x86\Debug\ZRTS.exe
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\bin\x86\Debug\ZRTS.pdb
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\bin\x86\Debug\nunit.framework.dll
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\bin\x86\Debug\ZRTSModel.dll
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\bin\x86\Debug\ZRTSModel.pdb
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\obj\x86\Debug\ZRTS.exe
-C:\Users\Nathan\Desktop\build02\ZRTS\ZRTS\obj\x86\Debug\ZRTS.pdb

@@ -358,7 +358,7 @@ namespace ZRTS
 
             spriteBatch.Draw(backgroundTitle, Vector2.Zero, Color.White);
             Vector2 pos = new Vector2((int)(WINDOW_WIDTH * .05), (int)(WINDOW_HEIGHT * .1));
-            spriteBatch.DrawString(font, "ZRTS", pos, Color.Black, 0, new Vector2(0), 5f, SpriteEffects.None, 0.5f);
+            spriteBatch.DrawString(font, "ZRTS", pos, Color.White, 0, new Vector2(0), 5f, SpriteEffects.None, 0.5f);
 
             foreach (Button b in buttonList)
             {
@@ -369,7 +369,7 @@ namespace ZRTS
                 string output = b.Name;
                 Vector2 FontOrigin = font.MeasureString(output)/2;
                 pos = new Vector2(b.PointLocation.X + (b.Width / 2), b.PointLocation.Y + (b.Height / 2));
-                spriteBatch.DrawString(font, output, pos, Color.Black, 0, FontOrigin, 5f, SpriteEffects.None, 0.5f);
+                spriteBatch.DrawString(font, output, pos, Color.Red, 0, FontOrigin, 5f, SpriteEffects.None, 0.5f);
             }
 
             spriteBatch.End();
