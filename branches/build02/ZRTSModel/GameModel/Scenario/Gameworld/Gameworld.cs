@@ -16,6 +16,11 @@ namespace ZRTSModel
 
         }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="x">Width</param>
+        /// <param name="y">Height</param>
         public Gameworld(int x, int y)
         {
             AddChild(new Map(x, y));
